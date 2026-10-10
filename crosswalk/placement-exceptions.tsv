@@ -1,0 +1,36 @@
+item	declaration	module	reason
+Definition 0.1	RatioSpace.Minimal.minimal_substrate_statement	RatioSpace.ElementsI.S00.Minimal	shared result-status discipline checked by the Elements I constraint module
+Governing Rule 0.4	RatioSpace.Layer.TypedAction	RatioSpace.ElementsI.S15.Sufficiency	typed-action constraint is imported from Elements I
+Import 1.1	RatioSpace.Pres	RatioSpace.ElementsI.S01.Pres	the imported base grammar is defined in Elements I
+Import 1.1	RatioSpace.Frame	RatioSpace.ElementsI.S02.Frame	the imported base grammar is defined in Elements I
+Import 1.2	RatioSpace.Word.G	RatioSpace.ElementsI.S03.Walk	the imported word/matrix bridge is defined in Elements I
+Import 1.2	RatioSpace.dec	RatioSpace.ElementsI.S03.Walk	the imported word/matrix bridge is defined in Elements I
+Import 1.2	RatioSpace.dec_G	RatioSpace.ElementsI.S03.Walk	the imported word/matrix bridge is defined in Elements I
+Import 1.3	RatioSpace.Word.refused	RatioSpace.ElementsI.S03.Walk	the imported parity/reversal/refusal layer is defined in Elements I
+Import 1.3	RatioSpace.Word.shadow_ne_refused	RatioSpace.ElementsI.S03.Walk	the imported parity/reversal/refusal layer is defined in Elements I
+Import 1.4	RatioSpace.IPres.otimes	RatioSpace.ElementsI.S04.Composition	the imported composition and exact-depth layer is defined in Elements I
+Import 1.4	RatioSpace.Pres.dSB	RatioSpace.ElementsI.S05.Depth	the imported composition and exact-depth layer is defined in Elements I
+Import 1.5	RatioSpace.shared_prefix_cancel	RatioSpace.ElementsI.S03.Walk	the imported encounter covariance is defined in Elements I
+Import 1.5	RatioSpace.encounter_shared_prefix	RatioSpace.ElementsI.S03.Walk	the imported encounter covariance is defined in Elements I
+Import 1.6	RatioSpace.Word.psi12	RatioSpace.ElementsI.S08.Winding	the imported closure/question interface is defined in Elements I
+Import 1.6	RatioSpace.Question	RatioSpace.ElementsI.S09.Question	the imported closure/question interface is defined in Elements I
+Import 1.4	RatioSpace.IPres.otimes_not_comm	RatioSpace.ElementsI.S04.Composition	non-commutativity of the imported composition is witnessed in Elements I
+Import 1.4	RatioSpace.IPres.otimes_not_assoc	RatioSpace.ElementsI.S04.Composition	non-associativity of the imported composition is witnessed in Elements I
+Lemma 7.7	RatioSpace.Two.SideExchange.r_mirrorWord	RatioSpace.ElementsII.S13.SideExchange	Proposition 7.11 at the empty frame is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.lambda_side_exchange	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.tEndLocal_side_exchange	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.localWord_side_exchange	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.Q_conj	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.inv2_conj	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.domPlus_side_exchange	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.lambda_core_mirror	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Theorem 7.8	RatioSpace.Two.SideExchange.tEndLocal_core_mirror	RatioSpace.ElementsII.S13.SideExchange	the occurrence-level step is proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.walk_mirror	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.addressed_mirror	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.mid_mirror	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.Frame.mirror_involutive	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.QuestionId.mirror_involutive	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.r_mirrorWord	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Proposition 7.11	RatioSpace.Two.SideExchange.Core.mirror_fullMatrix	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
+Construction Axiom II.1	RatioSpace.Two.RootOrbit.axiomSelect	RatioSpace.ElementsII.S16.RootOrbit	the adopted selection rule is realized by the selection function of the root-orbit module
+Dependency Rule 1.7	RatioSpace.Layer.TypedAction	RatioSpace.ElementsI.S15.Sufficiency	the typed action an imported type may be placed in is defined in Elements I

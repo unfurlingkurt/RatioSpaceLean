@@ -1,0 +1,139 @@
+module	section	description
+RatioSpace.ElementsI.S00.Bio	Elements I §0	RatioSpace.Bio
+RatioSpace.ElementsI.S00.Logic	Elements I §0	RatioSpace.Logic
+RatioSpace.ElementsI.S00.Minimal	Elements I §0	The Minimal Relational Calculus: v0.1, §12's theorem program, stated in Lean
+RatioSpace.ElementsI.S01.Kernel	Elements I §1	RatioSpace.Kernel
+RatioSpace.ElementsI.S01.Premises	Elements I §1	RatioSpace.Premises
+RatioSpace.ElementsI.S01.Pres	Elements I §1	Elements I §1: Distinction, presentation, and relational value
+RatioSpace.ElementsI.S02.Frame	Elements I §2	Elements I §2: Contact, frame, triad, and inherited construction
+RatioSpace.ElementsI.S03.Braid	Elements I §3	The frame group braids, and the full twist is the minus identity
+RatioSpace.ElementsI.S03.Machine	Elements I §3	RatioSpace.Machine
+RatioSpace.ElementsI.S03.Walk	Elements I §3	Elements I §3: Generators, typed actions, walks, and choice records
+RatioSpace.ElementsI.S04.Composition	Elements I §4	Elements I §4: Directional composition
+RatioSpace.ElementsI.S05.Coherence	Elements I §5	Elements I §5.8-5.9, the bridge module: D-07 and D-08 (`research/lean-support/DIVERGENCE.md`)
+RatioSpace.ElementsI.S05.Depth	Elements I §5	Elements I §5.1–5.6: Continued fractions, the two depth coordinates, endpoint contrast, walk distance, and the tension signature
+RatioSpace.ElementsI.S05.GoldenWalk	Elements I §5	Elements I Def 5.7, "φ = [1;1,1,...]": the walk `R,L,R,L,...` read against the exact golden element
+RatioSpace.ElementsI.S05.TendCount	Elements I §5	Elements I Def 5.4: how often `T_end` fails the triangle inequality in the box of components 1 to 6, proved by the kernel
+RatioSpace.ElementsI.S05.Zphi	Elements I §5	Elements I §5.7-5.9: the exact golden element, as its own ring
+RatioSpace.ElementsI.S06.State	Elements I §6	Elements I §6: State, active context, and the refusal to define an object
+RatioSpace.ElementsI.S07.ClosingParagraph	Elements I §7	Elements I §7, Proposition 7.2, closing paragraph
+RatioSpace.ElementsI.S07.DirectionalAdmission	Elements I §7	Elements I §7, Definition 7.5 Directional admission
+RatioSpace.ElementsI.S07.RelativeEncounterMatrix	Elements I §7	Elements I §7, Definition 7.3 Relative encounter matrix
+RatioSpace.ElementsI.S08.Winding	Elements I §8	Elements I §8: Winding and closure
+RatioSpace.ElementsI.S09.ActiveQuestionCavity	Elements I §9	Elements I §9, Definition 9.3, active question cavity: directional admission read off a family member
+RatioSpace.ElementsI.S09.BoundedDescendantCavity	Elements I §9	Elements I §9, Definition 9.2, bounded descendant cavity
+RatioSpace.ElementsI.S09.Question	Elements I §9	Elements I §9: Question, cavity, and answer-space
+RatioSpace.ElementsI.S10.CandidateRecord	Elements I §10	Elements I §10, Definition 10.1, candidate record: the star and the signature tied to the active family
+RatioSpace.ElementsI.S10.Crystal	Elements I §10	Elements I §10: Candidate records and the seven-tick crystallization interface
+RatioSpace.ElementsI.S10.ReturnAssimilation	Elements I §10	Elements I §10, Definition 10.6, return assimilation: the history update the carrier assumed
+RatioSpace.ElementsI.S11.CoordinateRealization	Elements I §11	Elements I §11, Definition 11.4, coordinate realization: the map `coordinate` read
+RatioSpace.ElementsI.S11.JointRelationalReconstruction	Elements I §11	Elements I §11, Definition 11.6, joint relational reconstruction: one record, not one per observer
+RatioSpace.ElementsI.S11.Perspective	Elements I §11	Elements I §11: Closure, reception, and projection
+RatioSpace.ElementsI.S11.Reception	Elements I §11	Elements I §11, Definition 11.1, reception: the map had no observer
+RatioSpace.ElementsI.S12.Continuum	Elements I §12	Elements I §12: Definitions 12.4 and 12.5, the last two items in §12
+RatioSpace.ElementsI.S12.Correspondence	Elements I §12	Elements I §12: Definition 12.3, the correspondence obligation
+RatioSpace.ElementsI.S12.Encoding	Elements I §12	Elements I §12: Substrate, numerical encoding, and continuum reading
+RatioSpace.ElementsI.S12.CoordinateRealizationWitnesses	Elements I §12	Elements I §12, Definitions 12.1 and 12.4: the §12 witnesses read `realize` at the anchor
+RatioSpace.ElementsI.S12.TheCorrespondenceObligationOverATotalUpdate	Elements I §12	Elements I §12, Definition 12.3, the correspondence obligation over a total update
+RatioSpace.ElementsI.S12.TheObserverRelativeContinuumRegimeAtSingleFrameInsteadOfOverTheUpdateSCells	Elements I §12	Elements I §12, Definition 12.5, the observer-relative continuum regime at one frame instead of over the update's cells
+RatioSpace.ElementsI.S15.ItemReceptionWithoutAnObserver	Elements I §15	Elements I §15, Definition 15.1 item 4, reception without an observer
+RatioSpace.ElementsI.S15.Sufficiency	Elements I §15	Elements I §15: What a universality claim is
+RatioSpace.ElementsI.S15.TheUniversalGenerativeClaim	Elements I §15	Elements I §15, Definition 15.3, the universal generative claim: `Complete` was not Definition 15.2
+RatioSpace.ElementsII.S02.Temporal	Elements II §2	Elements II §2: Temporal event order without external time
+RatioSpace.ElementsII.S03.Observer	Elements II §3	Elements II §3: Observer localization and common-prefix covariance
+RatioSpace.ElementsII.S04.AQuestionBoundsItsSupport	Elements II §4	Elements II Proposition 4.11, a question bounds its support, which may be empty, single, or plural
+RatioSpace.ElementsII.S04.Cavity	Elements II §4	Elements II §4: Finite question cavities
+RatioSpace.ElementsII.S04.SupportFreeInitializationContext	Elements II §4	Elements II Definition 4.7, support-free initialization context
+RatioSpace.ElementsII.S05.ExactProposalGrowthAtTheLevelOfIdentifiers	Elements II §5	Elements II Corollary 5.5, exact proposal growth, at the level of identifiers
+RatioSpace.ElementsII.S05.Mediant	Elements II §5	Elements II §5: Candidate generation by mediant inheritance
+RatioSpace.ElementsII.S05.ProposalFamilyCovariance	Elements II §5	Elements II Proposition 5.7, proposal covariance under a common prefix, as the family equality `P_{j+1}(Z_u S_j) = Z_u P_{j+1}(S_j)`
+RatioSpace.ElementsII.S06.State	Elements II §6	Elements II §6: The history-bearing candidate carrier
+RatioSpace.ElementsII.S07.Support	Elements II §7	Elements II §7: Directional composition and the support-tension convention
+RatioSpace.ElementsII.S08.Coherence	Elements II §8	Elements II §8: Exact coherence, degeneracy, and retained signatures
+RatioSpace.ElementsII.S09.Admission	Elements II §9	Elements II §9: Admission, reception channels, winding, and lift coherence
+RatioSpace.ElementsII.S09.Reception	Elements II §9	Elements II: Reception, observability, and why nothing is lost
+RatioSpace.ElementsII.S10.Causal	Elements II §10	Elements II §10: Causal sibling-pair records (W/F)
+RatioSpace.ElementsII.S10.CausalPairingIsRecordedAsAReceptionCertificate	Elements II §10	Elements II Corollary 10.8, causal pairing is recorded as a reception certificate
+RatioSpace.ElementsII.S10.TheCausalSiblingPairRecordOnTheAccumulatedWord	Elements II §10	Elements II Definition 10.4, the causal sibling-pair record on the accumulated word
+RatioSpace.ElementsII.S11.Advance	Elements II §11	Elements II §11: The one-tick advance `𝔎_𝒞`
+RatioSpace.ElementsII.S11.KeyedArchiveUnionAndEventAppend	Elements II §11	Elements II Definition 11.2, keyed archive union and event append
+RatioSpace.ElementsII.S11.TheCompleteAdmissionCertificate	Elements II §11	Elements II Definition 11.3, the complete admission certificate
+RatioSpace.ElementsII.S11.TheNativeAnnotationPackage	Elements II §11	Elements II Definition 11.5, the native annotation package
+RatioSpace.ElementsII.S11.TheSingleTickAdvance	Elements II §11	Elements II Definition 11.6, the one-tick advance
+RatioSpace.ElementsII.S12.NewProposalIdentifiersAreLawfulAndDisjoint	Elements II §12	Elements II Lemma 12.1, new proposal identifiers are lawful and disjoint
+RatioSpace.ElementsII.S12.RunInvariant	Elements II §12	Lemma 12.1's invariant, at the level of one carrier (gap G2-13's per-carrier content), placed below `Accumulation.lean` so that §15's schedule can be asked to act only on carriers 
+RatioSpace.ElementsII.S12.SingleTickWellTypedness	Elements II §12	Elements II Theorem 12.4, one-tick well-typedness
+RatioSpace.ElementsII.S13.SideExchange	Elements II §13	RatioSpace.Two.SideExchange
+RatioSpace.ElementsII.S13.SideExchangeCovarianceOfTheCompleteTick	Elements II §13	Elements II Theorem 13.3, side-exchange covariance of the complete tick
+RatioSpace.ElementsII.S14.Conservation	Elements II §14	Elements II §14: History and closure conservation
+RatioSpace.ElementsII.S15.Accumulation	Elements II §15	Elements II §15: Finite accumulation and the seven-tick specialization
+RatioSpace.ElementsII.S15.AxiomPolicy	Elements II §15	Elements II §15, Definition 15.1's schedule, built from the book's own selection rule
+RatioSpace.ElementsII.S16.Anchored	Elements II §16	Elements II §16, Remark 16.18: Anchored comparison profiles
+RatioSpace.ElementsII.S16.AnchoredTies	Elements II §16	Elements II §16, Remark 16.18: anchored profiles keep ties
+RatioSpace.ElementsII.S16.Automorphism	Elements II §16	Elements II §16, Lemma 16.14: Tension automorphisms force equal scores
+RatioSpace.ElementsII.S16.Capture	Elements II §16	Elements II §16 Theorem 16.12: Capture of initial ensembles by the lone-seed regime
+RatioSpace.ElementsII.S16.CaptureWords	Elements II §16	Elements II §16, Theorem 16.12, item 3: in the book's own form, on words
+RatioSpace.ElementsII.S16.ClosurePattern	Elements II §16	Elements II §16 Theorem 16.11: support bound and beat of lone-seed questions
+RatioSpace.ElementsII.S16.ClosurePatternLink	Elements II §16	Elements II §16 Theorem 16.11: the bridge from Step 1's coefficient combinations to the tree's one-tick support
+RatioSpace.ElementsII.S16.Contrast	Elements II §16	Elements II §16 Lemma 16.10: Contrast offset inside one frame family
+RatioSpace.ElementsII.S16.CousinResolution	Elements II §16	Elements II §16 Theorem 16.11, Step 3: the cousin steps, for every `m`
+RatioSpace.ElementsII.S16.CrystallizationPattern	Elements II §16	Elements II §16 Proposition 16.9: The crystallization beat
+RatioSpace.ElementsII.S16.FamilyClassification	Elements II §16	Elements II §16 Theorem 16.11, Step 2: the `|D| ≤ 20` family `RⁿL`, for every `n`, and its mirror `LⁿR`
+RatioSpace.ElementsII.S16.FiniteRemainder	Elements II §16	Elements II §16 Theorem 16.11, Step 2: the finite remainder
+RatioSpace.ElementsII.S16.LoneSeedClosure	Elements II §16	Elements II §16, Proposition 16.9(ii) as corrected by E2-75
+RatioSpace.ElementsII.S16.LoneSeed	Elements II §16	Elements II §16, Definition 16.16 and Theorem 16.17: the face-bearing lone-seed questions `𝒬_LL` and `𝒬_RR`, closed at the declared horizon
+RatioSpace.ElementsII.S16.ParityPattern	Elements II §16	Elements II §16, Theorem 16.11, Step 5: the induction, on the tick carrier
+RatioSpace.ElementsII.S16.PolarizedClosure	Elements II §16	Elements II §16, Theorem 16.5: the polarized questions close at h=3 and every even h>=6
+RatioSpace.ElementsII.S16.PolarizedSeed	Elements II §16	Elements II §16, Proposition 16.9(ii): the two named lone-seed closing instances not already in the tree: the length-4 polarized seeds `LLLR` and `RRRL`, closed at the declared ho
+RatioSpace.ElementsII.S16.PrecaptureClassification	Elements II §16	Elements II §16, Theorem 16.11, clause 3: the pair-preserving advances
+RatioSpace.ElementsII.S16.PrecaptureTie	Elements II §16	Elements II §16, Proposition 16.13, restated (Kurt, 2026-09-15)
+RatioSpace.ElementsII.S16.PrecaptureTieWitness	Elements II §16	Elements II §16, Proposition 16.13 (restated): one witness for each branch of the tie pattern, on the real addresses of the words
+RatioSpace.ElementsII.S16.RootChain	Elements II §16	Elements II §16 Theorem 16.11, Step 4: the root chain, for every `k`
+RatioSpace.ElementsII.S16.RootChainState	Elements II §16	Elements II §16 Theorem 16.11, Step 4 on the tick carrier
+RatioSpace.ElementsII.S16.RootOrbit	Elements II §16	Elements II §16 Theorem 16.5: Exact root and polarized seed orbits
+RatioSpace.ElementsII.S16.SeedClassification	Elements II §16	Elements II §16, Theorem 16.11, clause 2: root pairs occur only for the seed `ε`
+RatioSpace.ElementsII.S16.SupportInduction	Elements II §16	Elements II §16, Theorem 16.11, Step 5: the induction, clauses 1 and 2
+RatioSpace.ElementsII.S16.SymmetricEnsembles	Elements II §16	Elements II §16, Proposition 16.9(iii): Initial ensembles, exact finite verification
+RatioSpace.ElementsII.S16.TieCertificates	Elements II §16	Elements II §16, Proposition 16.15: Automorphism certificates for the retained ties
+RatioSpace.ElementsII.S16.Transient	Elements II §16	Elements II §16 Proposition 16.13: Ensemble transients: exact finite verification
+RatioSpace.ElementsII.S16.WordDynamics	Elements II §16	Elements II §16, Theorem 16.12, items 1 and 2: capture, on words
+RatioSpace.ElementsII.S17.Terminal	Elements II §17	Elements II §17: terminal status, the lossless report, and the resolution crosswalk
+RatioSpace.ElementsII.S18.Snap	Elements II §18	RatioSpace.Two.Snap
+RatioSpace.ElementsII.S18.SnapCommitsSingleCompleteRecord	Elements II §18	Elements II §18, Theorem 18.2, Snap commits one complete record
+RatioSpace.ElementsII.S18.SnapIsACycleBoundaryOperation	Elements II §18	Elements II §18, Theorem 18.3, Snap is a cycle-boundary operation, outside the domain of the one-tick map
+RatioSpace.ElementsII.S18.SnapCommitsTheTerminalRecord	Elements II §18	Elements II §18, Separation Rule 18.4, Snap commits the terminal record; return assimilation replaces the observer
+RatioSpace.ElementsII.S19.Return	Elements II §19	RatioSpace.Two.Return
+RatioSpace.ElementsII.S20.Cycle	Elements II §20	RatioSpace.Two.Cycle
+RatioSpace.ElementsII.S21.Shortcut	Elements II §21	Elements II §21: Candidate sibling shortcuts
+RatioSpace.ElementsII.S22.Face	Elements II §22	Elements II §22: Temporal sibling-face selection
+RatioSpace.ElementsII.S22.FaceVerification	Elements II §22	Elements II §22, Proposition 22.10: Canonical seven-tick face regression
+RatioSpace.ElementsII.S23.Incidence	Elements II §23	Elements II §23: Incidence-carrying face recording
+RatioSpace.ElementsII.S24.AnExactRepeatedRenewalWitness	Elements II §24	Elements II Proposition 24.9, an exact repeated-renewal witness: "..
+RatioSpace.ElementsII.S24.CausalEventFaceEntryStratumAndArchiveAge	Elements II §24	Elements II Definition 24.1, causal event, face-entry stratum, and archive age
+RatioSpace.ElementsII.S24.CovarianceOfRenewalAndRelease	Elements II §24	Elements II §24, Proposition 24.18, Covariance of renewal and release
+RatioSpace.ElementsII.S24.RetentionGates	Elements II §24	Elements II §24, Definitions 24.10 (gate vector), 24.11 (entry event), 24.12 (transition)
+RatioSpace.ElementsII.S24.Lifecycle	Elements II §24	Elements II §24: Renewal, retention, and release of an admitted face
+RatioSpace.ElementsII.S24.OptionalFiniteRetentionProfile	Elements II §24	Elements II §24, Receiver Declaration 24.16, Optional finite retention profile
+RatioSpace.ElementsII.S24.ReadableDomainAndReceiverEquivalence	Elements II §24	Elements II Definition 24.4, readable domain and receiver equivalence
+RatioSpace.ElementsII.S24.ReceivedReturnExtendsTheObserverWord	Elements II §24	Elements II Corollary 24.8, received return extends the observer word forward
+RatioSpace.ElementsII.S24.ReceiverTrailAndTransportedAttachingPacket	Elements II §24	Elements II Definition 24.2, receiver trail and transported attaching packet
+RatioSpace.ElementsII.S24.ReleaseKeepsFaceHistoryAndIncidence	Elements II §24	Elements II §24, Theorem 24.14, Release keeps face history and incidence
+RatioSpace.ElementsII.S24.TheClosingRemark	Elements II §24	Elements II Proposition 24.3, the closing remark: "The left action in Proposition 24.3 is receiver transport
+RatioSpace.ElementsII.S24.PhaseReturnHorizon	Elements II §24	Elements II §24, Proposition 24.17 (v0.25 title per E2-44: "Phase return, archive depth, and the two-coordinate horizon")
+RatioSpace.ElementsII.S25.CanonicalSevenTickExportsFailTheShellCertificate	Elements II §25	Elements II §25, Corollary 25.9, canonical seven-tick exports fail the shell certificate under the identity reception
+RatioSpace.ElementsII.S25.DeclaredGlobalAttachingReception	Elements II §25	Elements II Definition 25.4, declared global attaching reception: "The identity reception on stable occurrence keys is always a valid prequotient case." `gid_admissible` (`Two/Shel
+RatioSpace.ElementsII.S25.ExactShellCertificateAndTheoremExactHandoff	Elements II §25	Elements II §25, Definition 25.6 Exact shell certificate and Theorem 25.10 Exact handoff: the `Src_Γ` coordinate
+RatioSpace.ElementsII.S25.Shell	Elements II §25	Elements II §25: Interface to the Global Renewal-Shell Theorem
+RatioSpace.ElementsII.S26.Mirror	Elements II §26	Elements II §26: Mirror advances and their positive two-step skeletons
+RatioSpace.ElementsII.S27.Chamber	Elements II §27	Elements II §27: Two chambers and the parity membrane
+RatioSpace.ElementsII.S27.PhiPos	Elements II §27	Positivity and strict decrease of `φ⁻ⁿ` in `ℤ[φ]`, with no `Classical.choice`
+RatioSpace.ElementsII.S28.RadLink	Elements II §28	Bridge between §28 (`Two/RadTransport.lean`) and §29 (`Two/RidgeDefect.lean`)
+RatioSpace.ElementsII.S28.RadTransport	Elements II §28	Elements II §28: Phase transport, route correction, and carried memory (all 12 items)
+RatioSpace.ElementsII.S28.Transport	Elements II §28	Elements II §28 (partial): the Dedekind-Rademacher transport coordinate
+RatioSpace.ElementsII.S29.RidgeDefect	Elements II §29	Elements II §29: Exact golden-ridge defects
+RatioSpace.ElementsII.S30.Obligations	Elements II §30	Elements II §30: Projection obligations opened by the recurrence
+RatioSpace.ElementsII.S31.StatusLedger	Elements II §31	Elements II §31: Theorem-status ledger
+RatioSpace.ElementsII.S32.ExcludedFormulations	Elements II §32	Elements II §32: Failure modes and retired formulations
+RatioSpace.ElementsII.S33.Export	Elements II §33	Elements II §33: Next-paper interface
+RatioSpace.ElementsII.S17.EmptyQuestion	Elements II §17	Elements II §17, Corollary 17.8: the empty question report (an exact predicate that admits no proposal carries empty support to the terminal report; Legion job 004)
+RatioSpace.ElementsII.S16.IdentityAutomorphism	Elements II §16	Elements II §16, Proposition 16.15: on the two ensemble degeneracies the only tension-preserving permutation is the identity (Legion job 004)
