@@ -11,7 +11,7 @@ import RatioSpace.ElementsII.S16.Automorphism
   one static comparison of four children: `a, b` the children of `u`, `c, d`
   the children of `v`. A support that is not captured (Theorem 16.12) holds a
   child of each parent, so it contains a tied cross pair `a, c`. This file
-  proves exactly when two such children tie: their scores on the four-member
+  proves exactly when two such children tie: their coherence values on the four-member
   family are equal **iff** the integer depths `t(a,b), t(a,d)` and
   `t(c,b), t(c,d)` form one of three patterns — equal as multisets, or
   `{P, P}` against `{P - 1, P + 2}` either way round.
@@ -60,7 +60,7 @@ theorem two_term_iff (p q r s : ℕ) :
         ← (Automorphism.collision_identities k).1, two_mul]
 
 /-- **Proposition 16.13, restated.** In the four-member family `[a, b, c, d]`,
-    `a` and `c` receive equal scores exactly when their depths to the other two
+    `a` and `c` receive equal coherence values exactly when their depths to the other two
     members collide in the integer pattern. Nothing is assumed about the
     addresses: every tie between two children of different parents, at any
     depth and any word length, is of this form. -/

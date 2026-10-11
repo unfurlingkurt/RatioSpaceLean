@@ -7,12 +7,12 @@ import RatioSpace.ElementsII.S16.RootOrbit
 /-!
   Elements II §16, Remark 16.18 — Anchored comparison profiles.
 
-  Definition 8.1: "If a later receiver is intended to score additional
+  Definition 8.1: "If a later receiver is intended to coherence value additional
   retained anchors, those anchors must enter as explicitly tagged occurrences
   in a declared extended comparison profile." The tree had no such profile.
-  `anchoredSelect` is `RootOrbit.axiomSelect` with the scores taken over the
+  `anchoredSelect` is `RootOrbit.axiomSelect` with the coherence values taken over the
   admitted family *plus* the declared anchors, and the maximum taken over the
-  admitted family only: anchors are scored against, never selected.
+  admitted family only: anchors are compared against, never selected.
 -/
 set_option linter.style.longLine false
 set_option maxRecDepth 200000
@@ -23,7 +23,7 @@ namespace Anchored
 
 open Mat2 Word Frame Pres RatioSpace RatioSpace.Zphi Advance Accumulation RootOrbit
 
-/-- **The declared extended profile.** Scores over `fam ++ anchors`; the
+/-- **The declared extended profile.** Coherence values over `fam ++ anchors`; the
     maximizer test ranges over the admitted family `fam` alone. -/
 def anchoredSelect (MO : Mat2) (stratum : ℕ) (prov : Provenance) (anchors : List IPres) :
     List (Core × Bool) → List QuestionId :=

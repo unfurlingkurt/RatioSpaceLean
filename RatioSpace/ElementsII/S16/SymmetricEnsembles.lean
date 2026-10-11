@@ -15,7 +15,7 @@ import RatioSpace.ElementsII.S16.WordDynamics
   `research/experiments/ensemble_beat.py` confirmed every clause of this
   proposition outside the kernel and named it a candidate for Lean once
   `wordStep` existed (`Two/Step5Words.lean`, built for Theorem 16.12). It now
-  does: `wordStep` is one tick of Construction Axiom II.1 at `ε` read
+  does: `wordStep` is one tick of Definition 8.1 at `ε` read
   entirely off words, and `nextCores_words` proves it agrees with the real
   carrier tick. That is enough to decide the mirror-symmetric clause directly,
   with no multi-seed carrier construction needed at all.

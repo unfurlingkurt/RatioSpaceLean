@@ -18,7 +18,7 @@ lake exe cache get
 lake build
 ```
 
-A clean build of the 1,607 jobs of this repository (no `.lake/build` directory
+A clean build of the 1,609 jobs of this repository (no `.lake/build` directory
 present, Mathlib and its dependencies prebuilt from the pinned cache and not
 rebuilt) was measured at 2 minutes 3 seconds (123.4 s wall clock) on Linux with an
 AMD Ryzen 9 7950X (16 cores, 32 threads) and 61 GB RAM. That build emits no
@@ -49,4 +49,4 @@ See `LICENSE`.
 
 Please cite the RatioSpace Elements Lean release as:
 
-Russell, Kurt Michael. 2026. *RatioSpace Elements Lean release*, version 0.25. Zenodo. [https://doi.org/10.5281/zenodo.23223083](https://doi.org/10.5281/zenodo.23223083).
+Russell, Kurt Michael. 2026. *RatioSpace Elements Lean release*, version 0.25. Zenodo. [https://doi.org/10.5281/zenodo.23287489](https://doi.org/10.5281/zenodo.23287489).

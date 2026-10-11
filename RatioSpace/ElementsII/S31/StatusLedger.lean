@@ -90,7 +90,7 @@ import RatioSpace.ElementsII.S16.PrecaptureTie
     `ContinuationPreserves` hypothesis).
 
   Every other row has no parts. The other qualifiers in the scope column
-  ("derived from II.1 where support is used", "on the singleton return
+  ("derived; support by Definition 8.1", "on the singleton return
   domain", "derived from the imported classical identities", and so on) are
   recorded in `scope` as text only; they name which declarations or imports a
   derivation uses, and the cited proof terms carry those uses in their
@@ -276,11 +276,10 @@ def ledger31_2 : List (Row .imported) :=
 
 /-! ## Ledger 31.3 — Declared construction and receiver data -/
 
-/-- **Ledger 31.3.** Seven declarations, each the object the tree uses. -/
+/-- **Ledger 31.3.** Six declarations, each the object the tree uses. The support law is
+    Definition 8.1 (`support`, `axiomSelect`), a definition, so it has no row in Ledger 31.3. -/
 def ledger31_3 : List Entry :=
-  [ ⟨"Construction Axiom II.1: active support is maximum coherence",
-      .constructionAxiom, .adopted (up RootOrbit.axiomSelect)⟩,
-    ⟨"Receiver Declaration 15.6: h_Q = 7",
+  [ ⟨"Receiver Declaration 15.6: h_Q = 7",
       .receiverDeclaration, .supplied (up Accumulation.hQ)⟩,
     ⟨"observer-adoption socket: singleton return domain and lossless splice",
       .receiverDeclaration, .supplied (@Return.CompatibleDomain, up Return.spliceObs)⟩,
@@ -314,26 +313,26 @@ def ledger31_4 : List FamilyRow :=
       [⟨"Prop 3.6 bilateral transport (imported result with constructive application)",
         .imported, .importedProof _ (And.intro prop_3_6 prop_3_6_changes_admission)⟩],
     fam "4–6" (.derived _ @archive_lossless) "derived",
-    fam "7–8" (.derived _ support_side_covariant) "derived from II.1 where support is used",
+    fam "7–8" (.derived _ support_side_covariant) "derived; support by Definition 8.1",
     fam "9–10" (.derived _ (And.intro statuses_are_independent causalRecord_children_distinct))
       "derived",
     fam "11–14" (.derived _
       (And.intro @Conservation.no_positive_recurrence SideExchange.advanceArchive_mirror_perm))
-      "derived from II.1 where support is used",
+      "derived; support by Definition 8.1",
     fam "15–17" (.derived _ (And.intro Terminal.termStatus_trichotomy (And.intro LoneSeed.theorem_16_17_LL Tie1613.prop_16_13_tie)))
-      "derived from II.1 and the horizon declaration; ensemble transients are derived instances with stated scope"
+      "derived, support by Definition 8.1, with the horizon declaration; ensemble transients are derived instances with stated scope"
       [⟨"Prop 16.13 ties before capture: four named seed instances",
         .derivedInstance, .inst _ (And.intro Transient.prop_16_13_i (And.intro Transient.prop_16_13_ii
           (And.intro Transient.prop_16_13_iii Transient.prop_16_13_iv)))⟩],
-    fam "18–20" (.derived _ @Snap.snap_isSome_iff) "derived on the singleton return domain",
-    fam "21–22" (.derived _ Face.universal_emission) "derived; attachment consequences use II.2",
+    fam "18–20" (.derived _ @Snap.snap_isSome_iff) "derived on the singleton return domain; support by Definition 8.1",
+    fam "21–22" (.derived _ Face.universal_emission) "derived; support by Definition 8.1; attachment consequences use II.2",
     fam "23" (.derived _ Incidence.lineage_not_closed) "derived from II.2 where attached faces are used",
     fam "24" (.derived _ @Lifecycle.release_deletes_nothing)
       "derived; covariance is conditional on receiver data"
       [⟨"Prop 24.18 covariance of renewal and release, on equivariant receiver data",
         .conditional, .conditional _ @Lifecycle.covariance_conditional⟩],
     fam "25" (.derived _ (And.intro @Shell.one_lineage_fails_shell @Shell.shellIn_recoverable))
-      "derived; shell application is conditional"
+      "derived; support by Definition 8.1; shell application is conditional"
       [⟨"Cor 25.11 downstream renewal-shell applicability, on the certificate, D = 12 and a preserving continuation",
         .conditional, .conditional _ (And.intro @Shell.cor_25_11 @Shell.cor_25_11_continuation)⟩],
     fam "26–27" (.derived _ (And.intro Mirror.AR_pow_fib Chamber.ridges_exchanged)) "derived",
@@ -412,11 +411,10 @@ def ledger31_5 : List (Row .conditional) :=
 /-- An open item: a label, and the only witness its status admits. -/
 def openItem (label : String) : Row .openDownstream := ⟨label, .nothing⟩
 
-/-- **Ledger 31.6.** Fifteen open items. Typed `Row .openDownstream`, so no
+/-- **Ledger 31.6.** Fourteen open items. Typed `Row .openDownstream`, so no
     other status and no content is possible. -/
 def ledger31_6 : List (Row .openDownstream) :=
-  [ openItem "derivation of Construction Axiom II.1 from a prior principle",
-    openItem "a theorem uniquely forcing h_Q = 7",
+  [ openItem "a theorem uniquely forcing h_Q = 7",
     openItem "classification of resolving cavities under narrower admissibility",
     openItem "additional exact charts for nonpositive encounter comparison",
     openItem "general central-lift selection with no lift field or predicate",
@@ -447,8 +445,8 @@ def combined : List Entry :=
     derived, imported, derived instance, conditional and conditional
     respectively; each part bears a proof term and its claim holds. -/
 theorem thm_31_7 :
-    (ledger31_2.length = 7 ∧ ledger31_3.length = 7 ∧ ledger31_4.length = 15 ∧
-      ledger31_5.length = 9 ∧ ledger31_6.length = 15) ∧
+    (ledger31_2.length = 7 ∧ ledger31_3.length = 6 ∧ ledger31_4.length = 15 ∧
+      ledger31_5.length = 9 ∧ ledger31_6.length = 14) ∧
     (∀ e ∈ combined, e.wit.claim) ∧
     ((ledger31_4.filter (fun r => !r.wit.bearsProof)).map (·.sections) = ["30"]) ∧
     (ledger31_4.all (fun r => r.status == .derived) = true) ∧
@@ -499,14 +497,14 @@ theorem cls_fibres :
       [.imported, .declared, .declared, .derived, .derived, .conditional, .openDownstream] := rfl
 
 /-- **Boundary Statement 31.8.** The combined ledger splits into the five classes
-    with exactly the book's five ledgers as the parts: 7 imported, 7 declared,
-    15 derived, 9 conditional, 15 open, 53 rows, no row in two classes (each row
+    with exactly the book's five ledgers as the parts: 7 imported, 6 declared,
+    15 derived, 9 conditional, 14 open, 51 rows, no row in two classes (each row
     has one status, and `cls` is a function). -/
 theorem boundary_31_8 :
-    combined.length = 53 ∧
+    combined.length = 51 ∧
     combined.map (·.status.cls) =
-      List.replicate 7 .imported ++ List.replicate 7 .declared ++ List.replicate 15 .derived ++
-        List.replicate 9 .conditional ++ List.replicate 15 .openDownstream ∧
+      List.replicate 7 .imported ++ List.replicate 6 .declared ++ List.replicate 15 .derived ++
+        List.replicate 9 .conditional ++ List.replicate 14 .openDownstream ∧
     (∀ e ∈ combined, ∀ c₁ c₂ : Class5, e.status.cls = c₁ → e.status.cls = c₂ → c₁ = c₂) :=
   ⟨rfl, rfl, fun _ _ _ _ h₁ h₂ => h₁ ▸ h₂⟩
 

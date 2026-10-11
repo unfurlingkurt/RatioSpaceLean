@@ -250,7 +250,7 @@ theorem archive_components :
 theorem obligations_length : X.obligations.length = 9 := by
   rw [X.obligations_eq]; rfl
 
-theorem status_length : X.status.length = 53 := by
+theorem status_length : X.status.length = 51 := by
   rw [X.status_eq]; exact StatusLedger.boundary_31_8.1
 
 end ElemIIOut
@@ -616,7 +616,7 @@ end Stages
     * O1, the one-tick map and its retained invariants: the ledger is a
       prefix across the advance (Corollary 12.8), no nonempty positive
       continuation returns (§14), the archive update is side-exchange covariant
-      (13.3). Construction Axiom II.1 is declared, not derived: Ledger 31.3 row 1.
+      (13.3). The support selector is Definition 8.1.
     * O2, the observer-local operand and the tension convention: the local word
       of Definition 3.1 is prefix invariant (3.4), Definition 7.3's tension is
       Elements I's `T_end` by `rfl`, and it is side invariant (7.8).
@@ -710,14 +710,13 @@ structure UniquenessAsBuilt : Prop where
 
 /-- **Corollary 33.3.** The six obligations are discharged by built theorems; the
     uniqueness question is answered as far as `UniquenessAsBuilt` records;
-    Construction Axiom II.1 sits on the ledger as a construction axiom, not a
-    theorem; and the fifteen open rows of Ledger 31.6 are the empty witness, so
+    Definition 8.1 is a definition, so Ledger 31.3 has six declared rows; and the fourteen open rows of Ledger 31.6 are the empty witness, so
     they are no premise of either record and do not make the construction
     incomplete. -/
 theorem cor_33_3 :
     Discharge ∧ UniquenessAsBuilt ∧
-    (StatusLedger.ledger31_3.head?.map (·.status) = some .constructionAxiom) ∧
-    StatusLedger.ledger31_6.length = 15 ∧
+    StatusLedger.ledger31_3.length = 6 ∧
+    StatusLedger.ledger31_6.length = 14 ∧
     (∀ r ∈ StatusLedger.ledger31_6, r.wit = .nothing) :=
   ⟨discharge,
    ⟨@SideExchange.iterated_parity_obstruction, @RootOrbit.theorem_16_8_L, @RootOrbit.theorem_16_8_R,
@@ -926,7 +925,7 @@ theorem axiomPolicy_XRR7 : Term axiomPolicy (X0 [true, true]) (X0_seeded _) = XR
 
     Definition 16.7 adds one exact admissibility predicate `γ_side` to `Γ`;
     everything else is Definition 16.4. `RootOrbit.axiomSelectSide` is
-    Construction Axiom II.1 with that predicate applied before the
+    Definition 8.1 with that predicate applied before the
     direct-positive test, at any stratum. Applied at every reached carrier,
     exactly as `axiomPolicyAt` applies `axiomSelect`, it is a `Policy`: every
     obligation of `AdvanceData` is discharged the same way, because the side
@@ -949,7 +948,7 @@ theorem axiomSelectSide_sublist (MO : Mat2) (stratum : ℕ) (prov : Provenance)
   exact ((List.filter_sublist.trans List.filter_sublist).trans
     (List.filter_sublist.map _)).map Core.id
 
-/-- **Construction Axiom II.1 under Definition 16.7's side predicate, as a
+/-- **Definition 8.1 under Definition 16.7's side predicate, as a
     schedule.** The same fields as `axiomPolicyAt`, with `axiomSelectSide` in
     place of `axiomSelect`. -/
 def sidePolicyAt (Aux : Type) (h : ℕ) (prov : Provenance) (reject : ℕ → Bool → Bool) :

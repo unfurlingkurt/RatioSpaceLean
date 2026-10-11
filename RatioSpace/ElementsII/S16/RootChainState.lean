@@ -41,7 +41,7 @@ import RatioSpace.ElementsII.S16.RootChain
   `advanceCarrier_single_chain`). And the general form that makes the
   pattern-by-pattern lemmas special cases: for any active family at `ε`, the
   next archive filtered by what `axiomSelect` returned is exactly the admitted
-  children Construction Axiom II.1 kept (`next_filter_eq_kept`).
+  children Definition 8.1 kept (`next_filter_eq_kept`).
 
   Every theorem `propext`/`Quot.sound` or less.
 -/
@@ -164,11 +164,11 @@ theorem fam_pred (k : ℕ) :
     (fam k).all (fun z => decide (coherenceOf (fam k) z ≤ coherenceOf (fam k) (rb k))) = true ∧
     (fam k).all (fun z => decide (coherenceOf (fam k) z ≤ coherenceOf (fam k) (rc k))) = true ∧
     (fam k).all (fun z => decide (coherenceOf (fam k) z ≤ coherenceOf (fam k) (rd k))) = false := by
-  have hab := score_a_lt_b k
+  have hab := coherence_a_lt_b k
   have hbc : coherenceOf (fam k) (rb k) = coherenceOf (fam k) (rc k) := by
-    rw [score_b, score_c]
+    rw [coherence_b, coherence_c]
   have had : coherenceOf (fam k) (ra k) = coherenceOf (fam k) (rd k) := by
-    rw [score_a, score_d]
+    rw [coherence_a, coherence_d]
   have top : ∀ w, coherenceOf (fam k) w = coherenceOf (fam k) (rb k) →
       (fam k).all (fun z => decide (coherenceOf (fam k) z ≤ coherenceOf (fam k) w)) = true := by
     intro w hw
@@ -564,7 +564,7 @@ theorem single_step {g : Core} (hsing : archive.filter (fun d => d.id ∈ active
     rw [hC, List.filterMap_cons_some (addrOf_child_some s p g false),
       List.filterMap_cons_some (addrOf_child_some s p g true)]
     rfl
-  have heq := pair_scores_equal (rI (fullWord g ++ [false])) (rI (fullWord g ++ [true]))
+  have heq := pair_coherence_equal (rI (fullWord g ++ [false])) (rI (fullWord g ++ [true]))
   have top : ∀ w, coherenceOf [rI (fullWord g ++ [false]), rI (fullWord g ++ [true])] w
       = coherenceOf [rI (fullWord g ++ [false]), rI (fullWord g ++ [true])]
           (rI (fullWord g ++ [false])) →
@@ -615,7 +615,7 @@ theorem advanceCarrier_single_chain {Aux : Type} {h : ℕ} (X : TickCarrier Aux 
   rw [hact]
   exact single_next_pair s p hwf hsing hfresh
 
-/-! ### The general re-establishment: whatever Construction Axiom II.1 keeps
+/-! ### The general re-establishment: whatever Definition 8.1 keeps
 
 One statement for every kept pattern at once. `axiomSelect` is by definition
 `(admittedCores.filter keepPred).map Core.id`; at `ε` every child is admitted;
@@ -712,7 +712,7 @@ theorem filter_ids_of_filter (P : Core → Bool) :
 /-- **Step 5's engine, for any active family at observer `ε`.** With a
     duplicate-free, well-formed archive and fresh proposals, the next archive
     filtered by what `axiomSelect` returned is exactly the children
-    Construction Axiom II.1 kept, in proposal order. -/
+    Definition 8.1 kept, in proposal order. -/
 theorem next_filter_eq_kept {archive : List Core} {active : List QuestionId}
     (hnd : (archive.map Core.id).Nodup) (hwf : ∀ c ∈ archive, c.WellFormed)
     (hfresh : ∀ q ∈ proposals archive active, (childCore q.1 q.2 s p).id ∉ archIds archive) :

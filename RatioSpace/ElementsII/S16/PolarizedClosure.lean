@@ -303,7 +303,7 @@ theorem polarized_R_singleton_iff (h : ℕ) (h1 : 1 ≤ h) :
     admitted family, are `LLLL`, `LLLR`, `LRLL`, `LRLR`. Their tension
     histograms, sorted, are `{0,5,8,10}`, `{0,1,5,9}`, `{0,1,8,13}`,
     `{0,9,10,13}`; the histogram of `LLLR` is termwise below the other three.
-    The scores are `116 - 71φ`, `-63 + 40φ`, `-343 + 213φ`, `-342 + 212φ`; the
+    The coherence values are `116 - 71φ`, `-63 + 40φ`, `-343 + 213φ`, `-342 + 212φ`; the
     second is the strict maximum, which is `S_3(𝒬_L) = {LLLR}` of
     `theorem_16_5_polarized_L`. -/
 theorem advance_2_3_L :
@@ -320,9 +320,9 @@ theorem advance_2_3_L :
   refine ⟨by decide, by decide, by decide, by decide⟩
 
 /-- **The side mirror**, checked independently of `advance_2_3_L`. The family
-    order is `RLRL`, `RLRR`, `RRRL`, `RRRR`, so the histograms and scores of
+    order is `RLRL`, `RLRR`, `RRRL`, `RRRR`, so the histograms and coherence values of
     `advance_2_3_L` come in the reverse order and the unique maximizer `RRRL`
-    (score `-63 + 40φ`) is the third member. -/
+    (coherence value `-63 + 40φ`) is the third member. -/
 theorem advance_2_3_R :
     (admittedCores MOR 3 seed164Prov props2R).map Core.fullWord =
       [[true, false, true, false], [true, false, true, true],

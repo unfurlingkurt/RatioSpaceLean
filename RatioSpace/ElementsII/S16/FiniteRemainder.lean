@@ -26,7 +26,7 @@ import RatioSpace.ElementsII.S16.FamilyClassification
   **How.** A fuel-bounded tree walk `chkA` stops at Generic frames, which is
   sound because `Generic` is upward closed along the tree (`generic_select`):
   every entry only grows. At each visited frame it reads the four `selPred`
-  bits of Construction Axiom II.1's filter and accepts a singleton or one of the
+  bits of Definition 8.1's filter and accepts a singleton or one of the
   five named pairs at its own word (`okMask`). The kernel evaluates
   `chkA 210 Frame.empty [] = true` by `decide +kernel` (no `native_decide`);
   `chkA_sound` turns that into the statement for every word. Part (B) is the
@@ -60,7 +60,7 @@ open Beat11
 
 /-! ## Outcomes, read off the filter's four bits -/
 
-/-- The four bits of Construction Axiom II.1's filter on the grandchildren. -/
+/-- The four bits of Definition 8.1's filter on the grandchildren. -/
 def mask (F : Frame) : List Bool := (grand F).map (selPred F)
 
 /-- **The book's Step 2 conclusion at the frame reached by `w`**: a singleton,

@@ -32,5 +32,5 @@ Proposition 7.11	RatioSpace.Two.SideExchange.Frame.mirror_involutive	RatioSpace.
 Proposition 7.11	RatioSpace.Two.SideExchange.QuestionId.mirror_involutive	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
 Proposition 7.11	RatioSpace.Two.SideExchange.r_mirrorWord	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
 Proposition 7.11	RatioSpace.Two.SideExchange.Core.mirror_fullMatrix	RatioSpace.ElementsII.S13.SideExchange	the mirror statements are proved with the side-exchange machinery of Section 13
-Construction Axiom II.1	RatioSpace.Two.RootOrbit.axiomSelect	RatioSpace.ElementsII.S16.RootOrbit	the adopted selection rule is realized by the selection function of the root-orbit module
+Definition 8.1 (support)	RatioSpace.Two.RootOrbit.axiomSelect	RatioSpace.ElementsII.S16.RootOrbit	the support law of Definition 8.1 is realized by the selection function of the root-orbit module
 Dependency Rule 1.7	RatioSpace.Layer.TypedAction	RatioSpace.ElementsI.S15.Sufficiency	the typed action an imported type may be placed in is defined in Elements I

@@ -425,7 +425,8 @@ def sameRelationTwice : Question where
     that produced it, so `𝒬 ↦ S₀(𝒬)` fails to select even when the relation layer
     cannot tell its options apart.
 
-    This is Elements II Corollary 6.10 — support comparison counts occurrences by stable identifier — one
+    This is Elements II Corollary 6.10 — support comparison counts occurrences by stable
+    identifier — one
     book early and machine-checked rather than declared, and it is what makes
     Elements II Theorem 17.5's *unresolved-multiple* branch non-vacuous: several
     occurrences really can occupy one relation fiber.

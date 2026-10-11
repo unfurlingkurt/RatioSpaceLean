@@ -8,13 +8,13 @@ import RatioSpace.ElementsI.S05.Zphi
 /-!
   Elements II §8 — Exact coherence, degeneracy, and retained signatures.
 
-  Fifteen items: two definitions, the volume's one construction axiom, a remark,
-  and eleven derived results. It is the section where the support actually
+  Fourteen items: two definitions (8.1 carries the support law), a remark, and
+  eleven derived results. It is the section where the support actually
   advances, so it is where the exactness discipline either holds or does not.
 
   **What is inherited.** Elements I §5 built `ℤ[φ]` as `Zphi`, the negative
   powers as `phiNegPow`, the coherence sum as `coherence`, and — the load-bearing
-  one — a decidable linear order got by embedding into `ℤ√5`. Def 8.1's score is
+  one — a decidable linear order got by embedding into `ℤ√5`. Def 8.1's coherence value is
   `coherence` applied to §7's tension signature, Lemma 8.4 is `phiNegPow_eq`
   already proved, and Cor 8.7's *"no decimal approximation to φ is required"* is
   the existing `decidableLT` instance rather than a new claim. Elements I did the
@@ -24,7 +24,7 @@ import RatioSpace.ElementsI.S05.Zphi
 
   Thm 8.5's two-integer certificate, `c₀` and `c₁` read off the tension
   histogram, which Elements I never needed because it never had to compare two
-  scores by hand.
+  coherence values by hand.
 
   Lemma 8.6's integer sign rule. Elements I's order is decidable through `ℤ√5`,
   which is a proof that a certificate exists; the book gives the certificate
@@ -33,10 +33,10 @@ import RatioSpace.ElementsI.S05.Zphi
   `sq_eq_five_mul_sq_iff`, and it is what makes the tie test exact rather than
   merely decidable.
 
-  Construction Axiom II.1 as an `ArgMax` returning the *complete* maximizer set.
+  Definition 8.1 as an `ArgMax` returning the *complete* maximizer set.
   *"No secondary comparison is performed after an exact tie."* A tie-break would
   be a second rule, so there is none, and Cor 8.12's minimum arity of three is
-  the direct consequence: below three admitted occurrences the axiom cannot
+  the direct consequence: below three admitted occurrences the definition cannot
   reject anything.
 -/
 
@@ -68,15 +68,15 @@ def coherenceOf (fam : List IPres) (y : IPres) : Zphi :=
 @[simp] theorem self_term (y : IPres) : phiNegPow (tEnd y y) = 1 := by
   rw [tEnd_self]; rfl
 
-/-- The score of a two-element family, unfolded once, since three later results
+/-- The coherence value of a two-element family, unfolded once, since three later results
     read it. -/
 theorem coherenceOf_pair (x y z : IPres) :
     coherenceOf [x, y] z = phiNegPow (tEnd z x) + phiNegPow (tEnd z y) := by
   simp [coherenceOf, tensions, coherence]
 
-/-! ## Construction Axiom II.1 — global exact-coherence support -/
+/-! ## Definition 8.1 — global exact-coherence support -/
 
-/-- **Construction Axiom II.1.** `S_{j+1} = ArgMax_{y ∈ A_{j+1}} C_j^{(O)}(y)`,
+/-- **Definition 8.1.** `S_{j+1} = ArgMax_{y ∈ A_{j+1}} C_j^{(O)}(y)`,
     and `∅` when the admitted family is empty.
 
     `ArgMax` is *"the complete set of exact maximizers"*, so this is a filter and
@@ -86,11 +86,11 @@ theorem coherenceOf_pair (x y z : IPres) :
 def support (fam : List IPres) : List IPres :=
   fam.filter (fun y => fam.all (fun z => coherenceOf fam z ≤ coherenceOf fam y))
 
-/-- Empty in, empty out — the second branch of the axiom. -/
+/-- Empty in, empty out — the second branch of the definition. -/
 @[simp] theorem support_nil : support [] = [] := rfl
 
 /-- **Remark 8.2, first half.** Support selection does not delete: every
-    occurrence in the new support was already admitted, and the axiom removes
+    occurrence in the new support was already admitted, and the definition removes
     nothing from the archive. It updates active support and nothing else. -/
 theorem support_sub {fam : List IPres} {y : IPres} (hy : y ∈ support fam) :
     y ∈ fam :=
@@ -112,10 +112,10 @@ theorem mem_support {fam : List IPres} {y : IPres} (hy : y ∈ fam)
   exact List.all_eq_true.mpr (fun z hz => decide_eq_true (hmax z hz))
 
 /-- **Theorem 17.7's sufficient-condition clause, connected to `support`
-    here since it is a fact about Construction Axiom II.1's filter and not
+    here since it is a fact about Definition 8.1's filter and not
     about any one section's carrier.** *"One sufficient condition is that the
     actual terminal admitted family have one strict exact global maximizer."*
-    A member `y` that strictly outscores every other member of `fam` is in
+    A member `y` that strictly exceeds in coherence every other member of `fam` is in
     the support, and nothing else is — but Remark 8.2's own ties mean this
     forces the support down to `[y]` only when `y`'s own **value** does not
     repeat in `fam`. That is not an invented restriction: it is the same
@@ -158,7 +158,7 @@ theorem support_singleton_of_strict_max {fam : List IPres} {y : IPres}
     a list of occurrences, each read through its observer-local relation `loc`
     (`λ_O`, Definition 3.1); two distinct occurrences may share a relation and
     then tie, which is why strictness is against every other occurrence and
-    not every other relation. `supportOcc` is Construction Axiom II.1 on
+    not every other relation. `supportOcc` is Definition 8.1 on
     occurrences, and `mem_supportOcc_iff` ties it to the relation-level
     `support` through `support_maximal` and `mem_support`.
 
@@ -168,15 +168,15 @@ theorem support_singleton_of_strict_max {fam : List IPres} {y : IPres}
     argmax produces it. This tree builds no `h = 0` terminal report
     (`Report.of` takes `0 < h`), so the remark has no Lean declaration. -/
 
-/-- The Construction Axiom II.1 score of an occurrence in a family of
+/-- The Definition 8.1 coherence value of an occurrence in a family of
     occurrences: `C(y) = Σ_z φ^(−t(y,z))` over the observer-local relations. -/
-def occScore {α : Type} (loc : α → IPres) (fam : List α) (y : α) : Zphi :=
+def occCoherence {α : Type} (loc : α → IPres) (fam : List α) (y : α) : Zphi :=
   coherenceOf (fam.map loc) (loc y)
 
-/-- **Construction Axiom II.1 on occurrences.** The complete set of exact
-    maximizers of `occScore`, a filter of the family; ties survive. -/
+/-- **Definition 8.1 on occurrences.** The complete set of exact
+    maximizers of `occCoherence`, a filter of the family; ties survive. -/
 def supportOcc {α : Type} (loc : α → IPres) (fam : List α) : List α :=
-  fam.filter (fun y => fam.all (fun z => occScore loc fam z ≤ occScore loc fam y))
+  fam.filter (fun y => fam.all (fun z => occCoherence loc fam z ≤ occCoherence loc fam y))
 
 /-- An occurrence is in the occurrence-level support exactly when it is
     admitted and its relation is in the relation-level `support` of the family's
@@ -198,15 +198,15 @@ theorem mem_supportOcc_iff {α : Type} (loc : α → IPres) (fam : List α) (y :
 set_option linter.unusedDecidableInType false in
 /-- **Elements II Theorem 17.7, positive horizon.** For a family of distinct
     occurrences, the occurrence-level support has exactly one member if and only
-    if some admitted occurrence strictly outscores every other admitted
+    if some admitted occurrence strictly exceeds in coherence every other admitted
     occurrence. (`DecidableEq α` is the decidable identity of occurrences, which
     keeps the proof free of `Classical.choice`.) -/
 theorem supportOcc_length_one_iff {α : Type} [DecidableEq α] (loc : α → IPres) (fam : List α)
     (hnodup : fam.Nodup) :
     (supportOcc loc fam).length = 1 ↔
-      ∃ y ∈ fam, ∀ z ∈ fam, z ≠ y → occScore loc fam z < occScore loc fam y := by
+      ∃ y ∈ fam, ∀ z ∈ fam, z ≠ y → occCoherence loc fam z < occCoherence loc fam y := by
   have hmax : ∀ {y}, y ∈ supportOcc loc fam → ∀ z ∈ fam,
-      occScore loc fam z ≤ occScore loc fam y := by
+      occCoherence loc fam z ≤ occCoherence loc fam y := by
     intro y hy z hz
     have hall := List.of_mem_filter hy
     exact of_decide_eq_true (List.all_eq_true.mp hall z hz)
@@ -216,7 +216,7 @@ theorem supportOcc_length_one_iff {α : Type} [DecidableEq α] (loc : α → IPr
     have hyS : y ∈ supportOcc loc fam := by rw [hy]; simp
     refine ⟨y, List.mem_of_mem_filter hyS, fun z hz hzy => ?_⟩
     by_contra hnlt
-    have hge : occScore loc fam y ≤ occScore loc fam z := not_lt.mp hnlt
+    have hge : occCoherence loc fam y ≤ occCoherence loc fam z := not_lt.mp hnlt
     have hzS : z ∈ supportOcc loc fam :=
       List.mem_filter.mpr ⟨hz, List.all_eq_true.mpr fun w hw =>
         decide_eq_true (le_trans (hmax hyS w hw) hge)⟩
@@ -273,7 +273,7 @@ def c0 (ts : List ℕ) : ℤ := (ts.map (fun t => (-1) ^ t * (Nat.fib (t + 1) : 
 /-- `c₁ = −Σ_t n_y(t)(−1)^t F_t`. -/
 def c1 (ts : List ℕ) : ℤ := -(ts.map (fun t => (-1) ^ t * (Nat.fib t : ℤ))).sum
 
-/-- **Theorem 8.5.** Every score lies in `ℤ[φ]` and has a finite two-integer
+/-- **Theorem 8.5.** Every coherence value lies in `ℤ[φ]` and has a finite two-integer
     certificate `C = c₀ + c₁φ`.
 
     The book's proof is "substitute Lemma 8.4 into every summand and collect";
@@ -289,7 +289,7 @@ theorem coherence_certificate (ts : List ℕ) :
     · simp [c0]
     · simp [c1]; ring
 
-/-- The certificate of a score, as the pair the comparison actually reads. -/
+/-- The certificate of a coherence value, as the pair the comparison actually reads. -/
 theorem coherenceOf_certificate (fam : List IPres) (y : IPres) :
     coherenceOf fam y = ⟨c0 (tensions fam y), c1 (tensions fam y)⟩ :=
   coherence_certificate _
@@ -370,15 +370,15 @@ example (x y : Zphi) : Decidable (x < y) := inferInstance
 /-! ## Corollary 8.7 — exactness of support comparison -/
 
 /-- **Corollary 8.7.** Every strict comparison, equality, maximizer and tie in
-    Construction Axiom II.1 has a finite integer certificate.
+    Definition 8.1 has a finite integer certificate.
 
     Stated as what it operationally means: membership in the support is
-    decidable, so the axiom is an algorithm and not a description of one. No
+    decidable, so the definition is an algorithm: it computes the maximizer set. No
     decimal approximation to `φ` appears anywhere in reaching it. -/
 instance support_decidable (fam : List IPres) (y : IPres) :
     Decidable (y ∈ support fam) := inferInstance
 
-/-- And equality of scores — the tie — is decided componentwise on the two
+/-- And equality of coherence values — the tie — is decided componentwise on the two
     integers of Thm 8.5. -/
 theorem tie_is_integral (fam : List IPres) (y z : IPres) :
     coherenceOf fam y = coherenceOf fam z
@@ -409,13 +409,13 @@ theorem growth_bound {S P A : List IPres}
   refine ⟨hP ▸ hA, ?_⟩
   exact le_trans (support_length_le A) (hP ▸ hA)
 
-/-- **And empty support stays empty**, the axiom's second branch carried one
+/-- **And empty support stays empty**, Definition 8.1's second branch carried one
     tick forward. -/
 theorem empty_stays_empty : support ([] : List IPres) = [] := rfl
 
 /-! ## Theorem 8.9 — enumeration independence -/
 
-/-- The score is a sum over the family, so a storage permutation cannot move it.
+/-- The coherence value is a sum over the family, so a storage permutation cannot move it.
     *"Storage permutation changes no stable occurrence identifier, admission
     truth value, pairwise tension, or occurrence multiplicity."* -/
 theorem coherenceOf_perm {fam fam' : List IPres} (h : fam.Perm fam') (y : IPres) :
@@ -424,7 +424,7 @@ theorem coherenceOf_perm {fam fam' : List IPres} (h : fam.Perm fam') (y : IPres)
   exact List.Perm.sum_eq ((h.map _).map _)
 
 /-- **Theorem 8.9.** Permuting the storage order does not change the active
-    support. Membership is decided by the score, and the score is permutation
+    support. Membership is decided by the coherence value, and the coherence value is permutation
     invariant, so the maximizer set is the same set. -/
 theorem support_perm_mem {fam fam' : List IPres} (h : fam.Perm fam') (y : IPres) :
     y ∈ support fam ↔ y ∈ support fam' := by
@@ -442,12 +442,12 @@ theorem support_perm_mem {fam fam' : List IPres} (h : fam.Perm fam') (y : IPres)
 
 /-! ## Theorem 8.10 — exact two-occurrence degeneracy -/
 
-/-- **Theorem 8.10.** If `A_{j+1} = {x, y}` then both scores equal
+/-- **Theorem 8.10.** If `A_{j+1} = {x, y}` then both coherence values equal
     `1 + φ^(−t_O(x,y))`.
 
     The book's proof runs through Lemma 7.7 to get `t_O(x,y) = t_O(y,x)`; §7
     already has that as `tEnd_comm`, inherited from Elements I's `Tend_comm`. Each
-    score is then one self-term of `1` and the same cross-term.
+    coherence value is then one self-term of `1` and the same cross-term.
 
     *"The argument remains valid if `x` and `y` have equal local values, because
     their occurrence multiplicity is retained."* Nothing here assumes `x ≠ y`. -/
@@ -461,12 +461,12 @@ theorem two_occurrence_degeneracy (x y : IPres) :
     rw [add_comm]
     rfl
 
-/-- The two scores are therefore equal, which is the fact Cor 8.11 needs. -/
-theorem pair_scores_equal (x y : IPres) :
+/-- The two coherence values are therefore equal, which is the fact Cor 8.11 needs. -/
+theorem pair_coherence_equal (x y : IPres) :
     coherenceOf [x, y] x = coherenceOf [x, y] y := by
   rw [(two_occurrence_degeneracy x y).1, (two_occurrence_degeneracy x y).2]
 
-/-! ## Corollaries 8.11 and 8.12 — what the axiom cannot do -/
+/-! ## Corollaries 8.11 and 8.12 — what the definition cannot do -/
 
 /-- **Corollary 8.11.** An unrestricted singleton advances to its sibling pair: if `S_j =
     {x}` and both children are admitted, `S_{j+1}` is both of them.
@@ -475,10 +475,10 @@ theorem pair_scores_equal (x y : IPres) :
     singleton, so a single active occurrence can advance to a pair, and terminal
     commitment is the coherent snap of Section 18, read from the terminal report. -/
 theorem pair_support (x y : IPres) : support [x, y] = [x, y] := by
-  have h := pair_scores_equal x y
+  have h := pair_coherence_equal x y
   simp [support, h]
 
-/-- **Corollary 8.12.** Below three admitted occurrences the axiom rejects
+/-- **Corollary 8.12.** Below three admitted occurrences the definition rejects
     nothing: empty gives empty, one gives that one, two gives both.
 
     So coherence rejection requires at least three admitted occurrences. That is
@@ -509,8 +509,8 @@ theorem mem_map_Inv {fam : List IPres} {y : IPres} (h : Inv y ∈ fam.map Inv) :
   obtain ⟨w, hw, hEq⟩ := List.mem_map.mp h
   exact Inv_inj hEq ▸ hw
 
-/-- The score survives a complete side exchange, because §7's Thm 7.8 preserves
-    every pairwise tension and the score is a function of those alone. -/
+/-- The coherence value survives a complete side exchange, because §7's Thm 7.8 preserves
+    every pairwise tension and the coherence value is a function of those alone. -/
 theorem coherenceOf_side_invariant (fam : List IPres) (y : IPres) :
     coherenceOf (fam.map Inv) (Inv y) = coherenceOf fam y := by
   unfold coherenceOf tensions
@@ -540,7 +540,7 @@ theorem support_side_covariant (fam : List IPres) (y : IPres) :
     cannot be an occurrence singleton.
 
     Stated as the operative half: a maximizer is accompanied by its mirror, so a
-    symmetric input is never silently broken by the axiom picking one side. -/
+    symmetric input is never silently broken by the definition picking one side. -/
 theorem mirror_accompanies {fam : List IPres} (hsym : (fam.map Inv).Perm fam)
     {y : IPres} (hy : y ∈ support fam) : Inv y ∈ support fam := by
   refine mem_support ?_ ?_

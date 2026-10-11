@@ -72,8 +72,8 @@ theorem cert_45 :
     at4 M45 0 3 = 8 ∧ at4 M45 1 2 = 17 :=
   ⟨tie_4_5_L.1, by decide, by decide, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
-/-- **The certified pairs really are tied**, read from the scores already
-    decided: the exchanged occurrences carry equal scores in both families. -/
+/-- **The certified pairs really are tied**, read from the coherence values already
+    decided: the exchanged occurrences carry equal coherence values in both families. -/
 theorem certified_pairs_tie :
     (admittedFam MOL 2 seed164Prov props1L).map
         (coherenceOf (admittedFam MOL 2 seed164Prov props1L)) =
@@ -98,7 +98,7 @@ theorem cert_root_tick7 :
 
 /-- **The two degeneracies of Proposition 16.13, as the book separates them.**
     Their tied occurrences have distinct histograms, so no tension automorphism
-    exchanges them; the equal scores are `ℤ[φ]` identities between different
+    exchanges them; the equal coherence values are `ℤ[φ]` identities between different
     contribution patterns — exactly Lemma 16.14's `{P, P}` against
     `{P - 1, P + 2}`, at `P = 6` and `P = 4`. -/
 theorem ensemble_degeneracies :

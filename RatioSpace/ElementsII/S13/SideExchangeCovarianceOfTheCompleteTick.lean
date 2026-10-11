@@ -43,7 +43,7 @@ import RatioSpace.ElementsII.S10.Causal
   Corollary 13.4's "a fixed occurrence" escape clause, at the selector.
 
   **What is not claimed.** `Two/SideExchange.lean`'s note that the selector's
-  equivariance "is a hypothesis and has to be" stands. Construction Axiom II.1
+  equivariance "is a hypothesis and has to be" stands. Definition 8.1
   supplies the support filter and this file still does not get to assume it is
   parent-equivariant; what changes is that the assumption is now stated about the
   selector alone and is known to be satisfiable. No existing declaration is
@@ -213,17 +213,17 @@ theorem A_conj_P (g : Bool) : P * A g * P = A (!g) := by
 theorem A_conj_P_involutive (g : Bool) : P * (P * A g * P) * P = A g := by
   rw [A_conj_P, A_conj_P, Bool.not_not]
 
-/-! ## (c) The support filter as the selector: Construction Axiom II.1 at the carrier (2026-09-22)
+/-! ## (c) The support filter as the selector: Definition 8.1 at the carrier (2026-09-22)
 
-`Two/SideExchange.lean`'s note says Construction Axiom II.1 supplies the support filter and this
+`Two/SideExchange.lean`'s note says Definition 8.1 supplies the support filter and this
 file "does not get to assume it is parent-equivariant". Here the filter is built as a selector on
 proposals (`selectSupport`), with `A_{j+1}` instantiated as every proposal whose child has an
 interior address: Definition 7.1 with the declared predicate `Pred_Γ` everywhere true and the
-observer chart the canonical world chart (the score reads `Core.addr`, not the observer-local
+observer chart the canonical world chart (the coherence value reads `Core.addr`, not the observer-local
 `λ_O(y)` of Definition 3.1; the book names that caveat itself). An arbitrary declared predicate
 would need its own side-transport, which is Definition 13.1's equation
 `γ_i^P(Py; P𝔠, k) = γ_i(y; 𝔠, k)` and Theorem 13.3's own hypothesis, not proved here. On that
-instance the question is settled in the form the book states it: the axiom's `ArgMax` is "the
+instance the question is settled in the form the book states it: Definition 8.1's `ArgMax` is "the
 complete set of exact maximizers", a set, so the selector is parent-equivariant **up to
 permutation** of its output (`selectSupport_relabel`), and Theorem 13.3 holds at the carrier for
 it with the active set equal up to permutation (`advanceCarrier_mirror_support`). Exact list
@@ -260,8 +260,8 @@ def supportPred (stratum : ℕ) (prov : Provenance) (fam : List IPres) (p : Core
   | some a => decide (a ∈ support fam)
   | none => false
 
-/-- **Construction Axiom II.1 as a selector, on the profile above.** The children whose address
-    is an exact maximizer of the coherence score over the profile; ties kept, nothing chosen among
+/-- **Definition 8.1 as a selector, on the profile above.** The children whose address
+    is an exact maximizer of the coherence value over the profile; ties kept, nothing chosen among
     them. -/
 def selectSupport (stratum : ℕ) (prov : Provenance) (ps : List (Core × Bool)) : List QuestionId :=
   (ps.filter (supportPred stratum prov (supportFamily stratum prov ps))).map (childId stratum prov)
@@ -374,7 +374,7 @@ theorem selectSupport_relabel (stratum : ℕ) (prov : Provenance) (ps : List (Co
   rw [hL]
   exact ((hperm.filter _).map _).map _
 
-/-- **Theorem 13.3 at the carrier for Construction Axiom II.1's own selector.** Archive and
+/-- **Theorem 13.3 at the carrier for Definition 8.1's own selector.** Archive and
     active set equal up to permutation, tick and ledger exactly; no selector hypothesis, since
     `selectSupport_hsel` supplies `hsel`. Up to permutation is the book's statement: the active
     support is a set of maximizers. -/

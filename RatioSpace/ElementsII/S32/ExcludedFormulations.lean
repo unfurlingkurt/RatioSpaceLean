@@ -295,7 +295,7 @@ structure Excluded where
 def ledger : List Excluded :=
   [ ⟨.r01, "retain at least one child per active parent",
       "|S_{j+1}| >= |S_j|, so multiple support cannot contract to a singleton",
-      "global occurrence-counted comparison under Construction Axiom II.1"⟩
+      "global occurrence-counted comparison (Definition 8.1)"⟩
   , ⟨.r02, "seven named workflow filters",
       "executes seven different labels once rather than one temporal law seven times",
       "K_C^7"⟩

@@ -47,7 +47,7 @@ import RatioSpace.ElementsII.S12.RunInvariant
   unless every active identifier tags exactly one archived core. `TickCarrier`
   never asserts that (unlike `active_sub_archive`, which *is* a field).
   `AdvanceData.hcard` names it. Both are natural, expected properties of any
-  advance actually built from Construction Axiom II.1 and Definition 7.1; they
+  advance actually built from Definition 8.1 and Definition 7.1; they
   were simply never needed as hypotheses before this section, because nothing
   before §15 asked for arithmetic in `|S_j|` itself rather than in
   `|P_{j+1}|` or `|ℋ_j|`.
@@ -80,7 +80,7 @@ open Mat2 Word Frame Pres RatioSpace Advance Conservation
     are not part of `advanceCarrier` itself; they are the extra content
     Corollary 15.3 needs and this file's header explains. -/
 structure AdvanceData (Aux : Type) (h : ℕ) (X : TickCarrier Aux h) where
-  /-- Construction Axiom II.1 composed with Definitions 11.3–11.5, supplied by
+  /-- Definition 8.1 composed with Definitions 11.3–11.5, supplied by
       the caller because the declared predicate is the observer's own. -/
   select : List (Core × Bool) → List QuestionId
   /-- The event stratum this tick writes. -/
@@ -109,8 +109,8 @@ structure AdvanceData (Aux : Type) (h : ℕ) (X : TickCarrier Aux h) where
       duplicate-free at the next tick (`Advance.lean`'s `advanceArchive_nodup`,
       using well-formedness alone) — the active support has no such automatic
       guarantee, because `select` is a bare function on proposals with no
-      cardinality or distinctness constraint of its own. Construction Axiom
-      II.1 already returns a *set*, so any advance actually built from it
+      cardinality or distinctness constraint of its own. Definition 8.1
+       already returns a *set*, so any advance actually built from it
       satisfies this without effort; it was simply never asked for before
       nothing needed arithmetic in `|S_{j+1}|` itself. -/
   hselNodup : (select (proposals X.archive X.active)).Nodup
@@ -201,7 +201,7 @@ theorem RunInv.hfresh {Aux : Type} {h : ℕ} {X : TickCarrier Aux h} (hX : RunIn
     of this definition) asked for it at carriers no run produces, such as one
     whose support lists one identifier twice; `hcard` fails there, so that type
     was empty (audit 2026-09-26, E2-D1). Restricted to reached carriers it is
-    inhabited: `emptyPolicy` below, and Construction Axiom II.1 itself
+    inhabited: `emptyPolicy` below, and Definition 8.1 itself
     (`AxiomPolicy.axiomPolicy`). -/
 def Policy (Aux : Type) (h : ℕ) : Type :=
   (X : TickCarrier Aux h) → Lawful X → RunInv X → AdvanceData Aux h X
@@ -827,7 +827,7 @@ def localOf {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) (c : Core) : Option I
     local address, silently absent when the observer does not admit it or it
     lands on the boundary — the same "witnessed by absence" move `EvalRecord`
     itself already makes for a slot with no value, not an invented default.
-    Includes the occurrence being scored against itself; `tEnd_self`/
+    Includes the occurrence being compared against itself; `tEnd_self`/
     `self_term` already make that entry inert (`tEnd y y = 0`,
     `φ⁻⁰ = 1`), so nothing downstream needs it excluded by hand. -/
 def activeFamily {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) : List IPres :=
@@ -957,7 +957,7 @@ theorem channelReading_resolved_reconstructs {C Q : Mat2} {k : ℕ} {j : Fin k}
       gap (`activeFamily` kept only the decoded address) closes by pairing
       the word alongside it rather than by any new decoding.
     * `starC`/`supportStatus` — Definition 8.1's exact coherence and
-      Construction Axiom II.1's support test, same family.
+      Definition 8.1's support test, same family.
     * `omega` — Definition 9.x's winding, `X.observer.word` against `c`'s own
       `fullWord`; always defined, no family needed.
     * `causalPair` — `causalPairOf`; always defined, `none` at a seed.
@@ -1101,7 +1101,7 @@ canonical mediant `1{:}1` (the empty word) and the two states `1{:}2`,
 rather than assume it.
 
 **Condition 4, the base occurrence-counted comparison profile of
-Construction Axiom II.1, is not a field here.** It names which comparison
+Definition 8.1, is not a field here.** It names which comparison
 rule governs the ticks these questions seed, not a datum the `Question`
 record itself carries — that rule is `Coherence.lean`'s `support`, already
 built, and it is supplied when (not if) one of these three seeds a running

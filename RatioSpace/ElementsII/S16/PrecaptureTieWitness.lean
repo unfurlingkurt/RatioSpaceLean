@@ -10,7 +10,7 @@ import RatioSpace.ElementsII.S16.PrecaptureTie
 
   Words read `false = L`, `true = R`, as `Walk.r`. Each block proves the four
   addresses are the children of the named pair, the four depths, and the
-  pattern, and so (by `prop_16_13_tie`) the equal scores.
+  pattern, and so (by `prop_16_13_tie`) the equal coherence values.
 
   1. `{LRL, LLLLR}`: `a = LLLLRL`, `b = LLLLRR`, `c = LRLL`, `d = LRLR`,
      depths `13, 13` against `13, 13` (sibling depths equal).

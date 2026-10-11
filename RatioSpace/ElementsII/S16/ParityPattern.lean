@@ -13,7 +13,7 @@ import RatioSpace.ElementsII.S16.RootChainState
   * `grand_distinct`: the four grandchild addresses `g₁ … g₄` of any frame are
     pairwise distinct. Contact (`p₁q₀ = q₁p₀ + 1`) is what forbids the two
     coincidences the coefficients allow.
-  * `keep_LL` … `keep_RR`: at a sibling step, Construction Axiom II.1's filter
+  * `keep_LL` … `keep_RR`: at a sibling step, Definition 8.1's filter
     on each grandchild *core* is `selPred` on its address in `grand F_y`.
   * `sibling_next_cores`: the next active cores after a sibling step, read off
     the next archive (`RootChainCarrier.next_filter_eq_kept`), are the four
@@ -77,7 +77,7 @@ theorem grand_distinct (F : Frame) :
     have hq : 3 * F.plus.q + 2 * F.minus.q = 3 * F.plus.q + 1 * F.minus.q := congrArg IPres.q h
     omega
 
-/-! ## At a sibling step, Axiom II.1 on the cores is `selPred` on the addresses -/
+/-! ## At a sibling step, Definition 8.1 on the cores is `selPred` on the addresses -/
 
 section sibling
 
@@ -122,7 +122,7 @@ theorem keep_RR (hsib : archive.filter (fun d => d.id ∈ active)
 
 /-- **The next active cores after a sibling step**, read off the next archive:
     the four grandchild cores, each kept exactly when its address passes
-    Construction Axiom II.1 on `grand F_y`. -/
+    Definition 8.1 on `grand F_y`. -/
 theorem sibling_next_cores (hnd : (archive.map Core.id).Nodup)
     (hwf : ∀ d ∈ archive, d.WellFormed)
     (hfresh : ∀ q ∈ proposals archive active, (childCore q.1 q.2 s p).id ∉ archIds archive)
@@ -384,7 +384,7 @@ theorem pair_admittedFam (hpair : archive.filter (fun d => d.id ∈ active) = [x
     List.filterMap_cons_some (addrOf_child_some s p y true)]
   rfl
 
-/-- Axiom II.1's filter on one child, with its address resolved. -/
+/-- Definition 8.1's filter on one child, with its address resolved. -/
 theorem keep_child (z : Core) (g : Bool) (props : List (Core × Bool)) :
     keepPred 1 s p props (childCore z g s p)
       = decide ((admittedFam 1 s p props).all (fun u =>

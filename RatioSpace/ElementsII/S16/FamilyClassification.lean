@@ -32,7 +32,7 @@ import RatioSpace.ElementsII.S16.RootChain
   **How.** One lemma, `tEnd_offset`, is the book's sentence: if the contrast is
   `N : N + k` then `t = ⌊N/k⌋ + cs (N mod k) k`, where `cs r k` is the
   Euclidean-quotient sum of `r:k` (RootChain's `sum_mulR`: a quotient `m` costs
-  `m`). Residues pin `cs` to a constant, `omega` does the rest. The score
+  `m`). Residues pin `cs` to a constant, `omega` does the rest. The coherence value
   comparisons are three `ℤ[φ]` lemmas: two-deeper (Step 1's), one-and-two
   deeper, and equal-first-then-strict. No threshold is injected: the proof
   needs `n ≥ 2` for the elimination of `g₂, g₃` and does `n = 1` by hand,
@@ -46,7 +46,7 @@ import RatioSpace.ElementsII.S16.RootChain
   a sibling step (`sibling_step_RnL_*`, `sibling_step_LnR_*`); and, 2026-09-13
   23:30, the six `advanceCarrier` restatements of those sibling-step theorems
   (`advanceCarrier_active_RnL_*`, `advanceCarrier_active_LnR_*`). All on
-  `tEnd`, `coherenceOf` and Construction Axiom II.1's `support`. None uses
+  `tEnd`, `coherenceOf` and Definition 8.1's `support`. None uses
   `Classical.choice`.
 
   **Not built here.** The 527 non-generic frames of Step 2 outside these two
@@ -396,7 +396,7 @@ theorem d34_12_mod3_2 (n : ℕ) (h : n % 3 = 2) :
   rw [t34_mod3_2 n h, t12_mod3_2 n h]
   omega
 
-/-! ## Score comparisons on any frame, from tension inequalities -/
+/-! ## Coherence comparisons on any frame, from tension inequalities -/
 
 /-- `φ⁻ᶜ + φ⁻ᵈ < φ⁻ᵃ + φ⁻ᵇ` once `d ≥ b + 1` and `c ≥ b + 2`:
     `φ⁻⁽ᵇ⁺²⁾ + φ⁻⁽ᵇ⁺¹⁾ = φ⁻ᵇ`. -/
@@ -408,7 +408,7 @@ theorem sum_lt_of_one_two {a b c d : ℕ} (hd : b + 1 ≤ d) (hc : b + 2 ≤ c) 
     _ < phiNegPow b + phiNegPow a := lt_add_of_pos_right _ (PhiPos.phiNegPow_pos a)
     _ = phiNegPow a + phiNegPow b := add_comm _ _
 
-section scores
+section coherences
 
 variable (F : Frame)
 
@@ -419,23 +419,23 @@ theorem lose_LR_RL (m13 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLL (F)) (gRL (
     coherenceOf (grand (F)) (gLR (F)) < coherenceOf (grand (F)) (gLL (F)) ∧
     coherenceOf (grand (F)) (gRL (F)) < coherenceOf (grand (F)) (gRR (F)) := by
   refine ⟨?_, ?_⟩
-  · rw [score_LR, score_LL]
+  · rw [coherence_LR, coherence_LL]
     exact add_lt_add_right_zphi (sum_lt_of_two_deeper m23 m24)
-  · rw [score_RL, score_RR]
+  · rw [coherence_RL, coherence_RR]
     exact add_lt_add_right_zphi (sum_lt_of_two_deeper m13 m23)
 
 /-- `g₃` loses to `g₄` once `t₁₄ + 2 ≤ t₁₃, t₂₃`; `t₂₄` is not needed. -/
 theorem RL_lt_RR (m13 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLL (F)) (gRL (F)))
     (m23 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLR (F)) (gRL (F))) :
     coherenceOf (grand (F)) (gRL (F)) < coherenceOf (grand (F)) (gRR (F)) := by
-  rw [score_RL, score_RR]
+  rw [coherence_RL, coherence_RR]
   exact add_lt_add_right_zphi (sum_lt_of_two_deeper m13 m23)
 
 /-- `g₂` loses to `g₄` once `t₁₄ + 2 ≤ t₁₂, t₂₃`. -/
 theorem LR_lt_RR (m12 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLL (F)) (gLR (F)))
     (m23 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLR (F)) (gRL (F))) :
     coherenceOf (grand (F)) (gLR (F)) < coherenceOf (grand (F)) (gRR (F)) := by
-  rw [score_LR, score_RR]
+  rw [coherence_LR, coherence_RR]
   have h := add_lt_add_right_zphi (a := phiNegPow 0 + phiNegPow (tEnd (gLR (F)) (gRR (F))))
     (sum_lt_of_two_deeper (v := tEnd (gRL (F)) (gRR (F))) m12 m23)
   calc _ = (phiNegPow (tEnd (gLL (F)) (gLR (F))) + phiNegPow (tEnd (gLR (F)) (gRL (F))))
@@ -448,30 +448,30 @@ theorem LR_lt_RR (m12 : tEnd (gLL (F)) (gRR (F)) + 2 ≤ tEnd (gLL (F)) (gLR (F)
 theorem RR_lt_LL_of_deeper (h1 : tEnd (gLL (F)) (gRL (F)) + 1 ≤ tEnd (gLR (F)) (gRR (F)))
     (h2 : tEnd (gLL (F)) (gRL (F)) + 2 ≤ tEnd (gRL (F)) (gRR (F))) :
     coherenceOf (grand (F)) (gRR (F)) < coherenceOf (grand (F)) (gLL (F)) := by
-  rw [score_RR', score_LL']
+  rw [coherence_RR', coherence_LL']
   exact add_lt_add_right_zphi (sum_lt_of_one_two h1 h2)
 
 /-- The mirror: `t₁₃ ≥ t₂₄ + 1` and `t₁₂ ≥ t₂₄ + 2` give `C(g₁) < C(g₄)`. -/
 theorem LL_lt_RR_of_deeper (h1 : tEnd (gLR (F)) (gRR (F)) + 1 ≤ tEnd (gLL (F)) (gRL (F)))
     (h2 : tEnd (gLR (F)) (gRR (F)) + 2 ≤ tEnd (gLL (F)) (gLR (F))) :
     coherenceOf (grand (F)) (gLL (F)) < coherenceOf (grand (F)) (gRR (F)) := by
-  rw [score_RR', score_LL']
+  rw [coherence_RR', coherence_LL']
   exact add_lt_add_right_zphi (sum_lt_of_one_two h1 h2)
 
 /-- **Then the second.** `t₁₃ = t₂₄` and `t₁₂ < t₃₄` give `C(g₄) < C(g₁)`. -/
 theorem RR_lt_LL_of_eq (h1 : tEnd (gLL (F)) (gRL (F)) = tEnd (gLR (F)) (gRR (F)))
     (h2 : tEnd (gLL (F)) (gLR (F)) < tEnd (gRL (F)) (gRR (F))) :
     coherenceOf (grand (F)) (gRR (F)) < coherenceOf (grand (F)) (gLL (F)) := by
-  rw [score_RR', score_LL', h1]
+  rw [coherence_RR', coherence_LL', h1]
   exact add_lt_add_right_zphi (add_lt_add_right_zphi (phiNegPow_strict h2))
 
 /-- **Both differences vanish: an exact tie.** -/
 theorem LL_eq_RR (h1 : tEnd (gLL (F)) (gRL (F)) = tEnd (gLR (F)) (gRR (F)))
     (h2 : tEnd (gLL (F)) (gLR (F)) = tEnd (gRL (F)) (gRR (F))) :
     coherenceOf (grand (F)) (gLL (F)) = coherenceOf (grand (F)) (gRR (F)) := by
-  rw [score_RR', score_LL', h1, h2]
+  rw [coherence_RR', coherence_LL', h1, h2]
 
-/-! ## The three support shapes, on Construction Axiom II.1's `support` -/
+/-! ## The three support shapes, on Definition 8.1's `support` -/
 
 theorem support_LL_of (h2 : coherenceOf (grand (F)) (gLR (F)) < coherenceOf (grand (F)) (gLL (F)))
     (h3 : coherenceOf (grand (F)) (gRL (F)) < coherenceOf (grand (F)) (gLL (F))) (h4 :
@@ -536,9 +536,9 @@ theorem support_tie_of (h2 : coherenceOf (grand (F)) (gLR (F)) < coherenceOf (gr
     List.filter_cons_of_pos (p := selPred F) (top _ heq.symm)]
   rfl
 
-end scores
+end coherences
 
-/-! ## `RⁿL`: the score order, residue by residue -/
+/-! ## `RⁿL`: the coherence value order, residue by residue -/
 
 theorem order_mod7_0 (n : ℕ) (hn : 2 ≤ n) (h : n % 7 = 0) :
     coherenceOf (grand (Frn n)) (gLR (Frn n)) < coherenceOf (grand (Frn n)) (gLL (Frn n)) ∧
@@ -893,19 +893,19 @@ theorem tm34 (n : ℕ) : tEnd (gRL (Fm n)) (gRR (Fm n)) = tEnd (gLL (Frn n)) (gL
 
 theorem mC1 (n : ℕ) : coherenceOf (grand (Fm n)) (gLL (Fm n)) = coherenceOf (grand (Frn n)) (gRR
   (Frn n)) := by
-  rw [score_LL', score_RR', tm12, tm13, tm14]
+  rw [coherence_LL', coherence_RR', tm12, tm13, tm14]
 
 theorem mC2 (n : ℕ) : coherenceOf (grand (Fm n)) (gLR (Fm n)) = coherenceOf (grand (Frn n)) (gRL
   (Frn n)) := by
-  rw [score_LR, score_RL, tm23, tm24, tm12]; ring
+  rw [coherence_LR, coherence_RL, tm23, tm24, tm12]; ring
 
 theorem mC3 (n : ℕ) : coherenceOf (grand (Fm n)) (gRL (Fm n)) = coherenceOf (grand (Frn n)) (gLR
   (Frn n)) := by
-  rw [score_RL, score_LR, tm13, tm23, tm34]; ring
+  rw [coherence_RL, coherence_LR, tm13, tm23, tm34]; ring
 
 theorem mC4 (n : ℕ) : coherenceOf (grand (Fm n)) (gRR (Fm n)) = coherenceOf (grand (Frn n)) (gLL
   (Frn n)) := by
-  rw [score_RR', score_LL', tm34, tm24, tm14]
+  rw [coherence_RR', coherence_LL', tm34, tm24, tm14]
 
 theorem order_mirror_RR (n : ℕ) (hn : 1 ≤ n)
     (h : n % 21 = 0 ∨ n % 21 = 2 ∨ n % 21 = 5 ∨ n % 21 = 7 ∨ n % 21 = 9 ∨ n % 21 = 10 ∨ n % 21 =
@@ -1337,7 +1337,7 @@ theorem cert_RnL (n : ℕ) (h : n % 21 = 3) :
     tEnd_self, tEnd_self, tEnd_self, tEnd_self]
 
 /-- The certificate is an involution that fixes the tie: `σ` exchanges the two
-    retained occurrences, and they carry equal scores. -/
+    retained occurrences, and they carry equal coherence values. -/
 theorem cert_RnL_tie (n : ℕ) (h : n % 21 = 3) :
     (grand (Frn n)).reverse.reverse = grand (Frn n) ∧
       support (grand (Frn n)) = [gLL (Frn n), gRR (Frn n)] ∧

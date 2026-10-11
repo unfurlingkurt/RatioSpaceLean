@@ -142,7 +142,7 @@ def emptySeedCtx : SeedInitContext Unit Unit where
 /-! ## Statement 7 — the concrete seven-tick empty question -/
 
 /-- **Corollary 17.8, the concrete witness.** The seven-tick question of the
-    root seed, run under Construction Axiom II.1 with the predicate that admits
+    root seed, run under Definition 8.1 with the predicate that admits
     nothing (`gammaB []`), has terminal status `empty` at horizon 7. An instance
     of `gammaB_nil_report_empty` at the concrete context. -/
 theorem emptyQuestion_report_empty :

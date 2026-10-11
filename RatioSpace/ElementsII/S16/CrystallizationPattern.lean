@@ -9,12 +9,12 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   **Part (i) is the general half and it is the only part of 16.9 that is a
   theorem about every question rather than a finite verification.** It says
-  the axiom cannot discriminate below three admitted occurrences, so a lone
+  Definition 8.1 cannot discriminate below three admitted occurrences, so a lone
   seed's first advance always keeps both children, and a beat therefore
   exists at all: singleton, pair, singleton, pair, until something with three
   or more admitted children breaks step.
 
-  Elements I's Corollaries 8.11 and 8.12 already say this about `support`.
+  Elements II's Corollaries 8.11 and 8.12 already say this about `support`.
   What is new here is saying it about `axiomSelect` — the concrete rule
   Theorem 16.5 and Theorem 16.8 actually ran — because `axiomSelect` inlines
   the maximality test rather than calling `support`, and a fact proved of
@@ -23,7 +23,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   **What `axiomSelect` may still drop, and it is not coherence.** A core whose
   address does not resolve to an interior positive presentation is filtered
-  out before any score is compared. Below three admitted occurrences that is
+  out before any coherence value is compared. Below three admitted occurrences that is
   the *only* thing dropped, and the theorem says so in that form rather than
   claiming nothing is dropped at all.
 
@@ -61,10 +61,10 @@ namespace Beat
 
 open Mat2 Word Frame Pres RatioSpace RatioSpace.Zphi Advance Accumulation RootOrbit
 
-/-! ## Part (i) — the axiom cannot discriminate below three -/
+/-! ## Part (i) — Definition 8.1 cannot discriminate below three -/
 
 /-- Every address that resolves out of an admitted core is a member of the
-    family Construction Axiom II.1 compares against. -/
+    family Definition 8.1 compares against. -/
 theorem mem_admittedFam {MO : Mat2} {stratum : ℕ} {prov : Provenance}
     {props : List (Core × Bool)} {c : Core} {y : IPres}
     (hc : c ∈ admittedCores MO stratum prov props)
@@ -72,10 +72,10 @@ theorem mem_admittedFam {MO : Mat2} {stratum : ℕ} {prov : Provenance}
     y ∈ admittedFam MO stratum prov props :=
   List.mem_filterMap.mpr ⟨c, hc, hy⟩
 
-/-- **Corollary 8.11 and Corollary 8.12, as a statement about scores.** With
-    at most two members in the admitted family every member's score is
+/-- **Corollary 8.11 and Corollary 8.12, as a statement about coherence values.** With
+    at most two members in the admitted family every member's coherence value is
     maximal, so no member can be rejected for failing to maximise. The
-    two-member case is Theorem 8.10's exact degeneracy (`pair_scores_equal`);
+    two-member case is Theorem 8.10's exact degeneracy (`pair_coherence_equal`);
     the one-member case is reflexivity. -/
 theorem all_maximal_of_le_two (fam : List IPres) (h : fam.length ≤ 2)
     (y : IPres) (hy : y ∈ fam) :
@@ -89,7 +89,7 @@ theorem all_maximal_of_le_two (fam : List IPres) (h : fam.length ≤ 2)
       exact le_refl _
   | [u, v], _, hy =>
       intro z hz
-      have huv : coherenceOf [u, v] u = coherenceOf [u, v] v := pair_scores_equal u v
+      have huv : coherenceOf [u, v] u = coherenceOf [u, v] v := pair_coherence_equal u v
       simp only [List.mem_cons, List.not_mem_nil, or_false] at hy hz
       rcases hy with rfl | rfl <;> rcases hz with rfl | rfl
       exacts [le_refl _, le_of_eq huv.symm, le_of_eq huv, le_refl _]
@@ -156,7 +156,7 @@ theorem lone_seed_keeps_both {MO : Mat2} {stratum : ℕ} {prov : Provenance}
     than asserted.** The root question's tick-7 advance runs on a support of
     two occurrences, admits four children, and rejects two of them. So an
     advance from a support of at least two admitted occurrences *can*
-    discriminate, which is the clause's own word. The four scores are
+    discriminate, which is the clause's own word. The four coherence values are
     Proposition 16.6's certificates. -/
 theorem discrimination_needs_three :
     (admittedFam MOeps 7 seed164Prov props6eps).length = 4 ∧

@@ -36,13 +36,13 @@ import RatioSpace.ElementsII.S15.Accumulation
   `γ_∂`) gates these running ticks in this tree, and `preds := []` makes
   predicate composition vacuous. So `axiomSelect` below applies only the two
   checks that remain live: `Neg(Q_{O,y}) = 0` (direct-positive chart) and
-  Construction Axiom II.1's `support` filter (`Coherence.lean`). Every one of
+  Definition 8.1's `support` filter (`Coherence.lean`). Every one of
   the three traces below reproduces the book's table exactly under that
   reading alone, with no proposal ever failing the direct-positive test — so
   the coherence filter is doing every rejection the table shows, exactly as
   the book's own proof of Theorem 16.5 reads it: *"form both child proposals
-  of every active occurrence, retain all of them, and apply Construction
-  Axiom II.1 to the complete admitted family."* Had a cavity bound genuinely
+  of every active occurrence, retain all of them, and apply Definition
+  8.1 to the complete admitted family."* Had a cavity bound genuinely
   gated these ticks, the traces below would have diverged from the table
   instead of matching it tick for tick; they do not, so this reading is
   confirmed rather than merely convenient.
@@ -58,8 +58,8 @@ open Mat2 Word Frame Pres RatioSpace RatioSpace.Zphi Advance Accumulation
 
 /-- The direct-positive-admitted children of one tick's proposals, before the
     coherence filter — exposed on its own so the exact-tie certificates
-    (Theorem 16.5's proof, Proposition 16.6) can name the family Construction
-    Axiom II.1 actually chooses among, rather than re-deriving it. -/
+    (Theorem 16.5's proof, Proposition 16.6) can name the family Definition
+    8.1 actually chooses among, rather than re-deriving it. -/
 def admittedCores (MO : Mat2) (stratum : ℕ) (prov : Provenance)
     (props : List (Core × Bool)) : List Core :=
   (props.map (fun p => childCore p.1 p.2 stratum prov)).filter
@@ -70,13 +70,13 @@ def admittedCores (MO : Mat2) (stratum : ℕ) (prov : Provenance)
 def addrOf (MO : Mat2) (c : Core) : Option IPres :=
   (lambda MO c.fullMatrix).bind IPres.ofPres?
 
-/-- **The admitted family Construction Axiom II.1's `ArgMax` runs over** —
+/-- **The admitted family Definition 8.1's `ArgMax` runs over** —
     `admittedCores`, addressed. -/
 def admittedFam (MO : Mat2) (stratum : ℕ) (prov : Provenance)
     (props : List (Core × Bool)) : List IPres :=
   (admittedCores MO stratum prov props).filterMap (addrOf MO)
 
-/-- **Construction Axiom II.1, made concrete for one tick.** Every proposal is
+/-- **Definition 8.1, made concrete for one tick.** Every proposal is
     built to a child `Core`; the direct-positive chart test (`Neg(Q_{O,y}) =
     0`) admits or rejects it; `support` (`Coherence.lean`) keeps the complete
     coherence-maximal subset of whatever survives. No cavity-boundary term:
@@ -440,20 +440,20 @@ theorem theorem_16_5_polarized_R :
 /-! ## Theorem 16.5's proof, the exact-tie certificates
 
     The book's own proof of Theorem 16.5 names two four-member admitted
-    families where Construction Axiom II.1 retains a tied pair whole rather
+    families where Definition 8.1 retains a tied pair whole rather
     than picking a strict maximizer: the advance `1→2` and the advance `4→5`
     of `𝒬_L` (and, by side-exchange covariance, `𝒬_R`). Each pair shares a
     tension histogram — the book is explicit that they do **not** share the
     keyed Definition 7.4 signature underneath it, only its unordered sum —
     and Theorem 8.5's `c0`/`c1` certificate (`Coherence.lean`) makes the
-    common score exact rather than merely decidable-equal. All four values
-    below check against the book's own displayed histograms and scores
+    common coherence value exact rather than merely decidable-equal. All four values
+    below check against the book's own displayed histograms and coherence values
     (`RatioSpace_Elements_II_v0.22`, Theorem 16.5's proof paragraph). -/
 
 /-- **The advance `1→2` of `𝒬_L`.** Admitted family `[LLL, LLR, LRL, LRR]`
     (`admittedFam` in that order). `LLL`/`LRL` (indices 0, 2) share histogram
-    `{0,2,4,5}` and score `φ`; `LLR`/`LRR` (indices 1, 3) share `{0,2,4,8}`
-    and score `42 - 25φ`. The first pair is coherence-maximal, which is why
+    `{0,2,4,5}` and coherence value `φ`; `LLR`/`LRR` (indices 1, 3) share `{0,2,4,8}`
+    and coherence value `42 - 25φ`. The first pair is coherence-maximal, which is why
     `theorem_16_5_polarized_L` already gives `S_2(𝒬_L) = {LLL, LRL}`. -/
 theorem tie_1_2_L :
     (admittedFam MOL 2 seed164Prov props1L).map
@@ -466,8 +466,8 @@ theorem tie_1_2_L :
 
 /-- **The advance `4→5` of `𝒬_L`.** Admitted family
     `[LLLRLL, LLLRLR, LLLRRL, LLLRRR]`. `LLLRLL`/`LLLRRR` (indices 0, 3)
-    share histogram `{0,8,14,24}` and score `75670 - 46766φ`; `LLLRLR`/
-    `LLLRRL` (indices 1, 2) share `{0,14,17,24}` and score
+    share histogram `{0,8,14,24}` and coherence value `75670 - 46766φ`; `LLLRLR`/
+    `LLLRRL` (indices 1, 2) share `{0,14,17,24}` and coherence value
     `73052 - 45148φ`. The first pair is coherence-maximal, matching
     `theorem_16_5_polarized_L`'s `S_5(𝒬_L) = {LLLRLL, LLLRRR}`. -/
 theorem tie_4_5_L :
@@ -483,14 +483,14 @@ theorem tie_4_5_L :
 
     Theorem 16.5's own text: the two polarized questions terminate
     unresolved-multiple, `{LLLRRRRL, LLLRRRRR}` and its side mirror, "whose
-    two members have the common score `1 + φ⁻⁵⁷`." Tick 7's admitted family
+    two members have the common coherence value `1 + φ⁻⁵⁷`." Tick 7's admitted family
     is a genuine two-candidate case — Theorem 8.10's free retention, not
     Theorem 8.5's tie-break — and needs no trace beyond what
     `theorem_16_5_polarized_L`/`_R` already build: `XL6`/`XR6` are each an
     occurrence singleton, so `props6L`/`props6R` propose exactly the two
     children `coherenceOf_pair` reads directly. -/
 
-/-- **The terminal score of `𝒬_L`'s tick-7 pair is exactly `1 + φ⁻⁵⁷`.**
+/-- **The terminal coherence value of `𝒬_L`'s tick-7 pair is exactly `1 + φ⁻⁵⁷`.**
     `phiNegPow 57`'s own certificate (`golden_negative_power`) gives
     `⟨1 - Fib 58, Fib 57⟩ = ⟨-591286729878, 365435296162⟩`, which is what
     `decide` finds both members of the admitted family scoring. -/
@@ -518,7 +518,7 @@ theorem terminal_tie_R :
 
     The polarized rows are already certified above: `terminal_tie_L`/
     `terminal_tie_R` give exactly the book's `\{0,57\}` histogram and
-    `1 + φ⁻⁵⁷` score for both tables' two tied-selected occurrences. The root
+    `1 + φ⁻⁵⁷` coherence value for both tables' two tied-selected occurrences. The root
     row is the one the book's own proof of Theorem 16.5 defers to Proposition
     16.6 rather than settling inline — *"the exact comparison confirms which
     pair"* — because it is a genuine four-member family with two rejected
@@ -547,7 +547,7 @@ theorem prop_16_6_root :
        ⟨3524901, -2178508⟩, ⟨3522228, -2176856⟩] := by
   refine ⟨by decide, by decide, by decide⟩
 
-/-- **The root's selected score strictly exceeds its rejected score.** The
+/-- **The root's selected coherence value strictly exceeds its rejected coherence value.** The
     book states the same fact as `2673 - 1652φ > 0` (the difference of the two
     values above) and certifies its sign through Lemma 8.6's `(s, b)` pair,
     `s = 2(2673) - 1652 = 3694`, `s² - 5(1652)² = 116 > 0`. `decidableLT`
@@ -578,7 +578,7 @@ theorem prop_16_6_root_selected_gt_rejected :
     and coherence tests ever see it — the same "declared predicate gates a
     proposal before comparison" shape Definition 11.3's `Pred_Γ` names, made
     concrete for this one construction the way `axiomSelect` already made
-    Construction Axiom II.1 concrete. -/
+    Definition 8.1 concrete. -/
 def admittedCoresSide (MO : Mat2) (stratum : ℕ) (prov : Provenance)
     (reject : ℕ → Bool → Bool) (props : List (Core × Bool)) : List Core :=
   ((props.filter (fun p => !reject stratum p.2)).map
@@ -590,7 +590,7 @@ def admittedFamSide (MO : Mat2) (stratum : ℕ) (prov : Provenance)
     (reject : ℕ → Bool → Bool) (props : List (Core × Bool)) : List IPres :=
   (admittedCoresSide MO stratum prov reject props).filterMap (addrOf MO)
 
-/-- **Construction Axiom II.1, made concrete for one tick under Definition
+/-- **Definition 8.1, made concrete for one tick under Definition
     16.7's extra predicate.** Identical to `axiomSelect` past the point
     `admittedCoresSide` has already removed the rejected hand. -/
 def axiomSelectSide (MO : Mat2) (stratum : ℕ) (prov : Provenance)

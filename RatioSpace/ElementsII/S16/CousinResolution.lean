@@ -35,8 +35,8 @@ import RatioSpace.ElementsII.S16.RootChainState
   `sum_lt_of_near_deep` (`φ⁻⁽ᵘ⁺¹⁾ + φ⁻⁽ᵘ⁺³⁾ < φ⁻ᵘ`). The theorem holds from
   `m = 0`; Step 2 only needs `m ≥ 1`.
 
-  **Built:** the six closed forms; `step3_cousin_support` on Construction
-  Axiom II.1's `support`; `addr_a`..`addr_d` through `r`; the concrete steps
+  **Built:** the six closed forms; `step3_cousin_support` on Definition
+  8.1's `support`; `addr_a`..`addr_d` through `r`; the concrete steps
   `{LLL,LRL} → {LLLR}` and `{RLR,RRR} → {RRRL}` cited from
   `RootOrbit.theorem_16_5_polarized_L/_R`; the mirror family by
   `tEnd_side_invariant` (`step3_mirror_support`, `maddr_*`); the carrier
@@ -211,33 +211,33 @@ theorem t_bd (m : ℕ) : tEnd (cb m) (cd m) = 245 * (m / 6) + bdOff (m % 6) := b
   rw [show (6 * j + i) / 6 = j by omega, show (6 * j + i) % 6 = i by omega]
   exact t_bd_six j i hi
 
-/-! ## Scores of any four -/
+/-! ## Coherence values of any four -/
 
 section four
 
 variable (w x y z : IPres)
 
-theorem score_w : coherenceOf [w, x, y, z] w =
+theorem coherence_w : coherenceOf [w, x, y, z] w =
     1 + phiNegPow (tEnd w x) + phiNegPow (tEnd w y) + phiNegPow (tEnd w z) := by
   simp only [coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   ring
 
-theorem score_x : coherenceOf [w, x, y, z] x =
+theorem coherence_x : coherenceOf [w, x, y, z] x =
     phiNegPow (tEnd w x) + 1 + phiNegPow (tEnd x y) + phiNegPow (tEnd x z) := by
   simp only [coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   rw [tEnd_comm x w]
   ring
 
-theorem score_y : coherenceOf [w, x, y, z] y =
+theorem coherence_y : coherenceOf [w, x, y, z] y =
     phiNegPow (tEnd w y) + phiNegPow (tEnd x y) + 1 + phiNegPow (tEnd y z) := by
   simp only [coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   rw [tEnd_comm y w, tEnd_comm y x]
   ring
 
-theorem score_z : coherenceOf [w, x, y, z] z =
+theorem coherence_z : coherenceOf [w, x, y, z] z =
     phiNegPow (tEnd w z) + phiNegPow (tEnd x z) + phiNegPow (tEnd y z) + 1 := by
   simp only [coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
@@ -250,10 +250,10 @@ theorem lt_x_w
     coherenceOf [w, x, y, z] x < coherenceOf [w, x, y, z] w := by
   have e1 : coherenceOf [w, x, y, z] x
       = (phiNegPow (tEnd x y) + phiNegPow (tEnd x z)) + (1 + phiNegPow (tEnd w x)) := by
-    rw [score_x]; ring
+    rw [coherence_x]; ring
   have e2 : coherenceOf [w, x, y, z] w
       = (phiNegPow (tEnd w z) + phiNegPow (tEnd w y)) + (1 + phiNegPow (tEnd w x)) := by
-    rw [score_w]; ring
+    rw [coherence_w]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
 theorem lt_y_w
@@ -262,10 +262,10 @@ theorem lt_y_w
     coherenceOf [w, x, y, z] y < coherenceOf [w, x, y, z] w := by
   have e1 : coherenceOf [w, x, y, z] y
       = (phiNegPow (tEnd x y) + phiNegPow (tEnd y z)) + (1 + phiNegPow (tEnd w y)) := by
-    rw [score_y]; ring
+    rw [coherence_y]; ring
   have e2 : coherenceOf [w, x, y, z] w
       = (phiNegPow (tEnd w z) + phiNegPow (tEnd w x)) + (1 + phiNegPow (tEnd w y)) := by
-    rw [score_w]; ring
+    rw [coherence_w]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
 theorem lt_z_w
@@ -274,10 +274,10 @@ theorem lt_z_w
     coherenceOf [w, x, y, z] z < coherenceOf [w, x, y, z] w := by
   have e1 : coherenceOf [w, x, y, z] z
       = (phiNegPow (tEnd x z) + phiNegPow (tEnd y z)) + (1 + phiNegPow (tEnd w z)) := by
-    rw [score_z]; ring
+    rw [coherence_z]; ring
   have e2 : coherenceOf [w, x, y, z] w
       = (phiNegPow (tEnd w y) + phiNegPow (tEnd w x)) + (1 + phiNegPow (tEnd w z)) := by
-    rw [score_w]; ring
+    rw [coherence_w]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
 theorem lt_w_z
@@ -286,10 +286,10 @@ theorem lt_w_z
     coherenceOf [w, x, y, z] w < coherenceOf [w, x, y, z] z := by
   have e1 : coherenceOf [w, x, y, z] w
       = (phiNegPow (tEnd w y) + phiNegPow (tEnd w x)) + (1 + phiNegPow (tEnd w z)) := by
-    rw [score_w]; ring
+    rw [coherence_w]; ring
   have e2 : coherenceOf [w, x, y, z] z
       = (phiNegPow (tEnd x z) + phiNegPow (tEnd y z)) + (1 + phiNegPow (tEnd w z)) := by
-    rw [score_z]; ring
+    rw [coherence_z]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
 theorem lt_x_z
@@ -298,10 +298,10 @@ theorem lt_x_z
     coherenceOf [w, x, y, z] x < coherenceOf [w, x, y, z] z := by
   have e1 : coherenceOf [w, x, y, z] x
       = (phiNegPow (tEnd w x) + phiNegPow (tEnd x y)) + (1 + phiNegPow (tEnd x z)) := by
-    rw [score_x]; ring
+    rw [coherence_x]; ring
   have e2 : coherenceOf [w, x, y, z] z
       = (phiNegPow (tEnd w z) + phiNegPow (tEnd y z)) + (1 + phiNegPow (tEnd x z)) := by
-    rw [score_z]; ring
+    rw [coherence_z]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
 theorem lt_y_z
@@ -310,13 +310,13 @@ theorem lt_y_z
     coherenceOf [w, x, y, z] y < coherenceOf [w, x, y, z] z := by
   have e1 : coherenceOf [w, x, y, z] y
       = (phiNegPow (tEnd w y) + phiNegPow (tEnd x y)) + (1 + phiNegPow (tEnd y z)) := by
-    rw [score_y]; ring
+    rw [coherence_y]; ring
   have e2 : coherenceOf [w, x, y, z] z
       = (phiNegPow (tEnd w z) + phiNegPow (tEnd x z)) + (1 + phiNegPow (tEnd y z)) := by
-    rw [score_z]; ring
+    rw [coherence_z]; ring
   rw [e1, e2]; exact add_lt_add_right_zphi h
 
-/-- Construction Axiom II.1's filter predicate on a four-member family. -/
+/-- Definition 8.1's filter predicate on a four-member family. -/
 def sel4 (v : IPres) : Bool :=
   [w, x, y, z].all (fun u => decide (coherenceOf [w, x, y, z] u ≤ coherenceOf [w, x, y, z] v))
 
@@ -461,7 +461,7 @@ theorem support4_of_sel (w x y z : IPres) (m : ℕ)
       Bool.false_eq_true, if_true, if_false, cond_true]
 
 /-- **Theorem 16.11, Step 3, for every `m`.** From the cousin pair
-    `{RⁿLLL, RⁿLRR}` with `n = 21m + 3`, Construction Axiom II.1's support over
+    `{RⁿLLL, RⁿLRR}` with `n = 21m + 3`, Definition 8.1's support over
     the four children is the singleton `[RⁿLRRR]` when `m ≡ 1, 5 (mod 6)` and
     `[RⁿLLLL]` otherwise. -/
 theorem step3_cousin_support (m : ℕ) : support (fam m) = [winner m] :=
@@ -722,7 +722,7 @@ theorem advanceCarrier_active_cousin {Aux : Type} {h : ℕ} (X : TickCarrier Aux
 
 The retained pair from `LⁿR` at `n ≡ 3 (mod 21)` is `[LⁿRLL, LⁿRRR]`
 (`Step2Family.sibling_step_LnR_tie`), so the carrier proposes the children in
-the order `LⁿRLLL, LⁿRLLR, LⁿRRRL, LⁿRRRR`: `mfam` reversed. The score is a sum
+the order `LⁿRLLL, LⁿRLLR, LⁿRRRL, LⁿRRRR`: `mfam` reversed. The coherence value is a sum
 over the family (`coherenceOf_perm`, Theorem 8.9), so the decision is
 `step3_mirror_support`'s, read in the other order. -/
 
@@ -732,7 +732,7 @@ def mfamC (m : ℕ) : List IPres := [Inv (cd m), Inv (cc m), Inv (cb m), Inv (ca
 theorem mfamC_perm (m : ℕ) : (mfamC m).Perm (mfam m) :=
   show (mfam m).reverse.Perm (mfam m) from List.reverse_perm _
 
-/-- Construction Axiom II.1's predicate on the carrier-order family is `sel4` on `mfam`. -/
+/-- Definition 8.1's predicate on the carrier-order family is `sel4` on `mfam`. -/
 theorem mselC (m : ℕ) (v : IPres) :
     (mfamC m).all (fun z => decide (coherenceOf (mfamC m) z ≤ coherenceOf (mfamC m) v))
       = sel4 (Inv (ca m)) (Inv (cb m)) (Inv (cc m)) (Inv (cd m)) v := by

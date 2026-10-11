@@ -30,7 +30,7 @@ import RatioSpace.ElementsII.S14.Conservation
     the singleton status, from a tick-zero hypothesis.
   * `piR_is_not_the_record`: two committed candidate records with one relation
     `π_r` and different identifiers, for every seed history.
-  * `score_is_not_the_record`: two occurrences with one coherence score
+  * `coherence_is_not_the_record`: two occurrences with one coherence value
     `C^{(O)}` and different identifiers, at every singleton whose two children
     are admitted (Corollary 8.11's family).
   * `closure_is_not_the_record`: the closure-class witness restated at the
@@ -147,9 +147,9 @@ theorem piR_is_not_the_record {RawAux EvalAux : Type} {h : ℕ} (X : TickCarrier
 
 /-- **Not `C^{(O)}(x*)`.** At every singleton support whose two children are
     admitted and addressed, at any observer, the two children carry the same
-    coherence score in the admitted family they are compared in, and they are
-    different occurrences. The score does not name the occurrence. -/
-theorem score_is_not_the_record {MO : Mat2} {stratum : ℕ} {prov : Provenance}
+    coherence value in the admitted family they are compared in, and they are
+    different occurrences. The coherence value does not name the occurrence. -/
+theorem coherence_is_not_the_record {MO : Mat2} {stratum : ℕ} {prov : Provenance}
     {archive : List Core} {active : List QuestionId} {c : Core} (hc : c.WellFormed)
     (hone : archive.filter (fun d => d.id ∈ active) = [c])
     (hadm : ∀ b : Bool, negLoad (Q MO (childCore c b stratum prov).fullMatrix) = 0)
@@ -162,7 +162,7 @@ theorem score_is_not_the_record {MO : Mat2} {stratum : ℕ} {prov : Provenance}
   obtain ⟨_, hfam, _, _⟩ := lone_seed_keeps_both hone hadm hF hT
   refine ⟨?_, ?_⟩
   · rw [hfam]
-    exact pair_scores_equal yF yT
+    exact pair_coherence_equal yF yT
   · intro hid
     rw [childCore_id c hc, childCore_id c hc] at hid
     exact absurd (child_id_inj hid).2 (by decide)
@@ -180,7 +180,7 @@ theorem closure_is_not_the_record (id0 : QuestionId) (seed : History) :
 #print axioms snap_some_one_identifier
 #print axioms snap_isSome_iff_singleton_of_carrierInv
 #print axioms piR_is_not_the_record
-#print axioms score_is_not_the_record
+#print axioms coherence_is_not_the_record
 #print axioms closure_is_not_the_record
 
 end G2_16

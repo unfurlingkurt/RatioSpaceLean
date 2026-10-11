@@ -13,7 +13,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   and `axiomSelect` as `Two/RootOrbit.lean`.** For each instance the file
   decides the next support's words (in the kernel's list order, read off the
   run before being stated), the admitted family's addresses, its full tension
-  matrix, every member's exact `Zphi` score, the sorted tension histograms,
+  matrix, every member's exact `Zphi` coherence value, the sorted tension histograms,
   and the strict comparisons against every rejected member.
 
   **The multi-seed form used.** The tree has no multi-seed constructor:
@@ -102,7 +102,7 @@ def fam1 : List IPres := admittedFam MO1 1 seed164Prov props1
 
 /-- **Proposition 16.13, instance 1.** The next support has four members,
     both sibling pairs: `LLRRLLL, LLRRLLR, LRRLLLL, LRRLLLR`. All four
-    tension rows have histogram `{0,13,26,87}` and all four score exactly
+    tension rows have histogram `{0,13,26,87}` and all four coherence value exactly
     `-1100087778365905889 + 679891637638491098φ`. -/
 theorem prop_16_13_i :
     activeWords X1' =
@@ -137,7 +137,7 @@ def fam2 : List IPres := admittedFam MO2 1 seed164Prov props2
 /-- **Proposition 16.13, instance 2.** The next support is the cross pair,
     in kernel order `[LRLL, LLLLRL]` (the book writes `{LLLLRL, LRLL}`), one
     child from each seed. The selected pair shares histogram `{0,4,13,13}`
-    and score `-748 + 463φ`; the rejected pair `LRLR, LLLLRR` shares
+    and coherence value `-748 + 463φ`; the rejected pair `LRLR, LLLLRR` shares
     `{0,9,13,13}` and `-808 + 500φ`. -/
 theorem prop_16_13_ii :
     activeWords X2' = [[false, true, false, false], [false, false, false, false, true, false]] ∧
@@ -151,7 +151,7 @@ theorem prop_16_13_ii :
     (support fam2).map (fun y => (y.p, y.q)) = [(4, 7), (3, 14)] := by
   refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
 
-/-- Instance 2's selected score strictly exceeds its rejected score. -/
+/-- Instance 2's selected coherence value strictly exceeds its rejected coherence value. -/
 theorem prop_16_13_ii_strict : (⟨-808, 500⟩ : Zphi) < (⟨-748, 463⟩ : Zphi) := by decide
 
 /-! ## Instance 3 — `{L, LL, LLL}`: three occurrences at `-1 + 2φ` -/
@@ -173,7 +173,7 @@ def fam3 : List IPres := admittedFam MO3 1 seed164Prov props3
     family `[LL, LR, LLL, LLR, LLLL, LLLR]` (children of `L`, then `LL`, then
     `LLL`). The next support, in kernel order, is `[LL, LR, LLR]` (the book
     writes `{LL, LLR, LR}`), with histograms `{0,1,3,3,5,6}`,
-    `{0,1,3,4,4,5}`, `{0,1,3,4,4,5}` and common score `-1 + 2φ`. -/
+    `{0,1,3,4,4,5}`, `{0,1,3,4,4,5}` and common coherence value `-1 + 2φ`. -/
 theorem prop_16_13_iii :
     activeWords X3' = [[false, false], [false, true], [false, false, true]] ∧
     fam3.map (fun y => (y.p, y.q)) = [(1, 3), (2, 3), (1, 4), (2, 5), (1, 5), (2, 7)] ∧
@@ -188,7 +188,7 @@ theorem prop_16_13_iii :
     (support fam3).map (fun y => (y.p, y.q)) = [(1, 3), (2, 3), (2, 5)] := by
   refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
 
-/-- Instance 3: `-1 + 2φ` strictly exceeds each of the three rejected scores. -/
+/-- Instance 3: `-1 + 2φ` strictly exceeds each of the three rejected coherence values. -/
 theorem prop_16_13_iii_strict :
     (⟨-8, 6⟩ : Zphi) < (⟨-1, 2⟩ : Zphi) ∧ (⟨-14, 10⟩ : Zphi) < (⟨-1, 2⟩ : Zphi) ∧
     (⟨-5, 4⟩ : Zphi) < (⟨-1, 2⟩ : Zphi) := by
@@ -212,7 +212,7 @@ def fam4 : List IPres := admittedFam MO4 1 seed164Prov props4
 /-- **Proposition 16.13, instance 4, exactly the book's values.** Admitted
     family `[LL, LR, LLRL, LLRR]`. The next support is the sibling pair
     `[LL, LR]`, whose histograms `{0,1,5,8}` and `{0,1,6,6}` differ and whose
-    scores are both exactly `26 - 15φ`: the `{p,p}` against `{p-1,p+2}`
+    coherence values are both exactly `26 - 15φ`: the `{p,p}` against `{p-1,p+2}`
     collision with `p = 6` (Lemma 16.14's Bergman–Parry clause), since the
     shared terms `0, 1` cancel. -/
 theorem prop_16_13_iv :
@@ -227,7 +227,7 @@ theorem prop_16_13_iv :
     (support fam4).map (fun y => (y.p, y.q)) = [(1, 3), (2, 3)] := by
   refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
 
-/-- Instance 4: `26 - 15φ` strictly exceeds both rejected scores. -/
+/-- Instance 4: `26 - 15φ` strictly exceeds both rejected coherence values. -/
 theorem prop_16_13_iv_strict :
     (⟨27, -16⟩ : Zphi) < (⟨26, -15⟩ : Zphi) ∧ (⟨-15, 10⟩ : Zphi) < (⟨26, -15⟩ : Zphi) := by
   refine ⟨by decide, by decide⟩

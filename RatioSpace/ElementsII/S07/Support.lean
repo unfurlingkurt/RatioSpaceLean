@@ -245,7 +245,7 @@ def tensionSignature (fam : List IPres) (y : IPres) : List (IPres × ℕ) :=
   fam.map (fun z => (z, tEnd y z))
 
 /-- The retained auxiliary signature `𝐋_CF`, continued-fraction block structure
-    per key. Explicitly *not* an input to Construction Axiom II.1. -/
+    per key. Explicitly *not* an input to Definition 8.1. -/
 def cfSignature (fam : List IPres) (y : IPres) : List (IPres × ℕ) :=
   fam.map (fun z => (z, lCF (Pres.reduce (IPres.toPres (contrast y z)))))
 
@@ -428,8 +428,8 @@ theorem lambda_prefix_invariant (u : Word) (MO Mx : Mat2) :
   prefix_covariance (fun M => (dec M).map r) u MO Mx
 
 /-- Contrast, depth, star and signature therefore transport with the keys and
-    nothing else changes. Stated for the depth, which is the one Construction
-    Axiom II.1 reads. -/
+    nothing else changes. Stated for the depth, which is the one Definition
+    8.1 reads. -/
 theorem operands_prefix_invariant (u : Word) (MO My Mz : Mat2) :
     (lambda (Z u MO) (Z u My), lambda (Z u MO) (Z u Mz))
       = (lambda MO My, lambda MO Mz) := by

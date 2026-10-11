@@ -18,7 +18,7 @@ import RatioSpace.ElementsII.S16.Capture
   lemma for `wordStep`. Here it is. At observer `ε` a run's active words after
   tick `j` are `wIter` of its words at `j` (`act_words_shift`), and `wordStep`
   commutes with the exchange up to storage order, because the exchange inverts
-  every `ε`-address (`rI_mirror`) and the score is invariant under a complete
+  every `ε`-address (`rI_mirror`) and the coherence value is invariant under a complete
   side exchange (`coherenceOf_side_invariant`, from Theorem 7.8's tension
   invariance). Neither the
   archive nor a policy hypothesis enters: on a rooted run at `ε` the words at
@@ -158,7 +158,7 @@ variable {A0 : List Core} {S0 : List QuestionId} {st : ℕ → ℕ} {pv : ℕ �
     invariance implies this word-level one. The conclusion's invariance is
     likewise on words; the no-singleton clause is on occurrences (`act`'s
     length). No archive hypothesis and no policy hypothesis: the run is
-    `act`, Construction Axiom II.1 at `ε`, and the stated hypotheses are
+    `act`, Definition 8.1 at `ε`, and the stated hypotheses are
     those of items 1 and 2 (a rooted start, well-formed with distinct
     identifiers). -/
 theorem theorem_16_12_item3

@@ -8,7 +8,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   Elements II §15, Definition 15.1's schedule, built from the book's own
   selection rule.
 
-  Construction Axiom II.1: form both child proposals of every active
+  Definition 8.1: form both child proposals of every active
   occurrence, admit on the direct-positive chart, and keep the complete set of
   exact coherence maximizers. `RootOrbit.axiomSelect` is that rule for one
   tick, in the regime of Definition 16.4 and Theorem 16.11: direct-positive
@@ -58,7 +58,7 @@ theorem axiomSelect_sublist (MO : Mat2) (stratum : ℕ) (prov : Provenance)
   rw [e]
   exact (List.filter_sublist.trans List.filter_sublist).map Core.id
 
-/-- **Construction Axiom II.1 as a schedule**, under direct-positive admission
+/-- **Definition 8.1 as a schedule**, under direct-positive admission
     with no cavity-boundary term (the regime of Definition 16.4 and Theorem
     16.11), at any question type and horizon, with every child stamped with
     provenance `prov`. Provenance enters no comparison. -/
@@ -79,8 +79,8 @@ def axiomPolicyAt (Aux : Type) (h : ℕ) (prov : Provenance) : Policy Aux h := f
       (proposals_childCore_id_nodup hX.1.1 hX.1.2.1 _ prov).sublist
         (axiomSelect_sublist _ _ _ _) }
 
-/-- **The book's schedule for Definition 16.4's questions**: Construction Axiom
-    II.1 at the seven-tick horizon, children stamped with the seed's own
+/-- **The book's schedule for Definition 16.4's questions**: Definition 8.1
+     at the seven-tick horizon, children stamped with the seed's own
     provenance, as in `RootOrbit.lean`. -/
 def axiomPolicy : Policy Unit hQ := axiomPolicyAt Unit hQ seed164Prov
 

@@ -15,7 +15,7 @@ import RatioSpace.ElementsII.S16.PrecaptureClassification
   `Capture.lean` built the one-occurrence form of that sentence and named the
   missing piece: a function for "the tick-`i` support of the lone-seed question
   with seed `x`". It is `wIter i [x]`, where `wordStep` is one tick of
-  Construction Axiom II.1 at `ε` read entirely off words. `nextCores_words`
+  Definition 8.1 at `ε` read entirely off words. `nextCores_words`
   proves the tick map on cores and `wordStep` on words agree, so any run's
   active words are `wIter` of its words at any earlier tick. Items 1 and 2
   follow.
@@ -51,13 +51,13 @@ theorem filter_map_comm {α β : Type} (f : α → β) (P : α → Bool) (Q : β
 /-- The children's words of a list of words, in proposal order. -/
 def childWords (ws : List Word) : List Word := ws.flatMap (fun w => [w ++ [false], w ++ [true]])
 
-/-- Construction Axiom II.1's filter at `ε`, on a child word, against the
+/-- Definition 8.1's filter at `ε`, on a child word, against the
     children of `ws`. -/
 def keepW (ws : List Word) (w : Word) : Bool :=
   decide (((childWords ws).map rI).all (fun z =>
     coherenceOf ((childWords ws).map rI) z ≤ coherenceOf ((childWords ws).map rI) (rI w)))
 
-/-- **One tick on words.** Construction Axiom II.1 at `ε`, on the children of
+/-- **One tick on words.** Definition 8.1 at `ε`, on the children of
     the given words, read entirely off the words. -/
 def wordStep (ws : List Word) : List Word := (childWords ws).filter (keepW ws)
 
@@ -162,7 +162,7 @@ end run
 
 /-- A singleton's two children tie exactly, so `wordStep` keeps both. -/
 theorem wordStep_single (x : Word) : wordStep [x] = [x ++ [false], x ++ [true]] := by
-  have heq := pair_scores_equal (rI (x ++ [false])) (rI (x ++ [true]))
+  have heq := pair_coherence_equal (rI (x ++ [false])) (rI (x ++ [true]))
   have top : ∀ w, coherenceOf [rI (x ++ [false]), rI (x ++ [true])] (rI w)
       = coherenceOf [rI (x ++ [false]), rI (x ++ [true])] (rI (x ++ [false])) →
       decide ([rI (x ++ [false]), rI (x ++ [true])].all (fun z =>

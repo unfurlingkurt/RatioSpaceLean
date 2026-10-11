@@ -189,38 +189,38 @@ theorem t_bd (k : ℕ) : tEnd (rb k) (rd k) = tEnd (ra k) (rc k) := by
 theorem t_cd (k : ℕ) : tEnd (rc k) (rd k) = tEnd (ra k) (rb k) := by
   rw [← inv_rb, ← inv_ra, tEnd_side_invariant, tEnd_comm]
 
-/-! ## The four scores -/
+/-! ## The four coherence values -/
 
 open Zphi PhiPos Automorphism Beat11
 
 /-- The admitted family at a root-chain step, in the book's order `a, b, c, d`. -/
 def fam (k : ℕ) : List IPres := [ra k, rb k, rc k, rd k]
 
-/-- What every score shares: the self-term, `t(a,b)` and `t(a,c)`. -/
+/-- What every coherence value shares: the self-term, `t(a,b)` and `t(a,c)`. -/
 def shared (k : ℕ) : Zphi :=
   1 + phiNegPow (tEnd (ra k) (rb k)) + phiNegPow (tEnd (ra k) (rc k))
 
-theorem score_a (k : ℕ) :
+theorem coherence_a (k : ℕ) :
     coherenceOf (fam k) (ra k) = phiNegPow (tEnd (ra k) (rd k)) + shared k := by
   simp only [fam, shared, coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   ring
 
-theorem score_b (k : ℕ) :
+theorem coherence_b (k : ℕ) :
     coherenceOf (fam k) (rb k) = phiNegPow (tEnd (rb k) (rc k)) + shared k := by
   simp only [fam, shared, coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   rw [tEnd_comm (rb k) (ra k), t_bd]
   ring
 
-theorem score_c (k : ℕ) :
+theorem coherence_c (k : ℕ) :
     coherenceOf (fam k) (rc k) = phiNegPow (tEnd (rb k) (rc k)) + shared k := by
   simp only [fam, shared, coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
   rw [tEnd_comm (rc k) (ra k), tEnd_comm (rc k) (rb k), t_cd]
   ring
 
-theorem score_d (k : ℕ) :
+theorem coherence_d (k : ℕ) :
     coherenceOf (fam k) (rd k) = phiNegPow (tEnd (ra k) (rd k)) + shared k := by
   simp only [fam, shared, coherenceOf, tensions, coherence, List.map_cons, List.map_nil,
     List.sum_cons, List.sum_nil, self_term]
@@ -228,8 +228,8 @@ theorem score_d (k : ℕ) :
   ring
 
 /-- **`C(a) < C(b)`**: the shared terms cancel and `φ^{-t(a,d)} < φ^{-t(b,c)}`. -/
-theorem score_a_lt_b (k : ℕ) : coherenceOf (fam k) (ra k) < coherenceOf (fam k) (rb k) := by
-  rw [score_a, score_b]
+theorem coherence_a_lt_b (k : ℕ) : coherenceOf (fam k) (ra k) < coherenceOf (fam k) (rb k) := by
+  rw [coherence_a, coherence_b]
   exact add_lt_add_right_zphi (phiNegPow_strict (t_bc_lt_ad k))
 
 /-! ## Step 4: the maximizer set is exactly `{LR^{k+1}, RL^{k+1}}` -/
@@ -238,14 +238,14 @@ theorem mem_fam {k : ℕ} {z : IPres} (hz : z ∈ fam k) :
     z = ra k ∨ z = rb k ∨ z = rc k ∨ z = rd k := by
   simpa [fam] using hz
 
-/-- **Theorem 16.11, Step 4, for every `k`.** Construction Axiom II.1's support
+/-- **Theorem 16.11, Step 4, for every `k`.** Definition 8.1's support
     over the root chain's four proposals is `[LR^{k+1}, RL^{k+1}]`. -/
 theorem step4_support (k : ℕ) : support (fam k) = [rb k, rc k] := by
-  have hab := score_a_lt_b k
+  have hab := coherence_a_lt_b k
   have hbc : coherenceOf (fam k) (rb k) = coherenceOf (fam k) (rc k) := by
-    rw [score_b, score_c]
+    rw [coherence_b, coherence_c]
   have had : coherenceOf (fam k) (ra k) = coherenceOf (fam k) (rd k) := by
-    rw [score_a, score_d]
+    rw [coherence_a, coherence_d]
   have top : ∀ y, coherenceOf (fam k) y = coherenceOf (fam k) (rb k) →
       (fam k).all (fun z => decide (coherenceOf (fam k) z ≤ coherenceOf (fam k) y)) = true := by
     intro y hy

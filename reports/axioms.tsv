@@ -658,23 +658,23 @@ RatioSpace.Gaps.G2_07.causalRecordAcc_wField_eq_prefix	Quot.sound,propext
 RatioSpace.Gaps.G2_07.causalRecordAcc_wField_eq_sibling	Quot.sound,propext
 RatioSpace.Gaps.G2_07.childProposal_fullWord_snoc	Quot.sound,propext
 RatioSpace.Gaps.G2_07.rs_length	propext
-RatioSpace.Gaps.G2_08.CertifiedRecord	
-RatioSpace.Gaps.G2_08.CertifiedRecord.certified	
-RatioSpace.Gaps.G2_08.CertifiedRecord.ctorIdx	
-RatioSpace.Gaps.G2_08.CertifiedRecord.mk	
-RatioSpace.Gaps.G2_08.CertifiedRecord.phase	
-RatioSpace.Gaps.G2_08.CertifiedRecord.record	
+RatioSpace.Gaps.G2_08.CertifiedRecord	Quot.sound,propext
+RatioSpace.Gaps.G2_08.CertifiedRecord.certified	Quot.sound,propext
+RatioSpace.Gaps.G2_08.CertifiedRecord.ctorIdx	Quot.sound,propext
+RatioSpace.Gaps.G2_08.CertifiedRecord.mk	Quot.sound,propext
+RatioSpace.Gaps.G2_08.CertifiedRecord.phase	Quot.sound,propext
+RatioSpace.Gaps.G2_08.CertifiedRecord.record	Quot.sound,propext
 RatioSpace.Gaps.G2_08.CommittedLineage	propext
 RatioSpace.Gaps.G2_08.JointAdmission	
 RatioSpace.Gaps.G2_08.RecordingRule	
 RatioSpace.Gaps.G2_08.attach_of_preconditions	Quot.sound,propext
 RatioSpace.Gaps.G2_08.attach_requires	Quot.sound,propext
-RatioSpace.Gaps.G2_08.certified_phase_eq	propext
-RatioSpace.Gaps.G2_08.certify	propext
+RatioSpace.Gaps.G2_08.certified_phase_eq	Quot.sound,propext
+RatioSpace.Gaps.G2_08.certify	Quot.sound,propext
 RatioSpace.Gaps.G2_08.certify_children_distinct	Quot.sound,propext
-RatioSpace.Gaps.G2_08.certify_record	propext
+RatioSpace.Gaps.G2_08.certify_record	Quot.sound,propext
 RatioSpace.Gaps.G2_08.corollary_10_8	Quot.sound,propext
-RatioSpace.Gaps.G2_08.faceCert_iff	propext
+RatioSpace.Gaps.G2_08.faceCert_iff	Quot.sound,propext
 RatioSpace.Gaps.G2_08.inputNoAdmission	
 RatioSpace.Gaps.G2_08.inputNoLineage	
 RatioSpace.Gaps.G2_08.inputNoRecording	
@@ -682,8 +682,8 @@ RatioSpace.Gaps.G2_08.jointAdmission_both	propext
 RatioSpace.Gaps.G2_08.no_face_without_admission	Quot.sound,propext
 RatioSpace.Gaps.G2_08.no_face_without_lineage	Quot.sound,propext
 RatioSpace.Gaps.G2_08.no_face_without_recording	Quot.sound,propext
-RatioSpace.Gaps.G2_08.reception_phases	propext
-RatioSpace.Gaps.G2_08.reception_unique	propext
+RatioSpace.Gaps.G2_08.reception_phases	Quot.sound,propext
+RatioSpace.Gaps.G2_08.reception_unique	Quot.sound,propext
 RatioSpace.Gaps.G2_08.sibling_relation_certified	Quot.sound,propext
 RatioSpace.Gaps.G2_09.LedgerReordered	
 RatioSpace.Gaps.G2_09.StratLedger	
@@ -852,19 +852,19 @@ RatioSpace.Gaps.G2_15.supportFamily_relabel	Quot.sound,propext
 RatioSpace.Gaps.G2_15.supportPred	Quot.sound,propext
 RatioSpace.Gaps.G2_15.supportPred_relabel	Quot.sound,propext
 RatioSpace.Gaps.G2_16.closure_is_not_the_record	Quot.sound,propext
+RatioSpace.Gaps.G2_16.coherence_is_not_the_record	Quot.sound,propext
 RatioSpace.Gaps.G2_16.piR_is_not_the_record	Quot.sound,propext
 RatioSpace.Gaps.G2_16.resolveOcc_eq_some	propext
-RatioSpace.Gaps.G2_16.score_is_not_the_record	Quot.sound,propext
 RatioSpace.Gaps.G2_16.snap_isSome_iff_singleton_of_carrierInv	Quot.sound,propext
 RatioSpace.Gaps.G2_16.snap_some_one_identifier	Quot.sound,propext
 RatioSpace.Gaps.G2_16.snap_some_singleton	Quot.sound,propext
 RatioSpace.Gaps.G2_17.axiomSelect_single_pair	Quot.sound,propext
 RatioSpace.Gaps.G2_17.singleton_reopens_to_pair	Quot.sound,propext
 RatioSpace.Gaps.G2_17.snap_then_reopens	Quot.sound,propext
-RatioSpace.Gaps.G2_18.receivedFaces_none_eligible	propext
-RatioSpace.Gaps.G2_18.receivedFaces_replace_snap	propext
-RatioSpace.Gaps.G2_18.snap_attaches_no_face	propext
-RatioSpace.Gaps.G2_18.withSnap	propext
+RatioSpace.Gaps.G2_18.receivedFaces_none_eligible	Quot.sound,propext
+RatioSpace.Gaps.G2_18.receivedFaces_replace_snap	Quot.sound,propext
+RatioSpace.Gaps.G2_18.snap_attaches_no_face	Quot.sound,propext
+RatioSpace.Gaps.G2_18.withSnap	Quot.sound,propext
 RatioSpace.Gaps.G2_19.G19Append	
 RatioSpace.Gaps.G2_19.G19Append.ctorElim	
 RatioSpace.Gaps.G2_19.G19Append.ctorElimType	
@@ -1109,8 +1109,8 @@ RatioSpace.Gaps.G2_26.bitsC
 RatioSpace.Gaps.G2_26.closure_reception_ignores_faceRec	Quot.sound,propext
 RatioSpace.Gaps.G2_26.entryEvt	
 RatioSpace.Gaps.G2_26.entryEvt_spec	
-RatioSpace.Gaps.G2_26.faceLift	propext
-RatioSpace.Gaps.G2_26.faceLift_entryRec	propext
+RatioSpace.Gaps.G2_26.faceLift	Quot.sound,propext
+RatioSpace.Gaps.G2_26.faceLift_entryRec	Quot.sound,propext
 RatioSpace.Gaps.G2_26.gateVectorC	
 RatioSpace.Gaps.G2_26.lifeFromEntry	propext
 RatioSpace.Gaps.G2_26.lifeFromEntry_spec	propext
@@ -1127,16 +1127,16 @@ RatioSpace.Gaps.G2_26.sepDecl_separates
 RatioSpace.Gaps.G2_26.step_renewed_iff	propext
 RatioSpace.Gaps.G2_26.stratum_alone_moves_two	Quot.sound,propext
 RatioSpace.Gaps.G2_26.tpCarries	
-RatioSpace.Gaps.G2_27.FullArchive	propext
-RatioSpace.Gaps.G2_27.FullArchive.arch	propext
-RatioSpace.Gaps.G2_27.FullArchive.ctorIdx	propext
-RatioSpace.Gaps.G2_27.FullArchive.cycTrace	propext
-RatioSpace.Gaps.G2_27.FullArchive.mk	propext
-RatioSpace.Gaps.G2_27.FullArchive.state	propext
-RatioSpace.Gaps.G2_27.applyReleaseFull	propext
-RatioSpace.Gaps.G2_27.release_deletes_nothing_full	propext
+RatioSpace.Gaps.G2_27.FullArchive	Quot.sound,propext
+RatioSpace.Gaps.G2_27.FullArchive.arch	Quot.sound,propext
+RatioSpace.Gaps.G2_27.FullArchive.ctorIdx	Quot.sound,propext
+RatioSpace.Gaps.G2_27.FullArchive.cycTrace	Quot.sound,propext
+RatioSpace.Gaps.G2_27.FullArchive.mk	Quot.sound,propext
+RatioSpace.Gaps.G2_27.FullArchive.state	Quot.sound,propext
+RatioSpace.Gaps.G2_27.applyReleaseFull	Quot.sound,propext
+RatioSpace.Gaps.G2_27.release_deletes_nothing_full	Quot.sound,propext
 RatioSpace.Gaps.G2_27.release_keeps_trace	Quot.sound,propext
-RatioSpace.Gaps.G2_27.release_preserves_preimages	propext
+RatioSpace.Gaps.G2_27.release_preserves_preimages	Quot.sound,propext
 RatioSpace.Gaps.G2_28.FinPhaseSet	
 RatioSpace.Gaps.G2_28.FinPhaseSet.complete	
 RatioSpace.Gaps.G2_28.FinPhaseSet.ctorIdx	
@@ -1170,7 +1170,7 @@ RatioSpace.Gaps.G2_29.adm_agrees_with_read
 RatioSpace.Gaps.G2_29.age_determined_by_strata	
 RatioSpace.Gaps.G2_29.fail_ne_nil	
 RatioSpace.Gaps.G2_29.gateAt	
-RatioSpace.Gaps.G2_29.gate_failure_record	propext
+RatioSpace.Gaps.G2_29.gate_failure_record	Quot.sound,propext
 RatioSpace.Gaps.G2_29.keep_false_of_ph	
 RatioSpace.Gaps.G2_29.lastHand	
 RatioSpace.Gaps.G2_29.lastHand_leaves_and_returns	propext
@@ -1225,16 +1225,16 @@ RatioSpace.Gaps.G2_30.key_transport_injective	propext
 RatioSpace.Gaps.G2_30.mirrorWord_injective	Quot.sound,propext
 RatioSpace.Gaps.G2_30.prefix_word_injective	
 RatioSpace.Gaps.G2_30.shift_keeps_diff	propext
-RatioSpace.Gaps.G2_31.HistOfLedgers	propext
-RatioSpace.Gaps.G2_31.Keyed	propext
-RatioSpace.Gaps.G2_31.Keyed.he0	propext
-RatioSpace.Gaps.G2_31.Keyed.he1	propext
-RatioSpace.Gaps.G2_31.Keyed.he2	propext
-RatioSpace.Gaps.G2_31.Keyed.hid	propext
-RatioSpace.Gaps.G2_31.Keyed.mk	propext
-RatioSpace.Gaps.G2_31.Keyed.wk	propext
+RatioSpace.Gaps.G2_31.HistOfLedgers	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.he0	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.he1	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.he2	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.hid	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.mk	Quot.sound,propext
+RatioSpace.Gaps.G2_31.Keyed.wk	Quot.sound,propext
 RatioSpace.Gaps.G2_31.child_ne_child	
-RatioSpace.Gaps.G2_31.entryRec_keyed	propext
+RatioSpace.Gaps.G2_31.entryRec_keyed	Quot.sound,propext
 RatioSpace.Gaps.G2_31.export_keys_nodup	Quot.sound,propext
 RatioSpace.Gaps.G2_31.gid_active_admissible	Quot.sound,propext
 RatioSpace.Gaps.G2_31.gid_archival_admissible	Quot.sound,propext
@@ -1245,31 +1245,31 @@ RatioSpace.Gaps.G2_31.gid_ledgerOf_admissible	Quot.sound,propext
 RatioSpace.Gaps.G2_31.gid_lineage_admissible'	Quot.sound,propext
 RatioSpace.Gaps.G2_31.gid_sublist_admissible	Quot.sound,propext
 RatioSpace.Gaps.G2_31.gid_two_cycles_admissible	Quot.sound,propext
-RatioSpace.Gaps.G2_31.histOfLedgers_empty	propext
-RatioSpace.Gaps.G2_31.histOfLedgers_recordFace	propext
+RatioSpace.Gaps.G2_31.histOfLedgers_empty	Quot.sound,propext
+RatioSpace.Gaps.G2_31.histOfLedgers_recordFace	Quot.sound,propext
 RatioSpace.Gaps.G2_31.ids_nodup_of_occKeys	Quot.sound,propext
-RatioSpace.Gaps.G2_31.keyed_id_eq	propext
+RatioSpace.Gaps.G2_31.keyed_id_eq	Quot.sound,propext
 RatioSpace.Gaps.G2_31.keyed_nondegenerate	Quot.sound,propext
 RatioSpace.Gaps.G2_31.keyed_of_histOfLedgers	Quot.sound,propext
-RatioSpace.Gaps.G2_31.keyed_of_lineShaped	propext
+RatioSpace.Gaps.G2_31.keyed_of_lineShaped	Quot.sound,propext
 RatioSpace.Gaps.G2_31.ledgerOf_keyed	Quot.sound,propext
 RatioSpace.Gaps.G2_31.ne_child	Quot.sound,propext
 RatioSpace.Gaps.G2_31.nodup_append_of_disjoint	propext
 RatioSpace.Gaps.G2_31.nodup_three	Quot.sound,propext
-RatioSpace.Gaps.G2_31.occKeyRec	propext
-RatioSpace.Gaps.G2_31.occKeyRec_cycle	propext
-RatioSpace.Gaps.G2_31.occKeyRec_entryRec	propext
-RatioSpace.Gaps.G2_31.occKeyRec_lineShaped	propext
+RatioSpace.Gaps.G2_31.occKeyRec	Quot.sound,propext
+RatioSpace.Gaps.G2_31.occKeyRec_cycle	Quot.sound,propext
+RatioSpace.Gaps.G2_31.occKeyRec_entryRec	Quot.sound,propext
+RatioSpace.Gaps.G2_31.occKeyRec_lineShaped	Quot.sound,propext
 RatioSpace.Gaps.G2_31.occKeys_nodup_of_cycles	Quot.sound,propext
 RatioSpace.Gaps.G2_31.occKeys_nodup_of_hist_cycles	Quot.sound,propext
 RatioSpace.Gaps.G2_31.ofState_archFaces	Quot.sound,propext
 RatioSpace.Gaps.G2_32.chain_of_consecutive	Quot.sound,propext
 RatioSpace.Gaps.G2_32.cor_25_9_lone_linked	Quot.sound,propext
 RatioSpace.Gaps.G2_32.cor_25_9_side_linked	Quot.sound,propext
-RatioSpace.Gaps.G2_32.filter_all_j	propext
-RatioSpace.Gaps.G2_32.ledger_evJ	propext
+RatioSpace.Gaps.G2_32.filter_all_j	Quot.sound,propext
+RatioSpace.Gaps.G2_32.ledger_evJ	Quot.sound,propext
 RatioSpace.Gaps.G2_32.lineage_pair_vertices	Quot.sound,propext
-RatioSpace.Gaps.G2_32.shaped_V	propext
+RatioSpace.Gaps.G2_32.shaped_V	Quot.sound,propext
 RatioSpace.Gaps.G2_33.SrcLedger	
 RatioSpace.Gaps.G2_33.SrcLedger.E	
 RatioSpace.Gaps.G2_33.SrcLedger.F	
@@ -2467,8 +2467,8 @@ RatioSpace.Two.Accumulation.assembleLedgerWith	Quot.sound,propext
 RatioSpace.Two.Accumulation.assembleWith_none_eq_assemble	Quot.sound,propext
 RatioSpace.Two.Accumulation.canonicalQuestion	
 RatioSpace.Two.Accumulation.causalPairOf	Quot.sound,propext
-RatioSpace.Two.Accumulation.channelReading	propext
-RatioSpace.Two.Accumulation.channelReading_resolved_reconstructs	propext
+RatioSpace.Two.Accumulation.channelReading	Quot.sound,propext
+RatioSpace.Two.Accumulation.channelReading_resolved_reconstructs	Quot.sound,propext
 RatioSpace.Two.Accumulation.dWalkSignature	
 RatioSpace.Two.Accumulation.emptyPolicy	Quot.sound,propext
 RatioSpace.Two.Accumulation.finite_accumulation	Quot.sound,propext
@@ -3050,12 +3050,12 @@ RatioSpace.Two.Anchored.sel7CSL	Quot.sound,propext
 RatioSpace.Two.Anchored.sel7DSL	Quot.sound,propext
 RatioSpace.Two.Anchored.supportAnchors	Quot.sound,propext
 RatioSpace.Two.Automorphism.add_lt_add_right_zphi	propext
+RatioSpace.Two.Automorphism.coherence_invariant	Quot.sound,propext
 RatioSpace.Two.Automorphism.collision_identities	propext
 RatioSpace.Two.Automorphism.collision_ordered	Quot.sound,propext
-RatioSpace.Two.Automorphism.exchanged_equal_scores	Quot.sound,propext
+RatioSpace.Two.Automorphism.exchanged_equal_coherence	Quot.sound,propext
 RatioSpace.Two.Automorphism.four_member_exchange	Quot.sound,propext
 RatioSpace.Two.Automorphism.pair_perm	propext
-RatioSpace.Two.Automorphism.score_invariant	Quot.sound,propext
 RatioSpace.Two.Automorphism.support_invariant	Quot.sound,propext
 RatioSpace.Two.Automorphism.swap01	propext
 RatioSpace.Two.Automorphism.swap01_23	propext
@@ -3201,6 +3201,13 @@ RatioSpace.Two.Beat11.Generic.mk
 RatioSpace.Two.Beat11.N	propext
 RatioSpace.Two.Beat11.Nn	
 RatioSpace.Two.Beat11.ab	propext
+RatioSpace.Two.Beat11.coherence_LL	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_LL'	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_LR	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_RL	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_RL'	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_RR	Quot.sound,propext
+RatioSpace.Two.Beat11.coherence_RR'	Quot.sound,propext
 RatioSpace.Two.Beat11.combo_contrast_q	Quot.sound,propext
 RatioSpace.Two.Beat11.den	propext
 RatioSpace.Two.Beat11.gLL	Quot.sound,propext
@@ -3219,19 +3226,12 @@ RatioSpace.Two.Beat11.id_34_12	Quot.sound,propext
 RatioSpace.Two.Beat11.mem_grand	Quot.sound,propext
 RatioSpace.Two.Beat11.not_le_of_lt_zphi	Quot.sound,propext
 RatioSpace.Two.Beat11.num	propext
-RatioSpace.Two.Beat11.score_LL	Quot.sound,propext
-RatioSpace.Two.Beat11.score_LL'	Quot.sound,propext
-RatioSpace.Two.Beat11.score_LR	Quot.sound,propext
-RatioSpace.Two.Beat11.score_RL	Quot.sound,propext
-RatioSpace.Two.Beat11.score_RL'	Quot.sound,propext
-RatioSpace.Two.Beat11.score_RR	Quot.sound,propext
-RatioSpace.Two.Beat11.score_RR'	Quot.sound,propext
 RatioSpace.Two.Beat11.selPred	Quot.sound,propext
+RatioSpace.Two.Beat11.step1_coherence	Quot.sound,propext
+RatioSpace.Two.Beat11.step1_coherence_neg	Quot.sound,propext
+RatioSpace.Two.Beat11.step1_coherence_pos	Quot.sound,propext
 RatioSpace.Two.Beat11.step1_margins	Quot.sound,propext
 RatioSpace.Two.Beat11.step1_margins_D	Quot.sound,propext
-RatioSpace.Two.Beat11.step1_scores	Quot.sound,propext
-RatioSpace.Two.Beat11.step1_scores_neg	Quot.sound,propext
-RatioSpace.Two.Beat11.step1_scores_pos	Quot.sound,propext
 RatioSpace.Two.Beat11.step1_support_sub	Quot.sound,propext
 RatioSpace.Two.Beat11.step1_tension_margin	Quot.sound,propext
 RatioSpace.Two.Beat11.step1_tension_margin_neg	Quot.sound,propext
@@ -3537,6 +3537,13 @@ RatioSpace.Two.Cycle.forwardResolution	Quot.sound,propext
 RatioSpace.Two.Cycle.forwardResolution_isSome	Quot.sound,propext
 RatioSpace.Two.Cycle.observer_replaced_iff_singleton	Quot.sound,propext
 RatioSpace.Two.DomPlus	
+RatioSpace.Two.EmptyQuestion.advanceCarrier_active_nil	Quot.sound,propext
+RatioSpace.Two.EmptyQuestion.emptyQuestion_report_empty	Quot.sound,propext
+RatioSpace.Two.EmptyQuestion.emptySeedCtx	Quot.sound,propext
+RatioSpace.Two.EmptyQuestion.gammaB_nil_report_empty	Quot.sound,propext
+RatioSpace.Two.EmptyQuestion.iterate_active_nil	Quot.sound,propext
+RatioSpace.Two.EmptyQuestion.proposals_nil	propext
+RatioSpace.Two.EmptyQuestion.toTick0_gammaB_nil_active	Quot.sound,propext
 RatioSpace.Two.Ensemble169.neverCloses	Quot.sound,propext
 RatioSpace.Two.Ensemble169.sym2	
 RatioSpace.Two.Ensemble169.sym2_never_closes	Quot.sound,propext
@@ -3576,15 +3583,15 @@ RatioSpace.Two.EvalRecord.sigma
 RatioSpace.Two.EvalRecord.starC	
 RatioSpace.Two.EvalRecord.supportStatus	
 RatioSpace.Two.EvalRecord.tension	
-RatioSpace.Two.Export.AppStageIn	propext
-RatioSpace.Two.Export.AppStageIn.ctorIdx	propext
-RatioSpace.Two.Export.AppStageIn.encoding	propext
-RatioSpace.Two.Export.AppStageIn.mk	propext
-RatioSpace.Two.Export.AppStageIn.openRows	propext
-RatioSpace.Two.Export.AppStageIn.shellPassed	propext
-RatioSpace.Two.Export.AppStageIn.stage	propext
-RatioSpace.Two.Export.AppStageIn.substrate	propext
-RatioSpace.Two.Export.AppStageIn.toShellInput	propext
+RatioSpace.Two.Export.AppStageIn	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.encoding	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.mk	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.openRows	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.shellPassed	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.stage	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.substrate	Quot.sound,propext
+RatioSpace.Two.Export.AppStageIn.toShellInput	Quot.sound,propext
 RatioSpace.Two.Export.Discharge	Quot.sound,propext
 RatioSpace.Two.Export.Discharge.mk	Quot.sound,propext
 RatioSpace.Two.Export.Discharge.o1_covariance	Quot.sound,propext
@@ -3649,24 +3656,24 @@ RatioSpace.Two.Export.ElemIIOut.status_eq	Quot.sound,propext
 RatioSpace.Two.Export.ElemIIOut.status_length	Quot.sound,propext
 RatioSpace.Two.Export.ElemIIOut.target	Quot.sound,propext
 RatioSpace.Two.Export.ElemIIOut.theta	Quot.sound,propext
-RatioSpace.Two.Export.ExchangeStageIn	propext
-RatioSpace.Two.Export.ExchangeStageIn.ctorIdx	propext
-RatioSpace.Two.Export.ExchangeStageIn.faces	propext
-RatioSpace.Two.Export.ExchangeStageIn.law	propext
-RatioSpace.Two.Export.ExchangeStageIn.lifeLedger	propext
-RatioSpace.Two.Export.ExchangeStageIn.mk	propext
-RatioSpace.Two.Export.ExchangeStageIn.openRows	propext
-RatioSpace.Two.Export.ExchangeStageIn.update	propext
-RatioSpace.Two.Export.FR	propext
-RatioSpace.Two.Export.FieldStageIn	propext
-RatioSpace.Two.Export.FieldStageIn.ctorIdx	propext
-RatioSpace.Two.Export.FieldStageIn.distinctions	propext
-RatioSpace.Two.Export.FieldStageIn.encoding	propext
-RatioSpace.Two.Export.FieldStageIn.lifeLedger	propext
-RatioSpace.Two.Export.FieldStageIn.mk	propext
-RatioSpace.Two.Export.FieldStageIn.recurrence	propext
-RatioSpace.Two.Export.FieldStageIn.shell	propext
-RatioSpace.Two.Export.FieldStageIn.update	propext
+RatioSpace.Two.Export.ExchangeStageIn	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.faces	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.law	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.lifeLedger	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.mk	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.openRows	Quot.sound,propext
+RatioSpace.Two.Export.ExchangeStageIn.update	Quot.sound,propext
+RatioSpace.Two.Export.FR	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.distinctions	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.encoding	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.lifeLedger	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.mk	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.recurrence	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.shell	Quot.sound,propext
+RatioSpace.Two.Export.FieldStageIn.update	Quot.sound,propext
 RatioSpace.Two.Export.RadStageIn	propext
 RatioSpace.Two.Export.RadStageIn.cocycle	propext
 RatioSpace.Two.Export.RadStageIn.ctorIdx	propext
@@ -3692,15 +3699,15 @@ RatioSpace.Two.Export.RecLedger.results	propext
 RatioSpace.Two.Export.RecLedger.ridgeDefect	propext
 RatioSpace.Two.Export.RecLedger.ridges	propext
 RatioSpace.Two.Export.RecLedger.sideMirrorScan	propext
-RatioSpace.Two.Export.ShellStageIn	propext
-RatioSpace.Two.Export.ShellStageIn.admissible	propext
-RatioSpace.Two.Export.ShellStageIn.cert	propext
-RatioSpace.Two.Export.ShellStageIn.complex	propext
-RatioSpace.Two.Export.ShellStageIn.ctorIdx	propext
-RatioSpace.Two.Export.ShellStageIn.gamma	propext
-RatioSpace.Two.Export.ShellStageIn.mk	propext
-RatioSpace.Two.Export.ShellStageIn.shell	propext
-RatioSpace.Two.Export.St	propext
+RatioSpace.Two.Export.ShellStageIn	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.admissible	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.cert	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.complex	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.gamma	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.mk	Quot.sound,propext
+RatioSpace.Two.Export.ShellStageIn.shell	Quot.sound,propext
+RatioSpace.Two.Export.St	Quot.sound,propext
 RatioSpace.Two.Export.Stage	
 RatioSpace.Two.Export.Stage.applications	
 RatioSpace.Two.Export.Stage.applications.elim	
@@ -3757,7 +3764,7 @@ RatioSpace.Two.Export.cor_33_3	Quot.sound,propext
 RatioSpace.Two.Export.def_33_1	Quot.sound,propext
 RatioSpace.Two.Export.def_33_4	propext
 RatioSpace.Two.Export.discharge	Quot.sound,propext
-RatioSpace.Two.Export.entryEvals	propext
+RatioSpace.Two.Export.entryEvals	Quot.sound,propext
 RatioSpace.Two.Export.entryEvals_in	Quot.sound,propext
 RatioSpace.Two.Export.exchangeStage	Quot.sound,propext
 RatioSpace.Two.Export.exportLL	Quot.sound,propext
@@ -3844,7 +3851,7 @@ RatioSpace.Two.Face.EligInput.mk
 RatioSpace.Two.Face.EligInput.s	
 RatioSpace.Two.Face.EligInput.status	
 RatioSpace.Two.Face.EligInput.target	
-RatioSpace.Two.Face.EligInput.vector	propext
+RatioSpace.Two.Face.EligInput.vector	Quot.sound,propext
 RatioSpace.Two.Face.EligInput.x	
 RatioSpace.Two.Face.Eligibility	
 RatioSpace.Two.Face.Eligibility.adm	
@@ -3855,25 +3862,25 @@ RatioSpace.Two.Face.Eligibility.mk
 RatioSpace.Two.Face.Eligibility.record	
 RatioSpace.Two.Face.Eligibility.recv	
 RatioSpace.Two.Face.Eligibility.snap	
-RatioSpace.Two.Face.FElig	propext
-RatioSpace.Two.Face.FElig.bdry	propext
-RatioSpace.Two.Face.FElig.ctorIdx	propext
-RatioSpace.Two.Face.FElig.cycle	propext
-RatioSpace.Two.Face.FElig.elig	propext
-RatioSpace.Two.Face.FElig.elig_eq	propext
-RatioSpace.Two.Face.FElig.input	propext
-RatioSpace.Two.Face.FElig.lift	propext
-RatioSpace.Two.Face.FElig.mk	propext
-RatioSpace.Two.Face.FElig.mk.congr_simp	propext
-RatioSpace.Two.Face.FElig.shortcut	propext
-RatioSpace.Two.Face.FElig.sib	propext
-RatioSpace.Two.Face.FaceCert	propext
-RatioSpace.Two.Face.FaceCert.committed	propext
-RatioSpace.Two.Face.FaceCert.jointly_admitted	propext
-RatioSpace.Two.Face.FaceCert.mk	propext
-RatioSpace.Two.Face.FaceCert.parent_on_lineage	propext
-RatioSpace.Two.Face.FaceCert.received	propext
-RatioSpace.Two.Face.FaceCert.recorded	propext
+RatioSpace.Two.Face.FElig	Quot.sound,propext
+RatioSpace.Two.Face.FElig.bdry	Quot.sound,propext
+RatioSpace.Two.Face.FElig.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Face.FElig.cycle	Quot.sound,propext
+RatioSpace.Two.Face.FElig.elig	Quot.sound,propext
+RatioSpace.Two.Face.FElig.elig_eq	Quot.sound,propext
+RatioSpace.Two.Face.FElig.input	Quot.sound,propext
+RatioSpace.Two.Face.FElig.lift	Quot.sound,propext
+RatioSpace.Two.Face.FElig.mk	Quot.sound,propext
+RatioSpace.Two.Face.FElig.mk.congr_simp	Quot.sound,propext
+RatioSpace.Two.Face.FElig.shortcut	Quot.sound,propext
+RatioSpace.Two.Face.FElig.sib	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.committed	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.jointly_admitted	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.mk	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.parent_on_lineage	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.received	Quot.sound,propext
+RatioSpace.Two.Face.FaceCert.recorded	Quot.sound,propext
 RatioSpace.Two.Face.Lossless	
 RatioSpace.Two.Face.Lossless.appended	
 RatioSpace.Two.Face.Lossless.mk	
@@ -3892,10 +3899,10 @@ RatioSpace.Two.Face.RecState.ctorIdx
 RatioSpace.Two.Face.RecState.hist	
 RatioSpace.Two.Face.RecState.mk	
 RatioSpace.Two.Face.RecState.op	
-RatioSpace.Two.Face.ReceivedFace	propext
-RatioSpace.Two.Face.ReceivedFace.ctorIdx	propext
-RatioSpace.Two.Face.ReceivedFace.mk	propext
-RatioSpace.Two.Face.ReceivedFace.packet	propext
+RatioSpace.Two.Face.ReceivedFace	Quot.sound,propext
+RatioSpace.Two.Face.ReceivedFace.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Face.ReceivedFace.mk	Quot.sound,propext
+RatioSpace.Two.Face.ReceivedFace.packet	Quot.sound,propext
 RatioSpace.Two.Face.SibEdgeRec	
 RatioSpace.Two.Face.SibEdgeRec.ctorIdx	
 RatioSpace.Two.Face.SibEdgeRec.dst	
@@ -3912,8 +3919,8 @@ RatioSpace.Two.Face.SibRec.mk
 RatioSpace.Two.Face.SibRec.phase	
 RatioSpace.Two.Face.SibRec.phases	
 RatioSpace.Two.Face.SibRec.rotated	
-RatioSpace.Two.Face.attach	propext
-RatioSpace.Two.Face.attach_retains	propext
+RatioSpace.Two.Face.attach	Quot.sound,propext
+RatioSpace.Two.Face.attach_retains	Quot.sound,propext
 RatioSpace.Two.Face.attached_iff	Quot.sound,propext
 RatioSpace.Two.Face.boundary	
 RatioSpace.Two.Face.boundary_holonomy	
@@ -3923,17 +3930,17 @@ RatioSpace.Two.Face.dec_congr
 RatioSpace.Two.Face.eAdm	propext
 RatioSpace.Two.Face.eLin	propext
 RatioSpace.Two.Face.eRecord	
-RatioSpace.Two.Face.eRecv	propext
-RatioSpace.Two.Face.eRecv_true	propext
+RatioSpace.Two.Face.eRecv	Quot.sound,propext
+RatioSpace.Two.Face.eRecv_true	Quot.sound,propext
 RatioSpace.Two.Face.eSnap	propext
 RatioSpace.Two.Face.eSnap_false_of_not_singleton	propext
 RatioSpace.Two.Face.eligibility_covariant	Quot.sound,propext
 RatioSpace.Two.Face.faceAppend	
 RatioSpace.Two.Face.faceAppend_lossless_iff	propext
-RatioSpace.Two.Face.face_certificate_unique	propext
+RatioSpace.Two.Face.face_certificate_unique	Quot.sound,propext
 RatioSpace.Two.Face.face_components_unique	Quot.sound,propext
-RatioSpace.Two.Face.face_count	propext
-RatioSpace.Two.Face.face_selection	propext
+RatioSpace.Two.Face.face_count	Quot.sound,propext
+RatioSpace.Two.Face.face_selection	Quot.sound,propext
 RatioSpace.Two.Face.filter_eq_nil_of	
 RatioSpace.Two.Face.instDecidableEqEligibility	
 RatioSpace.Two.Face.instDecidableEqEligibility.decEq	
@@ -3942,37 +3949,37 @@ RatioSpace.Two.Face.instDecidableEqRawEdgeRec.decEq
 RatioSpace.Two.Face.jPhase	propext
 RatioSpace.Two.Face.lift_sib_undeclared_and_not_projective	propext
 RatioSpace.Two.Face.liftedA	
-RatioSpace.Two.Face.no_face_unless_singleton	propext
-RatioSpace.Two.Face.receivedFaces	propext
+RatioSpace.Two.Face.no_face_unless_singleton	Quot.sound,propext
+RatioSpace.Two.Face.receivedFaces	Quot.sound,propext
 RatioSpace.Two.Face.recordedHolonomy	propext
 RatioSpace.Two.Face.recordedHolonomy_matches	propext
 RatioSpace.Two.Face.recordedHolonomy_unevaluated	propext
-RatioSpace.Two.Face.sibRec	propext
-RatioSpace.Two.Face.sibRec_certificate	propext
-RatioSpace.Two.Face.side_exchange_phases_and_holonomy	propext
+RatioSpace.Two.Face.sibRec	Quot.sound,propext
+RatioSpace.Two.Face.sibRec_certificate	Quot.sound,propext
+RatioSpace.Two.Face.side_exchange_phases_and_holonomy	Quot.sound,propext
 RatioSpace.Two.Face.universal_emission	Quot.sound,propext
 RatioSpace.Two.FaceRegression.Event	
 RatioSpace.Two.FaceRegression.Event.admitted	
 RatioSpace.Two.FaceRegression.Event.ctorIdx	
-RatioSpace.Two.FaceRegression.Event.fixedOk	propext
+RatioSpace.Two.FaceRegression.Event.fixedOk	Quot.sound,propext
 RatioSpace.Two.FaceRegression.Event.j	
 RatioSpace.Two.FaceRegression.Event.lin	
 RatioSpace.Two.FaceRegression.Event.mk	
 RatioSpace.Two.FaceRegression.Event.s	
 RatioSpace.Two.FaceRegression.Event.status	
 RatioSpace.Two.FaceRegression.Event.toInput	
-RatioSpace.Two.FaceRegression.Event.toInput_vector	propext
-RatioSpace.Two.FaceRegression.Event.vec	propext
+RatioSpace.Two.FaceRegression.Event.toInput_vector	Quot.sound,propext
+RatioSpace.Two.FaceRegression.Event.vec	Quot.sound,propext
 RatioSpace.Two.FaceRegression.Event.x	
 RatioSpace.Two.FaceRegression.activeOk	propext
 RatioSpace.Two.FaceRegression.admLL	Quot.sound,propext
 RatioSpace.Two.FaceRegression.admRR	Quot.sound,propext
 RatioSpace.Two.FaceRegression.admSideL	Quot.sound,propext
 RatioSpace.Two.FaceRegression.admSideR	Quot.sound,propext
-RatioSpace.Two.FaceRegression.attached	propext
-RatioSpace.Two.FaceRegression.attachedEvents	propext
-RatioSpace.Two.FaceRegression.attachedHands	propext
-RatioSpace.Two.FaceRegression.attachedPhases	propext
+RatioSpace.Two.FaceRegression.attached	Quot.sound,propext
+RatioSpace.Two.FaceRegression.attachedEvents	Quot.sound,propext
+RatioSpace.Two.FaceRegression.attachedHands	Quot.sound,propext
+RatioSpace.Two.FaceRegression.attachedPhases	Quot.sound,propext
 RatioSpace.Two.FaceRegression.attached_have_certificates	Quot.sound,propext
 RatioSpace.Two.FaceRegression.count_from_events	Quot.sound,propext
 RatioSpace.Two.FaceRegression.events	
@@ -4009,7 +4016,17 @@ RatioSpace.Two.FaceRegression.statusRR	Quot.sound,propext
 RatioSpace.Two.FaceRegression.statusSideL	Quot.sound,propext
 RatioSpace.Two.FaceRegression.statusSideR	Quot.sound,propext
 RatioSpace.Two.FaceRegression.terminalLin	propext
-RatioSpace.Two.Incidence.E	propext
+RatioSpace.Two.IdentityAutomorphism.LL	
+RatioSpace.Two.IdentityAutomorphism.LLR	
+RatioSpace.Two.IdentityAutomorphism.LR	
+RatioSpace.Two.IdentityAutomorphism.countSig	
+RatioSpace.Two.IdentityAutomorphism.fam3_aut_trivial	Quot.sound,propext
+RatioSpace.Two.IdentityAutomorphism.fam3_perm_classes	Quot.sound,propext
+RatioSpace.Two.IdentityAutomorphism.fam4_aut_trivial	Quot.sound,propext
+RatioSpace.Two.IdentityAutomorphism.fam4_perm_classes	Quot.sound,propext
+RatioSpace.Two.IdentityAutomorphism.perm_countSig	Quot.sound,propext
+RatioSpace.Two.IdentityAutomorphism.tensions_invariant	Quot.sound,propext
+RatioSpace.Two.Incidence.E	Quot.sound,propext
 RatioSpace.Two.Incidence.EdgeLabel	
 RatioSpace.Two.Incidence.EdgeLabel.ctorElim	
 RatioSpace.Two.Incidence.EdgeLabel.ctorElimType	
@@ -4040,20 +4057,20 @@ RatioSpace.Two.Incidence.FaceId.tau
 RatioSpace.Two.Incidence.FaceId.v0	
 RatioSpace.Two.Incidence.FaceId.v1	
 RatioSpace.Two.Incidence.FaceId.v2	
-RatioSpace.Two.Incidence.FaceRec	propext
-RatioSpace.Two.Incidence.FaceRec.ctorIdx	propext
-RatioSpace.Two.Incidence.FaceRec.e0	propext
-RatioSpace.Two.Incidence.FaceRec.e1	propext
-RatioSpace.Two.Incidence.FaceRec.e2	propext
-RatioSpace.Two.Incidence.FaceRec.hol	propext
-RatioSpace.Two.Incidence.FaceRec.id	propext
-RatioSpace.Two.Incidence.FaceRec.mk	propext
-RatioSpace.Two.Incidence.FaceRec.packet	propext
-RatioSpace.Two.Incidence.FaceRec.prov	propext
-RatioSpace.Two.Incidence.FaceRec.relabel	propext
-RatioSpace.Two.Incidence.FaceRec.release	propext
-RatioSpace.Two.Incidence.FaceRec.renew	propext
-RatioSpace.Two.Incidence.FaceRec.target	propext
+RatioSpace.Two.Incidence.FaceRec	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.e0	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.e1	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.e2	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.hol	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.id	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.mk	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.packet	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.prov	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.relabel	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.release	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.renew	Quot.sound,propext
+RatioSpace.Two.Incidence.FaceRec.target	Quot.sound,propext
 RatioSpace.Two.Incidence.HolEntry	
 RatioSpace.Two.Incidence.HolEntry.ctorElim	
 RatioSpace.Two.Incidence.HolEntry.ctorElimType	
@@ -4083,21 +4100,21 @@ RatioSpace.Two.Incidence.UEdge.mk
 RatioSpace.Two.Incidence.UEdge.same	
 RatioSpace.Two.Incidence.UEdge.same_symm	
 RatioSpace.Two.Incidence.UEdge.ty	
-RatioSpace.Two.Incidence.V	propext
+RatioSpace.Two.Incidence.V	Quot.sound,propext
 RatioSpace.Two.Incidence.WellKeyed	
-RatioSpace.Two.Incidence.bd	propext
+RatioSpace.Two.Incidence.bd	Quot.sound,propext
 RatioSpace.Two.Incidence.child_hand_inj	
 RatioSpace.Two.Incidence.cycle_exports_face_ledger	Quot.sound,propext
 RatioSpace.Two.Incidence.edge0	
 RatioSpace.Two.Incidence.edge1	
 RatioSpace.Two.Incidence.edge2	
 RatioSpace.Two.Incidence.edge_endpoints_ne	Quot.sound,propext
-RatioSpace.Two.Incidence.entryRec	propext
-RatioSpace.Two.Incidence.entryRec_at_entry	propext
-RatioSpace.Two.Incidence.entry_is_lineFace	propext
+RatioSpace.Two.Incidence.entryRec	Quot.sound,propext
+RatioSpace.Two.Incidence.entryRec_at_entry	Quot.sound,propext
+RatioSpace.Two.Incidence.entry_is_lineFace	Quot.sound,propext
 RatioSpace.Two.Incidence.faceIdOf	
 RatioSpace.Two.Incidence.faceId_injective	Quot.sound,propext
-RatioSpace.Two.Incidence.face_preimages	propext
+RatioSpace.Two.Incidence.face_preimages	Quot.sound,propext
 RatioSpace.Two.Incidence.filter_eq_singleton	propext
 RatioSpace.Two.Incidence.getD_of_lt	propext
 RatioSpace.Two.Incidence.holSL	propext
@@ -4105,8 +4122,8 @@ RatioSpace.Two.Incidence.holSL_tag	propext
 RatioSpace.Two.Incidence.holonomy_not_incidence	Quot.sound,propext
 RatioSpace.Two.Incidence.idOfKey	
 RatioSpace.Two.Incidence.idOfKey_injective	Quot.sound,propext
-RatioSpace.Two.Incidence.incE	propext
-RatioSpace.Two.Incidence.incV	propext
+RatioSpace.Two.Incidence.incE	Quot.sound,propext
+RatioSpace.Two.Incidence.incV	Quot.sound,propext
 RatioSpace.Two.Incidence.incidence_cardinality_covariant	Quot.sound,propext
 RatioSpace.Two.Incidence.incidence_covariant	Quot.sound,propext
 RatioSpace.Two.Incidence.instDecidableEqEdgeType	
@@ -4114,7 +4131,7 @@ RatioSpace.Two.Incidence.instDecidableEqFaceId
 RatioSpace.Two.Incidence.instDecidableEqFaceId.decEq	
 RatioSpace.Two.Incidence.instDecidableEqReleaseStatus	
 RatioSpace.Two.Incidence.instDecidableSame	
-RatioSpace.Two.Incidence.ledgerOf	propext
+RatioSpace.Two.Incidence.ledgerOf	Quot.sound,propext
 RatioSpace.Two.Incidence.lenEq	
 RatioSpace.Two.Incidence.linV	
 RatioSpace.Two.Incidence.linV_ne_cs	propext
@@ -4128,9 +4145,9 @@ RatioSpace.Two.Incidence.lineage_vertices	Quot.sound,propext
 RatioSpace.Two.Incidence.mem_lineFaceV_of_edge	propext
 RatioSpace.Two.Incidence.mem_map_inj	Quot.sound,propext
 RatioSpace.Two.Incidence.nodup_map_inj	Quot.sound,propext
-RatioSpace.Two.Incidence.occKey	propext
+RatioSpace.Two.Incidence.occKey	Quot.sound,propext
 RatioSpace.Two.Incidence.raw_not_received	
-RatioSpace.Two.Incidence.recordFace	propext
+RatioSpace.Two.Incidence.recordFace	Quot.sound,propext
 RatioSpace.Two.Incidence.record_deterministic_typed	Quot.sound,propext
 RatioSpace.Two.Incidence.rel_len_cs	propext
 RatioSpace.Two.Incidence.rel_len_linV	propext
@@ -4149,8 +4166,8 @@ RatioSpace.Two.InitContext.question
 RatioSpace.Two.InitContext.seedArchive	
 RatioSpace.Two.Inv	
 RatioSpace.Two.Inv_inj	
-RatioSpace.Two.J_S_AL	propext
-RatioSpace.Two.J_S_AR	propext
+RatioSpace.Two.J_S_AL	Quot.sound,propext
+RatioSpace.Two.J_S_AR	Quot.sound,propext
 RatioSpace.Two.Lifecycle.Archive	
 RatioSpace.Two.Lifecycle.Archive.ctorIdx	
 RatioSpace.Two.Lifecycle.Archive.faces	
@@ -4395,7 +4412,7 @@ RatioSpace.Two.Lifecycle.psi_Q	Quot.sound,propext
 RatioSpace.Two.Lifecycle.psi_inv2	Quot.sound,propext
 RatioSpace.Two.Lifecycle.receiverWord	
 RatioSpace.Two.Lifecycle.releaseRec	
-RatioSpace.Two.Lifecycle.release_deletes_nothing	propext
+RatioSpace.Two.Lifecycle.release_deletes_nothing	Quot.sound,propext
 RatioSpace.Two.Lifecycle.renewalRecord	
 RatioSpace.Two.Lifecycle.renewal_identity_only	Quot.sound,propext
 RatioSpace.Two.Lifecycle.renewal_no_recurrence	Quot.sound,propext
@@ -5025,7 +5042,7 @@ RatioSpace.Two.Profile.chan
 RatioSpace.Two.Profile.ctorIdx	
 RatioSpace.Two.Profile.mk	
 RatioSpace.Two.Profile.read	
-RatioSpace.Two.Profile.receive	propext
+RatioSpace.Two.Profile.receive	Quot.sound,propext
 RatioSpace.Two.ProposalRecord	
 RatioSpace.Two.ProposalRecord.addr	
 RatioSpace.Two.ProposalRecord.ctorIdx	
@@ -5589,6 +5606,11 @@ RatioSpace.Two.RootChain.addr_a	Quot.sound,propext
 RatioSpace.Two.RootChain.addr_b	Quot.sound,propext
 RatioSpace.Two.RootChain.addr_c	Quot.sound,propext
 RatioSpace.Two.RootChain.addr_d	Quot.sound,propext
+RatioSpace.Two.RootChain.coherence_a	Quot.sound,propext
+RatioSpace.Two.RootChain.coherence_a_lt_b	Quot.sound,propext
+RatioSpace.Two.RootChain.coherence_b	Quot.sound,propext
+RatioSpace.Two.RootChain.coherence_c	Quot.sound,propext
+RatioSpace.Two.RootChain.coherence_d	Quot.sound,propext
 RatioSpace.Two.RootChain.dSB_reduce_eq	Quot.sound,propext
 RatioSpace.Two.RootChain.fam	Quot.sound,propext
 RatioSpace.Two.RootChain.inv_ra	Quot.sound,propext
@@ -5602,11 +5624,6 @@ RatioSpace.Two.RootChain.ra	Quot.sound,propext
 RatioSpace.Two.RootChain.rb	Quot.sound,propext
 RatioSpace.Two.RootChain.rc	Quot.sound,propext
 RatioSpace.Two.RootChain.rd	Quot.sound,propext
-RatioSpace.Two.RootChain.score_a	Quot.sound,propext
-RatioSpace.Two.RootChain.score_a_lt_b	Quot.sound,propext
-RatioSpace.Two.RootChain.score_b	Quot.sound,propext
-RatioSpace.Two.RootChain.score_c	Quot.sound,propext
-RatioSpace.Two.RootChain.score_d	Quot.sound,propext
 RatioSpace.Two.RootChain.shared	Quot.sound,propext
 RatioSpace.Two.RootChain.step4_support	Quot.sound,propext
 RatioSpace.Two.RootChain.sum_bc_even	Quot.sound,propext
@@ -5973,8 +5990,8 @@ RatioSpace.Two.Shell.Cx.incV	propext
 RatioSpace.Two.Shell.Cx.mk	
 RatioSpace.Two.Shell.Cx.occs	
 RatioSpace.Two.Shell.D_eq	Quot.sound,propext
-RatioSpace.Two.Shell.FaceRec.pre	propext
-RatioSpace.Two.Shell.Gid	propext
+RatioSpace.Two.Shell.FaceRec.pre	Quot.sound,propext
+RatioSpace.Two.Shell.Gid	Quot.sound,propext
 RatioSpace.Two.Shell.Graph	
 RatioSpace.Two.Shell.Graph.Closed	propext
 RatioSpace.Two.Shell.Graph.Connected	
@@ -6008,16 +6025,16 @@ RatioSpace.Two.Shell.Graph.reach_mono	Quot.sound,propext
 RatioSpace.Two.Shell.Graph.reach_mono_le	Quot.sound,propext
 RatioSpace.Two.Shell.Graph.reach_sound	Quot.sound,propext
 RatioSpace.Two.Shell.Graph.reach_sub	Quot.sound,propext
-RatioSpace.Two.Shell.LineShaped	propext
-RatioSpace.Two.Shell.LineShaped.he0	propext
-RatioSpace.Two.Shell.LineShaped.he1	propext
-RatioSpace.Two.Shell.LineShaped.he2	propext
-RatioSpace.Two.Shell.LineShaped.hid	propext
-RatioSpace.Two.Shell.LineShaped.hj	propext
-RatioSpace.Two.Shell.LineShaped.hs	propext
-RatioSpace.Two.Shell.LineShaped.hx	propext
-RatioSpace.Two.Shell.LineShaped.mk	propext
-RatioSpace.Two.Shell.LineShaped.wk	propext
+RatioSpace.Two.Shell.LineShaped	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.he0	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.he1	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.he2	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.hid	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.hj	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.hs	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.hx	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.mk	Quot.sound,propext
+RatioSpace.Two.Shell.LineShaped.wk	Quot.sound,propext
 RatioSpace.Two.Shell.Lk_eq_empty_of_not_mem_VG	Quot.sound,propext
 RatioSpace.Two.Shell.Node	
 RatioSpace.Two.Shell.Node.ctorElim	
@@ -6084,18 +6101,18 @@ RatioSpace.Two.Shell.ShellCert.nE
 RatioSpace.Two.Shell.ShellCert.nF	
 RatioSpace.Two.Shell.ShellCert.nV	
 RatioSpace.Two.Shell.ShellCert.src	
-RatioSpace.Two.Shell.ShellIn	propext
-RatioSpace.Two.Shell.ShellIn.actMap	propext
-RatioSpace.Two.Shell.ShellIn.arch	propext
-RatioSpace.Two.Shell.ShellIn.archive	propext
-RatioSpace.Two.Shell.ShellIn.bdAct	propext
-RatioSpace.Two.Shell.ShellIn.ctorIdx	propext
-RatioSpace.Two.Shell.ShellIn.faceState	propext
-RatioSpace.Two.Shell.ShellIn.incEAct	propext
-RatioSpace.Two.Shell.ShellIn.incVAct	propext
-RatioSpace.Two.Shell.ShellIn.mk	propext
-RatioSpace.Two.Shell.ShellIn.n	propext
-RatioSpace.Two.Shell.ShellIn.theta	propext
+RatioSpace.Two.Shell.ShellIn	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.actMap	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.arch	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.archive	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.bdAct	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.ctorIdx	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.faceState	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.incEAct	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.incVAct	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.mk	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.n	Quot.sound,propext
+RatioSpace.Two.Shell.ShellIn.theta	Quot.sound,propext
 RatioSpace.Two.Shell.ShellInput	propext
 RatioSpace.Two.Shell.SphereInput	propext
 RatioSpace.Two.Shell.SphereInput.toShellInput	propext
@@ -6113,13 +6130,13 @@ RatioSpace.Two.Shell.TFace.v0
 RatioSpace.Two.Shell.TFace.v1	
 RatioSpace.Two.Shell.TFace.v2	
 RatioSpace.Two.Shell.TFace.verts	
-RatioSpace.Two.Shell.actFaces	propext
+RatioSpace.Two.Shell.actFaces	Quot.sound,propext
 RatioSpace.Two.Shell.activeAt	propext
 RatioSpace.Two.Shell.active_incidence	Quot.sound,propext
-RatioSpace.Two.Shell.active_is_view	propext
+RatioSpace.Two.Shell.active_is_view	Quot.sound,propext
 RatioSpace.Two.Shell.allOnes	
-RatioSpace.Two.Shell.archAt	propext
-RatioSpace.Two.Shell.bdAct	propext
+RatioSpace.Two.Shell.archAt	Quot.sound,propext
+RatioSpace.Two.Shell.bdAct	Quot.sound,propext
 RatioSpace.Two.Shell.bleW	
 RatioSpace.Two.Shell.bleW_antisymm	
 RatioSpace.Two.Shell.bleW_total	
@@ -6155,15 +6172,15 @@ RatioSpace.Two.Shell.countP_lt_of	Quot.sound,propext
 RatioSpace.Two.Shell.countP_pos_of	Quot.sound,propext
 RatioSpace.Two.Shell.ek	
 RatioSpace.Two.Shell.ek_comm	propext
-RatioSpace.Two.Shell.entryRec_shaped	propext
+RatioSpace.Two.Shell.entryRec_shaped	Quot.sound,propext
 RatioSpace.Two.Shell.eq_of_map_nodup	Quot.sound,propext
-RatioSpace.Two.Shell.evJ	propext
+RatioSpace.Two.Shell.evJ	Quot.sound,propext
 RatioSpace.Two.Shell.evalsAt	
 RatioSpace.Two.Shell.exists_of_all_false	
-RatioSpace.Two.Shell.exportReady	propext
+RatioSpace.Two.Shell.exportReady	Quot.sound,propext
 RatioSpace.Two.Shell.filter_keys_eq	Quot.sound,propext
 RatioSpace.Two.Shell.find?_of_unique	propext
-RatioSpace.Two.Shell.gidFace	propext
+RatioSpace.Two.Shell.gidFace	Quot.sound,propext
 RatioSpace.Two.Shell.gid_admissible	Quot.sound,propext
 RatioSpace.Two.Shell.gid_lineage_admissible	Quot.sound,propext
 RatioSpace.Two.Shell.glueE	propext
@@ -6175,8 +6192,8 @@ RatioSpace.Two.Shell.glue_tetra	propext
 RatioSpace.Two.Shell.glue_twisted	propext
 RatioSpace.Two.Shell.handoff_complete	Quot.sound,propext
 RatioSpace.Two.Shell.iWit	
-RatioSpace.Two.Shell.incEAct	propext
-RatioSpace.Two.Shell.incVAct	propext
+RatioSpace.Two.Shell.incEAct	Quot.sound,propext
+RatioSpace.Two.Shell.incVAct	Quot.sound,propext
 RatioSpace.Two.Shell.instDecidableClosedShellInput	propext
 RatioSpace.Two.Shell.instDecidableEqCSh	
 RatioSpace.Two.Shell.instDecidableEqCSh.decEq	
@@ -6226,16 +6243,16 @@ RatioSpace.Two.Shell.qle_antisymm	Quot.sound,propext
 RatioSpace.Two.Shell.qle_total	
 RatioSpace.Two.Shell.ready_unique_read	Quot.sound,propext
 RatioSpace.Two.Shell.receivedShellInput_iff	Quot.sound,propext
-RatioSpace.Two.Shell.recvId	propext
-RatioSpace.Two.Shell.recvId_eq	propext
+RatioSpace.Two.Shell.recvId	Quot.sound,propext
+RatioSpace.Two.Shell.recvId_eq	Quot.sound,propext
 RatioSpace.Two.Shell.recvId_lineage	Quot.sound,propext
 RatioSpace.Two.Shell.retention_of_lossless	Quot.sound,propext
 RatioSpace.Two.Shell.same_trans	
 RatioSpace.Two.Shell.separation_25_12	Quot.sound,propext
 RatioSpace.Two.Shell.separation_25_12_renewal	Quot.sound,propext
 RatioSpace.Two.Shell.shapeB	propext
-RatioSpace.Two.Shell.shaped_face	propext
-RatioSpace.Two.Shell.shellIn	propext
+RatioSpace.Two.Shell.shaped_face	Quot.sound,propext
+RatioSpace.Two.Shell.shellIn	Quot.sound,propext
 RatioSpace.Two.Shell.shellIn_recoverable	Quot.sound,propext
 RatioSpace.Two.Shell.sphereDefect	
 RatioSpace.Two.Shell.sublist_every_edge_once	Quot.sound,propext
@@ -6772,6 +6789,10 @@ RatioSpace.Two.Step3Cousin.cc_combo	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.cd	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.cd_combo	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.coeff_vectors	Quot.sound,propext
+RatioSpace.Two.Step3Cousin.coherence_w	Quot.sound,propext
+RatioSpace.Two.Step3Cousin.coherence_x	Quot.sound,propext
+RatioSpace.Two.Step3Cousin.coherence_y	Quot.sound,propext
+RatioSpace.Two.Step3Cousin.coherence_z	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.combo_of_addr	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.cousin_admittedFam	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.cousin_concrete_L	Quot.sound,propext
@@ -6805,10 +6826,6 @@ RatioSpace.Two.Step3Cousin.mfamC	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.mfamC_perm	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.mselC	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.outerR	
-RatioSpace.Two.Step3Cousin.score_w	Quot.sound,propext
-RatioSpace.Two.Step3Cousin.score_x	Quot.sound,propext
-RatioSpace.Two.Step3Cousin.score_y	Quot.sound,propext
-RatioSpace.Two.Step3Cousin.score_z	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.sel4	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.sel4_false	Quot.sound,propext
 RatioSpace.Two.Step3Cousin.sel4_head	Quot.sound,propext
@@ -7107,7 +7124,8 @@ RatioSpace.Two.Z_nil	propext
 RatioSpace.Two.addr_proposal_nil	Quot.sound,propext
 RatioSpace.Two.addressed_walk	Quot.sound,propext
 RatioSpace.Two.admitted	
-RatioSpace.Two.admittedPhases	
+RatioSpace.Two.admittedPhases	Quot.sound,propext
+RatioSpace.Two.admittedPhases_P_two_one	Quot.sound,propext
 RatioSpace.Two.admitted_both	propext
 RatioSpace.Two.admitted_sub	propext
 RatioSpace.Two.age_not_length	
@@ -7141,7 +7159,7 @@ RatioSpace.Two.causalRecord	Quot.sound,propext
 RatioSpace.Two.causalRecord_children_distinct	Quot.sound,propext
 RatioSpace.Two.cfSignature	Quot.sound,propext
 RatioSpace.Two.cf_signature_is_not_the_tension_signature	Quot.sound,propext
-RatioSpace.Two.chanStatus	propext
+RatioSpace.Two.chanStatus	Quot.sound,propext
 RatioSpace.Two.channelRelation	Quot.sound,propext
 RatioSpace.Two.childCore	Quot.sound,propext
 RatioSpace.Two.childCore_closure	Quot.sound,propext
@@ -7181,8 +7199,8 @@ RatioSpace.Two.contrast
 RatioSpace.Two.covariance_needs_the_prefix	Quot.sound,propext
 RatioSpace.Two.dSB_reduce_inv	Quot.sound,propext
 RatioSpace.Two.decAncLe	Quot.sound,propext
-RatioSpace.Two.decodedChannel	propext
-RatioSpace.Two.decoded_reconstructs	propext
+RatioSpace.Two.decodedChannel	Quot.sound,propext
+RatioSpace.Two.decoded_reconstructs	Quot.sound,propext
 RatioSpace.Two.dedekindSumInt	
 RatioSpace.Two.dedekindSumInt_neg	Quot.sound,propext
 RatioSpace.Two.direct_admission	Quot.sound,propext
@@ -7262,6 +7280,7 @@ RatioSpace.Two.mem_supportOcc_iff	Quot.sound,propext
 RatioSpace.Two.mirror_accompanies	Quot.sound,propext
 RatioSpace.Two.negCount	
 RatioSpace.Two.negLoad	
+RatioSpace.Two.negLoad_P_zero_not_Mplus	Quot.sound,propext
 RatioSpace.Two.negLoad_nonneg	Quot.sound,propext
 RatioSpace.Two.negLoad_not_projective	
 RatioSpace.Two.negLoad_zero_iff_nonneg	Quot.sound,propext
@@ -7276,13 +7295,13 @@ RatioSpace.Two.nodup_filter_active_length_eq	propext
 RatioSpace.Two.notEvaluated_ne_unresolvedNone	
 RatioSpace.Two.occA	Quot.sound,propext
 RatioSpace.Two.occB	Quot.sound,propext
-RatioSpace.Two.occScore	Quot.sound,propext
+RatioSpace.Two.occCoherence	Quot.sound,propext
 RatioSpace.Two.occurrence_singleton_not_forced_by_addr	Quot.sound,propext
 RatioSpace.Two.operands_prefix_invariant	Quot.sound,propext
 RatioSpace.Two.oppositeHand	
 RatioSpace.Two.oppositeHand_invol	
 RatioSpace.Two.oppositeHand_ne	
-RatioSpace.Two.pair_scores_equal	Quot.sound,propext
+RatioSpace.Two.pair_coherence_equal	Quot.sound,propext
 RatioSpace.Two.pair_support	Quot.sound,propext
 RatioSpace.Two.parent_traversal_reconstructs	Quot.sound,propext
 RatioSpace.Two.phase_resolution_is_not_support_resolution	Quot.sound,propext
@@ -7317,7 +7336,7 @@ RatioSpace.Two.psiRad_decomposition
 RatioSpace.Two.quarter_turn_separating	Quot.sound,propext
 RatioSpace.Two.question_bounds_not_forces	Quot.sound,propext
 RatioSpace.Two.reachable	
-RatioSpace.Two.receive_bot	propext
+RatioSpace.Two.receive_bot	Quot.sound,propext
 RatioSpace.Two.reduce_inv	Quot.sound,propext
 RatioSpace.Two.rejection_needs_three	Quot.sound,propext
 RatioSpace.Two.residue_loses_the_integer	Quot.sound,propext

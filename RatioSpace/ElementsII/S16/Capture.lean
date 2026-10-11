@@ -15,7 +15,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   singleton) is built in full, as a genuine theorem over any `Policy` (a schedule on the
     carriers a run
   from a seed reaches; the book's rule is one, `AxiomPolicy.axiomPolicy`)
-  satisfying the two properties any Construction-Axiom-II.1-style selector
+  satisfying the two properties any Definition-8.1-style selector
   actually has: it respects `List.Perm` of its own input, and it is
   self-equivariant under the carrier-level side exchange in exactly the shape
   `SideExchange.lean`'s own `hsel_equiv` already uses. Given those, and given
@@ -29,7 +29,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   **Items 1 and 2 are built in `Step5Words.lean` (2026-09-14):** the missing
   "tick-`i` support of the lone-seed question with seed `x`" is `wIter i [x]`,
-  one tick of Construction Axiom II.1 on words, and `nextCores_words` proves the
+  one tick of Definition 8.1 on words, and `nextCores_words` proves the
   tick map agrees with it (`theorem_16_12_item1`, `_item2`, `_item1_governed`,
   `_item1_beat`). The paragraph below is the account as of 2026-09-13.
 
@@ -205,7 +205,7 @@ theorem active_mirror_invariant_step {archive : List Core} {active : List Questi
     and it is equivariant under the carrier-level side exchange in exactly
     `hsel_equiv`'s own shape. Asked only at carriers a run reaches
     (`RunInv`), where the policy is defined. Both are true of any selector actually built
-    from Construction Axiom II.1 over a mirror-fixed observer — nothing here
+    from Definition 8.1 over a mirror-fixed observer — nothing here
     invents them: the second is the hypothesis
     `advanceCarrier_mirror_componentwise` already carries, and the first is
     the same enumeration-independence Theorem 12.7 already proves for

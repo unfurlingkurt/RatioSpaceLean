@@ -144,8 +144,8 @@ Four layers, each proved for every frame:
   `⌊N_ij/k_ij⌋ + k_ij`, on the tree's own `tEnd`, reduction included;
 * **margins**: pure `omega` on those bounds and the identities;
 * **ℤ[φ] comparisons**: two sums of negative golden powers, from `PhiPos` alone;
-* **scores and support**: `coherenceOf` on the four grandchildren, and
-  Construction Axiom II.1's `support` itself.
+* **coherence values and support**: `coherenceOf` on the four grandchildren, and
+  Definition 8.1's `support` itself.
 
 **Orientation.** In the tree's `otimes g_i g_j` order with `i < j`, the
 contrast is `N_ij : (N_ij + k_ij)`, because `a_i b_j − a_j b_i = −k_ij < 0` for
@@ -287,13 +287,13 @@ theorem sum_lt_of_both_deeper {a b c d : ℕ} (hab : a < b) (hcd : c < d) :
     _ < phiNegPow c + phiNegPow a := add_lt_add_right_zphi (phiNegPow_strict hcd)
     _ = phiNegPow a + phiNegPow c := add_comm _ _
 
-/-! ### Scores on the four grandchildren -/
+/-! ### Coherence values on the four grandchildren -/
 
-section scores
+section coherences
 
 variable (F : Frame)
 
-theorem score_LL : coherenceOf (grand F) (gLL F) =
+theorem coherence_LL : coherenceOf (grand F) (gLL F) =
     (phiNegPow (tEnd (gLL F) (gRR F)) + phiNegPow (tEnd (gLL F) (gRL F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gLL F) (gLR F))) := by
   change phiNegPow (tEnd (gLL F) (gLL F)) + (phiNegPow (tEnd (gLL F) (gLR F)) + (phiNegPow (tEnd
@@ -301,21 +301,21 @@ theorem score_LL : coherenceOf (grand F) (gLL F) =
     + (phiNegPow (tEnd (gLL F) (gRR F)) + 0))) = _
   rw [tEnd_self]; ring
 
-theorem score_LR : coherenceOf (grand F) (gLR F) =
+theorem coherence_LR : coherenceOf (grand F) (gLR F) =
     (phiNegPow (tEnd (gLR F) (gRL F)) + phiNegPow (tEnd (gLR F) (gRR F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gLL F) (gLR F))) := by
   change phiNegPow (tEnd (gLR F) (gLL F)) + (phiNegPow (tEnd (gLR F) (gLR F))
     + (phiNegPow (tEnd (gLR F) (gRL F)) + (phiNegPow (tEnd (gLR F) (gRR F)) + 0))) = _
   rw [tEnd_self, tEnd_comm (gLR F) (gLL F)]; ring
 
-theorem score_RL : coherenceOf (grand F) (gRL F) =
+theorem coherence_RL : coherenceOf (grand F) (gRL F) =
     (phiNegPow (tEnd (gLL F) (gRL F)) + phiNegPow (tEnd (gLR F) (gRL F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gRL F) (gRR F))) := by
   change phiNegPow (tEnd (gRL F) (gLL F)) + (phiNegPow (tEnd (gRL F) (gLR F))
     + (phiNegPow (tEnd (gRL F) (gRL F)) + (phiNegPow (tEnd (gRL F) (gRR F)) + 0))) = _
   rw [tEnd_self, tEnd_comm (gRL F) (gLL F), tEnd_comm (gRL F) (gLR F)]; ring
 
-theorem score_RR : coherenceOf (grand F) (gRR F) =
+theorem coherence_RR : coherenceOf (grand F) (gRR F) =
     (phiNegPow (tEnd (gLL F) (gRR F)) + phiNegPow (tEnd (gLR F) (gRR F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gRL F) (gRR F))) := by
   change phiNegPow (tEnd (gRR F) (gLL F)) + (phiNegPow (tEnd (gRR F) (gLR F))
@@ -325,22 +325,22 @@ theorem score_RR : coherenceOf (grand F) (gRR F) =
 
 /-- `C(g₁)` against `C(g₄)` share `1 + φ^{−t₁₄}`; the rest is `t₁₂,t₁₃` against
     `t₃₄,t₂₄`. -/
-theorem score_LL' : coherenceOf (grand F) (gLL F) =
+theorem coherence_LL' : coherenceOf (grand F) (gLL F) =
     (phiNegPow (tEnd (gLL F) (gLR F)) + phiNegPow (tEnd (gLL F) (gRL F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gLL F) (gRR F))) := by
-  rw [score_LL]; ring
+  rw [coherence_LL]; ring
 
-theorem score_RR' : coherenceOf (grand F) (gRR F) =
+theorem coherence_RR' : coherenceOf (grand F) (gRR F) =
     (phiNegPow (tEnd (gRL F) (gRR F)) + phiNegPow (tEnd (gLR F) (gRR F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gLL F) (gRR F))) := by
-  rw [score_RR]; ring
+  rw [coherence_RR]; ring
 
-theorem score_RL' : coherenceOf (grand F) (gRL F) =
+theorem coherence_RL' : coherenceOf (grand F) (gRL F) =
     (phiNegPow (tEnd (gLL F) (gRL F)) + phiNegPow (tEnd (gLR F) (gRL F))) + (phiNegPow 0 +
       phiNegPow (tEnd (gRL F) (gRR F))) :=
-  score_RL F
+  coherence_RL F
 
-end scores
+end coherences
 
 /-! ### Theorem 16.11, Step 1 -/
 
@@ -388,32 +388,32 @@ theorem step1_tension_margin_neg (F : Frame)
   · unfold Nn; ring
   · unfold Nn; ring
 
-/-- **Theorem 16.11, Step 1, first half: the score comparisons.**
+/-- **Theorem 16.11, Step 1, first half: the coherence value comparisons.**
     `C(g₂) < C(g₁)` and `C(g₃) < C(g₄)`. -/
-theorem step1_scores (F : Frame) (hg : Generic F) :
+theorem step1_coherence (F : Frame) (hg : Generic F) :
     coherenceOf (grand F) (gLR F) < coherenceOf (grand F) (gLL F) ∧
     coherenceOf (grand F) (gRL F) < coherenceOf (grand F) (gRR F) := by
   obtain ⟨m13, m23, m24⟩ := step1_tension_margin F hg
   refine ⟨?_, ?_⟩
-  · rw [score_LR, score_LL]
+  · rw [coherence_LR, coherence_LL]
     exact add_lt_add_right_zphi (sum_lt_of_two_deeper m23 m24)
-  · rw [score_RL, score_RR]
+  · rw [coherence_RL, coherence_RR]
     exact add_lt_add_right_zphi (sum_lt_of_two_deeper m13 m23)
 
 /-- `C(g₄) < C(g₁)` when `D ≥ 21`. -/
-theorem step1_scores_pos (F : Frame)
+theorem step1_coherence_pos (F : Frame)
     (hD : F.minus.p * F.minus.q + 21 ≤ F.plus.p * F.plus.q) :
     coherenceOf (grand F) (gRR F) < coherenceOf (grand F) (gLL F) := by
   obtain ⟨m1, m2⟩ := step1_tension_margin_pos F hD
-  rw [score_RR', score_LL']
+  rw [coherence_RR', coherence_LL']
   exact add_lt_add_right_zphi (sum_lt_of_both_deeper m2 m1)
 
 /-- `C(g₁) < C(g₄)` when `D ≤ −21`. -/
-theorem step1_scores_neg (F : Frame)
+theorem step1_coherence_neg (F : Frame)
     (hD : F.plus.p * F.plus.q + 21 ≤ F.minus.p * F.minus.q) :
     coherenceOf (grand F) (gLL F) < coherenceOf (grand F) (gRR F) := by
   obtain ⟨m1, m2⟩ := step1_tension_margin_neg F hD
-  rw [score_RR', score_LL']
+  rw [coherence_RR', coherence_LL']
   exact add_lt_add_right_zphi (sum_lt_of_both_deeper m2 m1)
 
 theorem not_le_of_lt_zphi {a b : Zphi} (h : a < b) : ¬ b ≤ a :=
@@ -436,11 +436,11 @@ theorem gRR_mem (F : Frame) : gRR F ∈ grand F :=
   List.Mem.tail _ (List.Mem.tail _ (List.Mem.tail _ (List.Mem.head _)))
 
 /-- **Theorem 16.11, Step 1: the maximizer set lies in `{g₁, g₄}`.** Stated on
-    Construction Axiom II.1's `support`, not on a proxy. -/
+    Definition 8.1's `support`, not on a proxy. -/
 theorem step1_support_sub (F : Frame) (hg : Generic F) :
     ∀ y ∈ support (grand F), y = gLL F ∨ y = gRR F := by
   intro y hy
-  obtain ⟨h21, h34⟩ := step1_scores F hg
+  obtain ⟨h21, h34⟩ := step1_coherence F hg
   have hmax := support_maximal hy
   rcases mem_grand (support_sub hy) with h | h | h | h
   · exact Or.inl h
@@ -448,7 +448,7 @@ theorem step1_support_sub (F : Frame) (hg : Generic F) :
   · rw [h] at hmax; exact absurd (hmax _ (gRR_mem F)) (not_le_of_lt_zphi h34)
   · exact Or.inr h
 
-/-- Construction Axiom II.1's filter predicate on the four grandchildren. -/
+/-- Definition 8.1's filter predicate on the four grandchildren. -/
 def selPred (F : Frame) (y : IPres) : Bool :=
   (grand F).all (fun z => decide (coherenceOf (grand F) z ≤ coherenceOf (grand F) y))
 
@@ -477,8 +477,8 @@ theorem support_grand_eq {F : Frame}
 theorem step1_unique_pos (F : Frame) (hg : Generic F)
     (hD : F.minus.p * F.minus.q + 21 ≤ F.plus.p * F.plus.q) :
     support (grand F) = [gLL F] := by
-  obtain ⟨h21, h34⟩ := step1_scores F hg
-  have h41 := step1_scores_pos F hD
+  obtain ⟨h21, h34⟩ := step1_coherence F hg
+  have h41 := step1_coherence_pos F hD
   have h31 := lt_trans h34 h41
   refine support_grand_eq ?_ h21 h31 h41
   intro z hz
@@ -492,8 +492,8 @@ theorem step1_unique_pos (F : Frame) (hg : Generic F)
 theorem step1_unique_neg (F : Frame) (hg : Generic F)
     (hD : F.plus.p * F.plus.q + 21 ≤ F.minus.p * F.minus.q) :
     support (grand F) = [gRR F] := by
-  obtain ⟨h21, h34⟩ := step1_scores F hg
-  have h14 := step1_scores_neg F hD
+  obtain ⟨h21, h34⟩ := step1_coherence F hg
+  have h14 := step1_coherence_neg F hD
   have h24 := lt_trans h21 h14
   have neg : ∀ w, coherenceOf (grand F) w < coherenceOf (grand F) (gRR F) →
       ¬ ((grand F).all (fun z => decide (coherenceOf (grand F) z ≤

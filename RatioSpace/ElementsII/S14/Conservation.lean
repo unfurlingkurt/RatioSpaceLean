@@ -23,7 +23,7 @@ label-based identifier would have made 14.4 the hardest theorem in the volume.
 
 **One finding, in 14.8.** The book says neither `S_j ⊆ S_{j+1}` nor
 `S_{j+1} ⊆ S_j` *is required*. Under Lemma 12.1 the two supports are in fact
-**disjoint**: Construction Axiom II.1 selects from newly admitted child
+**disjoint**: Definition 8.1 selects from newly admitted child
 occurrences, every child identifier is fresh against the archive, and the
 carrier's own `active_sub_archive` field puts `S_j` inside that archive. So both
 inclusions fail outright whenever both supports are nonempty, rather than merely
@@ -367,7 +367,7 @@ theorem support_sub_archive {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) :
     are **disjoint**.
 
     The reason is the one the book's own proof gives, followed one step further:
-    Construction Axiom II.1 selects from newly admitted **child** occurrences,
+    Definition 8.1 selects from newly admitted **child** occurrences,
     Lemma 12.1 makes every child identifier fresh against `ℋ_j`, and
     `active_sub_archive` puts `S_j` inside `ℋ_j`. A new support member is
     therefore not merely un-guaranteed to be an old one, it cannot be one.

@@ -6,10 +6,10 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S08.Coherence
 import RatioSpace.ElementsII.S27.PhiPos
 /-!
-  Elements II §16, Lemma 16.14 — Tension automorphisms force equal scores.
+  Elements II §16, Lemma 16.14 — Tension automorphisms force equal coherence values.
 
   Four clauses: a tension-preserving permutation of the admitted family
-  preserves every score; hence it maps the complete maximizer set onto itself;
+  preserves every coherence value; hence it maps the complete maximizer set onto itself;
   in a four-member family, equal tension histograms are always realized by
   such a permutation; and two sums of two negative powers of `φ` coincide only
   when the exponent pairs agree or form `{P, P}` against `{P - 1, P + 2}`.
@@ -24,12 +24,12 @@ namespace Automorphism
 
 open Zphi PhiPos
 
-/-! ## Clause 1 — a tension automorphism preserves every score -/
+/-! ## Clause 1 — a tension automorphism preserves every coherence value -/
 
 /-- **Lemma 16.14, first clause.** If `σ` permutes the admitted family and
     preserves every tension on it, then `C(σ y) = C(y)`. The book's proof is a
     reindexing of the sum by `z ↦ σ z`, and so is this one. -/
-theorem score_invariant (fam : List IPres) (σ : IPres → IPres)
+theorem coherence_invariant (fam : List IPres) (σ : IPres → IPres)
     (hperm : (fam.map σ).Perm fam)
     (ht : ∀ y ∈ fam, ∀ z ∈ fam, tEnd (σ y) (σ z) = tEnd y z)
     {y : IPres} (hy : y ∈ fam) :
@@ -45,7 +45,7 @@ theorem score_invariant (fam : List IPres) (σ : IPres → IPres)
   simp only [Function.comp_apply, ht y hy z hz]
 
 /-- **Lemma 16.14, second clause.** Such a `σ` maps the complete maximizer set
-    of Construction Axiom II.1 into itself (and, being a permutation of the
+    of Definition 8.1 into itself (and, being a permutation of the
     family, onto it). -/
 theorem support_invariant (fam : List IPres) (σ : IPres → IPres)
     (hperm : (fam.map σ).Perm fam)
@@ -59,17 +59,17 @@ theorem support_invariant (fam : List IPres) (σ : IPres → IPres)
   refine ⟨hσf, ?_⟩
   rw [List.all_eq_true]
   intro z hz
-  rw [score_invariant fam σ hperm ht hyf]
+  rw [coherence_invariant fam σ hperm ht hyf]
   exact decide_eq_true (hmax z hz)
 
 /-- **Corollary of clause 1**: two occurrences exchanged by a tension
-    automorphism receive equal scores. -/
-theorem exchanged_equal_scores (fam : List IPres) (σ : IPres → IPres)
+    automorphism receive equal coherence values. -/
+theorem exchanged_equal_coherence (fam : List IPres) (σ : IPres → IPres)
     (hperm : (fam.map σ).Perm fam)
     (ht : ∀ y ∈ fam, ∀ z ∈ fam, tEnd (σ y) (σ z) = tEnd y z)
     {y y' : IPres} (hy : y ∈ fam) (hswap : σ y = y') :
     coherenceOf fam y' = coherenceOf fam y := by
-  rw [← hswap]; exact score_invariant fam σ hperm ht hy
+  rw [← hswap]; exact coherence_invariant fam σ hperm ht hy
 
 /-! ## Clause 3 — in a four-member family, equal histograms give an automorphism
 
@@ -282,9 +282,9 @@ theorem collision_identities (p : ℕ) :
     _ = (phiNegPow (p + 1) + phiNegPow (p + 2)) + phiNegPow (p + 3) := (add_assoc _ _ _).symm
     _ = phiNegPow p + phiNegPow (p + 3) := by rw [← a]
 
-#print axioms score_invariant
+#print axioms coherence_invariant
 #print axioms support_invariant
-#print axioms exchanged_equal_scores
+#print axioms exchanged_equal_coherence
 #print axioms add_lt_add_right_zphi
 #print axioms pair_perm
 #print axioms swap01_involutive

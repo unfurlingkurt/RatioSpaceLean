@@ -24,7 +24,7 @@ import RatioSpace.ElementsII.S16.RootChainState
   **Built here.**
   * `singleton_reopens_to_pair`: on any lawful carrier, at any observer, with
     any horizon, a singleton support whose two children are admitted and
-    addressed advances under Construction Axiom II.1 to exactly the two
+    addressed advances under Definition 8.1 to exactly the two
     children's identifiers.
   * `snap_then_reopens`: a defined snap, and any carrier a new question poses
     on the same archive and active support that may advance (so the unique

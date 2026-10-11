@@ -21,7 +21,7 @@ import RatioSpace.ElementsII.S08.Coherence
       the question is, so no question type forces a singleton;
     * **terminal:** at any tick, in particular the terminal tick `h`, adjoining
       `γ_B` to the declared admission predicate makes the admitted family
-      exactly `B`, and Construction Axiom II.1 then returns `B`'s receptions
+      exactly `B`, and Definition 8.1 then returns `B`'s receptions
       whole whenever `|B| < 3` (Corollary 8.12, `rejection_needs_three`). So
       `B = ∅`, one occurrence, two occurrences give the terminal statuses
       `empty`, `singleton`, `unresolved-multiple`, and the status is read off
@@ -132,7 +132,7 @@ theorem admitted_gammaB (MO : Mat2) (pred : ProposalRecord → Bool) (P : List P
 
 /-- **Proposition 4.11, terminal clause, general.** At any tick, in particular
     the terminal one, let `f` read each admitted occurrence as the relation
-    Construction Axiom II.1 compares. For every duplicate-free family `B` of
+    Definition 8.1 compares. For every duplicate-free family `B` of
     admitted occurrences with `|B| < 3`, the support selected from the
     `γ_B`-admitted family has exactly `|B|` members, so its terminal status is
     `termStatus |B|`. -/

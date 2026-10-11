@@ -214,7 +214,7 @@ theorem no_sibling_edge {archive : List Core} (hpc : ParentCoherent archive) (x 
 
 /-- **Proposition 21.4.** `Q_{xs, xs̄} = M_{xs}⁻¹ M_{xs̄} = A_s`, for every parent,
     seed, prefix, event and provenance: none of them appears on the right. The
-    support score is not an input at all. -/
+    support coherence is not an input at all. -/
 theorem shortcut_matrix (c : Core) (s : Bool) (entry : ℕ) (prov : Provenance) :
     Q (childCore c s entry prov).fullMatrix (childCore c (!s) entry prov).fullMatrix = A s :=
   childProposal_sibling_matrix c.seedId c.seed c.relWord s

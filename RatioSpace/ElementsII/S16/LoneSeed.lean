@@ -216,7 +216,7 @@ theorem theorem_16_17_RR_addressed :
 
 /-- **The terminal admitted family and certificates for `𝒬_LL`**: addresses
     `13:42, 14:45, 11:35, 7:22`, the tension matrix (each row's multiset is the
-    book's histogram), and all eight 41-digit score coefficients. -/
+    book's histogram), and all eight 41-digit coherence value coefficients. -/
 theorem theorem_16_17_LL_terminal :
     props6famLL.map (fun y => (y.p, y.q)) = [(13, 42), (14, 45), (11, 35), (7, 22)] ∧
     props6famLL.map (tensions props6famLL) =
@@ -231,7 +231,7 @@ theorem theorem_16_17_LL_selected_strict :
     (⟨-40934782466626840596168753000739520615589, 25299086886458645685589389199911422076481⟩ : Zphi) < (⟨-160500642783798072, 99194852456592750⟩ : Zphi) ∧ (⟨-40934782466626840595949829977125838173950, 25299086886458645685454087330398270498148⟩ : Zphi) < (⟨-160500642783798072, 99194852456592750⟩ : Zphi) ∧ (⟨218762467412848766651, -135202640323931812987⟩ : Zphi) < (⟨-160500642783798072, 99194852456592750⟩ : Zphi) := by
   refine ⟨by decide, by decide, by decide⟩
 
-/-- **The `𝒬_RR` family, same score multiset**, in exactly reversed order. -/
+/-- **The `𝒬_RR` family, same coherence value multiset**, in exactly reversed order. -/
 theorem theorem_16_17_RR_terminal :
     props6famRR.map (fun y => (y.p, y.q)) = [(22, 7), (35, 11), (45, 14), (42, 13)] ∧
     props6famRR.map (tensions props6famRR) =
@@ -240,7 +240,7 @@ theorem theorem_16_17_RR_terminal :
       [(⟨-160500642783798072, 99194852456592750⟩ : Zphi), (⟨218762467412848766651, -135202640323931812987⟩ : Zphi), (⟨-40934782466626840595949829977125838173950, 25299086886458645685454087330398270498148⟩ : Zphi), (⟨-40934782466626840596168753000739520615589, 25299086886458645685589389199911422076481⟩ : Zphi)] := by
   refine ⟨by decide, by decide, by decide⟩
 
-/-- **The closure itself, as Construction Axiom II.1's output**: the support of
+/-- **The closure itself, as Definition 8.1's output**: the support of
     each terminal family is exactly the selected occurrence. -/
 theorem theorem_16_17_LL_closes :
     (support props6famLL).map (fun y => (y.p, y.q)) = [(7, 22)] := by decide

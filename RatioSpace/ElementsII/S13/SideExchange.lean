@@ -537,8 +537,8 @@ def TickCarrier.mirror {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) :
     freeze two different relations into one and hide which is which — the error
     this file was corrected for once already.
 
-    The selector's equivariance is a hypothesis and has to be. Construction
-    Axiom II.1 supplies the support and this file does not get to assume it has
+    The selector's equivariance is a hypothesis and has to be. Definition
+    8.1 supplies the support and this file does not get to assume it has
     no preferred hand; `hsel_equiv` is exactly the assumption that it does not,
     and Corollary 13.4 is what makes that assumption reasonable rather than
     free. -/
@@ -852,7 +852,8 @@ theorem iterated_parity_obstruction (S : List QuestionId)
     (hperm : (S.map QuestionId.mirror).Perm S) : S.length ≠ 1 :=
   no_singleton_fixed_setwise QuestionId.mirror S hfree hperm
 
-/-- **Corollary 16.3 — Under a side-equivariant law, uniqueness requires asymmetry or a fixed occurrence.** Stated as
+/-- **Corollary 16.3 — Under a side-equivariant law, uniqueness requires asymmetry or a fixed
+    occurrence.** Stated as
     the contrapositive, which is what the book's prose amounts to: if a
     side-symmetric complete input *does* yield a unique answer, then some
     terminal occurrence is fixed by the declared side action. Uniqueness must be

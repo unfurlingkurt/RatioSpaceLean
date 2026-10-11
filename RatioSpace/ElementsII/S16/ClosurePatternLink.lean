@@ -289,7 +289,7 @@ theorem sibling_admittedCores
   · exact gcore_admitted c true true sR pR s p
   · cases hd
 
-/-- **(b), the family.** The admitted family Construction Axiom II.1 compares
+/-- **(b), the family.** The admitted family Definition 8.1 compares
     is exactly `grand F_y`. -/
 theorem sibling_admittedFam
     (hsib : archive.filter (fun d => d.id ∈ active)
@@ -310,8 +310,8 @@ theorem selPred_iff (F : Frame) {y : IPres} (hy : y ∈ grand F) :
   · intro h; exact (List.mem_filter.mp h).2
 
 /-- **(b), the selection, in closed form.** `axiomSelect` at a sibling step
-    keeps exactly the grandchildren whose address passes Construction Axiom
-    II.1's filter on `grand F_y`, in the order `yLL, yLR, yRL, yRR`. -/
+    keeps exactly the grandchildren whose address passes Definition 8.1
+    's filter on `grand F_y`, in the order `yLL, yLR, yRL, yRR`. -/
 theorem sibling_axiomSelect
     (hsib : archive.filter (fun d => d.id ∈ active)
       = [childCore c false sL pL, childCore c true sR pR]) :
@@ -369,7 +369,7 @@ theorem sibling_step_generic
     (hg : Generic (frameEps c)) :
     ∀ i ∈ axiomSelect 1 s p (proposals archive active),
       i = (gcore c false false sL pL s p).id ∨ i = (gcore c true true sR pR s p).id := by
-  obtain ⟨h21, h34⟩ := step1_scores (frameEps c) hg
+  obtain ⟨h21, h34⟩ := step1_coherence (frameEps c) hg
   have hLR : selPred (frameEps c) (gLR (frameEps c)) = false :=
     selPred_false_of_lt _ (gLL_mem _) h21
   have hRL : selPred (frameEps c) (gRL (frameEps c)) = false :=
@@ -398,8 +398,8 @@ theorem sibling_step_pos
     (hD : (frameEps c).minus.p * (frameEps c).minus.q + 21
       ≤ (frameEps c).plus.p * (frameEps c).plus.q) :
     axiomSelect 1 s p (proposals archive active) = [(gcore c false false sL pL s p).id] := by
-  obtain ⟨h21, h34⟩ := step1_scores (frameEps c) hg
-  have h41 := step1_scores_pos (frameEps c) hD
+  obtain ⟨h21, h34⟩ := step1_coherence (frameEps c) hg
+  have h41 := step1_coherence_pos (frameEps c) hD
   have h31 := lt_trans h34 h41
   have hLL : selPred (frameEps c) (gLL (frameEps c)) = true := by
     refine selPred_true_of_max _ (fun z hz => ?_)
@@ -421,8 +421,8 @@ theorem sibling_step_neg
     (hD : (frameEps c).plus.p * (frameEps c).plus.q + 21
       ≤ (frameEps c).minus.p * (frameEps c).minus.q) :
     axiomSelect 1 s p (proposals archive active) = [(gcore c true true sR pR s p).id] := by
-  obtain ⟨h21, h34⟩ := step1_scores (frameEps c) hg
-  have h14 := step1_scores_neg (frameEps c) hD
+  obtain ⟨h21, h34⟩ := step1_coherence (frameEps c) hg
+  have h14 := step1_coherence_neg (frameEps c) hD
   have h24 := lt_trans h21 h14
   have hRR : selPred (frameEps c) (gRR (frameEps c)) = true := by
     refine selPred_true_of_max _ (fun z hz => ?_)

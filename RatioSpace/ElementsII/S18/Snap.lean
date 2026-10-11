@@ -102,7 +102,8 @@ theorem terminal_not_lawful {Aux : Type} {h : ℕ} (pol : Policy Aux h)
     ¬ Advance.Lawful (Term pol X0 hX0) :=
   Advance.not_lawful_at_horizon _ (Term_tick pol X0 hX0)
 
-/-! ## Separation Rule 18.4 — Snap commits the terminal record; return assimilation replaces the observer -/
+/-! ## Separation Rule 18.4 — Snap commits the terminal record; return assimilation replaces
+    the observer -/
 
 /-- **Separation Rule 18.4.** The snap determines *which* complete terminal
     record is committed. It does not replace the observer, alter the active

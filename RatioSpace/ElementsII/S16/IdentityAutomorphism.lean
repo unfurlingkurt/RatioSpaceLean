@@ -10,8 +10,8 @@ import RatioSpace.ElementsII.S16.Automorphism
   Proposition 16.13(3), the only tension-preserving permutation of the admitted
   family is the identity.
 
-  `Two/Automorphism.lean`'s `score_invariant` already reindexes a coherence
-  score along a tension automorphism. This file isolates the permutation step as
+  `Two/Automorphism.lean`'s `coherence_invariant` already reindexes a coherence
+  coherence value along a tension automorphism. This file isolates the permutation step as
   `tensions_invariant`, enumerates the two degenerate families `fam3` and `fam4`
   of `Two/Transient.lean` by their tension histograms, and reads off that a
   tension-preserving permutation fixes each member: the shared histogram of the
@@ -46,7 +46,7 @@ theorem perm_countSig {l₁ l₂ : List ℕ} (hp : l₁.Perm l₂) : countSig l�
 /-- **Lemma 16.14's permutation step.** If `σ` permutes the family and preserves
     every tension on it, then the tension list of `σ y` is a permutation of the
     tension list of `y`. This is the `hperm.map` reindexing inside
-    `score_invariant`, before `coherence` is applied. -/
+    `coherence_invariant`, before `coherence` is applied. -/
 theorem tensions_invariant (fam : List IPres) (σ : IPres → IPres)
     (hperm : (fam.map σ).Perm fam)
     (ht : ∀ y ∈ fam, ∀ z ∈ fam, tEnd (σ y) (σ z) = tEnd y z)

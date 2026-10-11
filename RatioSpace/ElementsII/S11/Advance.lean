@@ -18,7 +18,7 @@ and retained invariants."* All five are here.
 
 **The subscript is not the cavity.** Definition 11.1: `𝒞` is the complete exact
 constructive context — the observer, the extended question, the direct positive
-observer chart, the endpoint-contrast convention, and Construction Axiom II.1 —
+observer chart, the endpoint-contrast convention, and Definition 8.1 —
 and the book says outright it *"is not the two-argument cavity `𝒞(F_𝒬,N)`"*.
 Nothing in this file refers to `Cavity`.
 
@@ -27,7 +27,7 @@ Nothing in this file refers to `Cavity`.
 rather than an `Option` whose `none` doubles as failure — which is exactly the
 distinction Definitions 11.4 and 11.5 each insist on. It supplies
 `ProposalStatus` with `tiedSelected` already present. `Coherence.lean` supplies
-`support`, Construction Axiom II.1 as a *filter*, so the maximizer set is
+`support`, Definition 8.1 as a *filter*, so the maximizer set is
 already a set and no tie is ever broken. Three of §11's four traps were
 disarmed before §11 was reached; scoping note in
 `research/lean-support/def-11-1-to-11-8-the-one-tick-advance.md`.
@@ -186,7 +186,7 @@ theorem chart_reason_mem_iff (boundary : Bool) (negLoadY : ℤ) (pred : Bool) :
 
 /-- **Definition 11.4.** The seven-slot comparison package. Each slot is a
     `Slot`, so *"not-applicable-by-admission"* is representable as itself: the
-    book is explicit that for a proposal outside `A_{j+1}` **"no zero score or
+    book is explicit that for a proposal outside `A_{j+1}` **"no zero coherence value or
     empty star is invented for it"**, and `Slot.notEvaluated` is that, rather
     than an `Option` whose `none` also means "computed, and empty". -/
 structure CmpPackage (Aux : Type) where
@@ -217,9 +217,9 @@ def CmpPackage.notApplicable {Aux : Type} : CmpPackage Aux where
   c1 := .notEvaluated
 
 /-- **Definition 11.4, the creation status.** `S_{j+1}` is a *list*, because
-    Construction Axiom II.1 returns the complete maximizer set and `tiedSelected`
+    Definition 8.1 returns the complete maximizer set and `tiedSelected`
     is a real case. A function returning one winner would have imported the
-    choice the axiom refuses to make. -/
+    choice the definition refuses to make. -/
 def statusOf {Aux Cert : Type} [DecidableEq Aux]
     (cert : Cert) (admitted support : List Aux) (y : Aux) : ProposalStatus Cert :=
   if y ∉ admitted then .admissionRejected cert
@@ -314,7 +314,7 @@ theorem proposals_two (archive : List Core) (active : List QuestionId) :
 
 /-- **Definition 11.6.** The one-tick advance `𝔎_𝒞`, on the archive and ledger
     components. The tick itself advances by `Temporal.advance` under the lawful
-    hypothesis, and the support is Construction Axiom II.1's filter, both of
+    hypothesis, and the support is Definition 8.1's filter, both of
     which already exist; what this file adds is the archive and ledger update
     and the statement that the whole thing is one function.
 
@@ -342,7 +342,7 @@ theorem advanceArchive_lossless {archive : List Core} {active : List QuestionId}
     is a function, so equal inputs give equal outputs by `rfl`. That freeness is
     exactly why stating it here would be worthless, and why the book's proof
     spends its length elsewhere — on the claim that **no component required a
-    choice**. The load-bearing sentence is *"Construction Axiom II.1 returns the
+    choice**. The load-bearing sentence is *"Definition 8.1 returns the
     complete maximizer set and supplies no secondary choice."*
 
     So the honest Lean content of 11.7 is choice-freeness, discharged by
@@ -356,7 +356,7 @@ theorem advanceArchive_lossless {archive : List Core} {active : List QuestionId}
     `ℋ_{j+1} = ℋ_j ⊔_ι {Core(y) : y ∈ P_{j+1}(S_j)}`. So the archive update is
     independent of admission, of coherence, and of whether the support was a
     tie. That independence is what makes ties harmless, and it is the reason
-    Prop 11.7's determinacy survives Construction Axiom II.1 returning a set. -/
+    Prop 11.7's determinacy survives Definition 8.1 returning a set. -/
 theorem child_archived_regardless_of_selection
     {archive : List Core} {active : List QuestionId} {stratum : ℕ} {prov : Provenance}
     {p : Core × Bool} (hp : p ∈ proposals archive active)
@@ -479,7 +479,7 @@ theorem admitted_has_operand {MO : Mat2} {pred : ProposalRecord → Bool}
 /-- **Lemma 12.3, the contrapositive the book states.** An occurrence without
     the decoded operand is not admitted, so it cannot reach a comparison
     package — and by Definition 11.4 it carries `CmpPackage.notApplicable`,
-    not an invented score. -/
+    not an invented coherence value. -/
 theorem no_operand_not_admitted {MO : Mat2} {pred : ProposalRecord → Bool}
     {P : List ProposalRecord} {y : ProposalRecord}
     (h : (localWord MO y.fullMatrix).isSome = false) : y ∉ admitted MO pred P :=
@@ -580,7 +580,7 @@ theorem both_hands_proposed {archive : List Core} {active : List QuestionId}
     what 12.4, 12.8, 13.2 and 13.3 each need and none of them could reach.
 
     **The selector is a parameter, and that is faithful rather than a
-    concession.** Definition 11.4 takes `S_{j+1}` from Construction Axiom II.1
+    concession.** Definition 11.4 takes `S_{j+1}` from Definition 8.1
     applied to `A_{j+1}`, and `A_{j+1}` is Definition 7.1's family, filtered on
     the observer's **declared** predicate `Pred_Γ`. The book requires that
     predicate to be declared and refuses to assume one, so a carrier advance
@@ -591,7 +591,7 @@ theorem both_hands_proposed {archive : List Core} {active : List QuestionId}
 
 /-- **Definition 11.6, the complete map `𝔎_𝒞`.** All six components.
 
-    `select` is Construction Axiom II.1 composed with Definitions 11.3–11.5,
+    `select` is Definition 8.1 composed with Definitions 11.3–11.5,
     supplied by the caller because the declared predicate is the observer's.
     `hsel` is the only thing asked of it: it proposes from among the proposals.
     `hfresh` is Lemma 12.1, which is a theorem about identifier lengths rather

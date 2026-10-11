@@ -16,12 +16,12 @@ import RatioSpace.ElementsII.S16.Anchored
   * **Seed anchor, a tie at another question.** The lone-seed question `𝒬_RL`
     (seed word `RL`) under the seed anchor is a singleton at ticks 1 to 4
     (the ray `RL^k`) and at tick 5 retains the pair `{RL^6, RL^5 R}` with equal
-    anchored scores (`remark_16_18_seed_anchor_tie_RL`). The root question
+    anchored coherence values (`remark_16_18_seed_anchor_tie_RL`). The root question
     under the seed anchor also keeps its pair at tick 7
     (`remark_16_18_seed_anchor_tie_root`).
   * **Support anchor, the root tie is kept.** The root question under the
     current-support profile retains the pair `{LR^6, RL^6}` at tick 7 with
-    equal anchored scores (`remark_16_18_support_anchor_tie_root`).
+    equal anchored coherence values (`remark_16_18_support_anchor_tie_root`).
 
   What this file does not state: that under the support profile a tie occurs
   at any question other than the root. A script scan of all seeds of length at
@@ -110,7 +110,7 @@ def XAT5 : TickCarrier Unit hQ :=
 /-- **Remark 16.18, seed anchor: a tie at the question `𝒬_RL`.** Singletons
     `RL^2 … RL^5` at ticks 1 to 4 (the ray of the last hand), then at tick 5
     the pair `{RL^6, RL^5 R}`; the admitted family at that advance has two
-    members and both have the anchored score `3524613 - 2178330φ`, so both
+    members and both have the anchored coherence value `3524613 - 2178330φ`, so both
     are maximizers and both are retained. -/
 theorem remark_16_18_seed_anchor_tie_RL :
     activeWords XAT1 = [true :: List.replicate 2 false] ∧
@@ -126,7 +126,7 @@ theorem remark_16_18_seed_anchor_tie_RL :
 
 /-- **Remark 16.18, seed anchor: the root tie is kept at tick 7.** The four
     admitted grandchildren are `LR^5 L`, `LR^6`, `RL^6`, `RL^5 R`; with the seed
-    as anchor the middle two have the equal anchored score
+    as anchor the middle two have the equal anchored coherence value
     `3524880 - 2178495φ`, above the outer two, and they are the support. -/
 theorem remark_16_18_seed_anchor_tie_root :
     (admittedCores MOAE 7 seed164Prov props6AE).map Core.fullWord =
@@ -141,7 +141,7 @@ theorem remark_16_18_seed_anchor_tie_root :
 
 /-- **Remark 16.18, support anchor: the root tie is kept at tick 7.** Same four
     admitted grandchildren; with the current support as anchors the middle two
-    have the equal anchored score `7782266947 - 4809705482φ`, the outer two
+    have the equal anchored coherence value `7782266947 - 4809705482φ`, the outer two
     `-8944394320269147 + 5527939698707846φ`, and the middle two are the
     support. -/
 theorem remark_16_18_support_anchor_tie_root :
