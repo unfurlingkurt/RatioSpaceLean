@@ -9,31 +9,30 @@ import RatioSpace.ElementsI.S05.Depth
 /-!
   Elements II §16 Lemma 16.10 — Contrast offset inside one frame family.
 
-  **The boxed identity's sign is wrong in the book, and this file is the
-  witness.** Lemma 16.10 claims `r_F(v) ⊗ r_F(v') = N:(N+Δ)` for
+  **The boxed identity, with its sign.** Lemma 16.10 states
+  `r_F(v) ⊗ r_F(v') = N:(N−Δ)` for
   `Δ = ab'-a'b` the determinant contact of the two canonical addresses. The
-  identity that actually holds, for any positively oriented unimodular frame
-  and any two coefficient pairs, is `N:(N−Δ)`. Checked here from the frame's
-  own contact equation, not reworded: the two sides of the boxed formula
+  identity holds for any positively oriented unimodular frame
+  and any two coefficient pairs. Checked here from the frame's
+  own contact equation: the two products of the contrast
   differ by exactly `Δ · (F.plus.p·F.minus.q − F.plus.q·F.minus.p)`, and
   Definition 2.2's contact pins that factor at `1`, not `0` or `−1`, so the
-  sign is a fixed error against the stated formula rather than a
-  convention this tree happens to read differently. `contrast_offset` below
-  is the corrected identity, proved in general; `book_sign_fails` is one
-  concrete instance where the book's own `N+Δ` does not hold, so the finding
+  sign is fixed by the contact and is not a convention.
+  `contrast_offset` below
+  is the identity, proved in general; `book_sign_fails` is one
+  concrete instance where the opposite sign `N+Δ` does not hold, so the sign
   does not rest on the algebra alone.
 
-  **Scope.** Only the boxed identity — the "self-contained integer algebra"
-  half of Lemma 16.10 — is built here. The depth-bound corollary
-  (`⌊N/|Δ|⌋ ≤ t_O(...) ≤ ⌊N/|Δ|⌋+|Δ|`, needing `Depth.lean`'s Stern–Brocot
-  depth and a floor/gcd argument) is not attempted and is the next item under
-  this lemma, not a silent gap.
+  **Scope.** The boxed identity, the "self-contained integer algebra"
+  half of Lemma 16.10, comes first. The depth-bound corollary
+  (`⌊N/Δ⌋ − 1 ≤ t_O(...) ≤ ⌊N/Δ⌋ + Δ − 1` for `Δ > 0`, needing `Depth.lean`'s
+  Stern–Brocot depth and a floor/gcd argument) follows it.
 
   **What `combo`/`comboI` are, and what they are not.** The lemma's own proof
   reduces `r_F(v)` to `M_F(a,b) = a•C₊+b•C₋` via `r_F(v)` being the mediant of
   `F·v` and `(a,b) = G(v)(1,1)`. That reduction is not re-derived here — it is
   matrix algebra already available from `Walk.lean`'s `G` and `Frame.matrix`,
-  and connecting it is bookkeeping for a later pass, not content this lemma
+  and connecting it is bookkeeping, not content this lemma
   adds. What is stated and proved here is the algebraic identity itself, for
   arbitrary positive coefficient pairs `(a,b)`, `(a',b')`, which is exactly
   what the boxed formula asserts once `r_F(v)`, `r_F(v')` are unfolded.
@@ -83,13 +82,13 @@ def comboI (F : Frame) (a b : ℕ) (ha : 0 < a) (hb : 0 < b) : IPres :=
 @[simp] theorem comboI_q (F : Frame) (a b : ℕ) (ha : 0 < a) (hb : 0 < b) :
     (comboI F a b ha hb).q = a * F.plus.q + b * F.minus.q := rfl
 
-/-! ## Lemma 16.10, boxed identity — corrected sign -/
+/-! ## Lemma 16.10, boxed identity -/
 
-/-- **Lemma 16.10, corrected.** `r_F(v) ⊗ r_F(v') = N:(N-Δ)`, stated
+/-- **Lemma 16.10, the boxed identity.** `r_F(v) ⊗ r_F(v') = N:(N-Δ)`, stated
     additively as `N = M + Δ` to stay inside `ℕ`/`ℤ` without truncated
-    subtraction, where `M` is the contrast's own second component. The book's
-    boxed claim is `N:(N+Δ)`; `book_sign_fails` below shows that claim is not
-    generally true, and `Δ` here is exactly the book's
+    subtraction, where `M` is the contrast's own second component. The opposite
+    sign `N:(N+Δ)` is not generally true (`book_sign_fails` below), and `Δ` here
+    is exactly the book's
     `Δ(r(v),r(v')) = ab'-a'b`. -/
 theorem contrast_offset (F : Frame) (a b a' b' : ℕ)
     (ha : 0 < a) (hb : 0 < b) (ha' : 0 < a') (hb' : 0 < b') :
@@ -115,7 +114,7 @@ theorem contrast_offset (F : Frame) (a b a' b' : ℕ)
   rw [hfactor, mul_one] at hring
   omega
 
-/-- **The book's own sign fails.** At `F = Frame.empty`, `(a,b)=(1,1)`,
+/-- **The opposite sign fails.** At `F = Frame.empty`, `(a,b)=(1,1)`,
     `(a',b')=(1,2)`: `Δ = 1·2-1·1 = 1`, `N = 1·2 = 2`, and the actual second
     component is `1`, not `N+Δ = 3`. `contrast_offset` above gives the reason:
     `N = M + Δ`, so `M = N - Δ = 1`, matching this computation exactly. -/
@@ -127,22 +126,20 @@ theorem book_sign_fails :
 
 /-! ## Lemma 16.10's depth-bound corollary — the divisor locus
 
-The book states, for `Δ ≠ 0`,
-`⌊N/|Δ|⌋ ≤ t_O ≤ ⌊N/|Δ|⌋ + |Δ|`, with `t_O` the Stern–Brocot depth of the
-reduced contrast. Correction 15 replaced `N:(N+Δ)` by `N:(N−Δ)`, which changes
-the object the depth is taken of, so the bounds have to be rechecked rather
-than inherited.
+The book states, for `Δ > 0`,
+`⌊N/Δ⌋ − 1 ≤ t_O ≤ ⌊N/Δ⌋ + Δ − 1`, with `t_O` the Stern–Brocot depth of the
+reduced contrast `N:(N−Δ)`, and the lower bound attained when `Δ ∣ N`.
 
-**They do not both survive, and the failure locus is exact.** Over every
-`0 < Δ < N < 900` (403,651 cases) the upper bound holds everywhere, and the
-lower bound `⌊N/Δ⌋ ≤ t_O` fails on exactly the pairs with `Δ ∣ N` — 5,350 of
-them, no others — where it is short by exactly one.
+**Without the `− 1` the lower bound fails, and the failure locus is exact.**
+Over every `0 < Δ < N < 900` (403,651 cases) the bound `⌊N/Δ⌋ ≤ t_O` fails on
+exactly the pairs with `Δ ∣ N`, 5,350 of them and no others, where it is short
+by exactly one.
 
 This section proves the divisor case, which is the whole failure locus. If
 `N = k·Δ` then `N : (N−Δ)` is `kΔ : (k−1)Δ`, whose canonical continued
 fraction is `[1, k−1]`, so `t_O = k − 1 = ⌊N/Δ⌋ − 1` **exactly** — not a bound
-but an identity. The general non-divisor lower bound is a separate induction on
-the Euclidean recursion and is named as the next item, not left silent.
+but an identity. The general lower bound is a separate induction on the
+Euclidean recursion, `contrast_depth_lower` below.
 -/
 
 /-- The contrast presentation `N : (N − Δ)` for `0 < Δ < N`. -/
@@ -222,9 +219,10 @@ theorem cfSum_succ_pred (k : ℕ) (hk : 2 ≤ k) :
 
 /-- **Lemma 16.10's corollary on the divisor locus, exactly.**
 
-    When `Δ ∣ N` the contrast depth is `N/Δ − 1`: one *below* the lower bound
-    the book states. An identity, not a bound, and by the exhaustive check
-    recorded above this is the entire set on which that bound fails. -/
+    When `Δ ∣ N` the contrast depth is `N/Δ − 1`: one *below* `⌊N/Δ⌋`, so the
+    book's lower bound `⌊N/Δ⌋ − 1` is attained. An identity, not a bound, and by
+    the exhaustive check recorded above this is the entire set on which
+    `⌊N/Δ⌋ ≤ t_O` fails. -/
 theorem contrast_depth_of_dvd (D k : ℕ) (hD : 0 < D) (hk : 2 ≤ k) :
     Pres.dSB (contrastPres (k * D) D hD
       (by have : 1 * D < k * D :=
@@ -240,13 +238,13 @@ theorem contrast_depth_of_dvd (D k : ℕ) (hD : 0 < D) (hk : 2 ≤ k) :
 
 /-! ### The two bounds themselves, proved rather than checked
 
-  The 05:44 pass checked correction 16's bounds exhaustively over
-  `0 < Δ < N < 900`. An exhaustive check over a window is not a theorem, and
-  the shape it reported — a shortfall of exactly one, on exactly the divisor
-  locus — is what these proofs have to reproduce for every `N`.
+  The bounds hold on the exhaustive check over `0 < Δ < N < 900`. An
+  exhaustive check over a window is not a theorem, and the shape it shows, a
+  shortfall of exactly one on exactly the divisor locus, is what these proofs
+  have to reproduce for every `N`.
 
-  Both reduce to two facts about the Euclidean expansion that the tree did not
-  have: its quotient sum never exceeds the numerator, and never exceeds
+  Both reduce to two facts about the Euclidean expansion: its quotient sum
+  never exceeds the numerator, and never exceeds
   `⌊p/q⌋ + q`. Both rest on `add_le_mul_succ`, which is the whole arithmetic
   content: `a + y ≤ a·y + 1` whenever both are positive, sharp at `a = 1` and
   at `y = 1`.
@@ -335,12 +333,12 @@ theorem contrast_first_step (D M : ℕ) (hD : 0 < D) (hDM : D < M) :
   have hdiv : (D + M) / M = 1 := Nat.div_eq_of_lt_le (by omega) (by omega)
   rw [Pres.cfNat_cons (by omega) (by rw [hmod]; omega), hmod, hdiv]
 
-/-- **Lemma 16.10's corollary, lower bound — correction 16, proved.**
+/-- **Lemma 16.10's corollary, lower bound.**
 
     `⌊N/Δ⌋ − 1 ≤ d_SB(N : (N−Δ))` for every `0 < Δ < N`, with no bound on `N`.
-    The book states `⌊N/Δ⌋ ≤ d_SB`, which fails exactly on the divisor locus
+    The bound `⌊N/Δ⌋ ≤ d_SB` fails exactly on the divisor locus
     (`contrast_depth_of_dvd`, where the depth is `N/Δ − 1` on the nose). The
-    weakening by one is therefore sharp, and this says it is never worse —
+    `− 1` is therefore sharp, and this says the bound holds for every `N`,
     which the exhaustive check could only observe on its window. -/
 theorem contrast_depth_lower (N D : ℕ) (hD : 0 < D) (hDN : D < N) :
     N / D - 1 ≤ Pres.dSB (contrastPres N D hD hDN) := by
@@ -368,18 +366,18 @@ theorem contrast_depth_lower (N D : ℕ) (hD : 0 < D) (hDN : D < N) :
   rw [hM]
   exact Nat.sub_le_sub_right key 1
 
-/-- **The upper bound, one tighter than the book states, and sharp.**
+/-- **The upper bound, and it is sharp.**
 
-    `t_O + 1 ≤ ⌊N/Δ⌋ + Δ`, i.e. `t_O ≤ ⌊N/Δ⌋ + Δ − 1`. The book's corollary
-    states `⌊N/Δ⌋ + Δ`; the extra unit is never used, and the tighter form is
+    `t_O + 1 ≤ ⌊N/Δ⌋ + Δ`, i.e. `t_O ≤ ⌊N/Δ⌋ + Δ − 1`, the bound Lemma 16.10
+    states for `Δ > 0`. The looser `⌊N/Δ⌋ + Δ` never uses its extra unit, and
+    the tight form is
     attained at `N = Δ + 1`, where the expansion is the single term `[Δ+1]`.
 
-    **The book's own Theorem 16.11 is the evidence for it.** Step 1 there needs
+    **Theorem 16.11 needs the tight form.** Step 1 there needs
     `3A/56 − 1 ≥ 10` to carry `t₁₄ + 2 ≤ min(t₁₃,t₂₃,t₂₄)`, and the smallest
-    integer `A` satisfying that is exactly **206** — the threshold 16.11
+    integer `A` satisfying that is exactly **206**, the threshold 16.11
     states. Under the looser bound the requirement is `≥ 11`, which 206 fails
-    and 224 would meet. So 16.11 was written against this bound and 16.10
-    states a weaker one: correction 17. -/
+    and 224 would meet. -/
 theorem contrast_depth_upper_tight (N D : ℕ) (hD : 0 < D) (hDN : D < N) :
     Pres.dSB (contrastPres N D hD hDN) + 1 ≤ N / D + D := by
   obtain ⟨M, hM⟩ : ∃ M', N - D = M' := ⟨_, rfl⟩
@@ -426,7 +424,7 @@ theorem contrast_depth_upper_tight (N D : ℕ) (hD : 0 < D) (hDN : D < N) :
   show (Pres.cfNat N (N - D)).sum - 1 + 1 ≤ N / D + D
   rw [hM]; omega
 
-/-- The book's stated upper bound, a corollary of the tight one. -/
+/-- The looser upper bound `⌊N/Δ⌋ + Δ`, a corollary of the tight one. -/
 theorem contrast_depth_upper (N D : ℕ) (hD : 0 < D) (hDN : D < N) :
     Pres.dSB (contrastPres N D hD hDN) ≤ N / D + D := by
   have h := contrast_depth_upper_tight N D hD hDN

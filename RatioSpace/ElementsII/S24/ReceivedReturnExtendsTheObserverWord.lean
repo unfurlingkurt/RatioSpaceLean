@@ -5,12 +5,13 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-23 · Elements II Corollary 24.8, received return extends the observer word forward: "If a
-  later transported attaching packet returns to an earlier Λ-reception class, no
-  inverse generator has been applied and no event has been removed. The later
-  observer word has the earlier observer word as a proper prefix."
+  Elements II Corollary 24.8, received return extends the observer word forward: "If a
+  later transported attaching packet returns to an earlier Λ-reception class, the
+  history between the two reads is a nonempty positive continuation appended on
+  the right, and every earlier event remains in history. The later observer word
+  has the earlier observer word as a proper prefix."
 
-  `Two/Lifecycle.lean`'s `return_not_reversal` is the repeated-renewal form `w u^r`
+  `Lifecycle.lean`'s `return_not_reversal` is the repeated-renewal form `w u^r`
   only; `OneStepRenewal` and `IntervalRenewal` take arbitrary packets `Z` and word
   readings `wO`, with no relation between the continuations at `p` and `q`.
 
@@ -24,7 +25,6 @@ import RatioSpace.ElementsII.S24.Lifecycle
   * **Reading 2** (a later trail need not extend an earlier one): the corollary's
     prefix sentence is false, by an exact witness of an interval renewal whose
     later observer word does not have the earlier as a prefix.
-  No existing declaration is changed.
 -/
 set_option linter.style.longLine false
 

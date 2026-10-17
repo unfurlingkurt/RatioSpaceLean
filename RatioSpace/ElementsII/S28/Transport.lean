@@ -9,23 +9,19 @@ import Mathlib.Algebra.BigOperators.Intervals
 /-!
   Elements II §28 (partial) — the Dedekind-Rademacher transport coordinate.
 
-  This file exists to close divergence D-01 (`research/lean-support/DIVERGENCE.md`),
-  not to build §28 in full. §28 is far ahead of this tree's own front (currently
-  §15), and its surrounding apparatus (`siblingRelation`, `winding`, Chamber's
-  `A_R`/`A_L`) is not yet in place here. What D-01 named as owed is narrower:
-  Def 28.2's Rademacher function, in exact-integer form, and Prop 28.3.
+  This file builds Def 28.2's Rademacher function, in exact-integer form, and
+  Prop 28.3, not §28 in full: its surrounding apparatus (`siblingRelation`,
+  `winding`, Chamber's `A_R`/`A_L`) is not used here.
 
   **The book's claim, Def 28.2:** for `c ≠ 0`,
   `Φ_Rad(Q) = (a+d)/c - 12·sgn(c)·s_D(a,|c|)`, with `s_D` the classical Dedekind
   sum; for `c = 0`, `Φ_Rad(Q) = b/d`. The book states the value is an integer.
 
-  **What a naive Lean transcription gets wrong.** `(a+d)/c` under `Int` division
-  and dropping the Dedekind term agrees with the book on 320 of 564 SL(2,Z)
-  witnesses structurally (the correction is genuinely zero) and 54 more by
-  accident (the floor absorbs a proper fraction), and disagrees on the other
-  190 — every disagreement traced to the missing term, none to the division.
-  `research/experiments/rademacher_divergence_locus.py` and
-  `dedekind_negation_sign.py` carry the exact counts.
+  **The Dedekind term is needed.** `(a+d)/c` under `Int` division with the
+  Dedekind term dropped agrees with the book on 320 of 564 SL(2,Z) witnesses
+  structurally (the correction is genuinely zero) and 54 more by accident (the
+  floor absorbs a proper fraction), and disagrees on the other 190, every
+  disagreement from the missing term, none from the division.
 
   **The integer-only replacement**, with `k = |c|`, `S` the doubled Dedekind sum
   cleared of denominators:
@@ -37,20 +33,15 @@ import Mathlib.Algebra.BigOperators.Intervals
   in every case — that divisibility is the book's integrality claim, in exact
   integer form.
 
-  **The sign correction this file's proof depends on.** `S` is *antisymmetric*
-  in `a`: `S(-a,k) = -S(a,k)`. An earlier reading of this fact (in Legion's tree,
-  corrected there 2026-08-29) claimed the opposite — symmetric, "verified over
-  564 matrices" — which was never actually checked and is false: over
-  `1 ≤ k < 60, |a| ≤ 40` the symmetric reading holds in zero non-vacuous cases,
-  antisymmetric in 4014. Prop 28.3 (`Φ_Rad(-Q) = Φ_Rad(Q)`) is true, and only
+  **The sign this file's proof depends on.** `S` is *antisymmetric* in `a`:
+  `S(-a,k) = -S(a,k)` (`dedekindSumInt_neg`). Over `1 ≤ k < 60, |a| ≤ 40` the
+  symmetric reading `S(-a,k) = S(a,k)` holds in zero non-vacuous cases, the
+  antisymmetric one in 4014. Prop 28.3 (`Φ_Rad(-Q) = Φ_Rad(Q)`) is true, and only
   because two of the three sign flips under negation land in the numerator and
   cancel — it needs the antisymmetric reading, not the symmetric one.
 
   Dependencies: `RatioSpace.Braid` for `Mat2` only. No other Elements II
-  machinery, and no import of Legion's `Two/Transport.lean` — this is an
-  independent formalisation of the same divergence repair, reusing the already
-  worked-out arithmetic (DIVERGENCE.md) and Legion's proof route as a reference,
-  checked fresh by this tree's own kernel.
+  machinery.
 -/
 
 namespace RatioSpace
@@ -139,8 +130,7 @@ def psiRad (Q : Mat2) : ℤ := phiRad Q - 3 * routeCorrection Q
 /-- The integer Dedekind sum is **anti**symmetric in its first argument. The
     pairing `r ↔ k-r` on `Finset.range (k-1)` sends `2r-k ↦ -(2r-k)` and fixes
     `(a·r) mod k` (since `(-a)(k-r) ≡ a·r mod k`), so it negates each term
-    rather than preserving it. Verified over `1 ≤ k < 60, |a| ≤ 40`:
-    `dedekind_negation_sign.py`. -/
+    rather than preserving it. Checked also over `1 ≤ k < 60, |a| ≤ 40`. -/
 theorem dedekindSumInt_neg (a : ℤ) (k : ℕ) :
     dedekindSumInt (-a) k = - dedekindSumInt a k := by
   unfold dedekindSumInt
@@ -188,7 +178,7 @@ theorem phiRad_neg_invariant (Q : Mat2) (hdet : Q.det = 1) :
       have : Q.det = Q.a * Q.d - Q.b * Q.c := rfl
       rw [hc, mul_zero, sub_zero] at this
       omega
-    -- 2026-09-22: `|d| = 1` from `|d|·|a| = 1` in `ℕ`, then `d = ±1` by `Int.natAbs_eq`; the
+    -- `|d| = 1` from `|d|·|a| = 1` in `ℕ`, then `d = ±1` by `Int.natAbs_eq`; the
     -- Mathlib lemma `Int.eq_one_or_neg_one_of_mul_eq_one` reaches `Classical.choice`.
     have hab : Q.d.natAbs * Q.a.natAbs = 1 := by
       rw [← Int.natAbs_mul, mul_comm, had]; rfl

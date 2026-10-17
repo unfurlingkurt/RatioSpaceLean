@@ -5,8 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-22 · Elements II Definition 24.4, readable domain and receiver
-  equivalence.
+  Elements II Definition 24.4, readable domain and receiver equivalence.
 
   **Book statement.** "Let Λ be a declared receiver for transported attaching
   packets. It consists of: an exact readable domain
@@ -21,10 +20,11 @@ import RatioSpace.ElementsII.S24.Lifecycle
   receiver has explicitly retained those data and an injectivity theorem has been
   proved."
 
-  **What was missing.** `Receiver.reads` (`Two/Lifecycle.lean:161`) is a label:
-  nothing requires `recv` to factor through the declared components, so item 3
-  and the "not equality of face keys ..." paragraph were unenforced, and the
-  domain was not restricted to the packets of one face.
+  **What `Receiver` alone carries.** `Receiver.reads` (`ElementsII/S24/Lifecycle.lean`)
+  is a label: nothing in `Receiver` requires `recv` to factor through the declared
+  components, so item 3 and the "not equality of face keys ..." paragraph need
+  the predicate below, and `Receiver`'s domain is not restricted to the packets
+  of one face.
 
   **Built here.** Each component's value on either packet kind; the predicate
   `Declared` (the reception agrees on readable packets that agree on the declared
@@ -35,7 +35,6 @@ import RatioSpace.ElementsII.S24.Lifecycle
   converse, that retaining a component through an injective reading does force
   its equality; the one-face restriction of a receiver's domain; and the class and
   keep gates when the attaching reference is unreadable.
-  No existing declaration is changed.
 -/
 set_option linter.style.longLine false
 

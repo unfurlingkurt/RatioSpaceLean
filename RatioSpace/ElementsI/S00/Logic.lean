@@ -7,11 +7,11 @@ import RatioSpace.ElementsI.S01.Kernel
 /-!
   **The logic spine, machine-checked.**
 
-  Source: *RatioSpace Standard Logic Translation — Completed Proof Program and
-  Closure Record v1.0* (Drive, 2026-09-08). That document closes the question of
-  which logic RatioSpace needs. The answer is ordinary classical first-order
+  Source: Elements I, §0 (Definitions 0.3 and 0.4) and Definition 3.11 (levels
+  of equality). The logic RatioSpace needs is ordinary classical first-order
   logic: RatioSpace supplies the exact inherited construction, and classical
-  logic reasons about propositions that faithfully describe it.
+  logic reasons about propositions that faithfully describe it. The record of
+  that logic is the list of statements below, numbered Step 2A to Step 6F.
 
   The record's whole force is in a handful of exact statements, and every one of
   them is decidable or elementary. So they are checked here rather than asserted:
@@ -21,7 +21,7 @@ import RatioSpace.ElementsI.S01.Kernel
       which is why (prose, not a theorem) they coexist without
       contradiction; six of the eight reads are defined below (`Epres`,
       `Evalue`, `Eproj`, `Eword`, `Emat`, `Eend`), the other two are not
-      formalised here (count corrected 2026-09-30, audit E1-A10);
+      formalised here;
     * coarsening is always licensed and is a **theorem**, not a convention
       (`eqUnder_factor`) — this is the general form of Step 2F;
     * presentation equality implies value equality (Step 2A);
@@ -266,9 +266,7 @@ theorem endpointAt_p (n : ℕ) : (endpointAt n).p = n + 1 := by
     `n + 1` differ, so "the endpoint is `endpointAt n`" and "the endpoint is
     `endpointAt (n+1)`" are distinct facts, each true of its own occurrence.
     (Prose, not proved here: retaining both indexed by occurrence is
-    consistent.) (Restated 2026-09-30,
-    audit E1-A10: this was the tautology `x = x ∧ y = y`, under the name
-    `retained_history_satisfiable`.) -/
+    consistent.) -/
 theorem endpointAt_succ_ne (n : ℕ) : endpointAt n ≠ endpointAt (n + 1) := fun h => by
   have := congrArg Pres.p h
   rw [endpointAt_p, endpointAt_p] at this
@@ -292,9 +290,8 @@ theorem constructs_irrefl (u : Word) : ¬ Constructs u u := by
   omega
 
 /-- **Step 4.** Implication is reflexive, construction is irreflexive, so the
-    two are not the same relation. (Restated 2026-09-30, audit E1-A10: this
-    joined `∀ P, P → P` to one instance `¬ Constructs [] []`; it now states
-    both properties of the relations themselves.) -/
+    two are not the same relation: both properties are stated of the relations
+    themselves. -/
 theorem construction_ne_implication :
     (∀ P : Prop, P → P) ∧ ∀ u : Word, ¬ Constructs u u :=
   ⟨fun _ h => h, constructs_irrefl⟩
@@ -324,9 +321,7 @@ theorem entails_mono (Γ Δ : List Prop) (φ : Prop)
     no record constructs itself. The entailment hypothesis is not used; the
     content is that `Constructs` is irreflexive. The record's wider sentence, that `Entails` and
       `Constructs`
-    have no common inhabitant, is prose and is not formalised here.
-    (Restated 2026-09-30, audit E1-A10: this joined `Entails [] True` to one
-    instance `¬ Constructs [] []` and read the pair as the wider sentence.) -/
+    have no common inhabitant, is prose and is not formalised here. -/
 theorem theoremhood_constructs_nothing (φ : Prop) (_ : Entails [] φ) :
     ∀ u : Word, ¬ Constructs u u :=
   constructs_irrefl

@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S11.Advance
 /-!
-  Gap G2-12 · Elements II Definition 11.6, the one-tick advance.
+  Elements II Definition 11.6, the one-tick advance.
 
   **Book statement.** "Let `ΔE_{j+1}` be the event stratum containing: 1. the tick
   marker `(τ, j → j+1)`; 2. the complete parent-support and proposal identifiers;
@@ -14,18 +14,18 @@ import RatioSpace.ElementsII.S11.Advance
   package; and 7. explicit empty-family records whenever no proposal or no
   admitted occurrence exists. Set `E_{j+1} = E_j ⌢ ΔE_{j+1}`."
 
-  **What was missing.** Two things, both in `Two/Advance.lean`.
+  **Two points about `advanceCarrier`** (`Advance.lean`).
 
   (a) `Δ` is a caller-supplied `List (QuestionId × Aux)`. `advanceCarrier` appends
   whatever it is handed, so the seven enumerated contents are not enforced: `Δ = []`
   type-checks and the tick then writes no stratum at all.
 
-  (b) `hfresh` — Lemma 12.1 — enters `advanceCarrier` and `TickStep` as a
+  (b) `hfresh` — Lemma 12.1 — enters `advanceCarrier` as a
   hypothesis. Its ingredients are proved (`child_id_inj`, `child_rel_length`,
-  `child_ne_of_length_le`), but nothing derives the hypothesis itself from a
-  property of the carrier, so every caller must supply it by hand.
+  `child_ne_of_length_le`), but `Advance.lean` does not derive the hypothesis
+  itself from a property of the carrier, so every caller supplies it.
 
-  **Built here.** For (b): the length invariant Lemma 12.1 is actually about
+  **Here.** For (b): the length invariant Lemma 12.1 is actually about
   (`Stratified`), freshness derived from it rather than assumed, and its
   preservation on the archive under one advance. For (a): the stratum's
   enforceable clauses as a predicate on the `Δ` that is already there — no new
@@ -36,7 +36,6 @@ import RatioSpace.ElementsII.S11.Advance
   appends, so no required identifier lands in an earlier stratum.
   Clauses 3, 4, 6 and the creation statuses of clause 5 are typed over `Aux` and
   are not reachable from this file; what is enforced is their keying, which is.
-  No existing declaration is changed.
 -/
 set_option linter.style.longLine false
 
@@ -81,7 +80,7 @@ theorem proposals_parent {archive : List Core} {active : List QuestionId}
 
 /-- **Lemma 12.1, discharged.** On a stratified carrier every identifier this tick
     proposes is fresh. `hfresh` need not be assumed: it follows from the lengths.
-    This is the hypothesis `advanceCarrier` and `TickStep` take, now a theorem. -/
+    This is the hypothesis `advanceCarrier` takes, as a theorem. -/
 theorem fresh_of_stratified {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
     (hS : Stratified X) (stratum : ℕ) (prov : Provenance) :
     ∀ p ∈ proposals X.archive X.active,
@@ -129,7 +128,7 @@ def RecordsStratum {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
     (childCore p.1 p.2 stratum prov).id ∈ Δ.map Prod.fst) ∧
   (∀ i ∈ select (proposals X.archive X.active), i ∈ Δ.map Prod.fst)
 
-/-- **Clause 7, with the teeth it was written for.** A stratum that records is
+/-- **Clause 7, with its teeth.** A stratum that records is
     never empty, *including* the tick at which nothing was proposed and nothing
     admitted: the tick marker is a record in its own right. Absence of a record is
     not a record of absence. -/
@@ -141,8 +140,8 @@ theorem recordsStratum_nonempty {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
   rw [h0] at hR
   simpa using hR.1
 
-/-- **The empty stratum never records.** This is the `Δ` the caller could supply
-    before: a tick that wrote nothing at all. -/
+/-- **The empty stratum never records.** This is a `Δ` that `advanceCarrier`
+    alone accepts: a tick that writes nothing at all. -/
 theorem empty_not_records {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
     (select : List (Core × Bool) → List QuestionId) (stratum : ℕ) (prov : Provenance)
     (marker : QuestionId) : ¬ RecordsStratum X select stratum prov marker ([] : List (QuestionId × Aux)) :=
@@ -220,22 +219,22 @@ theorem ledger_strictly_grows {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
   have : 0 < Δ.length := List.length_pos_iff.mpr hne
   omega
 
-/-! ## The repair `RecordsStratum` was left naming: a recording variant
+/-! ## A recording variant
 
-    **Why `advanceCarrier` itself is untouched.** `Δ` there is a bare argument
-    used by every existing caller across this tree; requiring `RecordsStratum`
+    **Why `advanceCarrier` itself keeps a bare `Δ`.** `Δ` there is an argument
+    used by every caller across this tree; requiring `RecordsStratum`
     on it would change the signature and every call site for a property most
     callers never needed proved. `advanceCarrierRecording` takes the same
     inputs plus one more proof obligation, `hR`, and is definitionally
-    `advanceCarrier` — so every fact already proved about `advanceCarrier`
+    `advanceCarrier`, so every fact proved about `advanceCarrier`
     (its `active_sub_archive` field, `advanceCarrier_stratum`) transfers for
-    free, and clause 7's teeth (`recordsStratum_nonempty`) now apply to any
+    free, and clause 7's teeth (`recordsStratum_nonempty`) apply to any
     tick built this way rather than to a hand-checked `Δ`. -/
 
 /-- **The recording variant of Definition 11.6.** Same map as `advanceCarrier`,
     with the caller additionally required to prove the `Δ` they supply actually
-    records the stratum Definition 11.6 lists — the repair `RecordsStratum` was
-    built to enforce and that `advanceCarrier` alone cannot, since `Δ` there is
+    records the stratum Definition 11.6 lists: what `RecordsStratum`
+    enforces and `advanceCarrier` alone cannot, since `Δ` there is
     an unconstrained argument. -/
 def advanceCarrierRecording {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
     (hlaw : Lawful X) (select : List (Core × Bool) → List QuestionId)
@@ -260,9 +259,9 @@ theorem advanceCarrierRecording_stratum {Aux : Type} {h : ℕ} (X : TickCarrier 
         X.ledger.length = Δ :=
   advanceCarrier_stratum X hlaw select stratum prov Δ hsel hfresh
 
-/-- **Clause 7 with teeth, now automatic.** Every tick built through the
+/-- **Clause 7 with teeth, automatic.** Every tick built through the
     recording variant strictly grows the ledger — not merely a hand-checked
-    `Δ` as `ledger_strictly_grows` needed, but every `Δ` the type accepts,
+    `Δ` as in `ledger_strictly_grows`, but every `Δ` the type accepts,
     because `hR` is a field of the call rather than a side condition someone
     might forget to supply. -/
 theorem advanceCarrierRecording_grows {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)

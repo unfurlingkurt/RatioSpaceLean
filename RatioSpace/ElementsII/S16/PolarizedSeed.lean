@@ -10,9 +10,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   `RRRL`, closed at the declared horizon `h_Q=7` on the occurrence singletons
   `LLLRRRRRRRR`/`RRRLLLLLLLL`, addressed `9:28`/`28:9`.
 
-  `research/experiments/lone_seed_beat.py`'s exhaustive 1023-seed, 13-tick run
-  confirms Proposition 16.9(ii) exactly for every seed of length 0 through 9,
-  including that these two close at tick **7**, not tick 9 — `9:28` is the
+  These two close at tick **7**, not tick 9 — `9:28` is the
   terminal ADDRESS `λ_O`, not a tick count, exactly as `LL`'s own `7:22` is an
   address at the same tick 7. Both seeds close one tick "late" relative to the
   generic even-tick pattern for the same reason `LL`/`RR` do: exactly one
@@ -25,9 +23,8 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   Same construction as `LoneSeed.lean`/`RootOrbit.lean`: seven concrete
   `advanceCarrier` calls per question, `hsel`/`hfresh` discharged by `decide`
-  on each step's closed data. Values are read off the run before being
-  asserted (`lone_seed_beat.py`'s own trace for seed `LLLR`, cross-checked
-  against `RRRL` by decided Lean computation, not by mirroring).
+  on each step's closed data. Every value is decided by Lean computation, and
+  the `RRRL` side is decided on its own, not by mirroring.
 -/
 set_option linter.style.longLine false
 set_option maxRecDepth 800000
@@ -179,8 +176,8 @@ def XRRRL7 : TickCarrier Unit hQ :=
     full tick 1–7 support table, closing on the occurrence singleton at
     tick 7. -/
 
-/-- **The support table for `𝒬_{LLLR}`**, ticks 1–7, exactly `lone_seed_beat.py`'s
-    trace for the seed `LLLR`. Closes on the occurrence singleton
+/-- **The support table for `𝒬_{LLLR}`**, ticks 1–7, for the seed `LLLR`.
+    Closes on the occurrence singleton
     `LLLRRRRRRRR`. -/
 theorem prop_16_9_ii_LLLR :
     activeWords XLLLR1 =

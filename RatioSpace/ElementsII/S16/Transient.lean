@@ -10,11 +10,11 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   **What is built: the four displayed instances, each one advance from a
   multi-seed ensemble at observer `ε`, run through the same `advanceCarrier`
-  and `axiomSelect` as `Two/RootOrbit.lean`.** For each instance the file
-  decides the next support's words (in the kernel's list order, read off the
-  run before being stated), the admitted family's addresses, its full tension
-  matrix, every member's exact `Zphi` coherence value, the sorted tension histograms,
-  and the strict comparisons against every rejected member.
+  and `axiomSelect` as `RootOrbit.lean`.** For each instance the file
+  decides the next support's words (in the kernel's list order), the admitted
+  family's addresses, its full tension matrix, every member's exact `Zphi`
+  coherence value, the sorted tension histograms, and the strict comparisons
+  against every rejected member.
 
   **The multi-seed form used.** The tree has no multi-seed constructor:
   `canonicalQuestion` and `X0` take one seed word. Definition 4.8's `S0tilde`

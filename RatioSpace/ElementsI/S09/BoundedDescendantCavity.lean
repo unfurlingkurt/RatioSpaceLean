@@ -5,17 +5,18 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S06.State
 /-!
-  Gap G1-15 — Elements I §9, Definition 9.2, bounded descendant cavity.
+  Elements I §9, Definition 9.2, bounded descendant cavity.
 
-  **Book statement.** v0.22: `𝒞(F,N) = {r_F(w) : |w| ≤ N}`, and it is finite.
-  v0.25 (correction E1-32) adds the exact count: distinct words address
-  distinct relations (Standard Result 3.1), so `|𝒞(F,N)| + 1 = 2^(N+1)`.
+  **Book statement.** `𝒞(F,N) = {r_F(w) : |w| ≤ N}`, and it is finite.
+  Distinct words address distinct relations (Standard Result 3.1), so the
+  count is exact: `|𝒞(F,N)| + 1 = 2^(N+1)`.
 
-  **What was missing.** `cavity_card_le` (`Question.lean`) counts the entries of
-  the list `cavity F N`, one per word. The book's `|𝒞(F,N)|` is the size of a
-  set, so the count is the book's only once no relation is listed twice.
+  **The count as the size of a set.** `cavity_card_le` (`Question.lean`) counts
+  the entries of the list `cavity F N`, one per word. The book's `|𝒞(F,N)|` is
+  the size of a set, so the count is the book's only once no relation is listed
+  twice.
 
-  **Added.**
+  **Proved here.**
   * `g115_allWords_nodup`, `g115_wordsUpTo_nodup`: no word is listed twice.
   * `g115_cavity_nodup`: no relation is listed twice. Two words of the cavity
     with the same addressed relation are the same word (`Frame.addressed_inj`,
@@ -24,8 +25,9 @@ import RatioSpace.ElementsI.S06.State
     as a finite set, with the set count `|𝒞(F,N)| + 1 = 2^(N+1)`, written
     additively because ℕ subtraction truncates. The set is built with
     `Finset.mk` from the no-repeat proof: Mathlib's `List.toFinset` carries
-    `Classical.choice` in its own definition, so the ledger row's wanted form
-    `(cavity F N).toFinset.card` cannot meet the tree's standard as stated.
+    `Classical.choice` in its own definition, so the form
+    `(cavity F N).toFinset.card` does not meet the tree's standard.
+
     Membership is read on the underlying multiset for the same reason
     (`Finset` membership goes through `SetLike`).
   * `g115_mem_cavity_unique`: every member of the cavity has exactly one word of

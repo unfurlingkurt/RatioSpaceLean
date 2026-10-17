@@ -8,32 +8,29 @@ import RatioSpace.ElementsII.S16.Automorphism
 /-!
   Elements II §16 Theorem 16.11 — support bound and beat of lone-seed questions.
 
-  **Steps 1 and 2 consume Lemma 16.10 and its depth corollary**, both of which
-  are now built (`Two/Contrast.lean`). This file starts at the algebraic core
+  **Steps 1 and 2 consume Lemma 16.10 and its depth corollary**, both built
+  in `Contrast.lean`. This file starts at the algebraic core
   of the proof: the four grandchildren of a frame, their six pairwise
   determinant contacts, and the five exact identities the proof's inequality
   argument runs on.
 
-  **Correction 15 does not break the proof, and that was checked before
-  anything here was written.** The book displays the pairwise contrasts as
-  `N_ij : N_ij + k_ij`; the identity that holds is `N_ij : N_ij − k_ij`. Step 1
-  reads only the *tension bounds*, which take `|k_ij|`, and correction 16
-  weakens the lower bound by one. Over the 1,694 frames satisfying Step 1's
+  **The margins.** Step 1 reads only the *tension bounds*, which take
+  `|k_ij|`. Over the 1,694 frames satisfying Step 1's
   three inequalities the margin in `t₁₄ + 2 ≤ min(t₁₃, t₂₃, t₂₄)` is never
   below **4**, where the argument needs 2; and over the 1,056 of those with
-  `D ≥ 21` the two uniqueness inequalities hold with slack 4 and 48. So the
-  correction costs one and the proof had four to spare.
+  `D ≥ 21` the two uniqueness inequalities hold with slack 4 and 48. So a lower
+  tension bound weakened by one costs one, and the proof has four to spare.
 
   The five identities below are pure ring identities in the four frame entries
   and hold with no unimodularity hypothesis at all, which is why they are
   stated over `ℤ` without one.
 
-  **Orientation, settled on the built objects (2026-09-13).** In the tree's
+  **Orientation.** In the tree's
   `otimes g_i g_j` order with `i < j` the contrast is `N_ij : (N_ij + k_ij)`,
-  since `a_i b_j − a_j b_i = −k_ij`. So 16.11's display is right as written,
-  correction 15 is the signed form of the same identity, and the tensions
-  satisfy the book's unweakened bounds `⌊N/k⌋ ≤ t ≤ ⌊N/k⌋ + k`
-  (`grand_tension_bounds`). No constant in Step 1 needed changing. Under the
+  since `a_i b_j − a_j b_i = −k_ij`. So 16.11's display holds as written,
+  Lemma 16.10's `N : (N − Δ)` is the same identity with `Δ = −k_ij` signed, and
+  the tensions satisfy the book's bounds `⌊N/k⌋ ≤ t ≤ ⌊N/k⌋ + k`
+  (`grand_tension_bounds`). Under the
   weakest pairing (lower bound less one, upper `+k`) the thresholds 206 and 440
   still give the margin 2 exactly, so Step 1 does not depend on which bound
   variant is in force.
@@ -43,19 +40,20 @@ import RatioSpace.ElementsII.S16.Automorphism
   of the four grandchildren lies in `{g₁, g₄}`. `step1_unique_pos` /
   `step1_unique_neg`: with `D ≥ 21` it is exactly `[g₁]`, with `D ≤ −21` exactly
   `[g₄]` (`Dq_pos_nat`/`Dq_neg_nat` convert the book's `ℤ` form of `D`).
-  None of the new theorems uses `Classical.choice`.
+  None of these theorems uses `Classical.choice`.
 
-  **What remains between this and the theorem's statement:**
+  **Between this and the theorem's statement:**
   1. *The occurrence-to-frame reduction.* The grandchildren here are
      `comboI F (a,b)`, i.e. `M_F(a,b)`. That the observer-local relation of the
      occurrence `yLL` is `M_{F_y}(1,3)` (etc.) is Lemma 16.10's `r_F(v) = M_F(a,b)`
-     reduction, not yet connected (`Contrast.lean` header).
+     reduction, proved in `ClosurePatternLink.lean`.
   2. *The family.* That at a sibling step `{yL, yR}` with all children admitted
      the admitted family `A_{j+1}` is exactly `grand F_y`, in some order
-     (`support_perm_mem` absorbs the order).
+     (`support_perm_mem` absorbs the order), also in `ClosurePatternLink.lean`.
   3. *Step 2* (the 527 non-generic frames and the `|D| ≤ 20` families
-     `RⁿL`, `LⁿR`, period 21), *Step 3* (cousin steps), and the induction that
-     assembles clauses 1-4 of the theorem.
+     `RⁿL`, `LⁿR`, period 21: `FiniteRemainder.lean`, `FamilyClassification.lean`),
+     *Step 3* (cousin steps, `CousinResolution.lean`), and the induction that
+     assembles clauses 1-4 of the theorem (`SupportInduction.lean`).
 -/
 
 namespace RatioSpace
@@ -107,11 +105,11 @@ theorem id_34_12 :
     N p₁ q₁ p₀ q₀ 2 3 - N p₁ q₁ p₀ q₀ 0 1 = 7 * Dq p₁ q₁ p₀ q₀ := by
   simp only [N, num, den, ab, Dq]; ring
 
-/-! ## Step 1's margin, from the identities and the corrected bounds
+/-! ## Step 1's margin, from the identities and the weakened bounds
 
 The book derives `t₁₄ + 2 ≤ min(t₁₃, t₂₃, t₂₄)` under three thresholds. Each
 case is the same shape: an exact identity `c₁·N_ij − c₂·N₁₄ = c₃·X` with a
-lower bound on `X`, the corrected lower bound on `t_ij`, and the tightened
+lower bound on `X`, the weakened lower bound on `t_ij`, and the tightened
 upper bound on `t₁₄`.
 
 `step_margin` is that shape once, as pure arithmetic on the four numbers, so
@@ -120,7 +118,7 @@ the three cases are three instances of one lemma rather than three proofs.
 
 /-- **Step 1's margin, in one lemma.**
 
-    Given `c₁·A = c₂·B + c₃·X` with `X` above a threshold, the corrected lower
+    Given `c₁·A = c₂·B + c₃·X` with `X` above a threshold, the weakened lower
     bound `A/k₁ ≤ t + 1`, and the tightened upper bound `u + 1 ≤ B/k₂ + k₂`,
     the gap `u + 2 ≤ t` follows. -/
 theorem step_margin (A B X t u : ℕ)
@@ -151,11 +149,11 @@ Four layers, each proved for every frame:
 contrast is `N_ij : (N_ij + k_ij)`, because `a_i b_j − a_j b_i = −k_ij < 0` for
 these four coefficient pairs. That is the book's display in 16.11, and the
 tension bounds are the book's own `⌊N/k⌋ ≤ t ≤ ⌊N/k⌋ + k` (`tEnd_bounds`).
-Correction 15's `N − Δ` is the same identity read with `Δ` signed, so there is
-no conflict. The margin lemmas below still take the weaker pair
-`⌊N/k⌋ ≤ t + 1`, `t ≤ ⌊N/k⌋ + k`, and hold: with the thresholds 206 and 440 the
-floor gaps are at least 11 (checked exhaustively before writing, then proved by
-`omega`), which is exactly the 2 needed plus the 9 the two slacks eat.
+Lemma 16.10's `N − Δ` is the same identity read with `Δ` signed. The margin
+lemmas below still take the weaker pair `⌊N/k⌋ ≤ t + 1`, `t ≤ ⌊N/k⌋ + k`,
+and hold: with the thresholds 206 and 440 the floor gaps are at least 11
+(checked exhaustively, and proved by `omega`), which is exactly the 2 needed
+plus the 9 the two slacks eat.
 -/
 
 open Contrast Zphi PhiPos Automorphism

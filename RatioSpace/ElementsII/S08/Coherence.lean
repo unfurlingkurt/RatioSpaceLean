@@ -302,7 +302,7 @@ def signPair (x : Zphi) : ℤ × ℤ := (2 * x.a + x.b, x.b)
 
 /-- `5 ∣ s·s` forces `5 ∣ s`: the five residues of `s` give `s·s ≡ 0, 1, 4, 4, 1 (mod 5)`.
     Proved by residues rather than through `Nat.Prime`, whose divisibility lemmas reach
-    `Classical.choice` in this Mathlib (2026-09-22). -/
+    `Classical.choice` in this Mathlib. -/
 theorem five_dvd_of_five_dvd_mul_self (s : ℤ) (h : (s * s) % 5 = 0) : s % 5 = 0 := by
   have hm : (s * s) % 5 = ((s % 5) * (s % 5)) % 5 := Int.mul_emod s s 5
   have hr : s % 5 = 0 ∨ s % 5 = 1 ∨ s % 5 = 2 ∨ s % 5 = 3 ∨ s % 5 = 4 := by omega
@@ -313,7 +313,7 @@ theorem five_dvd_of_five_dvd_mul_self (s : ℤ) (h : (s * s) % 5 = 0) : s % 5 = 
 
     Proved here in the integers, with no appeal to irrationality: `5` is not a
     perfect square, so `s² = 5b²` forces both to vanish by infinite descent on `|b|`
-    (`s = 5s'`, `b = 5b'` after `5 ∣ s` and then `5 ∣ b`). 2026-09-22: the descent is done by
+    (`s = 5s'`, `b = 5b'` after `5 ∣ s` and then `5 ∣ b`). The descent is done by
     residues mod 5 (`five_dvd_of_five_dvd_mul_self`), since Mathlib's `Zsqrtd.norm_eq_zero` and
     the `Nat.Prime` divisibility lemmas reach `Classical.choice`. -/
 theorem sq_eq_five_mul_sq_iff {s b : ℤ} : s ^ 2 = 5 * b ^ 2 ↔ s = 0 ∧ b = 0 := by

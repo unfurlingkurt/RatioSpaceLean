@@ -8,7 +8,8 @@ import Mathlib.Tactic.NormNum
 /-!
   The frame group braids, and the full twist is the minus identity.
 
-  Machine-checked support for `research/frames-and-spinors.md`. Everything here
+  Machine-checked support for the frame group of Elements I, §2 and §3. Everything here
+
   is an exact statement about integer matrices, so it is decidable and the proofs
   are the computation itself rather than an argument about it.
 

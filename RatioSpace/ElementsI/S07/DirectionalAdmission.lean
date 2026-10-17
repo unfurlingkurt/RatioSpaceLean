@@ -5,19 +5,18 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S07.RelativeEncounterMatrix
 /-!
-  Gap G1-10 — Elements I §7, Definition 7.5 Directional admission.
+  Elements I §7, Definition 7.5: Directional admission.
 
-  **Book statement (v0.22), closing paragraph of Definition 7.5.** Contact
+  **Book statement, closing paragraph of Definition 7.5.** Contact
   states that two frames meet unimodularly; admission states that one is
   reachable from the other through the permitted directed grammar. The
   sentence is about the encounter of two frames.
 
-  **What was missing.** The tree's witness, `admission_is_not_contact`
-  (`Question.lean`), proves `S ∉ Mplus`. `S` has determinant one, but it is
+  **The encounter witness.** `admission_is_not_contact`
+  (`Question.lean`) proves `S ∉ Mplus`. `S` has determinant one, but it is
   not the encounter of any two observers, so it does not witness the book's
-  sentence.
+  sentence. The witness below is an encounter.
 
-  **Added.**
   * `g110_S_not_encounter`: for every two observers, `encounter O P ≠ S`.
     If `Q = S` then `P.matrix = O.matrix * S`, whose second column is
     `(-a, -c)`; both matrices are nonnegative, so `a = c = 0`, against

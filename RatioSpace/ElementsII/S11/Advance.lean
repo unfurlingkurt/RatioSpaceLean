@@ -22,15 +22,14 @@ observer chart, the endpoint-contrast convention, and Definition 8.1 —
 and the book says outright it *"is not the two-argument cavity `𝒞(F_𝒬,N)`"*.
 Nothing in this file refers to `Cavity`.
 
-**What §6 already got right, and this file therefore does not redo.**
+**What §6 supplies, and this file therefore does not redo.**
 `Carrier.lean` supplies `Slot`, whose `notEvaluated` is a distinct constructor
 rather than an `Option` whose `none` doubles as failure — which is exactly the
 distinction Definitions 11.4 and 11.5 each insist on. It supplies
-`ProposalStatus` with `tiedSelected` already present. `Coherence.lean` supplies
+`ProposalStatus` with `tiedSelected` present. `Coherence.lean` supplies
 `support`, Definition 8.1 as a *filter*, so the maximizer set is
-already a set and no tie is ever broken. Three of §11's four traps were
-disarmed before §11 was reached; scoping note in
-`research/lean-support/def-11-1-to-11-8-the-one-tick-advance.md`.
+already a set and no tie is ever broken. Three of §11's four traps are
+disarmed by these before §11 begins.
 -/
 
 namespace RatioSpace
@@ -369,8 +368,8 @@ theorem child_archived_regardless_of_selection
 
     §12 proves things *about* the map §11 built rather than adding to it. Four
     of its eight items are statements about `advanceArchive` and `proposals`
-    directly, and those are what this section proves. The rest (12.3–12.5, 12.8)
-    quantify over machinery from §4 and §7 that is not built here yet. -/
+    directly, and those are what this section proves. The rest follow: 12.3, 12.5
+    and 12.6 on the machinery of §4, §7 and §8, 12.4 and 12.8 on the whole carrier. -/
 
 /-- **Lemma 12.1, first half.** *"Two different parent-hand pairs cannot yield
     one identifier."* The child identifier appends the hand to the parent's
@@ -431,7 +430,7 @@ theorem archive_growth (archive : List Core) (active : List QuestionId)
     This is the theorem that makes `Definition 11.2`'s comment true. That
     definition says the stratum's *"internal storage order has no mathematical
     effect"*, and `TickCarrier.ledger`'s docstring says the same of the ledger.
-    Both were comments; nothing enforced them. Here it is for the proposal
+    Here it is a theorem for the proposal
     family, which is the one §12 actually needs: permuting the archive permutes
     the proposals and changes nothing else.
 
@@ -455,12 +454,8 @@ theorem proposals_length_perm {archive archive' : List Core} (active : List Ques
 
 /-! ### 12.3, 12.5 and 12.6, on the machinery §7 and §8 already supply
 
-    An earlier draft of this file's scoping note said 12.3–12.5 and 12.8
-    *"quantify over §4 and §7 machinery not built here yet."* That was asserted
-    without looking. `Cavity.lean` is §4 and `Support.lean` is §7; both are
-    built, and three of the four items were reachable the whole time. Recorded
-    because the note was wrong in the direction that costs most: it made four
-    items look blocked when nothing blocked them. -/
+    `Cavity.lean` is §4 and `Support.lean` is §7; these three items are stated
+    on them. -/
 
 /-- **Lemma 12.3.** *"Every occurrence entering an observer-local composition
     star has one decoded positive word ... No occurrence lacking those operands
@@ -507,7 +502,7 @@ theorem tie_has_integer_witness (fam : List IPres) (y z : IPres) :
         ∧ c1 (tensions fam y) = c1 (tensions fam z) :=
   tie_is_integral fam y z
 
-/-- **Theorem 12.7, the half that was missing.** `proposals_perm` showed the
+/-- **Theorem 12.7, the support half.** `proposals_perm` shows the
     proposal family is enumeration-independent; §8's `support_perm_mem` shows
     the support is. Together they cover the two components that could plausibly
     have depended on storage order, and neither does. -/
@@ -577,7 +572,7 @@ theorem both_hands_proposed {archive : List Core} {active : List QuestionId}
 /-! ## Definition 11.6, on the whole carrier
 
     `advanceArchive` moves the archive. This moves all six components, which is
-    what 12.4, 12.8, 13.2 and 13.3 each need and none of them could reach.
+    what 12.4, 12.8, 13.2 and 13.3 each need.
 
     **The selector is a parameter, and that is faithful rather than a
     concession.** Definition 11.4 takes `S_{j+1}` from Definition 8.1
@@ -670,15 +665,14 @@ theorem advanceCarrier_ledger_prefix {Aux : Type} {h : ℕ} (X : TickCarrier Aux
 
 /-! ## Duplicate-freedom survives one tick
 
-    Theorem 17.7's iff-direction (`Terminal.lean`) needed the terminal
-    carrier's archive and active support both duplicate-free, and named the
-    gap as a schedule-length induction, not local wiring. The induction itself
-    belongs in `Accumulation.lean`, where `Policy`/`iterate` live; what this
-    file supplies is the one-step preservation lemma it inducts on. Well-
-    formedness of the archive turns out to be the missing ingredient, not
-    duplicate-freedom of the archive itself — that one is unconditional,
-    `childCore_wellFormed`, and it is what makes the new children's own
-    identifiers computable from their parents' at all. -/
+    Theorem 17.7's iff-direction (`Terminal.lean`) needs the terminal
+    carrier's archive and active support both duplicate-free, by a
+    schedule-length induction. The induction belongs in `Accumulation.lean`,
+    where `Policy`/`iterate` live; this file supplies the one-step preservation
+    lemma it inducts on. The ingredient it needs is well-formedness of the
+    archive; for the new children that is unconditional, `childCore_wellFormed`,
+    and it is what makes the new children's own identifiers computable from
+    their parents' at all. -/
 
 /-- **A well-formed parent's identity determines its children's.** `childCore`
     always recomputes the id from `(seedId, relWord)` alone (`childProposal_id`

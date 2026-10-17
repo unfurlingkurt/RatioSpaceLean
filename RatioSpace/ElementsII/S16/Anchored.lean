@@ -9,7 +9,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
 
   Definition 8.1: "If a later receiver is intended to coherence value additional
   retained anchors, those anchors must enter as explicitly tagged occurrences
-  in a declared extended comparison profile." The tree had no such profile.
+  in a declared extended comparison profile."
   `anchoredSelect` is `RootOrbit.axiomSelect` with the coherence values taken over the
   admitted family *plus* the declared anchors, and the maximum taken over the
   admitted family only: anchors are compared against, never selected.
@@ -709,7 +709,7 @@ def XDSL7 : TickCarrier Unit hQ :=
 
 /-! ## Remark 16.18 — the computed profiles
 
-    Every value below was read off the run before it was asserted. -/
+    Every value below is computed from the run it states. -/
 
 /-- **The base profile is the empty-anchor case of the extended one**, which is
     the book's boxed sentence read as an equation: anchoring is an admissible

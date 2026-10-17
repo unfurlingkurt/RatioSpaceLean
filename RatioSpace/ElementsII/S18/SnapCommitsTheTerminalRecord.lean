@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S22.Face
 import RatioSpace.ElementsII.S18.Snap
 /-!
-  Gap G2-18 — Elements II §18, Separation Rule 18.4, Snap is not return
+  Elements II §18, Separation Rule 18.4, Snap is not return
   assimilation.
 
   **Book statement.** *"The coherent snap determines which complete terminal
@@ -14,12 +14,11 @@ import RatioSpace.ElementsII.S18.Snap
   state, form the next question, or attach a received face. Those are
   differently typed operations."*
 
-  **What was missing.** Observer, question and active state are
+  **The other clauses.** Observer, question and active state are
   `snap_forms_no_new_observer`, `snap_forms_no_new_question`,
-  `snap_alters_no_active_state`. The face clause was witnessed only by
-  `Report` having no face field.
+  `snap_alters_no_active_state` (`Snap.lean`). `Report` has no face field.
 
-  **Built here.** Attachment (Construction Axiom II.2, `Face.receivedFaces`) is
+  **The face clause.** Attachment (Construction Axiom II.2, `Face.receivedFaces`) is
   decided by each packet's eligibility vector. Every packet carries a cycle
   certificate, and the certificate carries a snap (`CycleCertificate.snapped`).
   * `receivedFaces_replace_snap`: replacing the snap inside every packet's

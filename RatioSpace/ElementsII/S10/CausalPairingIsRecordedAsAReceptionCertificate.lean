@@ -5,23 +5,23 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S22.Face
 /-!
-  Gap G2-08 · Elements II Corollary 10.8, causal pairing is recordable without
-  becoming a face.
+  Elements II Corollary 10.8, causal pairing is recordable without becoming a
+  face.
 
-  Book statement (v0.22): "Every tagged local sibling pair has one exact oriented
-  quarter-turn reception in the direction fixed by the designated hand. This
-  reception certificate may be appended to the causal-pair record while both raw
-  child histories remain distinct. The certificate does not by itself attach a
-  received edge or face. Attachment additionally requires a unique committed
-  lineage, actual joint admission at the event, and the later recording rule.
-  Thus sibling relation → reception certificate ⇏ committed face."
+  Book statement (Elements II, Corollary 10.8): "Every tagged local sibling pair
+  has one exact oriented quarter-turn reception in the direction fixed by the
+  designated hand. This reception certificate may be appended to the causal-pair
+  record while both raw child histories remain distinct. Attaching a received
+  edge or face requires, beyond the certificate, a unique committed lineage,
+  joint admission at the event, and the later recording rule. Thus sibling
+  relation → reception certificate ⇏ committed face."
 
-  `Two/Causal.lean` carries only `causalRecord_children_distinct`. This file
+  `Causal.lean` carries only `causalRecord_children_distinct`. This file
   states the corollary whole: the certificate as an appendable field of the
   record, the three attachment preconditions read off Theorem 22.6's certificate
   and Construction Axiom II.2, and the non-implication as three exact witnesses,
   one per precondition, each on the record's own identifiers with the other two
-  preconditions holding. No existing declaration is changed.
+  preconditions holding.
 -/
 set_option linter.style.longLine false
 

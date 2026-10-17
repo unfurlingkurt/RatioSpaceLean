@@ -20,7 +20,7 @@ import RatioSpace.ElementsI.S11.Perspective
   it composes with the one before. An arrow
   that were injective everywhere would be a redundant layer.
 
-  **The box does not compose at closure → reception** (audit E1-B1, 2026-09-28).
+  **The box does not compose at closure → reception.**
   Arrows 1, 3 and 4 are maps on their layers, and arrows 2 → 3 → 4 compose:
   that composite is `reading`. Arrow 2 is not a map *from the closure layer*.
   It reads the complete encounter record of Def 7.4, which is built from the two
@@ -32,24 +32,17 @@ import RatioSpace.ElementsI.S11.Perspective
   So `reading` starts at the substrate, and arrow 1 is read off the same
   observer beside the path, not on it. The box gives the order in which the
   layers are read, not a chain in which each layer is computed from the one
-  before alone; this is E1-42 of `v0.25-corrections/elements-i.md`.
+  before alone; this is ledger item E1-42 (`CROSSWALK.md`).
 
   **All four arrows are many-to-one at the declared instances** (arrow 2's
-  reception at `obsWord`, arrow 3's projection at `reduction`). That is this
-  file's finding after D-15,
-  and it is a correction to the reading, not to a result — two earlier and
-  narrower claims here have each been retracted in turn as the types were
-  brought closer to the book. D-14 retracted the strongest claim, that the
-  closure pair determines the whole encounter record. What survived D-14 was
-  narrower: that the closure pair at least pins down the *matrix*, because
-  `ClosureState` still carried the matrix as a field alongside the residue Def
-  8.4 actually declares. **D-15 retypes `ClosureState` to hold only that
-  residue** — Def 8.4's own sentence, *"the closure component of a state is
-  the residue of its matrix,"* was always naming an output narrower than its
-  input — and the matrix-level claim goes with it: `ofWord_not_inj` is the
-  standing witness that residue equality does not pin down the matrix, and
-  `four_records` (`Winding.lean`) is the standing witness that arrow 1 itself
-  already loses, not merely the record built on top of it.
+  reception at `obsWord`, arrow 3's projection at `reduction`). The closure
+  pair does not determine the whole encounter record, and it does not pin
+  down the *matrix* either. **`ClosureState` holds only the residue** Def 8.4
+  declares: Def 8.4's own sentence, *"the closure component of a state is
+  the residue of its matrix,"* names an output narrower than its input.
+  `ofWord_not_inj` is the witness that residue equality does not pin down the
+  matrix, and `four_records` (`Winding.lean`) is the witness that arrow 1
+  itself is many-to-one, not merely the record built on top of it.
 
   What is many-to-one at arrow 2 is therefore both the **layer boundary**
   (the closure residue under-determines the encounter record, so arrow 2
@@ -59,26 +52,25 @@ import RatioSpace.ElementsI.S11.Perspective
   anything less than `Mask.full` is constant along the components outside its
   declaration; `reception_is_constant_along_what_the_mask_excludes`).
 
-  **Arrow 4's fiber is the proportional class** (G1-22, 2026-09-26). Arrow 4
+  **Arrow 4's fiber is the proportional class.** Arrow 4
   is Def 11.4's `ν`, which is Def 1.7's, on its own codomain `ℚ≥0 ∪ {∞}`
   (`Pres.ProjValue`). Two presentations read the same coordinate exactly when
   they are proportionally equivalent (`coordinate_fiber_is_the_class`), so the
   arrow is many-to-one on `Pres` (`2:4` and `1:2`) and one-to-one on primitive
   presentations. Its fiber is the one arrow 3's `reduction` already collapses:
   after a reducing projection, arrow 4 identifies nothing further. The two
-  orientation anchors `1:0` and `0:1` are separated (`∞` and `0`). An earlier
-  version of this file read arrow 4 through `Pres.realize`, which sends `1:0` to
-  `0`, and took the merged anchors as the arrow's witness; that merge was D-02,
-  not a fiber of the book's `ν`.
+  orientation anchors `1:0` and `0:1` are separated (`∞` and `0`).
+  `Pres.realize`, which sends `1:0` to `0`, merges the two anchors; that merge
+  is not a fiber of the book's `ν`.
 
-  **On the vocabulary here, which is deliberate.** An earlier draft of this file
-  said each arrow "loses" something. Nothing in this framework is ever removed:
+  **On the vocabulary here, which is deliberate.** No arrow here is said to
+  "lose" anything. Nothing in this framework is ever removed:
   `2:4` is still a `Pres` and is still distinct from `1:2` by `decide`, and every
   field of every record is still a field. What is true is that some of these maps
   are **many-to-one**, and what a reader holding only the output cannot do is
   vary along the fiber. The fibers here have exact integer coordinates and can be
   named, which is why the theorem names below say `many_to_one` and `fiber`
-  rather than `loses`. See [INV-24]; an absence cannot be asked a question and an
+  rather than `loses`. An absence cannot be asked a question and an
   address can.
 -/
 
@@ -139,59 +131,43 @@ theorem closure_many_to_one_in_the_archive :
     ∃ S T : SubstrateState, S ≠ T ∧ closureOfState S = closureOfState T :=
   ⟨⟨Frame.empty, [], [], []⟩, ⟨Frame.empty, [], [], [[true]]⟩, by decide, rfl⟩
 
-/-- **Retracted 2026-08-26 (D-14).** This used to claim the declared origin was
-    a second direction arrow 1 is blind to, with the pair below as witness. It
-    was read off `closureOfState = closureOfState ∘ SubstrateState.closure`
-    while `SubstrateState.closure` silently read the origin as `∅` — exactly
-    the bug D-14 fixes. The archive is the *only* such direction now: the
+/-- **Arrow 1 varies along the declared origin.** Unlike the archive, the
     origin is one of Def 6.2's four stored fields arrow 1 does vary along,
-    once `κ_τ = c(M_τ)` is read against the declared start the way Def 8.4
-    says. Same witness pair, opposite verdict. -/
+    since `κ_τ = c(M_τ)` is read against the declared start the way Def 8.4
+    says. -/
 theorem closure_varies_with_the_declared_origin :
     ∃ S T : SubstrateState, S.origin ≠ T.origin ∧ closureOfState S ≠ closureOfState T :=
   ⟨⟨Frame.empty, [], [], []⟩, ⟨Frame.stepR Frame.empty, [], [], []⟩, by decide, by decide⟩
 
 /-! ## Arrow 2 is many-to-one at the declared instance, and it does not start from the closure layer
 
-  **Corrections 18/19, retracted 2026-08-26 (D-14).** The two results this
-  section used to state — that the closure record recodes the word without
-  collision, and that the whole encounter is therefore determined by the
-  closure pair — were read off a tree where `closureOfObserver` and
-  `EncounterRecord.of` had both silently discarded the observer's declared
-  start. Once D-12/D-13/D-14 make every site read the start-aware matrix, the
-  two sides agree only by cancellation: `encounter_determined_by_the_closure_pair`
-  is false as originally stated, and Prop 7.1 already names why. -/
+  The closure record does not recode the word without collision, and the
+  whole encounter is not determined by the closure pair. `closureOfObserver`
+  and `EncounterRecord.of` both read the observer's declared start, and with
+  the start-aware matrix at every site two observers' closure records can
+  agree by cancellation between start and word; Prop 7.1 names why. -/
 
-/-- **Retracted 2026-08-27 (D-15).** This used to prove the closure record
-    determines the decoded word from `Frame.empty`, by reading `G` off the
-    `.matrix` field `ClosureState` no longer carries. Def 8.4's own text —
-    *"the closure component of a state is the residue of its matrix"* — was
-    always naming an output narrower than the matrix that feeds it, and once
-    `ClosureState` is retyped to hold only that output (D-15), the map is
-    exactly as lossy as `four_records` already witnesses: **not** injective.
-    Same witness pair as `quotientClosure_strictly_coarser`, which proved this
-    fact already and is not re-derived here. -/
+/-- **The closure record does not determine the word.** Def 8.4's own text,
+    *"the closure component of a state is the residue of its matrix"*, names
+    an output narrower than the matrix that feeds it, and `ClosureState` holds
+    only that output, so `ClosureState.ofWord` is many-to-one, as
+    `four_records` witnesses: **not** injective. Same witness pair as
+    `quotientClosure_strictly_coarser`, which proves this fact and is not
+    re-derived here. -/
 theorem ofWord_not_inj :
     ClosureState.ofWord [false, true] = ClosureState.ofWord [true, false] ∧
     ([false, true] : Word) ≠ [true, false] :=
   ⟨by decide +kernel, by decide⟩
 
-/- **Retracted 2026-08-27 (D-15).** This used to prove the closure pair pins
-   down the accumulated matrix — "injective at the matrix, not at the
-   record" — by reading `.matrix` off both sides of the hypothesis. That
-   field is gone: a `ClosureState` equality is now a residue equality alone,
-   and `ofWord_not_inj` above is the standing witness that residue equality
-   does not pin down the matrix either. Arrow 2's fiber is therefore not
-   narrower than Arrow 1's; `closure_pair_does_not_determine_the_record`
-   below still holds, and holds for a plainer reason than the shared-prefix
-   story it was written to explain: the closure pair it exhibits agrees by
-   residue only, not by matrix. -/
+/- The closure pair does not pin down the accumulated matrix: a `ClosureState`
+   equality is a residue equality alone, and `ofWord_not_inj` above is the
+   witness that residue equality does not pin down the matrix. Arrow 2's
+   fiber is therefore not narrower than Arrow 1's. -/
 
 /-- **Arrow 2's fiber, named and witnessed.** `O₁` walks `[true, false]` from
     `∅`; `O₂` walks `[false]` from the frame one `R`-step out. Their matrices
-    agree (`Frame.G_toWord`/`G_append`, the same fact D-14's closure repair
-    uses), which after D-15 forces their residues to agree too — a weaker
-    coincidence than before, and enough on its own. Their retained words, and
+    agree (`Frame.G_toWord`/`G_append`), which forces their residues to agree
+    too. Their retained words, and
     so their full encounter records, do not. -/
 theorem closure_pair_does_not_determine_the_record :
     ∃ O₁ O₂ P : Observer,
@@ -206,7 +182,7 @@ theorem closure_pair_does_not_determine_the_record :
     have := congrArg EncounterRecord.observerWord h
     simp [EncounterRecord.of] at this
 
-/-- **Arrow 2 is not a map from the closure layer** (audit E1-B1). No function
+/-- **Arrow 2 is not a map from the closure layer.** No function
     of the two closure records returns the encounter record Def 11.1's
     reception reads. This is why `reading` starts at the observers and not at
     `closureOfObserver`: the book's box cannot be run as five layers and four
@@ -219,7 +195,7 @@ theorem record_not_a_function_of_the_closures :
   obtain ⟨O₁, O₂, P, hc, hne⟩ := closure_pair_does_not_determine_the_record
   exact hne (by rw [← hf O₁ P, ← hf O₂ P, hc])
 
-/-- **The mask fiber, alongside the layer's own fiber (D-15).** `obsWord`
+/-- **The mask fiber, alongside the layer's own fiber.** `obsWord`
     declares it reads the observer's word and nothing else, and Def 11.1's
     `honest` field makes that declaration binding. It is therefore **constant
     along the presented word**: two distinct encounter records, one reading.
@@ -289,8 +265,7 @@ theorem coordinate_after_reduction_injective {A B : Pres}
 
 /-- **The two improper endpoints are separated.** `1:0` reads as the boundary
     value (the book's `∞`) and `0:1` as `0`. Both are primitive, and arrow 4
-    tells them apart. This used to be stated the other way round, as arrow 4's
-    one non-trivial fiber, when arrow 4 was `Pres.realize` (G1-22). -/
+    tells them apart. -/
 theorem coordinate_separates_the_improper_endpoints :
     coordinateOf oneZero ≠ coordinateOf zeroOne
     ∧ coordinateOf oneZero = Pres.ProjValue.atBoundary

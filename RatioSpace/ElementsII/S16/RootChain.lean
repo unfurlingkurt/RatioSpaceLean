@@ -17,8 +17,9 @@ import RatioSpace.ElementsII.S16.ClosurePattern
   the parity of `k`. Here the same computation is carried by the Stern–Brocot
   step lemmas of Elements I (`cfNat_sum_add_left`/`_right`): each subtraction
   costs exactly one unit of depth, so a Euclidean quotient `m` costs `m`, and
-  the depth is a sum of quotients with no case left to `decide`. Checked against
-  `research/experiments/elements_ii_axiom_ii1.py` for `k < 40` before writing.
+  the depth is a sum of quotients with no case left to `decide`. The closed
+  forms below agree with direct computation for `k < 40`.
+
 
   `t(b,c) = k+5`; `t(a,d) = 17j+8` at `k = 2j`, `5j+7` at `k = 2j+1`.
 -/

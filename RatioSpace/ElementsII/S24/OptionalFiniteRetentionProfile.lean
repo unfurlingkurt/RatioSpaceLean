@@ -14,10 +14,10 @@ import RatioSpace.ElementsII.S24.Lifecycle
   g_ph = 1 ⟺ θ_Θ(𝖹_f^{[m]}) ∈ W_Θ^ph, g_lift = 1 ⟺ Lift_sib(f) ∈ W_Θ^lift,
   g_read = 1 ⟺ a_arch(f; n_m) ≤ H_Θ."*
 
-  **What was missing.** `finiteProfile` (`Two/Lifecycle.lean`) takes the phase
-  datum in an arbitrary type `Ph`; the finiteness of `P_Θ` is not declared.
+  `finiteProfile` (`Lifecycle.lean`) takes the phase datum in an
+  arbitrary type `Ph`, in which the finiteness of `P_Θ` is not declared.
 
-  **Built here.** A declaration record `G2_28.FiniteProfile` whose phase type
+  **The declaration.** A record `G2_28.FiniteProfile` whose phase type
   carries an exact finite enumeration (a duplicate-free list containing every
   phase), so `P_Θ` is finite as declared while the phase datum keeps its own
   named type (Definition 24.10: "The datum θ_Θ must be named by type"; a

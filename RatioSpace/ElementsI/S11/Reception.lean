@@ -5,39 +5,40 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S11.Perspective
 /-!
-  Gap G1-20 — Elements I §11, Definition 11.1, reception: the map had no
-  observer.
+  Elements I §11, Definition 11.1, reception, with the observer as index.
 
   **Book statement.** "A reception map is an observer-conditioned exact map
   `𝓡_O : 𝖤_{O,P} → Y_O` from the complete encounter record to a receiving
-  space `Y_O`." v0.25 (E1-39): the input contains `O` through `Q_{O,P}` and the
+  space `Y_O`." The input contains `O` through `Q_{O,P}` and the
   retained records `w_O, κ_O, H_O`; "a reception that also depends on the
-  observer's declared capacity `η_O` (Definition 7.1), which `𝖤_{O,P}` does not
-  contain, depends on it through the index `O` of `𝓡_O`."
+  observer's declared capacity `η_O` (Definition 7.1), a datum of the observer
+  outside `𝖤_{O,P}`, depends on it through the index `O` of `𝓡_O`."
+  Reading A: the reception reads the record only. Reading B: it also reads
+  `η_O`, through the index.
 
-  **What was wrong.** `Reception Y` (`Perspective.lean`) had no observer
-  parameter and one receiving space, and `honest` confined `read` to the seven
+  **The bare reception.** `Reception Y` (`Perspective.lean`) has no observer
+  parameter and one receiving space, and `honest` confines `read` to the seven
   fields of `EncounterRecord`. `EncounterRecord.of O P` does not contain
-  `O.eta`. So no reception in the tree could depend on the observer's declared
-  capacity: faithful under E1-39's reading A, not under reading B.
+  `O.eta`. So no bare `Reception` can depend on the observer's declared
+  capacity: it realizes reading A, not reading B.
 
-  **Changed.** `ObsReception Y` (`Perspective.lean`): a family
+  **The indexed reception.** `ObsReception Y` (`Perspective.lean`): a family
   `(eta : ℕ) → Reception (Y eta)` indexed by the capacity alone, and
   `ObsReception.receive R O P = (R.at_ O.eta).read (EncounterRecord.of O P)`
   into `Y_O = Y O.eta`. What the record holds about `O` (`w_O`, `κ_O`,
-  `Q_{O,P}`, and `H_O` only as the word, E1-B4) is read there, so `η_O`
-  is the only thing that passes through the index, which is E1-39's reading
+  `Q_{O,P}`, and `H_O` only as the word, the declaration `H_O = (w_O)` of
+  Elements I, Definition 7.4) is read there, so `η_O`
+  is the only thing that passes through the index, which is reading
   B; indexing by the whole observer would let a blank-mask member read `w_O`
   through the index. `ObsReception.receive_honest` is the declaration
-  obligation for the composite. `Reception` stays as the member at one
-  capacity. Which reading the book means stays open (E1-39); the Lean now
-  states both.
+  obligation for the composite. `Reception` is the member at one
+  capacity. The Lean states both readings.
 
-  **Added here.**
+  **Proved here.**
   * `g120_record_omits_capacity`: two observers that differ only in `eta`
     produce the same encounter record with any presented state.
   * `g120_plain_reception_blind_to_capacity`: hence every bare `Reception`
-    reads them the same. This is the gap, stated as a theorem.
+    reads them the same. This is the limit of the bare form, as a theorem.
   * `g120_reading_A_blind_to_capacity`: the same for a constant family
     (a constant family is reading A; the converse is not claimed).
   * `truncatedReception`, `g120_indexed_reception_sees_capacity`: an honest
@@ -70,7 +71,7 @@ theorem g120_record_omits_capacity (O O' P : Observer)
   subst hs hw
   rfl
 
-/-- **The gap.** A bare reception cannot see the capacity. -/
+/-- **The bare form is blind.** A bare reception cannot see the capacity. -/
 theorem g120_plain_reception_blind_to_capacity {Y : Type} (R : Reception Y)
     (O O' P : Observer) (hs : O.start = O'.start) (hw : O.word = O'.word) :
     R.read (EncounterRecord.of O P) = R.read (EncounterRecord.of O' P) := by

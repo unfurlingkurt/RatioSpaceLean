@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S16.Automorphism
 /-!
-  Elements II §16, Proposition 16.13, restated (Kurt, 2026-09-15).
+  Elements II §16, Proposition 16.13, restated.
 
   **What 16.13 is.** From any two occurrences `u`, `v` the next comparison is
   one static comparison of four children: `a, b` the children of `u`, `c, d`

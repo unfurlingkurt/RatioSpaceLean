@@ -12,23 +12,19 @@ import RatioSpace.ElementsII.S08.Coherence
   channel phase, with what winding, on which lift sheet. Cor 9.16 exists to say
   none of the four supplies another.
 
-  **The gap this section found, and it was upstream.** Prop 9.2 is *"Neg(Q) = 0 ⟺
+  **The imported decoder, both directions.** Prop 9.2 is *"Neg(Q) = 0 ⟺
   Q ∈ ℳ₊"*, and the book calls it a *"Derived result from the imported
-  positive-decoding theorem."* Elements I's Lean had one direction of that
-  import, `nonneg_G`, and not the other: its own ledger row for Standard Result
-  3.1 said, in as many words, **"No decoder."** So the whole admission layer of
-  Elements II was resting on a converse nobody had built.
+  positive-decoding theorem."* One direction of that import is `nonneg_G`; the
+  converse, part of Elements I, Standard Result 3.1, is `mem_Mplus_of_nonneg`.
 
-  It was found here, as `mem_Mplus_of_nonneg`, and the argument is short once
-  the right dichotomy is seen: for a nonnegative determinant-one matrix other
-  than the identity, the two rows are comparable. If they were not — say
-  `a > c` and `d > b` — then `det ≥ b + c + 1`, forcing `b = c = 0` and hence
-  `M = I`. That is the whole obstruction, and `decFuel`'s case split was
-  already written to exploit it; nothing had proved it could not get stuck.
+  The argument for the converse is short once the right dichotomy is seen: for
+  a nonnegative determinant-one matrix other than the identity, the two rows
+  are comparable. If they were not, say `a > c` and `d > b`, then
+  `det ≥ b + c + 1`, forcing `b = c = 0` and hence `M = I`. That is the whole
+  obstruction, and it is why `decFuel`'s case split cannot get stuck.
 
-  **Migrated to Elements I, 2026-08-26.** `RatioSpace.rows_comparable` and
-  `RatioSpace.mem_Mplus_of_nonneg` now live in `Walk.lean` beside `dec`, where
-  the gap actually was; this file imports them by name. Correction 21 closed.
+  `RatioSpace.rows_comparable` and `RatioSpace.mem_Mplus_of_nonneg` live in
+  `Walk.lean` beside `dec`; this file uses them by name.
 -/
 
 namespace RatioSpace
@@ -44,14 +40,13 @@ def matPow (M : Mat2) : ℕ → Mat2
 /-- The central sign, written out because `Mat2` carries no `Neg`. -/
 def matNeg (M : Mat2) : Mat2 := ⟨-M.a, -M.b, -M.c, -M.d⟩
 
-/-! ## The missing import: nonnegative and determinant one implies decodable
+/-! ## The imported converse: nonnegative and determinant one implies decodable
 
-    **Migrated to Elements I, 2026-08-26 (correction 21 closed).** This file's
-    own docstring said the theorem belonged in `Walk.lean` beside `dec`, since
-    the gap was Standard Result 3.1's, not Prop 9.2's. `RatioSpace.Nonneg`,
-    `RatioSpace.rows_comparable`, `RatioSpace.row_ne_zero_of_det`, and
-    `RatioSpace.mem_Mplus_of_nonneg` now live there, unchanged, and are visible
-    here by name through the enclosing `RatioSpace` namespace. -/
+    The theorem belongs to Elements I, Standard Result 3.1, not to Prop 9.2.
+    `RatioSpace.Nonneg`, `RatioSpace.rows_comparable`,
+    `RatioSpace.row_ne_zero_of_det`, and `RatioSpace.mem_Mplus_of_nonneg` live
+    in `Walk.lean` beside `dec`, and are visible here by name through the
+    enclosing `RatioSpace` namespace. -/
 
 /-! ## Definition 9.1 — oriented negativity load -/
 
@@ -74,7 +69,7 @@ def negLoad (Q : Mat2) : ℤ :=
   omega
 
 /-- `max 0 (−x) = 0` exactly when `0 ≤ x`. Proved from `Int.max_eq_left` and `le_max_right`
-    (2026-09-22) so that nothing here reaches `Classical.choice`. -/
+    so that nothing here reaches `Classical.choice`. -/
 theorem max_zero_neg_eq_zero_iff (x : ℤ) : max 0 (-x) = 0 ↔ 0 ≤ x := by
   constructor
   · intro h; have := le_max_right (0 : ℤ) (-x); omega
@@ -100,9 +95,8 @@ theorem negLoad_zero_iff_nonneg (Q : Mat2) : negLoad Q = 0 ↔ Nonneg Q := by
 
 /-- **Proposition 9.2.** `Neg(Q) = 0 ⟺ Q ∈ ℳ₊`, for `Q` of determinant one.
 
-    Both directions now exist: the easy one is Elements I's `nonneg_G`, the hard
-    one is `mem_Mplus_of_nonneg`, migrated to Elements I's `Walk.lean` on
-    2026-08-26 (correction 21). -/
+    The easy direction is Elements I's `nonneg_G`, the hard one is
+    `mem_Mplus_of_nonneg` in Elements I's `Walk.lean`. -/
 theorem direct_admission {Q : Mat2} (hd : Q.det = 1) :
     negLoad Q = 0 ↔ Q ∈ Mplus := by
   rw [negLoad_zero_iff_nonneg]
@@ -145,15 +139,15 @@ theorem negLoad_not_projective : negLoad L ≠ negLoad (matNeg L) := by decide
     be read off its length. Membership in `ℳ₊` is decided by positive decoding
     (`mem_Mplus_iff_dec`); at determinant one it agrees with `Neg = 0`
     (`direct_admission`), and at determinant `−1` it is the book's set: `P` has
-    `Neg(P) = 0` and is not in `ℳ₊` (2026-10-09, revision run list item 2; the
-    filter was `negLoad (matPow C j.val * Q) = 0` until then). -/
+    `Neg(P) = 0` and is not in `ℳ₊`, so the filter is not
+    `negLoad (matPow C j.val * Q) = 0`. -/
 def admittedPhases (C : Mat2) (k : ℕ) (Q : Mat2) : List (Fin k) :=
   (List.finRange k).filter (fun j => decide (matPow C j.val * Q ∈ Mplus))
 
-/-- **Regression, Definition 9.4 at determinant `−1`.** With channel `P`, order
+/-- **Definition 9.4 at determinant `−1`.** With channel `P`, order
     two and `Q = 1`: phase `0` is `1 ∈ ℳ₊`, phase `1` is `P ∉ ℳ₊`, so the admitted
-    set is `[0]` and the status is resolved at phase `0`. The former `Neg`-filter
-    returned `[0, 1]` here. -/
+    set is `[0]` and the status is resolved at phase `0`. The `Neg = 0` filter
+    would give `[0, 1]` here. -/
 theorem admittedPhases_P_two_one : admittedPhases P 2 1 = [0] := by decide
 
 theorem negLoad_P_zero_not_Mplus : negLoad P = 0 ∧ P ∉ Mplus :=
@@ -241,8 +235,8 @@ theorem quarter_turn_separating : Separating Squarter 4 := by
   have hrot := rotations Q
   have hdet : Q.a * Q.d - Q.b * Q.c = 1 := hd
   -- Every phase forces a sign pattern; two distinct ones force a zero row.
-  -- 2026-09-22: the four phases by `rcases` on the `Fin 4` values (the overflow cases close by
-  -- `omega`) in place of `fin_cases`, which reaches `Classical.choice` through `Fintype`.
+  -- The four phases by `rcases` on the `Fin 4` values (the overflow cases close by
+  -- `omega`); `fin_cases` reaches `Classical.choice` through `Fintype`.
   rcases i with ⟨_ | _ | _ | _ | i, hi'⟩ <;> rcases j with ⟨_ | _ | _ | _ | j, hj'⟩ <;>
     first
       | rfl
@@ -252,8 +246,8 @@ theorem quarter_turn_separating : Separating Squarter 4 := by
          obtain ⟨ha1, hb1, hc1, hd1⟩ := hi
          obtain ⟨ha2, hb2, hc2, hd2⟩ := hj
          simp at ha1 hb1 hc1 hd1 ha2 hb2 hc2 hd2
-         -- 2026-09-22: two distinct phases force a whole row to vanish, and a vanishing row
-         -- makes the determinant zero; `omega` on the sign facts in place of `nlinarith`.
+         -- Two distinct phases force a whole row to vanish, and a vanishing row
+         -- makes the determinant zero; `omega` on the sign facts.
          first
            | (have e1 : Q.a = 0 := by omega
               have e2 : Q.b = 0 := by omega
@@ -389,7 +383,7 @@ theorem winding_suffix (wO a : Word) : winding wO (wO ++ a) = bal a := by
     moves the winding by exactly one, in the direction of the side. -/
 theorem winding_child (wO wx : Word) (g : Bool) :
     winding wO (wx ++ [g]) = winding wO wx + (if g then 1 else -1) := by
-  -- 2026-09-22: through `bal_snoc` and `omega`; the earlier `simp [bal] <;> ring` reached
+  -- Through `bal_snoc` and `omega`; `simp [bal] <;> ring` reaches
   -- `Classical.choice`.
   unfold winding
   rw [bal_snoc]
@@ -524,8 +518,8 @@ theorem notEvaluated_ne_unresolvedNone :
     no one of these statuses is computed from another's value. They are not
     uncoupled: all are decisions about the same occurrence, and the lift status
     is read from the same encounter the admission reads. The four separations are
-    not the book's four clauses one for one. The name `statuses_are_independent`
-    is kept for compatibility (gap G2-57). -/
+    not the book's four clauses one for one. In the name `statuses_are_independent`,
+    independent means this non-substitution. -/
 theorem statuses_are_independent :
     (∃ x y : IPres, (support [x, y]).length = 2)
     ∧ (liftBit L L ≠ liftBit L (matNeg L) ∧ projClass (matNeg L) = projClass L)

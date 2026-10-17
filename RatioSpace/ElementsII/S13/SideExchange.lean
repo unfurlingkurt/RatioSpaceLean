@@ -8,18 +8,14 @@ import RatioSpace.ElementsII.S15.Accumulation
 /-!
   **§13 — The carrier-level side-exchange action.**
 
-  `Advance.lean`'s §13 scoping note says the proposal-generation halves of
-  Theorems 13.2 and 13.3 are provable there, and that assembling the *entire*
-  statements "needs the carrier advance rather than the archive advance".
-  `Accumulation.lean`'s Theorem 15.5 note is blunter: a `TickCarrier`-level
-  side-exchange action "is not built anywhere in this tree, and nothing since
-  has supplied it". The same absence is what blocks Theorem 16.2 and
-  Corollary 16.3.
+  The proposal-generation halves of Theorems 13.2 and 13.3 are proved at the
+  archive advance (`Advance.lean`); the *entire* statements need the carrier
+  advance rather than the archive advance. This file builds the
+  `TickCarrier`-level side-exchange action, which the side-exchange box of
+  Theorem 15.5, Theorem 16.2 and Corollary 16.3 also need.
 
-  This file supplies it.
-
-  **Why it was not obvious.** The naive side exchange — swap a frame's two
-  columns — is not an operation on frames at all. `Contact A B` is
+  **The naive swap fails.** The naive side exchange (swap a frame's two
+  columns) is not an operation on frames at all. `Contact A B` is
   `A.p * B.q = A.q * B.p + 1`; swapping gives `A.q * B.p = A.p * B.q + 1`, and
   the two together force `1 = -1`. `P` has determinant `-1`, so the exchange is
   **orientation-reversing** and cannot be a frame endomorphism. It acts by
@@ -99,12 +95,10 @@ theorem G_mirrorWord_involutive (w : Word) :
 
 /-! ## The action on a frame
 
-    **Correction, 2026-09-12, same day as the first draft.** The first version of
-    this file mirrored a `Core`'s `fullWord` with `{ c with ... }` and left
-    `fullMatrix`, `addr`, `closure` and `imbalance` untouched. Those are derived
-    fields — `Core.ofProposal_closure` states `closure = psi12 fullWord` as
-    `rfl` — so that version broke its own invariant. It was incoherent and is
-    replaced here.
+    A `Core`'s `fullMatrix`, `addr`, `closure` and `imbalance` are derived
+    fields (`Core.ofProposal_closure` states `closure = psi12 fullWord` as
+    `rfl`), so mirroring `fullWord` alone with `{ c with ... }` would break that
+    invariant. Every field moves by its own law below.
 
     The obstruction found at the top of this file also has a resolution. Swapping
     a frame's two columns fails because contact is oriented. **Reciprocating both
@@ -278,9 +272,9 @@ def History.mirror (H : History) : History :=
 
 /-! ## The action on an archived occurrence
 
-    **Second correction, 2026-09-12.** The previous draft of this section said
-    "identifiers do not move", borrowing the reading `Advance.lean` gives for
-    *prefix* transport. That is false for side exchange, and the reason is in
+    **Identifiers move.** The reading `Advance.lean` gives for *prefix*
+    transport, "identifiers do not move", is false for side exchange, and the
+    reason is in
     `Cavity.lean`: `QuestionId` carries a `rel : Word` field, and
     `proposal` sets `id := { id0 with rel := v }`. **The identifier contains the
     relative word.** Mirroring the word while holding the identifier fixed
@@ -327,7 +321,7 @@ def Core.mirror (c : Core) : Core where
 @[simp] theorem Core.mirror_id (c : Core) :
     (Core.mirror c).id = QuestionId.mirror c.id := rfl
 
-/-- **The mirror keeps the invariant the first draft broke.** If a core's stored
+/-- **The mirror keeps the closure invariant.** If a core's stored
     closure is the winding of its stored word, that is still true of its mirror,
     because both sides negate. -/
 theorem Core.mirror_closure_coherent (c : Core) (hc : c.closure = psi12 c.fullWord) :
@@ -379,8 +373,8 @@ theorem childCore_mirror (c : Core) (g : Bool) (entry : ℕ) (prov : Provenance)
 
 def mirrorArchive (archive : List Core) : List Core := archive.map Core.mirror
 
-/-- Mirroring the archive mirrors every identifier in it. Where the previous
-    draft claimed the identifier list was *unchanged*, it is relabelled. -/
+/-- Mirroring the archive mirrors every identifier in it: the identifier list is
+    relabelled, not unchanged. -/
 @[simp] theorem archIds_mirrorArchive (archive : List Core) :
     archIds (mirrorArchive archive) = (archIds archive).map QuestionId.mirror := by
   simp [archIds, mirrorArchive, List.map_map, Function.comp_def]
@@ -505,8 +499,7 @@ theorem advanceArchive_mirror_perm (archive : List Core) (active : List Question
   simpa [mirrorArchive] using h1
 
 /-- **The carrier-level side-exchange action.** All six components, which is what
-    Theorem 13.3's boxed statement names on its left side and what nothing in
-    this tree previously supplied. -/
+    Theorem 13.3's boxed statement names on its left side. -/
 def TickCarrier.mirror {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) :
     TickCarrier Aux h where
   observer := { X.observer with
@@ -534,8 +527,7 @@ def TickCarrier.mirror {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) :
     **Deliberately not one structure equality.** The six components do not agree
     under the same read: the archive agrees *up to permutation*, while the tick
     and the ledger agree on the nose. Collapsing that into a single `=` would
-    freeze two different relations into one and hide which is which — the error
-    this file was corrected for once already.
+    freeze two different relations into one and hide which is which.
 
     The selector's equivariance is a hypothesis and has to be. Definition
     8.1 supplies the support and this file does not get to assume it has
@@ -579,15 +571,14 @@ theorem advanceCarrier_mirror_componentwise {Aux : Type} {h : ℕ}
 
     Definition 13.1 declares **two** carrier actions, not one: transport by `Z_u`
     for a common positive prefix, and transport by `P` with `L ↔ R` exchanged.
-    Everything above builds the `P` half. This builds the `Z_u` half, which
-    `Accumulation.lean`'s own note records as absent from this tree.
+    Everything above builds the `P` half. This builds the `Z_u` half.
 
     **The two are not the same shape, and the difference is the thing to keep.**
-    `Two/Mediant.lean` says of prefix transport that "the occurrence identifier
+    `ElementsII/S05/Mediant.lean` says of prefix transport that "the occurrence identifier
     and relative word are untouched — they are local data". That is true of
     `Z_u` and *false* of `P`: the identifier carries `rel`, and the exchange
-    rewrites `rel` while a prefix prepends to the seed's word instead. Reading
-    the one off the other is precisely the error corrected earlier in this file.
+    rewrites `rel` while a prefix prepends to the seed's word instead. The one
+    cannot be read off the other.
 
     The visible consequence: `active_sub_archive` is free here, because
     identifiers do not move, where the exchange had to prove it. -/
@@ -754,7 +745,7 @@ theorem encounter_child (MO : Mat2) (c : Core) (g : Bool)
 
 /-! ### Which equality, and what the round trip does not say
 
-    **Kurt, 2026-09-12: "two equal things are one frozen thing in the math."**
+    **Two equal things are one frozen thing in the mathematics.**
     The `=` below is Lean's structural equality, which in the settled vocabulary
     of `Logic.lean` is `E_pres`, the finest of the declared reads. Stated bare,
     `mirror (mirror X) = X` reads as *the double exchange leaves nothing*, and
@@ -794,14 +785,12 @@ theorem mirror_lawful {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
 
 /-! ## Theorem 15.5's side-exchange box, at the carrier, at every tick
 
-    `Accumulation.lean`'s note on Theorem 15.5 records that its side-exchange
-    half "stops at the proposal-generation level" because **no `TickCarrier`-level
-    `P` action exists in this tree**. That was true when it was written and is no
-    longer: `TickCarrier.mirror` is built above.
-
-    So the statement can be lifted from "both hands are proposed at every tick"
-    to the advance itself at every tick. No induction is needed — the one-tick
-    result holds at each carrier a trace visits, which is what the boxed
+    `Accumulation.lean` states the side-exchange half of Theorem 15.5 at the
+    proposal-generation level. With the `TickCarrier`-level `P` action
+    `TickCarrier.mirror` built above, the statement is lifted from "both hands
+    are proposed at every tick" to the advance itself at every tick. No
+    induction is needed: the one-tick result holds at each carrier a trace
+    visits, which is what the boxed
     statement quantifies over. -/
 
 theorem trace_mirror_advance_perm {Aux : Type} {h : ℕ}

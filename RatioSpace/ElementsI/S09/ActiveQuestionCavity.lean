@@ -5,22 +5,21 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S09.Question
 /-!
-  Gap G1-16 — Elements I §9, Definition 9.3, active question cavity:
+  Elements I §9, Definition 9.3, active question cavity:
   directional admission read off a family member.
 
   **Book statement.** "When forward reachability is required, one of the
   predicates is the directional-admission condition `Q_{O,r} ∈ ℳ₊`", with
-  `Q_{O,r} = M_O⁻¹ M_r` and, by correction E1-34, `M_r = M_{F₀,r} G(w_r)`, the
-  candidate's matrix read against its own declared initial frame.
+  `Q_{O,r} = M_O⁻¹ M_r` and `M_r = M_{F₀,r} G(w_r)`, the candidate's matrix
+  read against its own declared initial frame.
 
-  **What was missing.** `Pred` (`Question.lean`) is generic, and
-  `forwardAdmissible` takes two `Observer`s, not a member of the active family.
-  The D-16 note on `encounter` named the bridge, `History.accumulatedMatrix`,
-  and said no predicate this concrete existed.
+  **The bridge.** `Pred` (`Question.lean`) is generic, and `forwardAdmissible`
+  takes two `Observer`s, not a member of the active family. The bridge is
+  `History.accumulatedMatrix`.
 
-  **Added.**
+  **Contents.**
   * `g116_encounter`: `Q_{O,r} = M_O⁻¹ M_r` for `r : History`, with `M_r` the
-    rooted `accumulatedMatrix` (E1-34), not the unrooted `History.matrix`.
+    rooted `accumulatedMatrix`, not the unrooted `History.matrix`.
   * `g116_forwardPred : Pred`: the directional-admission predicate, a `Bool`
     decided by `dec`. `g116_forwardPred_iff`: it is `true` exactly when
     `Q_{O,r} ∈ ℳ₊`, in the shape of `forwardAdmissible_iff`.
@@ -32,8 +31,8 @@ import RatioSpace.ElementsI.S09.Question
     cavity. `LR` is reached from the receiver by `R` and survives; `R` is not
     reached and is removed.
   * `g116_start_matters`: two members with the same (empty) word and different
-    declared starts get different answers, so the predicate reads the start
-    (D-16); the unrooted `History.matrix` would give both the same.
+    declared starts get different answers, so the predicate reads the start;
+    the unrooted `History.matrix` would give both the same.
 -/
 namespace RatioSpace
 
@@ -42,7 +41,7 @@ open Mat2 Word Frame Pres
 namespace Gaps.G1_16
 
 /-- **Definition 9.3.** `Q_{O,r} = M_O⁻¹ M_r` for a member `r` of the active
-    family, `M_r` read against `r`'s declared initial frame (E1-34, D-16). -/
+    family, `M_r` read against `r`'s declared initial frame. -/
 def g116_encounter (O : Observer) (r : History) : Mat2 :=
   inv2 O.matrix * r.accumulatedMatrix
 

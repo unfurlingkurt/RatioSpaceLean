@@ -12,13 +12,11 @@ import RatioSpace.ElementsII.S16.WordDynamics
   the fifteen words of length at most three ... seven ensembles of each size
   are mirror-symmetric and never close."*
 
-  `research/experiments/ensemble_beat.py` confirmed every clause of this
-  proposition outside the kernel and named it a candidate for Lean once
-  `wordStep` existed (`Two/Step5Words.lean`, built for Theorem 16.12). It now
-  does: `wordStep` is one tick of Definition 8.1 at `ε` read
-  entirely off words, and `nextCores_words` proves it agrees with the real
-  carrier tick. That is enough to decide the mirror-symmetric clause directly,
-  with no multi-seed carrier construction needed at all.
+  `wordStep` (`WordDynamics.lean`, built for Theorem 16.12) is one tick of
+  Definition 8.1 at `ε` read entirely off words, and `nextCores_words` proves
+  it agrees with the real carrier tick. That is enough to decide the
+  mirror-symmetric clause directly, with no multi-seed carrier construction
+  needed at all.
 
   **Built here: the mirror-symmetric clause, all fourteen named ensembles.**
   Every two-member and three-member mirror-symmetric ensemble from the fifteen
@@ -29,15 +27,15 @@ import RatioSpace.ElementsII.S16.WordDynamics
   closure counts at each horizon (76/105, 366/455, 20/105, 82/455), the
   accounting of which non-symmetric ensembles fail to close at seven, and the
   offset beat rule over all 558 non-symmetric ensembles that reach a
-  singleton — are 560 traces of up to nine ticks each and were not attempted
-  this beat. They remain confirmed exactly outside the kernel only.
+  singleton — are 560 traces of up to nine ticks each and are not formalised
+  here.
 
   The two degeneracy instances the book's Proposition 16.9(iii) also names —
-  `{L, LLR} → {LL, LR}` and `{L, LL, LLL} → {LL, LLR, LR}` — turn out to
-  already be in the tree: `Two/Transient.lean`'s `prop_16_13_iv` and
+  `{L, LLR} → {LL, LR}` and `{L, LL, LLL} → {LL, LLR, LR}` — are in the
+  tree: `Transient.lean`'s `prop_16_13_iv` and
   `prop_16_13_iii`, built for Proposition 16.13, are exactly these two
   instances against the real carrier, which is a strictly stronger witness
-  than a word-level `decide`. The ledger row is corrected to say so.
+  than a word-level `decide`.
 -/
 set_option maxRecDepth 200000
 

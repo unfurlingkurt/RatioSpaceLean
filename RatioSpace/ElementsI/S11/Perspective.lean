@@ -21,13 +21,13 @@ import RatioSpace.ElementsI.S06.State
 
   **Def 11.6 says "a single perspective need not be sufficient. Its failure of
   injectivity is the precise sense in which one reception cannot see all
-  sides."** That is a separation asserted and, in the manuscript, left
-  unexhibited — the same shape as corrections 2 and 16. It is witnessed here
+  sides."** That is a separation the book asserts without a witness. It is
+  witnessed here
   three times over one encounter record: a single perspective that is
   insufficient, a second that is insufficient in the complementary way, and
   the pair of them that is sufficient, all for one declared equivalence. With
   two distinct observers, one per encounter as the book's map takes them, the
-  same shape is `Gaps/G1_21.lean`: one projection at two observers, each
+  same shape is `JointRelationalReconstruction.lean`: one projection at two observers, each
   insufficient, jointly sufficient (gap G1-21).
 
   **The ℝ boundary, recorded rather than crossed.** Def 11.4 names two maps.
@@ -106,8 +106,8 @@ structure Reception (Y : Type) where
     and `Q_{O,P}`. The book's record has no start component either. `H_O` is
     not: `Observer` is Definition 7.1's tuple, which has no `H_O`, and
     `receive` reads `EncounterRecord.of`, which declares `H_O := [w_O]`, so the
-    history slot reaches reception only as the word again (audit E1-B4;
-    `EncounterRecord.history_not_read_from_the_observer`, `State.lean`).
+    history slot reaches reception only as the word again
+    (`EncounterRecord.history_not_read_from_the_observer`, `State.lean`).
 
     So the family is indexed by the capacity and nothing else: E1-39's
     reading B, "depends on it through the index `O` of `𝓡_O`", with `η_O` the
@@ -206,8 +206,7 @@ theorem reduction_identifies_proportional :
     realization from Definition 1.7". So it is `Pres.nu`, into `ProjValue`, and
     not `Pres.realize`: `realize` reads `1:0` as `0`, the same rational as
     `0:1`, and Definition 1.7's `ν` keeps them apart
-    (`Pres.nu_separates_the_anchors`). Gap G1-19 repointed this from
-    `realize` (`Gaps/G1_19.lean`).
+    (`Pres.nu_separates_the_anchors`; `CoordinateRealization.lean`).
 
     `ι : ℚ ↪ ℝ` is **not** written. It cannot be, under the standing
     constraints, and §11 does not need it: the claim the section actually makes
@@ -280,7 +279,7 @@ def joint {n : ℕ} (Vs : Fin n → Viewpoint) (P : Observer) : (i : Fin n) → 
     class, and Def 15.2's "target's declared equivalence" is carried to
     presented states only on the encoded class (`Sufficiency.lean`,
     `declaredEquiv`), where outside it the relation is vacuous and not
-    transitive (audit finding E1-B8). -/
+    transitive. -/
 structure EquivOn {α : Type} (K : α → Prop) (C : α → α → Prop) : Prop where
   refl : ∀ a, K a → C a a
   symm : ∀ a b, K a → K b → C a b → C b a
@@ -300,16 +299,15 @@ theorem EquivOn.of_equivalence {α : Type} {C : α → α → Prop} (hC : Equiva
 
     The book says "the exact equivalence relation declared for the domain",
     so the first conjunct asks that `C` be one on the class (`EquivOn`).
-    Before audit finding E1-B8 (2026-09-28) any relation was accepted, and an
-    irreflexive `C` made the definition's content a different claim. -/
+    Without that conjunct an irreflexive `C` would make the definition's
+    content a different claim. -/
 def ReconstructivelySufficient {n : ℕ} (Vs : Fin n → Viewpoint)
     (K : Observer → Prop) (C : Observer → Observer → Prop) : Prop :=
   EquivOn K C ∧ ∀ P P' : Observer, K P → K P' → joint Vs P = joint Vs P' → C P P'
 
-/-- **The audit's counterexample is gone.** An irreflexive relation (here the
-    empty one, `fun _ _ => False`) is no declared equivalence on an inhabited
-    class, so no family is reconstructively sufficient up to it (audit finding
-    E1-B8). -/
+/-- **The empty relation is no declared equivalence.** An irreflexive relation
+    (here the empty one, `fun _ _ => False`) is no declared equivalence on an
+    inhabited class, so no family is reconstructively sufficient up to it. -/
 theorem not_reconstructivelySufficient_empty {n : ℕ} (Vs : Fin n → Viewpoint)
     {K : Observer → Prop} {P : Observer} (hP : K P) :
     ¬ ReconstructivelySufficient Vs K (fun _ _ => False) :=
@@ -317,20 +315,19 @@ theorem not_reconstructivelySufficient_empty {n : ℕ} (Vs : Fin n → Viewpoint
 
 /-! ### The one-record form (gap G1-21)
 
-  Before G1-21, `joint` mapped every perspective over one `EncounterRecord`,
-  and sufficiency quantified over pairs of records. That is Definition 11.6's
+  `jointOnRecord` maps every perspective over one `EncounterRecord`, and its
+  sufficiency quantifies over pairs of records. That is Definition 11.6's
   map only when the observers coincide: several perspectives reading one
-  encounter. Kept, renamed, because its witnesses below (two readings of one
-  encounter, neither enough alone) still say something true about that case,
-  and `Encoding.lean` reads `obsWord`. -/
+  encounter. Its witnesses below (two readings of one encounter, neither
+  enough alone) say something true about that case, and `Encoding.lean`
+  reads `obsWord`. -/
 
 /-- Several perspectives over one encounter record. -/
 def jointOnRecord {Y Z : Type} (Ps : List (Perspective Y Z)) (E : EncounterRecord) : List Z :=
   Ps.map (fun P => P.apply E)
 
 /-- Injectivity of `jointOnRecord` up to an equivalence relation on records
-    (the equivalence required since audit finding E1-B8, as for
-    `ReconstructivelySufficient`). -/
+    (an equivalence relation, as for `ReconstructivelySufficient`). -/
 def SufficientOnRecord {Y Z : Type} (Ps : List (Perspective Y Z))
     (C : EncounterRecord → EncounterRecord → Prop) : Prop :=
   Equivalence C ∧

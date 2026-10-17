@@ -11,8 +11,8 @@ import RatioSpace.ElementsII.S15.Accumulation
   canonical questions, certified against the book's own table.** Theorem 16.5
   also states an extension of the root's pattern to tick 40, tie certificates
   at every four-member row (Theorem 8.5's `c0`/`c1`), and a claim verified
-  through `h = 12` — that further content is not attempted here and is the
-  next move, not a silent gap: see the closing remark.
+  through `h = 12`; that further content lies beyond this file's seven
+  ticks: see the closing remark.
 
   **The one genuine engineering decision made here.** `advanceCarrier` only
   asks two obligations, `hsel` and `hfresh` — the extra `hgrow`/`hcard` that
@@ -388,7 +388,7 @@ def activeWords {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) : List Word :=
 /-- **Theorem 16.5, the root question `𝒬_ε`, ticks 1 through 7, exactly as the
     book's table gives them.** `Sj(𝒬_ε) = {LRᵏ, RLᵏ}` for `k = j - 1`, `j ≥ 1` —
     checked by running the schedule, not read off the closed form; the closed
-    form is a corollary of this, not yet stated separately. -/
+    form for every `k` is `RootChain.step4_support`. -/
 theorem theorem_16_5_root :
     activeWords Xeps1 = [[false], [true]] ∧
     activeWords Xeps2 = [[false, true], [true, false]] ∧
@@ -421,9 +421,8 @@ theorem theorem_16_5_polarized_L :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- **Theorem 16.5, the polarized question `𝒬_R`, ticks 1 through 7** — the
-    side mirror of `theorem_16_5_polarized_L`, checked independently rather
-    than derived from it (no side-exchange action on `TickCarrier` exists in
-    this tree yet; Theorem 15.5's own account already flags that gap). -/
+    side mirror of `theorem_16_5_polarized_L`, checked independently by its own
+    computation rather than derived from it. -/
 theorem theorem_16_5_polarized_R :
     activeWords XR1 = [[true, false], [true, true]] ∧
     activeWords XR2 = [[true, false, true], [true, true, true]] ∧
@@ -448,7 +447,7 @@ theorem theorem_16_5_polarized_R :
     and Theorem 8.5's `c0`/`c1` certificate (`Coherence.lean`) makes the
     common coherence value exact rather than merely decidable-equal. All four values
     below check against the book's own displayed histograms and coherence values
-    (`RatioSpace_Elements_II_v0.22`, Theorem 16.5's proof paragraph). -/
+    (Elements II, Theorem 16.5, proof). -/
 
 /-- **The advance `1→2` of `𝒬_L`.** Admitted family `[LLL, LLR, LRL, LRR]`
     (`admittedFam` in that order). `LLL`/`LRL` (indices 0, 2) share histogram
@@ -502,10 +501,9 @@ theorem terminal_tie_L :
       [1 + phiNegPow 57, 1 + phiNegPow 57] := by
   refine ⟨by decide, by decide⟩
 
-/-- **The side mirror**, checked independently rather than derived from
-    `terminal_tie_L` — same reason `theorem_16_5_polarized_R` is independent
-    of `_polarized_L`: no side-exchange action on `TickCarrier` exists in
-    this tree yet. -/
+/-- **The side mirror**, checked independently by its own computation rather
+    than derived from `terminal_tie_L`, as `theorem_16_5_polarized_R` is
+    independent of `_polarized_L`. -/
 theorem terminal_tie_R :
     (admittedFam MOR 7 seed164Prov props6R).map
         (tensions (admittedFam MOR 7 seed164Prov props6R)) = [[0, 57], [57, 0]] ∧
@@ -531,10 +529,9 @@ theorem terminal_tie_R :
     — `LRRRRRL` (`11:13`), `LRRRRRR` (`7:8`), `RLLLLLL` (`8:7`), `RLLLLLR`
     (`13:11`) — with tensions `\{0,12,17,32\}` for the two coherence-rejected
     members and `\{0,10,12,32\}` for the two tied-selected members, scoring
-    `3522228 - 2176856φ` and `3524901 - 2178508φ` respectively. Checked
-    against the book's own displayed table before writing anything;
-    `theorem_16_5_root`'s `Xeps7` equality is the corollary that `ArgMax`
-    actually keeps the second pair, not the first. -/
+    `3522228 - 2176856φ` and `3524901 - 2178508φ` respectively, as in the
+    book's own displayed table; `theorem_16_5_root`'s `Xeps7` equality is the
+    corollary that `ArgMax` actually keeps the second pair, not the first. -/
 theorem prop_16_6_root :
     (admittedFam MOeps 7 seed164Prov props6eps).map (fun y => (y.p, y.q)) =
       [(11, 13), (7, 8), (8, 7), (13, 11)] ∧
@@ -605,9 +602,9 @@ def axiomSelectSide (MO : Mat2) (stratum : ℕ) (prov : Provenance)
 
 /-- **`reject := fun _ _ => false` reproduces `axiomSelect` exactly, not
     merely something equally permissive.** The same discipline as
-    `assembleWith_none_eq_assemble` (`Accumulation.lean`): generalizing the
-    selection rule to carry a rejection predicate changed nothing about its
-    old behaviour at the trivial predicate, checked rather than assumed. -/
+    `assembleWith_none_eq_assemble` (`Accumulation.lean`): the selection rule
+    carrying a rejection predicate is `axiomSelect` at the trivial predicate,
+    proved rather than assumed. -/
 theorem admittedCoresSide_false_eq (MO : Mat2) (stratum : ℕ) (prov : Provenance)
     (props : List (Core × Bool)) :
     admittedCoresSide MO stratum prov (fun _ _ => false) props =
@@ -672,8 +669,8 @@ theorem QepsSideR_eq_Qeps : QepsSideR = Qeps := rfl
 /-! ## Definition 16.7's mechanism, checked at the first event
 
     "At the first continuation the receiving family contains one child frame
-    and not the other." The full seven-tick trace is Theorem 16.8 and is the
-    next move (below); what belongs to Definition 16.7 itself is that the
+    and not the other." The full seven-tick trace is Theorem 16.8
+    (below); what belongs to Definition 16.7 itself is that the
     predicate actually forces this at tick 1, run rather than assumed. Ticks
     2 through 7 revert to plain `axiomSelect` — the book's own "admission at
     every event other than the first is direct-positive admission inside the
@@ -722,9 +719,7 @@ theorem xepsSideR1_active : activeWords XepsSideR1 = [[true]] := by decide
 
     Ticks 2 through 7 chained under plain `axiomSelect` from `XepsSideL1`/
     `XepsSideR1`, the same repetitive `advanceCarrier` pattern `Xeps1`–`Xeps7`
-    above already runs. **Run before being asserted**: the chain was built as
-    a scratch probe first (ticks 2–7, both sides) and only written up once
-    the printed output matched. It closes on the mirror pair `LLLRRRR`/
+    above already runs. It closes on the mirror pair `LLLRRRR`/
     `RRRLLLL` — the singleton rows `theorem_16_5_polarized_L`/`_R` already
     reach at their own tick 6, not a new computation. The reason is exact,
     not coincidental: `XepsSideL1` and `XL0` differ only in *how* the L child
@@ -732,8 +727,7 @@ theorem xepsSideR1_active : activeWords XepsSideR1 = [[true]] := by decide
     that sibling is gone, ticks 2 onward run the identical `axiomSelect`
     schedule from an identical one-member archive, so `XepsSideL_{k}` and
     `XL_{k-1}` are the same carrier from tick 2 on. The addressed form
-    (`5:16`/`16:5`) is left for the same next pass as `History.addressed`
-    below — not computed here. -/
+    (`5:16`/`16:5`) is computed below through `History.addressed`. -/
 
 theorem hlawSideL1eps : Lawful XepsSideL1 := by decide
 def propsSideL1eps : List (Core × Bool) := proposals XepsSideL1.archive XepsSideL1.active
@@ -886,9 +880,8 @@ def XepsSideR7 : TickCarrier Unit hQ :=
     hselSideR6eps hfreshSideR6eps
 
 /-- **Theorem 16.8, side `R`, all seven ticks** — the side mirror, checked
-    independently rather than derived, for the same reason
-    `theorem_16_5_polarized_R` is independent of `_polarized_L`: no
-    side-exchange action on `TickCarrier` exists in this tree yet. -/
+    independently by its own computation rather than derived, as
+    `theorem_16_5_polarized_R` is independent of `_polarized_L`. -/
 theorem theorem_16_8_R :
     activeWords XepsSideR1 = [[true]] ∧
     activeWords XepsSideR2 = [[true, false], [true, true]] ∧
@@ -910,7 +903,7 @@ theorem theorem_16_8_R :
     three seeds (`seed_addressed_eps`/`_L`/`_R`, `Accumulation.lean`), applied
     along the same seven traces `theorem_16_5_root`/`_polarized_L`/`_polarized_R`
     and `theorem_16_8_L`/`_R` already certified. No new machinery: `addressedList`
-    is one `List.map` of a function the tree has had since `Two/§1`. -/
+    is one `List.map` of `History.addressed`. -/
 
 /-- One presentation per active word, in the same list order `activeWords`
     already fixes — the ordered reading Theorem 16.5's own table comment
@@ -921,8 +914,8 @@ def addressedList (ws : List Word) : List Pres :=
 /-- **Theorem 16.5's root addressed-relation claim, ticks 1 through 7**:
     `S_j(𝒬_ε) = \{j{:}(j{+}1), (j{+}1){:}j\}`, exactly as the book states it,
     checked against `theorem_16_5_root`'s own seven traces rather than a
-    closed-form induction — the book's own extension to tick 40 is not
-    attempted here, named below. -/
+    closed-form induction; the extension to tick 40 and beyond is
+    `RootChain.step4_support`, named below. -/
 theorem theorem_16_5_root_addressed :
     addressedList (activeWords Xeps1) = [(⟨1, 2, by decide⟩ : Pres), ⟨2, 1, by decide⟩] ∧
     addressedList (activeWords Xeps2) = [(⟨2, 3, by decide⟩ : Pres), ⟨3, 2, by decide⟩] ∧
@@ -951,11 +944,9 @@ theorem theorem_16_5_polarized_L_addressed :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- **Theorem 16.5's polarized chain for `𝒬_R`**, checked independently of
-    `_polarized_L` for the same reason `theorem_16_5_polarized_R` is: no
-    side-exchange action on `TickCarrier` exists in this tree. The values are
+    `_polarized_L`, as `theorem_16_5_polarized_R` is. The values are
     the book's own "and their reciprocals," at the list order this tree's
-    `activeWords` actually produces — not assumed to mirror `_L`'s order,
-    read off `#eval` first. -/
+    `activeWords` actually produces, not assumed to mirror `_L`'s order. -/
 theorem theorem_16_5_polarized_R_addressed :
     addressedList (activeWords XR0) = [(⟨2, 1, by decide⟩ : Pres)] ∧
     addressedList (activeWords XR1) = [(⟨3, 2, by decide⟩ : Pres), ⟨3, 1, by decide⟩] ∧
@@ -1014,7 +1005,7 @@ theorem theorem_16_8_R_addressed :
 /-! ## What Theorem 16.5 and 16.8 also claim, beyond this file's seven ticks
 
     This file's traces are typed at `hQ = 7` and stop at tick 7. What lies
-    beyond them is proved elsewhere, or is not built:
+    beyond them is proved elsewhere:
 
     * **The extension to tick 40** is proved at every tick, not only to 40, by
       `RootChain.step4_support` (Theorem 16.11, Step 4, for every `k`): the
@@ -1024,11 +1015,10 @@ theorem theorem_16_8_R_addressed :
       `polarized_R_support_card`: the polarized supports are singletons exactly
       at `h = 3` and at even `h ≥ 6`.
     * **Theorem 16.2 itself** (the general forcing argument, all rows, not just
-      the terminal one) stays blocked on the missing `TickCarrier`-level
-      side-exchange action — Theorem 15.5's own already-flagged gap, unrelated
-      to `prop_16_6_root` above, which needed no side-exchange machinery
-      because it is one fixed four-member computation, not a claim about every
-      row. -/
+      the terminal one) is proved on the `TickCarrier`-level side-exchange
+      action in `SideExchange.lean`. `prop_16_6_root` above needs no
+      side-exchange machinery because it is one fixed four-member computation,
+      not a claim about every row. -/
 
 end RootOrbit
 end Two

@@ -8,10 +8,9 @@ import RatioSpace.ElementsI.S11.Perspective
 /-!
   The Minimal Relational Calculus — v0.1, §12's theorem program, stated in Lean.
 
-  Source: `RatioSpace Minimal Relational Calculus v0.1`, Drive
-  `1snr5k_6j4ZJZ3oB3L-Y2s9jiDWp_VsxY`, ingested 2026-09-03 19:30 to Elements I §0.
-  Filed as task 4 of Kurt's 2026-09-04 no-injected-independent-variables decision:
-  *state the Minimal Relational Calculus in Lean, where nothing is injected.*
+  Source: Elements I, §0 (Definitions 0.1 to 0.3). The section marks §1 to §13 in
+  this file number the items of the minimal calculus, not the sections of the book.
+  Aim: *state the Minimal Relational Calculus in Lean, where nothing is injected.*
 
   **Nothing is injected here, and that is the point of the file.** Every item of
   §12 is stated over objects that already exist in this tree — `Mat2`, `Word`,
@@ -19,16 +18,16 @@ import RatioSpace.ElementsI.S11.Perspective
   free scale is introduced. If the minimal calculus is really the skeleton of
   Elements I, then writing it down must cost no new machinery. It does not.
 
-  **What the pass found.** Five of §12's seven items were already proved and
-  scattered across `Walk.lean` and `Perspective.lean` under other names; they are
+  **What the tree already holds.** Five of §12's seven items are proved in
+  `Walk.lean` and `Perspective.lean` under other names; they are
   cited here rather than rebuilt, which is the whole content of the claim that
   the calculus is derived language and not a second ontology. The other two
-  were genuinely absent and are proved below, together with one definitional
+  are proved below, together with one definitional
   restatement:
 
     * `encounter_transport` — §3's bilateral transport law. `Walk.transport`
-      existed as a definition and nothing tied it to what actually happens when
-      both endpoints continue. Now it is a theorem.
+      is a definition; this theorem ties it to what happens when
+      both endpoints continue.
     * `matrix_extend_ne` — §12's nonreturn result at the occurrence, not just at
       the word. `G_cons_ne_one` says a nonempty word is not the identity; this
       says a continued observer is not the observer it continued from.
@@ -38,7 +37,7 @@ import RatioSpace.ElementsI.S11.Perspective
 
   §9's Hutter specialization is deliberately not here: there is no byte read in
   this tree and adding one to state the section would inject exactly what the
-  task forbids.
+  calculus forbids.
 -/
 
 namespace RatioSpace
@@ -84,14 +83,15 @@ theorem construction_two_composition (u v : Word) : G (u ++ v) = G u * G v :=
 /-! ## §3 — The relation between two occurrences, and how it transports
 
     `Q(ω_a, ω_b) :≡ M(ω_a)⁻¹ M(ω_b)`. In this tree that is `encounter`,
-    already at Def 7.4. What was missing is the transport law. -/
+    already at Def 7.4. The transport law is `encounter_transport`. -/
 
 /-- **§3's relative relation.** `Q` is `encounter`, definitionally. -/
 theorem Q_is_encounter (O P : Observer) :
     encounter O P = Mat2.inv2 O.matrix * P.matrix := rfl
 
 /-- Continuing an observer by `u` multiplies its accumulated transform on the
-    right by `G u`. The declared start is carried through, per D-12. -/
+    right by `G u`. The declared start is carried through: `M_O = M_{F_{0,O}} G(w_O)`
+    (Elements I, Definition 7.1). -/
 theorem matrix_extend (O : Observer) (u : Word) :
     Observer.matrix { O with word := O.word ++ u } = O.matrix * G u := by
   simp only [Observer.matrix, G_append, Mat2.mul_assoc']
@@ -100,14 +100,14 @@ theorem matrix_extend (O : Observer) (u : Word) :
 theorem det_matrix (O : Observer) : (O.matrix).det = 1 := by
   simp only [Observer.matrix, Mat2.det_mul, Frame.det_toMat2, det_G, one_mul]
 
-/-- **§3, the bilateral transport law, and it is a theorem here for the first
-    time.** When both endpoints continue — the observer by `u`, the presented by
-    `v` — the relation between them transports as `Q ↦ g_a⁻¹ Q g_b`. So encounter
-    transport is not an extra object in the ontology. It is the induced change of
-    the relation, forced by the definition of `Q` and nothing else.
+/-- **§3, the bilateral transport law.** When both endpoints continue — the
+    observer by `u`, the presented by `v` — the relation between them transports
+    as `Q ↦ g_a⁻¹ Q g_b`. So encounter transport is not an extra object in the
+    ontology. It is the induced change of the relation, forced by the definition
+    of `Q` and nothing else.
 
-    `Walk.transport` was a definition with no theorem behind it; this supplies
-    the one it was named for. -/
+    This is Elements I, Proposition 7.2 for words, and it is the law the
+    definition `Walk.transport` is named for. -/
 theorem encounter_transport (O P : Observer) (u v : Word) :
     encounter { O with word := O.word ++ u } { P with word := P.word ++ v }
       = Mat2.inv2 (G u) * encounter O P * G v := by
@@ -159,7 +159,8 @@ theorem some_read_merges_distinct_histories :
 
     *A nonempty positive continuation does not return to the exact earlier
     occurrence.* The word-level statement is `G_cons_ne_one`. The occurrence-level
-    statement was not in the tree. -/
+    statement is `matrix_extend_ne`. -/
+
 
 /-- Nonreturn at the word, in the form §12 states it. -/
 theorem G_ne_one_of_ne_nil {u : Word} (h : u ≠ []) : G u ≠ 1 := by

@@ -5,24 +5,27 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-29 — Elements II §24, Proposition 24.17 (v0.25 title per E2-44:
-  "Phase return, archive depth, and the two-coordinate horizon").
+  Elements II §24, Proposition 24.17, "Phase return, archive depth, and the
+  two-coordinate horizon" (E2-44).
 
-  **Book statement (v0.22).** *"In the finite specialization of Receiver
-  Declaration 24.16: 1. phase readability may fail and later return if the
-  declared phase datum returns to W_Θ^ph; 2. once archive age exceeds H_Θ, the
-  readability gate remains zero at every later stratum; 3. no change in phase,
-  admission, lift status, or socket state changes the archive age; and 4.
-  failure of any active-retention gate leaves the archival face and its total
-  exact record unchanged."* Items 1, 3, 4 are read as E2-44 and E2-45 fix them.
+  **Book statement.** In the finite specialization of Receiver Declaration
+  24.16: 1. the phase gate may be zero at one read and one at a later read, if
+  the declared phase datum returns to W_Θ^ph, and the face stays released;
+  2. once archive age exceeds H_Θ, the readability gate remains zero at every
+  later stratum; 3. archive age is determined by the face-entry stratum and the
+  read stratum alone, and the coupling runs the other way; 4. failure of any
+  active-retention gate leaves the archival face record, its incidence and
+  boundary maps, and every earlier lifecycle event unchanged, and the read that
+  records the failure appends a lifecycle event and, for a face with no prior
+  release, one release record naming every failed gate.
 
-  **What was missing.** (1) `phase_may_return` was a `Fin 4` witness, not built
-  on `finiteProfile`, `gateVector` or `life`. (3) `age_reads_only_strata`
-  stated `aArch k n = aArch k n`. (4) nothing tied a gate failure to
-  `release_deletes_nothing`. Item 2 is `horizon_terminal` /
-  `profile_read_stays_zero` and is not redone.
+  **Relation to `Lifecycle.lean`.** There (1) `phase_may_return` is a `Fin 4`
+  witness, not built on `finiteProfile`, `gateVector` or `life`, and (3)
+  `age_reads_only_strata` states `aArch k n = aArch k n`. Item 2 is
+  `horizon_terminal` / `profile_read_stays_zero`. Item 4 is tied here to
+  `release_deletes_nothing`.
 
-  **Built here.**
+  **In this file.**
   * (1) `phase_gate_returns_face_does_not`: in every finite profile, if the
     phase datum is outside the window at one read and inside at a later one,
     the phase gate is 0 then 1; the face (no prior release) is released at the

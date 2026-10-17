@@ -7,21 +7,21 @@ import RatioSpace.ElementsI.S05.Depth
 /-!
   **The kernel's fourth rule is not independent.**
 
-  Kurt's minimal-kernel note (Drive, 2026-09-07) proposes four rules:
+  A minimal kernel has four rules:
 
     K1  exact ordered relational contact exists;
     K2  contact admits the two oriented mediant inheritances L and R;
     K3  successive inheritance acts on the entire inherited occurrence/history;
     K4  reception is a typed map of that exact structure.
 
-  and names the decisive test for K3: *if the positive L/R action is free, a
-  decoder recovers the whole continuation word from the current exact frame, so
-  history is not an independent register.* The note states this as a
-  "provisional theorem (positive-history definability)".
+  The decisive test for K3: *if the positive L/R action is free, a decoder
+  recovers the whole continuation word from the current exact frame, so history
+  is not an independent register* (positive-history definability; Elements I,
+  Standard Result 3.1 and Definition 3.5).
 
   **It is a theorem.** `addressed_injective` below, from K1 and K2 alone.
 
-  The mechanism is smaller than the note expects. No matrix factorisation and no
+  The mechanism is small. No matrix factorisation and no
   run-length decomposition: prepending a letter adds one component of the
   address to the other (`r_cons_false`, `r_cons_true`), so the two components
   are never equal after any letter, and **which one is larger names the letter.**
@@ -68,7 +68,7 @@ theorem eq_components_iff_nil (w : Word) : (Frame.r w).p = (Frame.r w).q ↔ w =
     the full history is recoverable from the current address and needs no
     separate register.
 
-    This is the note's positive-history definability, proved. -/
+    This is positive-history definability (Elements I, Standard Result 3.1). -/
 theorem addressed_injective : ∀ w v : Word, Frame.r w = Frame.r v → w = v := by
   intro w
   induction w with

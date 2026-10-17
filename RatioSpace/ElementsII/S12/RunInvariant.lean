@@ -5,9 +5,9 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S14.Conservation
 /-!
-  Lemma 12.1's invariant, at the level of one carrier (gap G2-13's per-carrier
-  content), placed below `Accumulation.lean` so that §15's schedule can be asked
-  to act only on carriers that satisfy it.
+  Lemma 12.1's invariant, at the level of one carrier, placed below
+  `Accumulation.lean` so that §15's schedule can be asked to act only on
+  carriers that satisfy it.
 
   Elements II builds every carrier from the seed by lawful ticks (Definition
   15.1: the iterate starts from "the valid tick-zero carrier constructed from
@@ -19,10 +19,9 @@ import RatioSpace.ElementsII.S14.Conservation
   invariant for the first. `hcard_of_nodup` below derives the second from
   duplicate-free archive and support.
 
-  The declarations keep their `Gaps.G2_13` names: they were written for gap
-  G2-13 and are cited under those names in the ledger. The schedule-level
-  consequences (`iterate_tickLengthInv`, `iterate_hfresh`) stay in
-  `Gaps/G2_13.lean`.
+  The declarations live in the `Gaps.G2_13` namespace. The schedule-level
+  consequences (`iterate_tickLengthInv`, `iterate_hfresh`) are in
+  `NewProposalIdentifiersAreLawfulAndDisjoint.lean`.
 -/
 set_option linter.style.show false
 

@@ -68,7 +68,7 @@ def cfNat (p q : ℕ) : List ℕ := cfFuel q p q
 
 /-- **Definition 5.1's total extension.** Book-faithful on the positive
     primitive domain (see `PPres.cf` below for the restricted definition
-    proper, D-04); total on all of `Pres` beyond it, where the book asserts
+    proper); total on all of `Pres` beyond it, where the book asserts
     nothing. -/
 def cf (A : Pres) : List ℕ := cfNat A.p A.q
 
@@ -181,8 +181,7 @@ theorem cfNat_getLast?_ge_two :
 /-! ## Definition 5.2 — Continued-fraction block length -/
 
 /-- **Definition 5.2's total extension.** `ℓ_CF(p:q) = m + 1`: the number of
-    Euclidean division stages. Restricted definition proper: `PPres.lCF`
-    (D-04). -/
+    Euclidean division stages. Restricted definition proper: `PPres.lCF`. -/
 def lCF (A : Pres) : ℕ := (cf A).length
 
 /-! ## Definition 5.3 — Stern-Brocot address depth -/
@@ -216,8 +215,7 @@ theorem cfSum_pos {A : Pres} (hp : 0 < A.p) : 0 < cfSum A := cfNat_sum_pos A.q A
 /-- **Definition 5.3's total extension.** `d_SB(p:q) = (∑ aᵢ) − 1`: the number
     of elementary `L`/`R` refinements from the root. On the boundary this
     invents a depth for an improper presentation — `dSB (p:0) = p - 1` — which
-    the book does not define; restricted definition proper: `PPres.dSB`
-    (D-04). -/
+    the book does not define; restricted definition proper: `PPres.dSB`. -/
 def dSB (A : Pres) : ℕ := cfSum A - 1
 
 /-- `d_SB(1:1) = 0`, the book's own anchor. -/
@@ -388,7 +386,7 @@ theorem Tend_not_triangle_again :
     Tend ⟨1, 2, by decide, by decide⟩ ⟨3, 1, by decide, by decide⟩ = 5 := by
   refine ⟨by decide, by decide⟩
 
-/-! ### Definitions 5.1-5.3, restricted to the book's own domain (D-04)
+/-! ### Definitions 5.1-5.3, restricted to the book's own domain
 
   The book states Def 5.1-5.3 for positive primitive ratios only —
   `{A : Pres | A.p > 0, A.q > 0, gcd A.p A.q = 1}` — but `cf`, `lCF` and `dSB`
@@ -398,9 +396,8 @@ theorem Tend_not_triangle_again :
   Stern-Brocot depth for an improper presentation out of an arbitrary
   numerator. `cfFuel`/`cfNat` stay total by design — they are the executable
   Euclidean helper, not the numbered definitions — and `cf`/`lCF`/`dSB` above
-  are kept exactly as built, now named as their total extensions rather than
-  as Definitions 5.1-5.3 themselves. The numbered definitions are restricted
-  here, to `PPres`. -/
+  are the total extensions of Definitions 5.1-5.3. The numbered definitions
+  are restricted here, to `PPres`. -/
 
 /-- **The domain of Definitions 5.1-5.3.** A positive presentation in lowest
     terms: `IPres`, Def 1.2's interior domain already built in §4, bundled with
@@ -413,7 +410,7 @@ structure PPres where
   prim : Primitive toIPres.toPres
 deriving DecidableEq
 
-/-! ### Definition 5.1's evaluator and canonical uniqueness (D-05)
+/-! ### Definition 5.1's evaluator and canonical uniqueness
 
   `cf`/`PPres.cf` above emit the Euclidean coefficient list, and
   `cfNat_getLast?_ge_two` proves only its terminal condition. Definition 5.1
@@ -422,10 +419,7 @@ deriving DecidableEq
   and uniqueness against every other legal list with the same value. All four
   are below, over ℕ throughout — no `Real`, no `Float`, no approximate
   division, and the reconstruction is componentwise rather than proportional,
-  so no rational projection enters the statement.
-
-  Proved independently by Tali in `TaliAgent/scratch/D05Checks.lean`,
-  2026-08-25 14:18, and transplanted here unchanged. -/
+  so no rational projection enters the statement. -/
 
 
 /-- Exact evaluation of a finite simple continued fraction.  The empty-list
@@ -655,8 +649,7 @@ theorem evalCF_one_137 : evalCF [0, 137] = (1, 137) := by decide
     ends in `1`, where `CanonicalCFTail` requires at least `2`. The value is a
     genuine consecutive Fibonacci pair either way, so the two lists below are a
     second competitor pair — and unlike `[3,7,15,1]` this one is not
-    manufactured, it is the naive reading of the book's own notation for phi.
-    Bears on D-06. -/
+    manufactured, it is the naive reading of the book's own notation for phi. -/
 theorem ones_truncation_eval : evalCF [1, 1, 1, 1, 1] = (8, 5) := by decide
 theorem ones_truncation_illegal : ¬ CanonicalCF [1, 1, 1, 1, 1] := by decide
 
@@ -695,10 +688,8 @@ def ofInterior (A : Pres) (h : A.Interior) : PPres :=
 /-- **What totality was hiding.** No `PPres` term has `toPres.q = 0` or
     `toPres.p = 0` — `toPres_p_pos`/`toPres_q_pos` above forbid it directly —
     so the boundary presentation `p:0` that `Pres.dSB` answers on is simply not
-    askable of this type. The invented depth `p - 1` from D-04's report cannot
-    be reproduced here because there is no `A : PPres` to reproduce it on.
-    (Stated 2026-09-30, audit E1-A12: this was the placeholder
-    `example : True := trivial`.) -/
+    askable of this type. The invented depth `p - 1` of `Pres.dSB (p:0)` cannot
+    be reproduced here because there is no `A : PPres` to reproduce it on. -/
 theorem toPres_not_boundary (A : PPres) : A.toPres.p ≠ 0 ∧ A.toPres.q ≠ 0 :=
   ⟨Nat.pos_iff_ne_zero.mp (toPres_p_pos A), Nat.pos_iff_ne_zero.mp (toPres_q_pos A)⟩
 
@@ -773,9 +764,8 @@ def lcp : Word → Word → Word
 /-- **`lcp u v` is a genuine prefix of `u`.** The witness `r` with
     `u = lcp u v ++ r` is what both the length bound and the separation lemma
     below reduce to, built once by explicit rewriting rather than through
-    `simp`/`omega`, which is what silently pulled `Classical.choice` into this
-    lemma's first version — borrowed automation, not anything the mathematics
-    needed. -/
+    `simp`/`omega`, so that the lemma uses no `Classical.choice`: the
+    mathematics needs none. -/
 theorem lcp_prefix_left : ∀ u v : Word, ∃ r, u = lcp u v ++ r
   | [], v => ⟨[], rfl⟩
   | a :: u, [] => ⟨a :: u, rfl⟩
@@ -839,7 +829,7 @@ theorem dwalk_comm (u v : Word) : dwalk u v = dwalk v u := by
   omega
 
 /-- **Measured from the root, walk distance is word length.** The root half of
-    the coupling with `T_end` (G1-05); the endpoint half is
+    the coupling with `T_end`; the endpoint half is
     `Frame.Tend_root_eq_length`. Rewritten by hand, no automation, so it uses no
     axioms. -/
 theorem dwalk_root (w : Word) : dwalk [] w = w.length := by
@@ -908,8 +898,8 @@ theorem dwalk_eq_zero_iff (u v : Word) : dwalk u v = 0 ↔ u = v := by
     declared: identity (`dwalk_self`), symmetry (`dwalk_comm`), separation
     (`dwalk_eq_zero_iff`), and the triangle inequality (`dwalk_triangle`),
     every one a theorem about the tree already built rather than a field
-    asserted of a new structure. This is what the Drive note's §10/§19.6
-    predicted and `T_end` (`Tend_not_triangle`) is not: a distance derived
+    asserted of a new structure. This is what `T_end` (`Tend_not_triangle`)
+    is not: a distance derived
     from the relations the walk already licenses, with no new primitive. -/
 theorem dwalk_is_metric :
     (∀ u : Word, dwalk u u = 0) ∧
@@ -1013,15 +1003,13 @@ end Pres
   these two integers coincide is the statement that ties the two coordinate
   systems of Elements I together, and it is the theorem §5 is really for.
 
-  **Proved in general, 2026-08-22**, at `dSB_addressed_eq_length` below. The
+  **Proved in general** at `dSB_addressed_eq_length` below. The
   finite check to length six is kept beneath it because it *executes*, where the
   general theorem is one the kernel can only be convinced of.
 
-  This section note used to predict the proof would need the run-length
-  correspondence: decompose a word into alternating runs, then show `G` of that
-  decomposition carries the continued-fraction convergents as its columns. That
-  turned out to be unnecessary, and the prediction is left here rather than
-  deleted because the cheaper route is worth naming. Prepending a letter
+  The proof does not need the run-length correspondence (decompose a word into
+  alternating runs, then show `G` of that decomposition carries the
+  continued-fraction convergents as its columns). Prepending a letter
   left-multiplies the word matrix by a generator; a generator adds one row to the
   other; the addressed relation is the column sum. So one letter at the front of
   the word is exactly one subtractive Euclidean step on the address, and that
@@ -1071,8 +1059,7 @@ theorem dSB_addressed_eq_length_le_six :
 
 /-! ### Prepending a letter, entry by entry
 
-  The route to the general theorem, and it is not the one the section note
-  predicted. Run-length decomposition is not needed. **One subtractive Euclid
+  The route to the general theorem. Run-length decomposition is not needed. **One subtractive Euclid
   step on the addressed relation is exactly deleting the first letter of the
   word**, so the induction runs from the front and the arithmetic step is a
   single Euclidean division.
@@ -1164,8 +1151,8 @@ theorem cfSum_r (w : Word) : Pres.cfSum (r w) = w.length + 1 := by
     are the same integer, for every word, without bound. **The two coordinate
     systems of Elements I are one object.**
 
-    The route is not the one the section note predicted. Run-length
-    decomposition is not needed and no matrix factorisation is either. Prepending
+    Run-length decomposition is not needed and no matrix factorisation is
+    either. Prepending
     a letter *left*-multiplies the word matrix by a generator (`G_cons`), a
     generator adds one row of that matrix to the other, and the addressed
     relation is the column sum — so prepending a letter adds one component of the
@@ -1173,7 +1160,7 @@ theorem cfSum_r (w : Word) : Pres.cfSum (r w) = w.length + 1 := by
     adds exactly one to the continued-fraction sum. The induction therefore runs
     from the front of the word and each step is a single Euclidean division.
 
-    The trap the ledger warned about is avoided rather than solved: the
+    One trap is avoided rather than solved: the
     subtractive descent on the number pair really does *not* follow the
     Stern-Brocot parent, and `2:3 ↦ 2:1` while `2:3`'s parent is `1:2`. It never
     has to. Only the count is claimed, and the count is what a letter costs. -/
@@ -1208,7 +1195,7 @@ theorem Tend_root_eq_length (w : Word) :
   rw [← Pres.dSB_swap (r_pos w).1 (r_pos w).2 hq.symm hp.symm]
   exact dSB_addressed_eq_length w
 
-/-- **Definition 5.5, the coupling that does hold (G1-05).** `Tend_eq_dwalk_ne`
+/-- **Definition 5.5, the coupling that does hold.** `Tend_eq_dwalk_ne`
     and `dwalk_eq_Tend_ne` (on `r(w)` itself: `Tend_eq_dwalk_ne_addressed`,
     `dwalk_eq_Tend_ne_addressed`, below) show neither quantity determines the other on pairs
     of addressed relations. From the root they agree: both are the length of the
@@ -1220,7 +1207,7 @@ theorem root_coupling (w : Word) :
   ⟨Word.dwalk_root w, Tend_root_eq_length w⟩
 
 
-/-! ### The Def 5.5 witnesses on the addressed relations themselves (audit E1-A13) -/
+/-! ### The Def 5.5 witnesses on the addressed relations themselves -/
 
 /-- `r(w)` as an interior presentation: every addressed relation has both
     coordinates positive (`r_pos`). -/

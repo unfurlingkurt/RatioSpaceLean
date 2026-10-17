@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S15.Accumulation
 /-!
   Elements II §17 — terminal status, the lossless report, and the resolution
-  crosswalk. Ten items, stated together rather than one per session.
+  crosswalk. Ten items, stated together.
 
   §17 is almost entirely definitional: three of its ten items are definitions,
   one is a trichotomy that is `Finset` cardinality, and four are corollaries
@@ -118,7 +118,7 @@ becomes checkable: `Report.of` is total on every `Policy`, no case split on
 `TermStatus` anywhere in its construction. -/
 structure Report (RawAux EvalAux : Type) (h : ℕ) where
   /-- `𝒬`, read from the terminal carrier itself, not supplied separately —
-      Definition 16.4's own finding that no tick ever rewrites `question`
+      Definition 16.4's fact that no tick ever rewrites `question`
       makes the terminal value the one value there is. -/
   q : ExtendedQuestion RawAux
   /-- `τ`, likewise read from the terminal carrier. -/
@@ -130,9 +130,8 @@ structure Report (RawAux EvalAux : Type) (h : ℕ) where
   trace : List (TickCarrier RawAux h)
 
 /-- **Definition 17.2, the report assembled**, `h > 0` case (the only case
-    every `Policy` in this tree instantiates; `EvTerm`'s own account already
-    names the `h = 0` case as a genuine gap, not one this definition can paper
-    over). -/
+    every `Policy` in this tree instantiates; `EvTerm` names the `h = 0` case
+    as a gap). -/
 def Report.of {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h)
     (X0 : TickCarrier RawAux h) (hX0 : Seeded X0) (hh : 0 < h)
     (evalLedger : List (QuestionId × EvalRecord EvalAux)) : Report RawAux EvalAux h where
@@ -144,9 +143,8 @@ def Report.of {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h)
   cmp := TCmp.of pol X0 hX0 hh evalLedger
   trace := Accumulation.trace pol X0 hX0 h (le_refl h)
 
-/-- **Definition 17.2's record, with the evaluated ledger no longer a
-    hypothesis** — the same move `TCmp.ofAssembled` already made for
-    Definition 16.1's own record. -/
+/-- **Definition 17.2's record, with the evaluated ledger computed**, as
+    `TCmp.ofAssembled` does for Definition 16.1's own record. -/
 def Report.ofAssembled {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCarrier Aux h)
     (hX0 : Seeded X0) (hh : 0 < h) : Report Aux EvalValue h :=
   Report.of pol X0 hX0 hh (assembleLedger (Term pol X0 hX0))
@@ -177,18 +175,17 @@ def Report.ofAssembled {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCar
 The book states two things. The first — under injectivity of `π_r` on `S_7`,
 occurrence resolution agrees with Elements I's own `resolve` (`Crystal.lean`)
 on the projected relation set, and the surviving `Cand` realizes the Elements
-I record — needs a `Cand → Candidate` reading this tree does not yet build:
+I record — needs a `Cand → Candidate` reading:
 `Candidate.star`/`.signature` are bare `List IPres`/`List ℕ`, keyed by
 position against Elements I's `ActiveFamily.relations` (each member's own
 self-address, `History.addressedI`), while `Cand`'s evaluated `sigma`/
 `tension` slots (`Accumulation.lean`'s `EvalRecord.assemble`) are keyed lists
 against `activeFamily`, the *observer-decoded* local addresses (`localOf`,
 Definition 3.1's `λ` applied to `Q_{O,y}`). Those are two different families
-in general, not the same list under two names — nothing in this tree
-identifies them, and Theorem 17.5's first clause needs that identification or
-an explicit translation between the two, not merely a `Prod.snd` on the keyed
-form. That is the actual remaining content, sharper than "bridging content
-this tree does not carry at all."
+in general, not the same list under two names, and Theorem 17.5's first
+clause needs their identification or an explicit translation between the two,
+not merely a `Prod.snd` on the keyed form. That translation is built in the
+last section of this file.
 
 The second clause needs none of that, and is built below. -/
 
@@ -198,7 +195,7 @@ The second clause needs none of that, and is built below. -/
     than one stays unresolved regardless of what `π_r` does to them — the
     hypothesis `|π_r(S_h)| = 1` is carried in the statement and never read in
     the proof, because `resolveOcc` matches on `S`'s own length and inspects
-    no candidate's relation at all. Same shape of finding as Definition
+    no candidate's relation at all. Same shape as Definition
     10.9's determinism contract (`Crystal.lean`): a condition the book states
     alongside a mechanism that does not consult it. -/
 theorem occurrence_multiple_stays_unresolved {Aux : Type} (S : List (Cand Aux))
@@ -216,15 +213,14 @@ theorem occurrence_multiple_stays_unresolved {Aux : Type} (S : List (Cand Aux))
 The book's codomain is `Cand_{τ,h}(x*)`, a candidate record, not the bare
 identifier `resolveOcc` returns on `Sh`. `crystallize` composes `resolveOcc`
 with `ensemble` directly, so it reads a `Cand` off the singleton stratum with
-no intermediate identifier lookup. `Carrier.lean`'s
+no intermediate identifier lookup. `ElementsII/S06/State.lean`'s
 `TickCarrier.ensemble_length_eq_active` is what makes `ensemble`'s stratum
 agree with `Sh`'s: **conditional** on the terminal carrier's archive and
 active support both being duplicate-free. `crystallize_isSome_iff_singleton`
-below states that condition at the terminal carrier, the honest scope when it
-was written; `crystallize_isSome_iff_singleton_of_carrierInv` discharges it
+below states that condition at the terminal carrier;
+`crystallize_isSome_iff_singleton_of_carrierInv` discharges it
 from a hypothesis on the tick-zero carrier instead, via the schedule-length
-induction (`Accumulation.lean`'s `CarrierInv`/`iterate_carrierInv`) that was
-the genuine remaining gap. -/
+induction (`Accumulation.lean`'s `CarrierInv`/`iterate_carrierInv`). -/
 
 /-- **Definition 17.6.** The crystallization map, defined exactly on the
     singleton stratum, at the `Cand` codomain the book states. -/
@@ -236,14 +232,11 @@ def crystallize {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h)
 /-- **Theorem 17.7, the iff-direction — `resolveOcc_iff_singleton` restated
     at the `Cand` codomain and matched against the report's own `status`
     field.** Needs the terminal carrier's archive and active support to be
-    duplicate-free, stated here exactly as a hypothesis on that carrier — the
-    honest scope the moment this theorem was first built, since nothing before
-    it asked whether an *iterated* carrier keeps either property.
+    duplicate-free, stated here exactly as a hypothesis on that carrier.
     `crystallize_isSome_iff_singleton_of_carrierInv`, below, discharges both
     hypotheses from a check on the tick-zero carrier instead. The
-    sufficient-condition clause this theorem's account still owes — connecting
-    `Coherence.lean`'s `support` to a unique strict maximizer — is untouched by
-    this pass. -/
+    sufficient-condition clause, connecting `support` to a unique strict
+    maximizer, is in `Coherence.lean`. -/
 theorem crystallize_isSome_iff_singleton {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h)
     (X0 : TickCarrier RawAux h) (hX0 : Seeded X0) (hh : 0 < h)
     (evalLedger : List (QuestionId × EvalRecord EvalAux))
@@ -258,17 +251,17 @@ theorem crystallize_isSome_iff_singleton {RawAux EvalAux : Type} {h : ℕ} (pol 
 
 #print axioms crystallize_isSome_iff_singleton
 
-/-- **Theorem 17.7's iff-direction, unconditional at last** — the schedule-
-    length induction the account above named as the genuine gap,
-    `Accumulation.lean`'s `iterate_carrierInv`, closes it. What is asked of the
-    caller shifts from an unverifiable fact about the terminal carrier (reached
-    after up to `h` policy-dependent steps) to a checkable fact about the
-    tick-zero carrier actually supplied: `CarrierInv X0`, duplicate-free
+/-- **Theorem 17.7's iff-direction, from the tick-zero carrier.** The schedule-
+    length induction, `Accumulation.lean`'s `iterate_carrierInv`, discharges the
+    terminal hypotheses. What is asked of the caller is a checkable fact about
+    the tick-zero carrier actually supplied, rather than a fact about the
+    terminal carrier (reached after up to `h` policy-dependent steps):
+    `CarrierInv X0`, duplicate-free
     identifiers and well-formed cores at the seed archive, duplicate-free seed
     active support. Every real genesis carrier this tree builds (`Qeps`/`QL`/
     `QR`'s three seeds, `sevenTickHorizon`) satisfies this trivially — a
     handful of `seedCore` values with distinct identifiers is exactly the case
-    `CarrierInv` was written to cover for free. -/
+    `CarrierInv` covers directly. -/
 theorem crystallize_isSome_iff_singleton_of_carrierInv {RawAux EvalAux : Type} {h : ℕ}
     (pol : Policy RawAux h) (X0 : TickCarrier RawAux h) (hX0 : Seeded X0) (hh : 0 < h)
     (evalLedger : List (QuestionId × EvalRecord EvalAux)) (hinv0 : CarrierInv X0) :
@@ -282,9 +275,8 @@ theorem crystallize_isSome_iff_singleton_of_carrierInv {RawAux EvalAux : Type} {
 
 /-! ## Theorem 17.5's first clause — the crosswalk, built
 
-The account above named the obstruction and stopped there: `activeFamily`'s
-keys are observer-decoded local addresses, Elements I's are each member's own
-self-address, and nothing in this tree identified them. They are related
+As above, `activeFamily`'s keys are observer-decoded local addresses and
+Elements I's are each member's own self-address. They are related
 exactly, and by apparatus already here — Definition 3.5's own composition law
 (`Observer.lean`'s `addressed_walk`), applied twice.
 

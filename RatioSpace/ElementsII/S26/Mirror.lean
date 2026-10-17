@@ -16,7 +16,7 @@ import RatioSpace.ElementsII.S08.Coherence
 
   **Nothing new is assumed.** `R`, `L`, `P` are Elements I's matrices; the
   Fibonacci numbers are Mathlib's `Nat.fib` with the recurrence already restated
-  in `Two/Coherence.lean`.
+  in `ElementsII/S08/Coherence.lean`.
 -/
 set_option linter.style.longLine false
 

@@ -28,8 +28,6 @@ import Mathlib.Tactic.LinearCombination
       `reframe` have one type and are one function (`fun x y => x * y`); they are
       kept apart by name and side of action only, not by the type checker.
       `forward_ne_reframe` swaps the arguments, so it records `LR ≠ RL`.
-      (Corrected 2026-10-04, audit M1: this said three functions of three types,
-      the conflation not expressible, the two separated by a witness.)
 
     * **Def 3.11's eight levels of equality do not stay eight on the tree.** Levels
       2 and 3 coincide for anything a walk addresses, because every addressed
@@ -45,10 +43,8 @@ import Mathlib.Tactic.LinearCombination
       from level 3 on the tree (`projectionEqBy_not_endpointEq`). Among
       levels 1 to 5 the only separation on histories is level 4, across
       different start frames (`matrixEq_not_wordEq`, `endpointEq_not_wordEq`).
-      (Corrected 2026-09-29, audit E1-A1: this paragraph said levels 4 and 5
-      coincide on positive words, which held only while level 5 read the
-      unrooted `G(w)`, now `WordMatrixEq`, and that the separations lie off
-      the tree; level 8's does not, under a specified projection.)
+      The unrooted equality `G(w_X) = G(w_Y)` is `WordMatrixEq`, which is word
+      equality (`wordMatrixEq_iff_wordEq`) and is not level 5.
       These levels are formalised on `History`, Def 3.8's minimum record
       `(F₀, w)` (start frame and word, without the additional
       presentation-multiplicity components Def 3.8 allows), and level 1 is
@@ -56,8 +52,7 @@ import Mathlib.Tactic.LinearCombination
       Def 6.2 states (`CompleteState`) in the tree. If level 1 on a state read
       its presentation slot rather than its frame, levels 1 and 2 would separate
       there: `nonprimitiveReading` (`State.lean`) holds `2:4` on the frame whose
-      mediant is `1:2`. That is a reading, not a theorem. (Added 2026-10-04,
-      audit W1; conditional made explicit 2026-10-04, intent 0004.)
+      mediant is `1:2`. That is a reading, not a theorem.
 
   Everything is computable. No `sorry`, no `axiom`.
 -/
@@ -106,8 +101,7 @@ def inv2 (M : Mat2) : Mat2 := ⟨M.d, -M.b, -M.c, M.a⟩
 
 /-- **Constructive.** Written out entry by entry with `ring` and the determinant
     hypothesis rather than `linarith`, which reaches `Classical.choice` through
-    mathlib's ordered-ring automation. Verified 2026-08-21: `linarith` here was
-    one of the two remaining routes by which choice entered Elements I. -/
+    mathlib's ordered-ring automation. -/
 theorem mul_inv2_of_det (M : Mat2) (h : M.det = 1) : M * inv2 M = 1 := by
   cases M with | mk a b c d =>
   have h' : a * d - b * c = 1 := h
@@ -248,12 +242,12 @@ theorem mul_mem_Mplus {M N : Mat2} (hM : M ∈ Mplus) (hN : N ∈ Mplus) :
 /-! ## The positive decoder
 
     Standard Result 3.1 gives uniqueness — `G_inj`, below — and the book's
-    §3 writes `dec₊` as though the decoder were in hand. It was not: nothing in
-    this file inverted `G`. Elements II Def 3.1 reads `a_x = dec₊(Q_{O,x})` and
-    cannot be stated without it, so it is built here, where `ℳ₊` is defined.
+    §3 writes `dec₊` without constructing it. Elements II Def 3.1 reads
+    `a_x = dec₊(Q_{O,x})` and cannot be stated without it, so it is built here,
+    where `ℳ₊` is defined.
 
-    The decoder is **total, computable and fuel-driven**, for the reason recorded
-    on 2026-08-21 for `cfFuel`: a well-founded definition is opaque to the
+    The decoder is **total, computable and fuel-driven**, for the reason given
+    for `cfFuel`: a well-founded definition is opaque to the
     kernel, and every `decide` downstream would die with it.
 
     The descent reads the first letter off the matrix rather than off a frame.
@@ -501,20 +495,17 @@ theorem length_le_sizeM_G (w : Word) : w.length ≤ sizeM (G w) := by
 
 /-! ## Decoder totality — every nonnegative unimodular matrix decodes
 
-    Not only the images of `G`. **Correction 21, closed.** `Two/Admission.lean`
-    built this converse under the name `mem_Mplus_of_nonneg` because Elements
-    II's Prop 9.2 needed it and Elements I's own row for Standard Result 3.1
-    said, in as many words, "No decoder." Its docstring named the fix: *"This
-    belongs in Elements I... it should migrate to `Walk.lean` beside `dec` at
-    the next Elements I revision."* Moved here unchanged; `Two/Admission.lean`
-    now imports it by name instead of holding its own copy.
+    Not only the images of `G`: every nonnegative determinant-one integer
+    matrix lies in `ℳ₊` (`mem_Mplus_of_nonneg`). Elements II, Proposition 9.2
+    needs this converse, and `ElementsII/S09/Admission.lean` imports it by name.
 
-    **D-14's repair needs the same theorem.** A *declared* frame's own matrix
-    has to decode, or there is no way to read `ψ₁₂` off a start-relative `M_τ`
-    without discarding the start — the defect D-12 and D-13 already fixed at
-    the matrix field, and D-14 fixes at the closure field using exactly this. -/
+    **A declared frame decodes by the same theorem.** A *declared* frame's own
+    matrix has to decode, or there is no way to read `ψ₁₂` off a start-relative
+    `M_τ` without discarding the start. The matrix field and the closure field
+    both read the accumulated matrix relative to the declared start, the closure
+    field using exactly this. -/
 
-/-- **The dichotomy `decFuel` was written for and nobody had proved.** A
+/-- **The dichotomy `decFuel` rests on.** A
     nonnegative determinant-one matrix that is not the identity has comparable
     rows.
 
@@ -523,8 +514,8 @@ theorem length_le_sizeM_G (w : Word) : w.length ≤ sizeM (G w) := by
     `det ≥ b + c + 1`, so `b = c = 0`, so `ad = 1`, so `M = I`. -/
 theorem rows_comparable {M : Mat2} (h : Nonneg M) (hd : M.det = 1) (hne : M ≠ 1) :
     (M.a ≤ M.c ∧ M.b ≤ M.d) ∨ (M.c ≤ M.a ∧ M.d ≤ M.b) := by
-  -- 2026-09-22: `nlinarith` replaced by explicit monotonicity of integer multiplication, so this
-  -- proof, and the decoder above it, no longer reach `Classical.choice`.
+  -- Explicit monotonicity of integer multiplication rather than `nlinarith`, so this proof,
+  -- and the decoder above it, do not reach `Classical.choice`.
   obtain ⟨ha, hb, hc, hd'⟩ := h
   have hdet : M.a * M.d - M.b * M.c = 1 := hd
   rcases le_or_gt M.a M.c with h1 | h1
@@ -559,10 +550,10 @@ theorem rows_comparable {M : Mat2} (h : Nonneg M) (hd : M.det = 1) (hne : M ≠ 
 theorem row_ne_zero_of_det {M : Mat2} (hd : M.det = 1) :
     ¬ (M.a = 0 ∧ M.b = 0) ∧ ¬ (M.c = 0 ∧ M.d = 0) := by
   have hdet : M.a * M.d - M.b * M.c = 1 := hd
-  -- 2026-09-22: `omega` in place of `simp at hdet`, which reached `Classical.choice`.
+  -- `omega` rather than `simp at hdet`, which reaches `Classical.choice`.
   constructor <;> rintro ⟨h1, h2⟩ <;> rw [h1, h2] at hdet <;> omega
 
-/-- `sizeM M ≤ n` read without `Int.toNat`, for a nonnegative `M`. Kept separate (2026-09-22)
+/-- `sizeM M ≤ n` read without `Int.toNat`, for a nonnegative `M`. Kept separate
     because `omega` and `simp` on `Int.toNat` reach `Classical.choice` through `Int.toNat_le`. -/
 theorem sizeM_le_iff {M : Mat2} (h : Nonneg M) (n : ℕ) :
     sizeM M ≤ n ↔ M.a + M.b + M.c + M.d ≤ (n : ℤ) := by
@@ -579,7 +570,7 @@ theorem sizeM_le_iff {M : Mat2} (h : Nonneg M) (n : ℕ) :
 
 /-- Both rows of a nonnegative determinant-one matrix have a positive entry, stated positively
     (`1 ≤ a + b`, `1 ≤ c + d`) so that `omega` never has to split a negated conjunction, which is
-    where `Classical.choice` entered the decoder (2026-09-22). -/
+    where `Classical.choice` would enter the decoder. -/
 theorem rows_pos_of_nonneg_det {M : Mat2} (h : Nonneg M) (hd : M.det = 1) :
     1 ≤ M.a + M.b ∧ 1 ≤ M.c + M.d := by
   obtain ⟨ha, hb, hc, hd'⟩ := h
@@ -596,7 +587,7 @@ theorem rows_pos_of_nonneg_det {M : Mat2} (h : Nonneg M) (hd : M.det = 1) :
       rw [hc0, hd0] at hdet; omega
     · omega
 
-/-- **The converse Standard Result 3.1 never supplied.** A nonnegative
+/-- **The converse of Standard Result 3.1's image statement.** A nonnegative
     determinant-one integer matrix lies in `ℳ₊`. Every `Frame`'s matrix is
     exactly such a matrix (`det_toMat2`, and its entries are `ℕ`-cast), so
     this is what makes a declared origin decodable. -/
@@ -681,7 +672,7 @@ example : dec ⟨0, -1, 1, 2⟩ = none := by decide
 /-! ## Shared-prefix cancellation
 
     Elements I Def 3.2 form 3 uses this and does not isolate it; Elements II
-    **Import 1.5** imports it by name. Added 2026-08-21 to close that bridge. -/
+    **Import 1.5** imports it by name. -/
 
 /-- **Import 1.5.** Shared-prefix cancellation:
     `(G(u)M_O)⁻¹(G(u)M_P) = M_O⁻¹M_P`. A common history is invisible to the
@@ -732,7 +723,7 @@ def toMat2 (F : Frame) : Mat2 := ⟨F.plus.p, F.minus.p, F.plus.q, F.minus.q⟩
   have h : Delta F.plus F.minus = 1 := (contact_iff_delta_one _ _).mp F.contact
   change (F.plus.p : ℤ) * F.minus.q - F.minus.p * F.plus.q = 1
   unfold Delta at h
-  -- 2026-09-22: one commutation in place of `linarith` (which reached `Classical.choice`).
+  -- One commutation rather than `linarith` (which reaches `Classical.choice`).
   rw [Int.mul_comm (F.minus.p : ℤ) (F.plus.q : ℤ)]
   exact h
 
@@ -745,9 +736,9 @@ theorem toMat2_nonneg (F : Frame) : Nonneg F.toMat2 :=
 /-- **A declared frame decodes.** Not only the frames a walk actually reaches
     — every `Frame` term, because `Contact` already forces a nonnegative
     determinant-one matrix and `mem_Mplus_of_nonneg` (`dec`, above) covers all
-    of those. This is what D-14's repair needs: a declared origin's own matrix
-    is `G` of some word, so closure can read the start-relative accumulated
-    matrix instead of discarding the start the way the pre-D-12 code did. -/
+    of those. So a declared origin's own matrix is `G` of some word, and
+    closure can read the start-relative accumulated matrix without discarding
+    the start. -/
 theorem toMat2_mem_Mplus (F : Frame) : F.toMat2 ∈ Mplus :=
   mem_Mplus_of_nonneg (sizeM F.toMat2) F.toMat2 le_rfl (toMat2_nonneg F) (det_toMat2 F)
 
@@ -887,9 +878,7 @@ theorem stepR_inj {F K : Frame} (h : stepR F = stepR K) : F = K := by
 
     **Constructive.** The four cases are exhausted directly rather than by
     `by_contra`, because `Bool` equality is decidable and the mixed cases have
-    their own witness — `DomL` reads the last letter off the frame. Until
-    2026-08-21 this was the single route by which `Classical.choice` reached
-    Standard Result 3.1 and everything downstream of freeness. -/
+    their own witness — `DomL` reads the last letter off the frame. -/
 theorem select_inj {F K : Frame} {a b : Bool} (h : select F a = select K b) :
     a = b ∧ F = K := by
   cases a <;> cases b
@@ -1017,7 +1006,7 @@ theorem exists_addressed_aux : ∀ (n : ℕ) (F : Frame) (X : Pres), Primitive X
   intro n
   induction n with
   | zero =>
-      -- `omega` called here, inside the induction, reached `Classical.choice`;
+      -- `omega` called here, inside the induction, reaches `Classical.choice`;
       -- the same goal as the standalone lemma above is choice-free.
       intro F X _ _ h2 hn
       exact absurd hn (Nat.not_le.mpr (between_measure_pos F X h2))
@@ -1066,7 +1055,7 @@ open Frame
     type. The update `(F, w) ↦ (F·g, wg)` is `Event.step`, which moves both
     components together; the tie of the frame to the word is
     `Event.CoherentFrom F₀` (the frame is the walk of the word from a declared
-    start frame), preserved by `coherentFrom_step` (audit M3, 2026-10-04). -/
+    start frame), preserved by `coherentFrom_step`. -/
 structure Event where
   frame : Frame
   word : Word
@@ -1078,7 +1067,7 @@ def step (e : Event) (b : Bool) : Event := ⟨select e.frame b, e.word ++ [b]⟩
 
 /-- Coherence from the canonical frame `F_∅` only: the frame is the walk of the
     word from `F_∅`. Def 3.7's update acts from any frame; that form is
-    `CoherentFrom F₀`, at the end of this file (audit E1-A16, 2026-10-01). -/
+    `CoherentFrom F₀`, at the end of this file. -/
 def Coherent (e : Event) : Prop := e.frame = walk empty e.word
 
 theorem coherent_step {e : Event} (h : Coherent e) (b : Bool) :
@@ -1104,23 +1093,23 @@ def frame (H : History) : Frame := walk H.start H.word
 def addressed (H : History) : Pres := Frame.addressed H.start H.word
 
 /-- **The unrooted "world-frame" matrix, Elements II Def 3.3's object — not
-    Def 9.3's `M_r`.** `G H.word` alone, with no `H.start` factor. Left as it
-    was through D-16: Def 3.3 declares `Z_u(M) = G(u)M` and "prefixes the
+    Def 9.3's `M_r`.** `G H.word` alone, with no `H.start` factor.
+    Def 3.3 declares `Z_u(M) = G(u)M` and "prefixes the
     corresponding world words" as two faces of one transform, and that pair is
     only self-consistent when `M = G(word)` — `Z_u(G w) = G u * G w = G(u ++
-    w)` by `G_append` alone, no assumption about a declared start. Checked
-    directly against `Two/Cavity.lean`'s `ProposalRecord.fullMatrix` and
-    `Two/Mediant.lean`'s transport theorems, both of which are built on exactly
-    this reading and would go false under a start-aware one, since `H.start`
-    and `G u` do not commute in general. -/
+    w)` by `G_append` alone, no assumption about a declared start.
+    `ProposalRecord.fullMatrix` (`ElementsII/S04/Cavity.lean`) and the transport
+    theorems of `ElementsII/S05/Mediant.lean` are built on exactly this reading
+    and would go false under a start-aware one, since `H.start` and `G u` do
+    not commute in general. -/
 def matrix (H : History) : Mat2 := G H.word
 
-/-- **`M_r`, Def 9.3 and Def 10.1's accumulated matrix — the field D-16 was
-    actually filed against.** Taken relative to the declared start, the same
-    convention `Observer.matrix` uses (D-12): `H.start.toMat2 * G H.word`.
+/-- **`M_r`, Def 9.3 and Def 10.1's accumulated matrix.** Taken relative to
+    the declared start, the same convention `Observer.matrix` uses:
+    `H.start.toMat2 * G H.word`.
     `History.matrix` above is the different, unrooted object Def 3.3 needs;
-    this is the one `Q_{O,r} = M_O⁻¹M_r` and `Candidate.matrix` (`Crystal.lean`,
-    D-16) need, and giving it its own name rather than redefining `matrix` is
+    this is the one `Q_{O,r} = M_O⁻¹M_r` and `Candidate.matrix` (`Crystal.lean`)
+    need, and giving it its own name rather than redefining `matrix` is
     what keeps both books' consumers correct at once. -/
 def accumulatedMatrix (H : History) : Mat2 := H.start.toMat2 * G H.word
 
@@ -1264,7 +1253,7 @@ theorem refused_eq_iff_shadow_eq (w v : Word) :
 /-- **Proposition 3.2.** `S`, the quarter turn. -/
 def S : Mat2 := ⟨0, -1, 1, 0⟩
 
-/-- `S⁻¹` is `Braid.lean`'s half twist `Δ`. The two files were using the same
+/-- `S⁻¹` is `Braid.lean`'s half twist `Δ`. The two files use the same
     matrix under different names; this is the identification. -/
 theorem S_mul_Δ : S * Δ = 1 := by decide
 theorem Δ_mul_S : Δ * S = 1 := by decide
@@ -1309,9 +1298,9 @@ theorem S_conj_inv_G_mem (w : Word) : S * inv2 (G w) * Δ ∈ Mplus :=
 /-- **Definition 3.10.** `T := R`. -/
 abbrev T : Mat2 := R
 
-/-- **Definition 3.10.** `-I = S² = (ST)³`. `Braid.lean` had the first half as
-    `full_twist` for `Δ`; this is the book's form, and the `(ST)³` half is new
-    here. -/
+/-- **Definition 3.10.** `-I = S² = (ST)³`. `Braid.lean` has the first half as
+    `full_twist` for `Δ`; this is the book's form, and the `(ST)³` half is
+    proved here. -/
 theorem neg_one_eq_S_sq : S * S = -1 := by decide
 
 theorem neg_one_eq_ST_cubed : (S * T) * (S * T) * (S * T) = -1 := by decide
@@ -1395,20 +1384,19 @@ def WordEq : Prop := X.word = Y.word
 /-- 5. **Matrix equality.** The accumulated matrices agree. The accumulated
        matrix is Def 3.4's `M_{F_n} = M_{F_0} G(w)`, read from the history's
        declared start: `History.accumulatedMatrix`, not the unrooted
-       `History.matrix = G(w)` (audit E1-A1, 2026-09-29; before that this read
-       `X.matrix = Y.matrix`, which is `WordMatrixEq` below). -/
+       `History.matrix = G(w)`; `X.matrix = Y.matrix` is `WordMatrixEq`
+       below. -/
 def MatrixEq : Prop := X.accumulatedMatrix = Y.accumulatedMatrix
 
 /-- The unrooted matrix equality `G(w_X) = G(w_Y)`, which drops the start
-    frame. It is what `MatrixEq` said before audit E1-A1, and it is only word
-    equality under another name (`wordMatrixEq_iff_wordEq`); it is not the
+    frame. It is only word equality under another name (`wordMatrixEq_iff_wordEq`); it is not the
     book's level 5 (`wordMatrixEq_not_matrixEq`). -/
 def WordMatrixEq : Prop := X.matrix = Y.matrix
 
 /-- 6. **Closure equality**, relative to a stated closure map. The book requires
        the map to be named; here it is a parameter, so an unstated closure cannot
        be appealed to. This form is a closure map on accumulated matrices, so it
-       reads `accumulatedMatrix` as level 5 does (audit E1-A1); a closure on
+       reads `accumulatedMatrix` as level 5 does; a closure on
        histories or words (Def 8.2: "The domain must be stated") is
        `ClosureEqBy`. -/
 def ClosureEq (κ : Mat2 → Mat2) : Prop := κ X.accumulatedMatrix = κ Y.accumulatedMatrix
@@ -1468,9 +1456,8 @@ theorem valueEq_iff_endpointEq {X Y : History} : X.ValueEq Y ↔ X.EndpointEq Y 
     exact Pres.prop_refl _
 
 /-- **The unrooted matrix equality is word equality**, by freeness of `G`
-    (Standard Result 3.1). This is the theorem that stood here as
-    `matrixEq_iff_wordEq` before audit E1-A1; it says nothing about the book's
-    level 5, whose matrix carries the start frame. -/
+    (Standard Result 3.1). It says nothing about the book's level 5, whose
+    matrix carries the start frame. -/
 theorem wordMatrixEq_iff_wordEq {X Y : History} : X.WordMatrixEq Y ↔ X.WordEq Y :=
   ⟨fun h => Frame.G_inj h, fun h => by
     change G X.word = G Y.word
@@ -1510,8 +1497,7 @@ theorem matrixEq_iff_presEq {X Y : History} : X.MatrixEq Y ↔ X.PresEq Y := by
 /-- **Levels 4 and 5 coincide for histories with one start frame**, by
     freeness (Standard Result 3.1, through `walk_inj`). The shared start is a
     hypothesis, not a convenience: without it level 5 does not imply level 4
-    (`matrixEq_not_wordEq`). Before audit E1-A1 this theorem had no hypothesis
-    and was about `WordMatrixEq`. -/
+    (`matrixEq_not_wordEq`). -/
 theorem matrixEq_iff_wordEq {X Y : History} (hs : X.start = Y.start) :
     X.MatrixEq Y ↔ X.WordEq Y := by
   unfold MatrixEq WordEq
@@ -1547,8 +1533,7 @@ theorem wordMatrixEq_not_matrixEq :
     histories: `2:4` is not primitive, so no walk addresses it, and on histories
     levels 8 and 3 coincide under `ν` (`projectionEq_iff_endpointEq`). The
     separation of level 8 from level 3 on the tree needs a specified projection
-    (`projectionEqBy_not_endpointEq`). (Renamed 2026-10-04, audit M5: this was
-    `projectionEq_not_endpointEq`, "Level 8 does not imply level 3".) -/
+    (`projectionEqBy_not_endpointEq`). -/
 theorem nu_not_injective_on_pres :
     nu Pres.oneTwo = nu Pres.twoFour ∧ Pres.oneTwo ≠ Pres.twoFour :=
   ⟨Pres.nu_of_prop Pres.oneTwo_prop_twoFour, Pres.oneTwo_ne_twoFour⟩
@@ -1593,7 +1578,7 @@ theorem endpointEq_not_wordEq :
 
 end History
 
-/-! ## Definition 3.7 from a declared frame (audit E1-A16, 2026-10-01)
+/-! ## Definition 3.7 from a declared frame
 
     `Event.Coherent` above reads coherence against `F_∅` only:
     `e.frame = walk empty e.word`. Def 3.7's update `(F, w) ↦ (F·g, wg)` is

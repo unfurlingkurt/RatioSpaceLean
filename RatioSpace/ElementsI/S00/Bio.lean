@@ -8,53 +8,50 @@ import RatioSpace.ElementsI.S03.Walk
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Data.Fintype.Basic
 /-!
-  **The Unified Kurtonian Biomathematical Theorem Suite, machine-checked.**
+  **A suite of biological statements on the nucleotide lattice, machine-checked.**
 
-  Source: *RatioSpace / Aramis Logic — The Unified Kurtonian Biomathematical
-  Theorem Suite v1.0*, Drive, 2026-09-09 05:50.
+  Source: Elements I, §0 (the substrate and its governing rule).
 
-  The suite's theorems are exact statements in the `(H, R) ∈ ℤ²` nucleotide
-  lattice and in `SL(2,ℤ)`. Nothing in it was machine-checked. The ones below
-  are finite and decidable, so they are `decide`d here rather than argued.
+  The suite is a numbered list of statements (Theorems 1 to 15 below), exact
+  statements in the `(H, R) ∈ ℤ²` nucleotide lattice and in `SL(2,ℤ)`. The
+  ones below are finite and decidable, so they are `decide`d here rather than
+  argued.
 
-  **One correction, and it is a wording correction, not a result.** Theorem 2
-  states that synonymous mutations at the middle base number zero. Among the
-  twenty amino acids that is exactly right and is proved below. Read literally
-  it is false: `TAA ↔ TGA` is a middle-base change preserving the reading, but
-  both are STOP, not an amino acid. The document should say *amino acid*.
+  **Theorem 2 holds among amino acids.** Theorem 2 states that synonymous
+  mutations at the middle base number zero. Among the twenty amino acids that
+  is exactly right and is proved below. Over all codons it fails: `TAA ↔ TGA`
+  is a middle-base change preserving the reading, but both are STOP, not an
+  amino acid.
 
-  **The holonomy halves, 2026-09-10 21:30**, Theorems 7, 8, 11 and 14, stated
+  **The holonomy halves**, Theorems 7, 8, 11 and 14, stated
   with their full quantifier over `Braid.lean`'s `Mat2`. The quantifier says
   what each one depends on; see the section at the end.
 
-  **Theorems 9, 13 and 15, 2026-09-11 00:30.** 9's bracket is antisymmetry and
+  **Theorems 9, 13 and 15.** 9's bracket is antisymmetry and
   its deamination half carries the content; 13 holds exactly, two of eight;
   15 fails as written: its five digits span two depths, Digit III is not
   self-reciprocal, and a mirror-closed hand of odd size must contain `1:1`.
 
-  **Theorem 3, 2026-09-11 02:30.** The 268 contexts are fixed by the code, 67
+  **Theorem 3.** The 268 contexts are fixed by the code, 67
   synonymous pairs times four next bases. The count is 188, not 180, and the
   split cannot be 46, 80, 54: compound equals stall only, forced by the unit
   square and by Theorem 2, whose middle-base zero is proved here from the same
-  table (until now it was a census in Python, not a theorem in this file).
+  table.
 
-  **Theorem 5, 2026-09-12 02:30.** A two-step barcode is a set of three-base
+  **Theorem 5.** A two-step barcode is a set of three-base
   words. The donor gate is exactly one of the 64, `GGT`: the `GT` rule plus
-  the demand that the exon end in `G`. It therefore rejects nothing — 180
-  firings across two never-spliced genomes,
-  `research/experiments/splice_barcode_gate.py`. The 3' barcode read as three
+  the demand that the exon end in `G`. The 3' barcode read as three
   consecutive steps forces `C A | A`, contradicting the `AG` terminus; read
   against the canonical `C A G | G` it drops the step `δ(A,G) = (+1,0)`.
   `ΔR = 0` is ring class, not pyrimidine, so a purine tract and a pyrimidine
   tract are one walk and the polypyrimidine tract is invisible to steps. The
   ligation dwell is derived from the other two.
 
-  **Theorem 10, 2026-09-11 06:30.** The frame identity is re-indexing and holds
+  **Theorem 10.** The frame identity is re-indexing and holds
   for every sequence (`frame_plus_one`). phiX174's B sits two bases into A's
   frame, not one, so for A and B the identity is `frame_plus_two`: A's boundary
-  step is B's first internal step. The suite's is D and E's. The genome half,
-  and the 60.7% no reading reproduces, are
-  `research/experiments/phix174_overlap_frames.py`.
+  step is B's first internal step. The suite's is D and E's. The genome half
+  is not stated here.
 -/
 
 namespace RatioSpace
@@ -209,7 +206,7 @@ theorem polyspermy_ne_one (k : ℤ) (hk : k ≠ 0) :
     pair on the determinant-one shell. The cognate condition `w_B = P w_A P`
     is not a hypothesis: the product closes for any `w_A`, `w_B` whatever, so
     it cannot separate cognate from non-cognate sites. The suite's contrasting
-    `Q_sliding ≠ I` is not defined in v1.0 and is not stated here. -/
+    `Q_sliding ≠ I` is left undefined there and is not stated here. -/
 theorem cognate_closes_any (A B : Mat2) (hA : A.det = 1) (hB : B.det = 1) :
     (Mat2.inv2 A * A) * (Mat2.inv2 B * B) = 1 := by
   rw [Mat2.inv2_mul_of_det A hA, Mat2.inv2_mul_of_det B hB, Mat2.one_mul']
@@ -305,9 +302,8 @@ theorem fourS_phase : phaseS fourS = -12 := by decide
 
     This is the necessity half only. That twelve suffices, that `φ` is well
     defined on all of `SL(2,ℤ)`, is not claimed here. A twelve-class character
-    with `T ↦ 1` exists (`Closure12.congruence` in `Winding.lean`, built for
-    audit E1-B11, 2026-09-29); that `phaseS` factors through it is not stated.
-    *(Until 2026-09-29 this line called sufficiency "the open `Closure12` gap".)* -/
+    with `T ↦ 1` exists (`Closure12.congruence` in `Winding.lean`); that
+    `phaseS` factors through it is not stated. -/
 theorem phase_modulus_dvd_twelve (n : ℤ)
     (h : ∀ w : List Letter, evalS w = 1 → n ∣ phaseS w) : n ∣ 12 := by
   have h12 := h fourS fourS_closes
@@ -319,8 +315,8 @@ theorem phase_modulus_dvd_twelve (n : ℤ)
   The bracket as written is antisymmetry of `δ` and closes for every ordered
   pair. "Reverse" has two strand readings that coincide at CpG, and a third,
   the complement read 5'→3', under which CpG does not close. Deamination is the
-  half with content. MeCP2's "conjugate frame" is not defined in v1.0 and is
-  not stated here. -/
+  half with content. MeCP2's "conjugate frame" is left undefined there and
+  is not stated here. -/
 
 /-- **Theorem 9, the CpG duplex bracket, as the suite writes it.** -/
 theorem cpg_bracket : delta .C .G + delta .G .C = (0, 0) := by decide
@@ -372,7 +368,7 @@ theorem deamination_width : R .T + R .G = 3 := transition_mismatch_width .C .T r
 
   The suite counts 180 of 268 "synonymous junction contexts" as kinematic
   discontinuities, split 46 compound, 80 boundary diagonal only, 54 internal
-  stall only. The Logic Spine's restatement pins the reading: a context
+  stall only. The reading taken here: a context
   *introduces or eliminates* a stall `δ₂ = (0,0)` or a boundary diagonal
   `τ(δ_bnd) = 2`. That is symmetric, so a context is an unordered synonymous
   single-base pair of sense codons with the next codon's first base, and the
@@ -620,10 +616,9 @@ theorem digit_three_not_self_reciprocal :
     shadow [false, true, false] ≠ [false, true, false] ∧
     reads (shadow [false, true, false]) 5 3 := by decide
 
-/- 2026-09-22: the three mirror-closure theorems below were stated over `Finset Word`; `Finset`'s
-   membership instance is classical in this Mathlib, so every such statement carried
-   `Classical.choice`. They are now stated over duplicate-free lists, with the same content
-   (a finite family of words closed under the mirror), and are choice-free. -/
+/- The three mirror-closure theorems below are stated over duplicate-free lists, a finite family
+   of words closed under the mirror, rather than over `Finset Word`: `Finset`'s membership
+   instance is classical in this Mathlib, and the lists keep them free of `Classical.choice`. -/
 
 /-- Remove `w` from a list (every occurrence; exactly one on a duplicate-free list). Written with
     `filter` and `decide` so that its lemmas stay off `Classical.choice`, which `List.erase`'s

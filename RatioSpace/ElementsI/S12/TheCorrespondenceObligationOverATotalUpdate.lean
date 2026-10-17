@@ -6,24 +6,24 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsI.S12.Correspondence
 import RatioSpace.ElementsI.S10.ReturnAssimilation
 /-!
-  Gap G1-23 — Elements I §12, Definition 12.3, the correspondence obligation
-  over a total update.
+  Elements I §12, Definition 12.3, the correspondence obligation over a total
+  update.
 
   **Book statement (v0.25, E1-43).** "One must establish a commuting relation
   such as `E_O ∘ 𝒰_𝒬 = F_num ∘ E_O` on every state where `𝒰_𝒬` is defined, and
   say what `F_num` does where it is not, or state and prove the exact error or
   limiting relation that replaces equality."
 
-  **What was wrong.** `Correspondence` took `U : SubstrateState →
+  **The update is partial.** `Correspondence` takes `U : SubstrateState →
   SubstrateState`. The book's `𝒰_𝒬` is partial (Defs 10.4, 10.6), and the
-  Lean's own `cycle` returns `SubstrateState ⊕ Outcome`, so the square could
-  not be stated for the update the definition names.
+  Lean's `cycle` returns `SubstrateState ⊕ Outcome`, so the square for the
+  update the definition names is stated over a partial update.
 
-  **Changed (`Correspondence.lean`).** `PartialCorrespondence E U F_num Off`
+  **In `Correspondence.lean`.** `PartialCorrespondence E U F_num Off`
   over `U : SubstrateState → SubstrateState ⊕ Outcome`: the square on every
   state where `U` returns a state, and `Off` stating what `F_num` does where it
   returns a failure. `partialCorrespondence_total_iff`: for a total update this
-  is `Correspondence`, which is kept. `correspondence_stayPut_iff`: the total
+  is `Correspondence`. `correspondence_stayPut_iff`: the total
   square on the update made total by "no answer, no change" is the partial
   square with `Off := StaysPut`, and `correspondence_fallback_iff`: falling
   back to a fixed state carries its own `Off`. `cycle_defined_iff`, `cycle_undefined_iff`:
@@ -34,7 +34,7 @@ import RatioSpace.ElementsI.S10.ReturnAssimilation
   **Added here.** The square stated for `cycle` itself, at a resolving and at
   a failing question. `update K B Q` runs `cycle` from Def 10.1's initial
   ensemble `initialEnsemble Q`, so each witness is at a `Question` and not at
-  a bare ensemble (audit E1-B5, 2026-09-29).
+  a bare ensemble.
   * `g123_square_on_resolving_question`: identity crystallization, the append
     assimilation, the question `resolving` (root frame, depth 1, active family
     `[⟨∅, L⟩]`, no predicates), whose initial ensemble is one record
@@ -56,7 +56,7 @@ namespace Gaps.G1_23
 open Layer Gaps.G1_18
 
 /-- `𝒰_𝒬` for the question `Q`: one cycle of the recursion, started from
-    Def 10.1's initial ensemble `initialEnsemble Q` (audit E1-B5). -/
+    Def 10.1's initial ensemble `initialEnsemble Q`. -/
 def update (K : Crystallization) (B : Assimilation) (Q : Question) :
     SubstrateState → SubstrateState ⊕ Outcome :=
   fun S => cycle K B S (initialEnsemble Q)

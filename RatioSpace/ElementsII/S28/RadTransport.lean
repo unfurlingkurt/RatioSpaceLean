@@ -11,19 +11,19 @@ import RatioSpace.ElementsII.S24.Lifecycle
 /-!
   Elements II §28 — Phase transport, route correction, and carried memory (all 12 items).
 
-  **Why a second Rademacher definition lives here.** `Two/Transport.lean`'s `dedekindSumInt`
+  **Why a second Rademacher definition lives here.** `Transport.lean`'s `dedekindSumInt`
   sums over `Finset.range`, and `Finset.range` itself depends on `Classical.choice`. So every
   theorem whose *statement* names `dedekindSumInt`, `phiRad` or `psiRad` reports choice,
   including Transport.lean's own `phiRad_neg_invariant`. This file therefore works with
   `phiRadC`/`psiRadC`: the same formula (`phiRad`'s body with `dedekindSumInt` replaced by
   `dsum`, the identical summand by structural recursion). No theorem here states an equality
   with Transport's `phiRad`/`psiRad`, since any such statement would print choice. The
-  equality `phiRad Q = phiRadC Q` does hold (`Finset.sum_range_succ` induction; it compiled) and
-  was removed for exactly that reason. `routeCorrection` is Transport's own and is clean.
+  equality `phiRad Q = phiRadC Q` holds (`Finset.sum_range_succ` induction) and is left
+  unstated for exactly that reason. `routeCorrection` is Transport's own and is clean.
 
   **Imported results are hypotheses.** Proposition 28.3's cocycle and conjugacy invariance are
-  `RadCocycle` and `RadConj` (the `Closure12` form; unlike `Closure12` since E1-B11, these have
-    no instance). Central invariance of `Φ` and `Ψ` is
+  `RadCocycle` and `RadConj` (the `Closure12` form; unlike `Closure12`, which has a
+    `Nonempty` instance, these have no instance). Central invariance of `Φ` and `Ψ` is
   derived. Exact instances of both laws are proved by `decide` as consistency witnesses.
 
   Conventions: `true = R`, `false = L`; the winding `b(v) = #R − #L` is Elements I/II's `bal`;

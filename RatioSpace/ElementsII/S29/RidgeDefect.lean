@@ -9,7 +9,7 @@ import RatioSpace.ElementsII.S28.Transport
 /-!
   Elements II §29 — Exact golden-ridge defects.
 
-  Eight items. §27 (`Two/Chamber.lean`) already built the right form
+  Eight items. §27 (`Chamber.lean`) builds the right form
   `N p q = p² − pq − q²`, its sign flip under `advR`, its non-vanishing on a
   nonzero tail, and the bridge `0 < p − qφ ⇔ 0 < N`. This file does not copy any
   of that: `DR` *is* `N`, and the side readings are §27's bridges read at the

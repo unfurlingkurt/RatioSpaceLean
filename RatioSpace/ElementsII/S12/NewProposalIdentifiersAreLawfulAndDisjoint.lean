@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S15.Accumulation
 /-!
-  Gap G2-13 · Elements II Lemma 12.1, new proposal identifiers are lawful and
+  Elements II Lemma 12.1: new proposal identifiers are lawful and
   disjoint.
 
   `Advance.lean` proves the arithmetic of the book's length argument
@@ -18,8 +18,7 @@ import RatioSpace.ElementsII.S15.Accumulation
   later than tick `j` has a relative continuation word of length at most `j`,
   whereas a proposal at the current advance has length `j+1`". This file states
   it (`TickLengthInv`), proves it holds at a seed carrier, proves one tick
-  preserves it, proves it along every schedule, and derives `hfresh` from it. No
-  existing declaration is changed.
+  preserves it, proves it along every schedule, and derives `hfresh` from it.
 -/
 
 namespace RatioSpace
@@ -28,9 +27,9 @@ namespace G2_13
 
 open RatioSpace.Two RatioSpace.Two.Advance RatioSpace.Two.Accumulation
 
-/-! The per-carrier content of this gap (`TickLengthInv` through
-    `tickLengthInv_of_seeds`) lives in `Two/RunInvariant.lean`, under the same
-    names, so that `Accumulation.lean`'s schedule can require it. -/
+/-! The per-carrier content (`TickLengthInv` through
+    `tickLengthInv_of_seeds`) is in `ElementsII/S12/RunInvariant.lean`, under
+    the same names, so that `Accumulation.lean`'s schedule can require it. -/
 
 /-- **The invariant holds at every tick a schedule reaches**, from the tick-zero
     carrier. -/

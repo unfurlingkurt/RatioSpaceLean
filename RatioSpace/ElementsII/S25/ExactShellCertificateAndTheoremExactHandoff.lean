@@ -6,22 +6,22 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S25.Shell
 import RatioSpace.ElementsII.S33.Export
 /-!
-  Gap G2-33 — Elements II §25, Definition 25.6 Exact shell certificate and
+  Elements II §25, Definition 25.6 Exact shell certificate and
   Theorem 25.10 Exact handoff: the `Src_Γ` coordinate.
 
-  **Book statement (v0.22).** Definition 25.5: *"`Src_Γ` is the complete
+  **Book statement.** Definition 25.5: *"`Src_Γ` is the complete
   lossless source ledger."* Definition 25.6: `ShellCert = (c_sh, |V_Γ|, |E_Γ|,
   |F_Γ|, (d_Γ(v)), (δ_Γ(v)), D_Γ, Src_Γ)`. Definition 25.4, condition 6:
   *"For every received vertex, edge, and face, `src_V`, `src_E`, and `src_F`
   retain the complete finite set of exact prequotient records mapped to it."*
   Theorem 25.10, item 7: *"lossless exact preimages"*.
 
-  **What was missing.** `Cx.cert` (`Two/Shell.lean`) takes the source ledger as
-  a free parameter `src : S`, not built from the reception's `srcV`, `srcE`,
-  `srcF`, and nothing tied it to condition 6. `handoff_complete` proves
+  **The free-parameter certificate.** `Cx.cert` (`Shell.lean`) takes the source
+  ledger as a free parameter `src : S`, not built from the reception's `srcV`,
+  `srcE`, `srcF`, and not tied to condition 6. `handoff_complete` proves
   certificate equality for the same arbitrary `src`.
 
-  **Built here.**
+  **Contents.**
   * `SrcLedger`, `srcLedger`: `Src_Γ` built from `Γ` and the export,
     one entry `(x, src_Γ x)` for each received vertex, edge key and face key of
     `K^Γ` (`V_Γ`, `E_Γ`, `F_Γ` in order), and `cert`, the certificate
@@ -39,7 +39,7 @@ import RatioSpace.ElementsII.S33.Export
     list order and repeats within an entry.
   * `ofMaps_srcLedger_lossless`: the reception `Shell.Reception.ofMaps` builds from
     the maps and the export has a lossless ledger with no hypothesis.
-  * `cert_src`, `cert_agrees`: the new certificate's source coordinate is the
+  * `cert_src`, `cert_agrees`: the source coordinate of `cert` is the
     ledger, and its other seven coordinates are `Cx.cert`'s.
   * `handoff_complete_src`: Theorem 25.10 with `Src_Γ` supplied by `Γ`: two
     exports with the same active family give the same whole certificate, the
@@ -47,7 +47,7 @@ import RatioSpace.ElementsII.S33.Export
     record's face key sits in the entry of its received face.
   * `stage_cert_agrees`: the shell stage's certificate (`ShellStageIn.cert`,
     Theorem 33.2(1)), which carries the active records as its source, agrees
-    with the new certificate on the other seven coordinates.
+    with `cert` on the other seven coordinates.
 -/
 set_option linter.style.longLine false
 
@@ -254,7 +254,7 @@ section Stage
 variable {Op Aux Cert RawAux EvalAux Prov Renew P Y Ph St V E F : Type} {h : ℕ}
   [DecidableEq V] [DecidableEq E] [DecidableEq F]
 
-/-- `ShellStageIn.cert` (`Two/Export.lean`) carries the active records as its
+/-- `ShellStageIn.cert` (`Export.lean`) carries the active records as its
     source coordinate. The certificate with `Γ`'s own ledger agrees with it on
     the other seven coordinates, and its ledger holds every active record's face
     key in the entry of its received face when `Γ` is admissible. -/

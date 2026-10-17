@@ -16,8 +16,8 @@ import RatioSpace.ElementsII.S04.Cavity
   Two things are sharper than the prose, and each is noted at its theorem:
 
     * **Proposition 5.3 needs no new proof.** `Frame.stepL` and `Frame.stepR`
-      already *are* Def 2.4's two child frames — `(C₋⊕C₊,C₋)` and `(C₊,C₋⊕C₊)`
-      — established when `Frame.lean` was rebuilt on `Pres`. This section's
+      already *are* Def 2.4's two child frames, `(C₋⊕C₊,C₋)` and `(C₊,C₋⊕C₊)`,
+      established in `Frame.lean` on `Pres`. This section's
       Prop 5.3 is `childProposal_frame_stepL/R`, which says a proposal's reached
       frame is exactly that stepped frame, and cites those definitions rather
       than reproving the mediant arithmetic.
@@ -92,8 +92,7 @@ theorem childProposal_addr (id0 : QuestionId) (seed : History) (v : Word) (g : B
 
 /-- **Proposition 5.3, hand `L`.** `F_x·L = (C₋⊕C₊,C₋)`, Def 2.4's `stepL`.
     That `stepL` is the product with `L` is `Frame.toMat2_stepL`, cited here
-    rather than reproduced (audit E1-A6; this cited `Frame.stepL_matrix`, which
-    only unfolds the entries). -/
+    rather than reproduced. -/
 theorem childProposal_frame_stepL (id0 : QuestionId) (seed : History) (v : Word) :
     (childProposal id0 seed v false).frame = Frame.stepL (proposal id0 seed v).frame := by
   simp [childProposal_frame, Frame.select]

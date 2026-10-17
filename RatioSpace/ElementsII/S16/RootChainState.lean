@@ -8,9 +8,9 @@ import RatioSpace.ElementsII.S16.RootChain
 /-!
   Elements II §16 Theorem 16.11, Step 4 on the tick carrier.
 
-  `Two/RootChain.lean` proved Step 4 on the admitted family: `support (fam k)
+  `RootChain.lean` proved Step 4 on the admitted family: `support (fam k)
   = [rb k, rc k]`. This file carries it through the tree's one-tick advance,
-  as `Two/Beat11Bridge.lean` did for Step 1.
+  as `Beat11Bridge` (`ClosurePatternLink.lean`) does for Step 1.
 
   Let the active cores be `x, y`, in that order, with full words `LR^k` and
   `RL^k`, and let the observer sit at `ε`. Then one advance under
@@ -30,7 +30,7 @@ import RatioSpace.ElementsII.S16.RootChain
   pair is the whole active family in the order `[LR^k, RL^k]`, the same
   `archive.filter (· ∈ active)` form as `Beat11Bridge.sibling_*`.
 
-  **Re-establishment built 2026-09-14, 00:30 work beat:** the next carrier's
+  **Re-establishment:** the next carrier's
   archive filter is again `[xR, yL]` (`advanceArchive_filter_children`,
   `root_next_pair`, `advanceCarrier_root_chain`). Freshness is not a gap: it is
   `advanceCarrier`'s own `hfresh`, supplied at every tick, and together with

@@ -338,8 +338,8 @@ def ledger31_4 : List FamilyRow :=
     fam "26–27" (.derived _ (And.intro Mirror.AR_pow_fib Chamber.ridges_exchanged)) "derived",
     fam "28" (.derived _ RadTransport.transport) "derived from the imported classical identities",
     fam "29" (.derived _ RidgeDefect.thm_29_3_square) "derived",
-    -- §30 (derived scope result) is built concurrently in `Two/Obligations.lean`,
-    -- which this file does not import. No proof term is claimed for it here.
+    -- §30 (derived scope result) is marked `elsewhere` in this row; its proof
+    -- term `Obligations.thm_30_3` is carried by `row30` below.
     fam "30" .elsewhere "derived scope result" ]
 
 /-- The parts of Ledger 31.4 that its scope column types other than derived. -/

@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-30 — Elements II §24, Proposition 24.18, Covariance of renewal and
+  Elements II §24, Proposition 24.18, Covariance of renewal and
   release.
 
   **Book statement.** *"Status: Conditional result. Suppose common-prefix
@@ -21,12 +21,12 @@ import RatioSpace.ElementsII.S24.Lifecycle
   difference a_arch. Definition 24.12 then selects the same lifecycle branch,
   with transported keys and records."*
 
-  **What was missing.** `covariance_conditional` assumed the transported gate
-  list equal to the original (`gs' = gs`), all six gates and every advance bit
-  included, so lifecycle preservation was `rw [hg]`; its age conjunct was
-  `aArch k n = aArch k n`.
+  **Relation to `covariance_conditional`.** `covariance_conditional` assumes the
+  transported gate list equal to the original (`gs' = gs`), all six gates and
+  every advance bit included, so its lifecycle preservation is `rw [hg]`; its
+  age conjunct is `aArch k n = aArch k n`.
 
-  **Built here.** `Transport Θ Θ'` holds the book's four hypotheses and nothing
+  **Contents.** `Transport Θ Θ'` holds the book's four hypotheses and nothing
   more: (1) an injective carrying of face keys; (2) a carrying of receiver
   words, injective, and of strata that keeps every difference `n − k` for
   `k ≤ n`; (3) an equivariant reception (domain carried, values relabelled
@@ -47,7 +47,7 @@ import RatioSpace.ElementsII.S24.Lifecycle
     archive ages, all preserved;
   * `key_transport_injective`: the lifecycle key `(ι_f, m, n)` is carried
     injectively.
-  The strata hypothesis is needed as stated (E2 §24 settled note, Prop 24.18):
+  The strata hypothesis is needed as stated (Elements II, Proposition 24.18):
   `shift_keeps_diff` shows every uniform shift of strata satisfies it, and
   `doubling_breaks_age` shows an injective, order-preserving relabelling that
   does not keep differences changes the archive age at every `k < n`.

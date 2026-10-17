@@ -9,10 +9,10 @@ import RatioSpace.ElementsII.S24.OptionalFiniteRetentionProfile
 import RatioSpace.ElementsII.S24.PhaseReturnHorizon
 import RatioSpace.ElementsII.S24.CovarianceOfRenewalAndRelease
 /-!
-  Gap G2-19 · Elements II Definition 24.1, causal event, face-entry stratum, and
+  Elements II Definition 24.1, causal event, face-entry stratum, and
   archive age.
 
-  `Two/Lifecycle.lean` has `aArch k n := n - k` on `ℕ` with no `n ≥ k`, so a read
+  `Lifecycle.lean` has `aArch k n := n - k` on `ℕ` with no `n ≥ k`, so a read
   before entry gets the age of a read at entry (`aArch 5 3 = 0 = aArch 3 3`), which
   Definition 24.1 ("for a later read in `𝒢^(n)`, where `n ≥ k_f`") and E2-02
   exclude. Its `k` is a free `ℕ`: the extended history ledger `𝒢^(0), 𝒢^(1), …` and
@@ -25,7 +25,6 @@ import RatioSpace.ElementsII.S24.CovarianceOfRenewalAndRelease
   every later append, gives archive age as a partial function defined exactly when
   `n ≥ k_f`, relates it to `aArch` and to Definition 2.3's `archiveAge` where they
   agree, and separates the causal event from the entry stratum on ledger data.
-  No existing declaration is changed.
 -/
 set_option linter.style.longLine false
 
@@ -215,9 +214,9 @@ changes nothing else, so successive `recordFace` calls occupy successive
 positions of `hist` — exactly the book's "successive declared operations occupy
 successive strata" for this kind of append. Reading `hist` as a `G19Ledger`, one
 stratum per call, ties `g19EntryStratum` to the actual operation Definition 23.5
-names instead of a hand-written list. What this does not yet cover is
-interleaving with a cycle-boundary or lifecycle append: `hist` only ever holds
-`recordFace` strata, so `G19Append.other` is never produced here. -/
+names instead of a hand-written list. Interleaving with a cycle-boundary or
+lifecycle append is the next section: `hist` only ever holds `recordFace`
+strata, so `G19Append.other` is never produced here. -/
 
 /-- The extended ledger read off a real `recordFace` history: one stratum per
     entry of `hist`, in call order. -/
@@ -358,7 +357,7 @@ theorem g19_causal_not_from_entry (i : EligInput) :
   · simp [g19EntryStratum, g19First, g19RecordsFace]
   · simp [g19EntryStratum, g19First, g19RecordsFace]
 
-/-! ## Interleaving: the ledger of a trace of mixed declared operations (2026-09-22)
+/-! ## Interleaving: the ledger of a trace of mixed declared operations
 
 Definition 24.1 assigns "every later cycle-boundary, face-recording, and lifecycle append to
 one exact ordered stratum", one declared operation per stratum, in call order, records appended
@@ -610,7 +609,7 @@ theorem g19_entry_positions {Op FR R : Type} (idOf : FR → FaceId) (st : RecSta
 
 `Lifecycle.lean` has the global lifecycle ledger `𝔇` (`LifeLedger`, keyed by `(ι_f, r, n_r)`) and
 its one append operation `appendEvt`, which is append-only exactly as `faceAppend` is. A trace
-over both ledgers gives `G19Append.other` the grounding `recordFace` got on 09-16: a lifecycle
+over both ledgers gives `G19Append.other` the grounding `recordFace` has above: a lifecycle
 append is one declared operation, occupies one stratum of `𝒢`, and writes one keyed event to
 `𝔇`. -/
 
@@ -846,13 +845,13 @@ theorem g19_extension_keeps_temporal_age {FR P Y : Type} (T : List (List RatioSp
 
 /-! ## Readers of `aArch`, through Definition 24.1's age
 
-`Lifecycle.aArch` stays as it is (no existing declaration is changed). Every site where it
+`Lifecycle.aArch` is the truncated age on `ℕ`. Every site where it
 produces a stored value (`mkPacket`, `renewalRecord`, `gateVector`, and through them the face
-packets of G2-20) is covered by a theorem saying what value Definition 24.1 assigns there, with
+packets of `G2_20`) is covered by a theorem saying what value Definition 24.1 assigns there, with
 the before-entry reading stated where the consumer can be called before entry. The other readers
 in the tree are the two horizon lemmas (`horizon_terminal`, `profile_read_stays_zero`), whose
-hypothesis is shown to force a read after entry; G2-28's finite-profile gate, where the
-before-entry reading is made explicit; G2-29's `WellAged`; and G2-30's `age_transport`, which
+hypothesis is shown to force a read after entry; `G2_28`'s finite-profile gate, where the
+before-entry reading is made explicit; `G2_29`'s `WellAged`; and `G2_30`'s `age_transport`, which
 `g19_age_transport_all` carries at every pair of strata, before entry as well as after, from
 `ν_diff` alone. `age_reads_only_strata` and `covariance_conditional`'s age conjunct are
 `aArch k n = aArch k n` and are not readers; G2_22, G2_26 and G2_29's `strata_move_three_gates`
@@ -890,7 +889,7 @@ theorem g19_gateVector_read_before_entry {P Y Ph St : Type} [DecidableEq Y]
   rw [show aArch k n = 0 by unfold aArch; omega]
 
 /-- **Every packet of a face carries the Definition 24.1 age.** A `TPacket` that is a packet
-    of a face (G2-20's `IsFacePacket`: built by `mkPacket` at a read stratum `n ≥ k`) has
+    of a face (`G2_20`'s `IsFacePacket`: built by `mkPacket` at a read stratum `n ≥ k`) has
     `g19ArchAge Z.k Z.n = some Z.age`; no hypothesis on the lineage is needed. -/
 theorem g19_facePacket_age {Rec Cyc : Type} (i : QuestionId) (j : ℕ) (fid : FaceId) (rec : Rec)
     (k : ℕ) (cyc : Cyc) (Z : TPacket Rec Cyc) (h : G2_20.IsFacePacket i j fid rec k cyc Z) :
@@ -898,7 +897,7 @@ theorem g19_facePacket_age {Rec Cyc : Type} (i : QuestionId) (j : ℕ) (fid : Fa
   obtain ⟨n, u, hkn, rfl⟩ := h
   exact g19ArchAge_eq_aArch hkn
 
-/-- G2-29's `WellAged` (age field equals `aArch`) together with `k ≤ n` is exactly
+/-- `G2_29`'s `WellAged` (age field equals `aArch`) together with `k ≤ n` is exactly
     "the age field is Definition 24.1's age". -/
 theorem g19_wellAged_iff {Rec Cyc : Type} (Z : TPacket Rec Cyc) :
     (G2_29.WellAged Z ∧ Z.k ≤ Z.n) ↔ g19ArchAge Z.k Z.n = some Z.age := by
@@ -927,7 +926,7 @@ theorem g19_profile_read_stays_zero {P Y Ph St : Type} (Λ : Receiver P Y)
   ⟨aArch k n', g19ArchAge_eq_aArch ((g19_horizon_after_entry k n H hn).1.le.trans hle),
     decide_eq_false (Nat.not_le_of_gt (horizon_terminal k n n' H hn hle))⟩
 
-/-- **G2-28's finite profile, before entry: the readability gate passes.** `aArch k n = 0 ≤ H`
+/-- **`G2_28`'s finite profile, before entry: the readability gate passes.** `aArch k n = 0 ≤ H`
     for `n < k`, so a packet read before its own entry stratum is readable by the finite
     profile, while Definition 24.1 assigns it no age. This is the defect at the consumer
     Receiver Declaration 24.16 names; the profile's gate is the book's only under `k ≤ n`
@@ -941,7 +940,7 @@ theorem g19_finiteProfile_read_before_entry {P Y Ph St : Type} [DecidableEq Y]
   change decide (aArch k n ≤ D.H) = true
   exact decide_eq_true (by unfold aArch; omega)
 
-/-- **G2-28's finite profile, after entry**: `g_read = 1 ⟺ a_arch ≤ H_Θ` with `a_arch` the
+/-- **`G2_28`'s finite profile, after entry**: `g_read = 1 ⟺ a_arch ≤ H_Θ` with `a_arch` the
     Definition 24.1 age. -/
 theorem g19_finiteProfile_read_after_entry {P Y Ph St : Type} [DecidableEq Y]
     (D : G2_28.FiniteProfile P Y Ph St) (fid : FaceId) (S : St) (Z Zatt : P)
@@ -956,7 +955,7 @@ theorem g19_finiteProfile_read_after_entry {P Y Ph St : Type} [DecidableEq Y]
     have := (g19ArchAge_eq_some_iff k n a).mp ha
     exact decide_eq_true (by unfold aArch; omega)
 
-/-- **G2-30's `age_transport`, after entry.** A transport carries the Definition 24.1 age of
+/-- **`G2_30`'s `age_transport`, after entry.** A transport carries the Definition 24.1 age of
     every read after entry: for `k < n`, `ν_diff` forces `ν k < ν n`, and at `k = n` both ages
     are `0`. -/
 theorem g19_age_transport {P Y Ph St P' Y' Ph' St' : Type} {Θ : Retention P Y Ph St}
@@ -976,10 +975,8 @@ theorem g19_nu_strictMono {P Y Ph St P' Y' Ph' St' : Type} {Θ : Retention P Y P
   have := T.ν_diff a b h.le
   omega
 
-/-- **G2-30's `age_transport`, before entry.** A transport keeps a read before entry before
-    entry, from `ν_diff` alone: Definition 24.1 assigns no age on either side. (An earlier
-    draft of this file stated this as an open obligation needing strict monotonicity of `ν`;
-    the fresh-context verifier pointed out that `ν_diff` already gives it.) -/
+/-- **`G2_30`'s `age_transport`, before entry.** A transport keeps a read before entry before
+    entry, from `ν_diff` alone: Definition 24.1 assigns no age on either side. -/
 theorem g19_age_transport_before_entry {P Y Ph St P' Y' Ph' St' : Type}
     {Θ : Retention P Y Ph St} {Θ' : Retention P' Y' Ph' St'} {wO : P → Word} {wO' : P' → Word}
     (T : G2_30.Transport Θ Θ' wO wO') (k n : ℕ) (h : n < k) :

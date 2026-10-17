@@ -5,12 +5,12 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S05.Mediant
 /-!
-  Gap G2-06 — Elements II Proposition 5.7, proposal covariance under a common
+  Elements II Proposition 5.7, proposal covariance under a common
   prefix, as the family equality `P_{j+1}(Z_u S_j) = Z_u P_{j+1}(S_j)`.
 
-  `Two/Mediant.lean` proves the covariance at one occurrence
+  `Mediant.lean` proves the covariance at one occurrence
   (`transportProposal_child`, `childProposal_transport_comm`), with the transport
-  acting on the tuple `(u, id0, seed, v)`. This file supplies the missing action
+  acting on the tuple `(u, id0, seed, v)`. This file supplies the action
   on a `ProposalRecord` itself, `transportRecord`, and proves the book's
   equality over the whole family, then reads it componentwise: identifiers are
   carried unchanged, world words gain `u` on the left, world matrices move by

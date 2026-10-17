@@ -18,16 +18,16 @@ import RatioSpace.ElementsII.S16.RootChain
   `n ≡ 3 (mod 21)`, where it is the cousin pair `{RⁿLLL, RⁿLRR}`, and at `n = 0`.
   Side covariance gives `LⁿR`.
 
-  **Computed before written.** With the kernel's definitions (depth of the
-  reduced contrast as a quotient sum less one, exact sign in `ℤ[φ]`,
-  re-implemented as in `elements_ii_axiom_ii1.py`) for `0 ≤ n < 1680`: every
+  **Computed.** With the kernel's definitions (depth of the
+  reduced contrast as a quotient sum less one, exact sign in `ℤ[φ]`)
+  for `0 ≤ n < 1680`: every
   claim above holds. The book's contrasts are the tree's,
   in the tree's orientation. `t₂₄ − t₁₃` depends only on `n mod 7`
   (`3, −4, 2, 0, −2, 5, −1`) and `t₃₄ − t₁₂` only on `n mod 3` (`0, 2, 5`), so
   the period 21 is `7 · 3`, and the tie is exactly where both vanish. The
   exceptions are the same for every `n ≥ 1`, not only `n ≥ 13`: `n = 1, …, 12`
   follow the mod-21 pattern, including the tie at `n = 3`. `n = 0` has
-  maximizer set `{g₁, g₃}`. No book statement was found false.
+  maximizer set `{g₁, g₃}`.
 
   **How.** One lemma, `tEnd_offset`, is the book's sentence: if the contrast is
   `N : N + k` then `t = ⌊N/k⌋ + cs (N mod k) k`, where `cs r k` is the
@@ -43,15 +43,15 @@ import RatioSpace.ElementsII.S16.RootChain
   `n ≥ 1` (`step2_family_LL`, `step2_family_RR`, `step2_family_tie`,
   `step2_family_support`, `step2_family_sub`); `n = 0`; the frames are the words
   (`walk_RnL`, `walk_LnR`); the mirror `LⁿR`; the bridge to `axiomSelect` at
-  a sibling step (`sibling_step_RnL_*`, `sibling_step_LnR_*`); and, 2026-09-13
-  23:30, the six `advanceCarrier` restatements of those sibling-step theorems
+  a sibling step (`sibling_step_RnL_*`, `sibling_step_LnR_*`); and
+  the six `advanceCarrier` restatements of those sibling-step theorems
   (`advanceCarrier_active_RnL_*`, `advanceCarrier_active_LnR_*`). All on
   `tEnd`, `coherenceOf` and Definition 8.1's `support`. None uses
   `Classical.choice`.
 
   **Not built here.** The 527 non-generic frames of Step 2 outside these two
-  families; Step 3 (cousin steps, built in `Step3Cousin.lean`); and the
-  induction assembling clauses 1-4.
+  families; Step 3 (cousin steps, built in `CousinResolution.lean`, namespace
+  `Step3Cousin`); and the induction assembling clauses 1-4.
 -/
 set_option linter.style.show false
 

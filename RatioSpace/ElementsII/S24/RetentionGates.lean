@@ -25,15 +25,7 @@ import RatioSpace.ElementsII.S24.Lifecycle
   Active = 1, LifeStat = retained-at-entry ... the status is 'renewed' when the
   receiver history advanced, otherwise 'retained-no-advance'."*
 
-  **What was missing** (ledger row): attaching-reference invariance, the
-  couplings and non-entailments were scratch only; `gateVector` takes `lift`,
-  `k`, `n` apart from the packet; `lift` not tied to the face;
-  retention-compatibility undefined; no entry event with `𝖹^att` and its
-  reception; `life` not started from `retainedAtEntry` on an all-one entry
-  vector; `advanced` an input, not computed from receiver words.
-
-  **Built here.** See the report `gap-reports/G2-26.md`; each declaration's
-  docstring names the clause it carries.
+  Each declaration's docstring names the clause it carries.
 -/
 set_option linter.style.longLine false
 

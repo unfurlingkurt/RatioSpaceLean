@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S10.Causal
 import RatioSpace.ElementsII.S06.State
 /-!
-  Gap G2-07 · Elements II Definition 10.4, the causal sibling-pair record on the
+  Elements II Definition 10.4, the causal sibling-pair record on the
   accumulated word.
 
   The book's record is `CF(x;g) = (ι_x, ι_{xg}, ι_{xḡ}, W(w_{xg}), F(w_{xg}), g, ḡ,
@@ -14,7 +14,7 @@ import RatioSpace.ElementsII.S06.State
   `w_y = w_x g`, with `w_x = w₀v` by Definition 4.2). `Causal.lean`'s
   `causalRecord` builds `W` and `F` on the relative word `v ++ [g]`. This file adds
   the record on the accumulated word, proves what it is, and states exactly where
-  and by how much the two records differ. No existing declaration is changed.
+  and by how much the two records differ.
 -/
 
 namespace RatioSpace

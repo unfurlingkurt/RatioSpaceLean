@@ -13,30 +13,27 @@ import RatioSpace.ElementsI.S10.Crystal
   context", and "the literal state-update formula for `ℬ_𝒬` remains part of the
   *Elements II* construction".
 
-  **What was wrong.** `Assimilation` (`Crystal.lean`) carried a field
-  `records : ∀ S A, (assimilate S A).history = S.history ++ [A.word]`. Elements I
-  states no such formula. Elements II Definition 19.5 appends a different record,
+  **The carrier.** The rule
+  `(assimilate S A).history = S.history ++ [A.word]` is not a field of
+  `Assimilation` (`Crystal.lean`). Elements I states no such formula. Elements II
+  Definition 19.5 appends a different record,
   `H_{τ+1} = H_τ ‖ (C^cyc_𝒬(x*), A^occ_τ, A^occ_{τ+1})`, and sets
-  `w_{τ+1} = w_{x*}`. So the field was a hypothesis the book does not state and
-  the Elements II map does not satisfy as written. `cycle_records_the_answer`
-  and its docstring ("the history grows by the answer's word and by nothing
-  else") rested on it.
-
-  **Changed.** `records` is dropped from the carrier. `cycle_records_the_answer`
-  is replaced in `Crystal.lean` by `cycle_assimilates_the_answer`: a resolved
-  cycle returns `B.assimilate S A`, with no claim about what that is.
+  `w_{τ+1} = w_{x*}`. So the rule is a hypothesis the book does not state and
+  the Elements II map does not satisfy as written. In `Crystal.lean`,
+  `cycle_assimilates_the_answer`: a resolved cycle returns `B.assimilate S A`,
+  with no claim about what that is.
 
   **Added here.**
-  * `g118_AppendsWord B`: the old rule, as a named convention an assimilation may
+  * `g118_AppendsWord B`: the append rule, as a named convention an assimilation may
     or may not satisfy (the positive-walk reading).
-  * `g118_cycle_records_the_answer`: the old theorem, under that convention.
+  * `g118_cycle_records_the_answer`: under that convention, a resolved cycle grows
+    the history by the answer's word.
   * `g118_appendWord`: an assimilation satisfying it, so the convention is
     consistent with the carrier.
   * `g118_appendEmpty`: an assimilation that appends the empty word instead,
     and `g118_appendEmpty_not_appends`: it does not satisfy the convention. So
-    the carrier no longer forces a history formula. (Until 2026-09-28 this was
-    `g118_keep`, the assimilation that changes nothing; audit E1-B7 added
-    Def 10.8's `changes` field to the carrier, which rules that one out.)
+    the carrier does not force a history formula. (The assimilation that changes
+    nothing is ruled out by the carrier's `changes` field, Def 10.8.)
   * `g118_carrier_leaves_history_open`: one crystallization, one state, one
     resolved answer, two assimilations, two different next histories.
 
@@ -56,7 +53,8 @@ namespace Gaps.G1_18
 def g118_AppendsWord (B : Assimilation) : Prop :=
   ∀ S A, (B.assimilate S A).history = S.history ++ [A.word]
 
-/-- The former `cycle_records_the_answer`, now under its hypothesis. -/
+/-- Under the append convention, a resolved cycle grows the history by the
+    answer's word. -/
 theorem g118_cycle_records_the_answer (K : Crystallization) (B : Assimilation)
     (hB : g118_AppendsWord B) (S : SubstrateState) (X : Ensemble) {A : Answer}
     (h : K.cryst X = Outcome.resolved A) :

@@ -7,11 +7,11 @@ import RatioSpace.ElementsII.S15.AxiomPolicy
 import RatioSpace.ElementsII.S04.SupportFreeInitializationContext
 import RatioSpace.ElementsII.S04.AQuestionBoundsItsSupport
 /-!
-  Gap G2-04 (empty question) — Elements II Corollary 17.8, an exact predicate
+  Elements II Corollary 17.8 (empty question): an exact predicate
   can block every proposal and carry empty support through a whole run.
 
-  `Gaps/G2_04.lean`'s `S0tilde_gammaB_nil` already proves that adjoining the
-  empty membership predicate `gammaB []` to any declared predicate family
+  `ElementsII/S04/AQuestionBoundsItsSupport.lean`'s `S0tilde_gammaB_nil` proves
+  that adjoining the empty membership predicate `gammaB []` to any declared predicate family
   empties the initial support `S̃₀`. This file carries that fact forward: an
   empty active support stays empty under every lawful advance, hence under
   every schedule, so the tick-zero carrier built from `gammaB []` reaches a

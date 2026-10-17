@@ -5,15 +5,15 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S09.Question
 /-!
-  Gap G1-11 — Elements I §7, Definition 7.3 Relative encounter matrix.
+  Elements I §7, Definition 7.3 Relative encounter matrix.
 
-  **Book statement (v0.22).** "It is exactly unimodular: \(\det Q_{O,P}=1\)."
+  **Book statement.** "It is exactly unimodular: \(\det Q_{O,P}=1\)."
 
-  **What was missing.** `encounter O P := inv2 O.matrix * P.matrix`
-  (`Question.lean`) had no determinant statement. The pieces were in the tree:
+  **The determinant of `encounter O P := inv2 O.matrix * P.matrix`**
+  (`Question.lean`). The pieces are in the tree:
   `det_mul` (`Braid.lean`), `det_toMat2` and `det_G` (`Walk.lean`).
 
-  **Added.** The adjugate keeps the determinant (`g111_det_inv2`), every
+  **Here.** The adjugate keeps the determinant (`g111_det_inv2`), every
   observer's accumulated transform has determinant one (`g111_det_matrix`, the
   same fact as `Minimal.det_matrix`, restated here so this file needs only
   `Question`), and the encounter is exactly unimodular (`g111_encounter_det`).

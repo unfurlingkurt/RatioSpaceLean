@@ -15,9 +15,9 @@ import RatioSpace.ElementsII.S12.RunInvariant
   carrier the previous ticks actually reached — a schedule, not a fixed
   parameter reused `n` times.
 
-  The book's own account of this file suggested a dependent sequence
+  One way to state this is a dependent sequence
   `(n : ℕ) → (hn : n < h) → AdvanceData ... (iterate n hn)`, built by
-  well-founded recursion. What is built here instead is a **policy**:
+  well-founded recursion. What is built here is a **policy**:
   `Policy Aux h := (X : TickCarrier Aux h) → Lawful X → AdvanceData Aux h X`,
   a single total function from *any* lawful carrier to the advance data for
   its next tick. This is not a narrowing. A policy is at least as general as
@@ -25,13 +25,11 @@ import RatioSpace.ElementsII.S12.RunInvariant
   number as a field, so indexing by the carrier subsumes indexing by `n` — and
   it turns the recursion that builds `iterate` into a plain structural
   recursion on `n` (`Nat.rec`), which unfolds by `rfl` at each step. The
-  dependent-sequence shape would have needed the same content threaded through
-  a manual well-founded fixpoint for no additional generality. Recorded here
-  because the task brief asked for either the suggested shape or a documented,
-  honest deviation, and this is the deviation: same content, a cleaner
-  recursion.
+  dependent-sequence shape needs the same content threaded through
+  a manual well-founded fixpoint for no additional generality: same content, a
+  cleaner recursion.
 
-  **Two further obligations were added to the per-step data, and both are
+  **The per-step data carries two further obligations, and both are
   genuine new content, not restatements.** `advanceCarrier`'s own `select` is
   a bare function with no cardinality bound — Advance.lean's own comment says
   the selector "is a parameter, and that is faithful" — so nothing in §11–§14
@@ -48,22 +46,18 @@ import RatioSpace.ElementsII.S12.RunInvariant
   never asserts that (unlike `active_sub_archive`, which *is* a field).
   `AdvanceData.hcard` names it. Both are natural, expected properties of any
   advance actually built from Definition 8.1 and Definition 7.1; they
-  were simply never needed as hypotheses before this section, because nothing
-  before §15 asked for arithmetic in `|S_j|` itself rather than in
+  are needed as hypotheses first in this section, because §15 is the first
+  to ask for arithmetic in `|S_j|` itself rather than in
   `|P_{j+1}|` or `|ℋ_j|`.
 
-  **Theorem 15.5's carrier-level covariance is not built, and is not invented
-  here either.** §13's own scoping note in `Advance.lean` says outright that
-  assembling the archive/proposal-level covariance facts into a full
-  `TickCarrier`-level `Z_u`/`P` action is future work needing "the carrier
-  advance rather than the archive advance" — and grepping this tree for any
-  definition of a prefix-transport or side-exchange action *on* `TickCarrier`
-  finds none. So 15.5 below proves the sharpest true statement the existing
-  machinery supports: prefix-transport covariance at the occurrence level
+  **Theorem 15.5 is stated here at the occurrence and proposal level.**
+  15.5 below proves prefix-transport covariance at the occurrence level
   (which, via `transportProposal_fullMatrix`, already holds at *arbitrary*
-  descendant depth, not merely after one tick — sharper than the boxed
+  descendant depth, not merely after one tick, sharper than the boxed
   statement, not weaker), and side-exchange neutrality of proposal generation
-  at every tick the trace visits. Flagged rather than papered over.
+  at every tick the trace visits. The `TickCarrier`-level side-exchange action
+  `TickCarrier.mirror` and its lift of the second box to the advance itself
+  (`trace_mirror_advance_perm`) are in `ElementsII/S13/SideExchange.lean`.
 -/
 
 namespace RatioSpace
@@ -103,16 +97,15 @@ structure AdvanceData (Aux : Type) (h : ℕ) (X : TickCarrier Aux h) where
       `S_j` as a genuine finite *set* that Corollary 12.2's count silently
       assumes. Not a `TickCarrier` field, so it is asked here. -/
   hcard : (X.archive.filter (fun c => c.id ∈ X.active)).length = X.active.length
-  /-- **The one obligation Theorem 17.7's iff-direction was still missing**
-      (`Terminal.lean`, `Two/Carrier.lean`'s `ensemble_length_eq_active`). Every
+  /-- **The obligation Theorem 17.7's iff-direction needs**
+      (`Terminal.lean`, `ElementsII/S06/State.lean`'s `ensemble_length_eq_active`). Every
       other field of this structure already forces the archive to stay
       duplicate-free at the next tick (`Advance.lean`'s `advanceArchive_nodup`,
       using well-formedness alone) — the active support has no such automatic
       guarantee, because `select` is a bare function on proposals with no
       cardinality or distinctness constraint of its own. Definition 8.1
        already returns a *set*, so any advance actually built from it
-      satisfies this without effort; it was simply never asked for before
-      nothing needed arithmetic in `|S_{j+1}|` itself. -/
+      satisfies this without effort. -/
   hselNodup : (select (proposals X.archive X.active)).Nodup
 
 /-- **The three-part invariant an iterate needs.** The archive's identifiers
@@ -152,12 +145,12 @@ def RunInv {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) : Prop :=
 /-- **A valid tick-zero carrier**: tick zero, and the run invariant, which at
     tick zero says the archive holds seeds only (`seeded_of_seeds`).
 
-    Some theorems stated before this definition existed still take
+    Some theorems take
     `hinv0 : CarrierInv X0` or `hinv0 : TickLengthInv X0` beside `hX0`
     (`iterate_carrierInv`, `G2_13.iterate_tickLengthInv`,
     `Terminal.crystallize_isSome_iff_singleton_of_carrierInv`, the `G2_16` and
-    `G2_17` snap theorems). `hX0.2.1` and `hX0.2.2` supply them; they are kept
-    only so no existing signature changes, and ask nothing beyond `Seeded`. -/
+    `G2_17` snap theorems). `hX0.2.1` and `hX0.2.2` supply them; they ask
+    nothing beyond `Seeded`. -/
 def Seeded {Aux : Type} {h : ℕ} (X0 : TickCarrier Aux h) : Prop :=
   (X0.tick : ℕ) = 0 ∧ RunInv X0
 
@@ -197,10 +190,10 @@ theorem RunInv.hfresh {Aux : Type} {h : ℕ} {X : TickCarrier Aux h} (hX : RunIn
     tick, so indexing by the carrier is at least as general as indexing by `n`,
     and it is what makes `iterate` below a plain structural recursion.
 
-    Asking for `AdvanceData` at *every* lawful `TickCarrier` (the earlier form
-    of this definition) asked for it at carriers no run produces, such as one
+    Asking for `AdvanceData` at *every* lawful `TickCarrier` would ask for it
+    at carriers no run produces, such as one
     whose support lists one identifier twice; `hcard` fails there, so that type
-    was empty (audit 2026-09-26, E2-D1). Restricted to reached carriers it is
+    is empty. Restricted to reached carriers it is
     inhabited: `emptyPolicy` below, and Definition 8.1 itself
     (`AxiomPolicy.axiomPolicy`). -/
 def Policy (Aux : Type) (h : ℕ) : Type :=
@@ -221,7 +214,7 @@ def emptyPolicy (Aux : Type) (h : ℕ) : Policy Aux h := fun X _ hX =>
     hcard := hX.hcard
     hselNodup := List.nodup_nil }
 
-/-- Standing guard (audit rule 1): the schedule type is inhabited. -/
+/-- Standing guard: the schedule type is inhabited. -/
 example (Aux : Type) (h : ℕ) : Nonempty (Policy Aux h) := ⟨emptyPolicy Aux h⟩
 
 /-- **Definition 15.1, the finite iterate, bundled with the proof that it
@@ -310,17 +303,14 @@ theorem trace_length {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCarri
 
 /-! ## Duplicate-freedom along a whole schedule
 
-    The genuine gap Theorem 17.7's iff-direction (`Terminal.lean`) named: it
-    needed the *terminal* carrier's archive and active support both
-    duplicate-free, proved there only as a hypothesis on whichever carrier was
-    supplied, because nothing before asked whether an *iterated* carrier keeps
-    either property. `CarrierInv` is the invariant that answers it, carried
+    Theorem 17.7's iff-direction (`Terminal.lean`) needs the *terminal*
+    carrier's archive and active support both duplicate-free. `CarrierInv` is
+    the invariant that supplies it, carried
     from the tick-zero carrier forward by `iterate_carrierInv` rather than
     assumed at the far end of a schedule no one can inspect in the abstract. -/
 
 /-- **The invariant holds at every tick a schedule reaches**, given it holds at
-    tick zero — the schedule-length induction `research/lean-support/README.md`
-    named as the remaining gap, threading `hselNodup` (and, unexpectedly,
+    tick zero: a schedule-length induction, threading `hselNodup` (and
     well-formedness rather than `hcard`) forward from `X0` instead of asking
     for it at the terminal carrier directly. -/
 theorem iterate_carrierInv {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCarrier Aux h)
@@ -610,14 +600,12 @@ theorem trace_prefix_covariance (u : Word) (id0 : QuestionId) (seed : History) (
 
 /-- **Theorem 15.5, second box (complete side exchange).**
 
-    **Superseded 2026-09-12.** This docstring used to say that a
-    `TickCarrier`-level side-exchange action `P` "is not built anywhere in this
-    tree, and nothing since has supplied it". That was true when written and is
-    no longer: `Two/SideExchange.lean` builds `TickCarrier.mirror` over all six
+    `ElementsII/S13/SideExchange.lean` builds the `TickCarrier`-level
+    side-exchange action `TickCarrier.mirror` over all six
     components, and `trace_mirror_advance_perm` there lifts this box from
     proposal generation to **the advance itself, at every tick a trace visits**.
 
-    What remains true and is kept here: both hands are proposed for every active
+    Stated here: both hands are proposed for every active
     occurrence, at every tick, so no one-sided outcome anywhere in the trace can
     be blamed on the hand labels. That is the statement below; the stronger one
     lives with the action it needs. -/
@@ -715,18 +703,15 @@ def EvTerm {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCarrier Aux h)
     `TCmp_𝒬^{(h)} = (h, S_h, EvTerm_𝒬^{(h)}, {Cand_{τ,h}(x) : x ∈ S_h})`,**
     `h > 0` case.
 
-    **Two type parameters, not one — the same split just made in `candidate`/
-    `ensemble` (`Carrier.lean`, Definition 6.4).** `evTerm`'s content is
+    **Two type parameters, matching the split in `candidate`/
+    `ensemble` (`ElementsII/S06/State.lean`, Definition 6.4).** `evTerm`'s content is
     `EvTerm`'s raw stratum, `Δℰ_h`, typed at whatever `Aux` a real running
     `Policy` actually uses for its per-tick event data; `cand`'s content is
     `Cand EvalAux`, the *evaluated* Definition 6.3 record `assembleLedger`
-    below produces. A single shared `Aux` forced these to be the same type,
-    which is exactly why the 23:30 pass could not wire `Cand`/`ensemble` to a
-    real `Policy` without inventing a raw event type that was secretly
-    `EvalRecord`-shaped. Neither `Policy`/`AdvanceData`/`TickCarrier` nor
-    `EvTerm` needed to change: none of them ever reads the evaluated ledger,
-    so nothing about `Aux`'s existing meaning there was wrong, only `TCmp`'s
-    reuse of one binder for two different things. -/
+    below produces. A single shared `Aux` would force these to be the same
+    type, and so force a raw event type shaped like `EvalRecord`.
+    `Policy`, `AdvanceData`, `TickCarrier` and `EvTerm` never read the
+    evaluated ledger, so each keeps one `Aux`. -/
 structure TCmp (RawAux EvalAux : Type) (h : ℕ) where
   horizon : ℕ
   Sh : List QuestionId
@@ -734,9 +719,8 @@ structure TCmp (RawAux EvalAux : Type) (h : ℕ) where
   cand : List (Cand EvalAux)
 
 /-- **Definition 16.1's record, assembled**, `h > 0` case. `evalLedger` is
-    still an explicit parameter — `TCmp.of` does not decide how it was built —
-    but `TCmp.ofAssembled` below supplies it for real, from `assembleLedger`,
-    rather than leaving it a hypothesis. -/
+    an explicit parameter (`TCmp.of` does not decide how it was built);
+    `TCmp.ofAssembled` below supplies it from `assembleLedger`. -/
 def TCmp.of {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h) (X0 : TickCarrier RawAux h)
     (hX0 : Seeded X0) (hh : 0 < h)
     (evalLedger : List (QuestionId × EvalRecord EvalAux)) : TCmp RawAux EvalAux h where
@@ -762,14 +746,13 @@ def TCmp.of {RawAux EvalAux : Type} {h : ℕ} (pol : Policy RawAux h) (X0 : Tick
 
 /-! ## Assembling Definition 6.3's evaluated ledger from §7–§10
 
-    The 23:30 pass's own finding, closed here (01:30 pass) for nine of
-    `EvalRecord`'s fourteen `Slot Aux` fields, then a tenth (05:30 pass,
-    `dWalk`): `TickCarrier.ledger`/`AdvanceData.Δ` stay at the raw stratum
-    (nothing about that was wrong), and what was missing was a function
+    Ten of `EvalRecord`'s fourteen `Slot Aux` fields, `dWalk` among them, are
+    filled here. `TickCarrier.ledger`/`AdvanceData.Δ` stay at the raw stratum,
+    and the evaluated record is a function
     reading a `Core`'s own stored fields plus the carrier's declared observer
-    against §7–§10's now-built comparison, coherence, admission and
-    causal-pair machinery. Four slots stay `.notEvaluated`, and each is left
-    for a named reason rather than papered over — see `EvalRecord.assemble`. -/
+    against §7–§10's comparison, coherence, admission and
+    causal-pair machinery. Four slots stay `.notEvaluated`, each
+    for a named reason: see `EvalRecord.assemble`. -/
 
 /-- **Definition 9.4/9.8's channel reading, with `Fin k` erased to a raw
     phase index.** `EvalValue` is deliberately closed and non-parametric, the
@@ -784,15 +767,15 @@ inductive ChanReading where
   | unresolvedMultiple
 deriving DecidableEq
 
-/-- One sum type standing in for `EvalRecord`'s shared `Aux` parameter, now
-    that §7–§10 exist and nine slots have a genuine value to carry. One
+/-- One sum type standing in for `EvalRecord`'s shared `Aux` parameter,
+    carrying the values §7–§10 give the evaluated slots. One
     constructor per **kind** of value, not one per field: `tension` and `lCF`
     both produce `List (IPres × ℕ)` and share `natSig`, since which `EvalRecord`
     field holds a value is what names its meaning, not which constructor built
     it — the same reading `Slot`'s own docstring already gives `Aux`.
 
-    **Three more constructors, added when `admission`/`channel`/`liftStatus`
-    close.** `admCert` carries Definition 11.3's certificate fields directly
+    **Three constructors for `admission`/`channel`/`liftStatus`.** `admCert`
+    carries Definition 11.3's certificate fields directly
     (`negLoad`, the retained vector as `List Bool`, the Boolean reading, the
     admission bit, the exact blocking set) rather than the existing `AdmCert
     Aux` wrapper from `Advance.lean`: `AdmCert`'s own `gamma : List Aux` would
@@ -835,7 +818,7 @@ def activeFamily {Aux : Type} {h : ℕ} (X : TickCarrier Aux h) : List IPres :=
 
 /-- **Definition 7.4's `D_walk` family.** `dwalk` is stated on the observer-
     local *words* `a_z`, not on the decoded `IPres` addresses every other
-    signature in this file is keyed by — the gap the 01:30 pass named.
+    signature in this file is keyed by.
     `localOf` and `localWord` factor through the same `lambda := localWord.map
     r`, so wherever `localOf X c` is `some`, `localWord` for that same `c` is
     `some` too (`activeFamilyWords_map_fst` below); no separate admission test
@@ -887,7 +870,7 @@ def causalPairOf (c : Core) : Option CausalRecord :=
 
     `admission`/`admCert`, `channel`, `liftStatus` all name apparatus the book
     itself calls *declared*, not apparatus this tree invents on their behalf:
-    2427–2429 of the v0.22 text, *"A finite-channel record is evaluated only
+    Elements II, Definition 11.5, *"A finite-channel record is evaluated only
     when that channel belongs to the receiver data. A lift record is
     evaluated only when a sign-sensitive lift predicate has been declared.
     Otherwise the corresponding slot is `not-evaluated`."* Each structure
@@ -953,9 +936,9 @@ theorem channelReading_resolved_reconstructs {C Q : Mat2} {k : ℕ} {j : Fin k}
     * `sigma`/`tension`/`lCF` — Definition 7.4's three signatures against
       `activeFamily X`, once `c`'s own local address exists.
     * `dWalk` — Definition 7.4's fourth signature, `D_walk`, against
-      `activeFamilyWords X` and `c`'s own local **word**; the 01:30 pass's
-      gap (`activeFamily` kept only the decoded address) closes by pairing
-      the word alongside it rather than by any new decoding.
+      `activeFamilyWords X` and `c`'s own local **word**; `activeFamily`
+      keeps only the decoded address, so the word is paired alongside it,
+      with no new decoding.
     * `starC`/`supportStatus` — Definition 8.1's exact coherence and
       Definition 8.1's support test, same family.
     * `omega` — Definition 9.x's winding, `X.observer.word` against `c`'s own
@@ -974,8 +957,7 @@ theorem channelReading_resolved_reconstructs {C Q : Mat2} {k : ℕ} {j : Fin k}
       count (§9), and `liftStatus` additionally a declared central lift
       selection — which Elements II's own §31.3 open list names as
       unresolved *at the book level*, "general central-lift selection when no
-      lift field or predicate is supplied." Not this tree's gap to close
-      unattended.
+      lift field or predicate is supplied."
 
     **All three are filled by `EvalRecord.assembleWith` below, when the
     caller supplies the declared apparatus each one names.** §31.3's open
@@ -1081,8 +1063,8 @@ def assembleLedgerWith {Aux : Type} {h : ℕ} (X : TickCarrier Aux h)
   (X.archive.filter fun c => decide (c.id ∈ X.active)).map fun c =>
     (c.id, EvalRecord.assembleWith X c adm chanD liftD)
 
-/-- **Definition 16.1's record, with the evaluated ledger no longer a
-    hypothesis.** `TCmp.of`'s `evalLedger` parameter is now `assembleLedger`
+/-- **Definition 16.1's record, with the evaluated ledger computed.**
+    `TCmp.of`'s `evalLedger` parameter is `assembleLedger`
     applied to the terminal carrier itself — real data computed from the
     schedule that reached it, not supplied from outside. -/
 def TCmp.ofAssembled {Aux : Type} {h : ℕ} (pol : Policy Aux h) (X0 : TickCarrier Aux h)
@@ -1110,11 +1092,9 @@ built, and it is supplied when (not if) one of these three seeds a running
 **One field the book's own six conditions do not pin down: `depth` (`N`,
 the cavity bound).** Nothing in this tree reads `TickCarrier.question.depth`
 — `advanceCarrier` (`Advance.lean`) carries `question` through unchanged
-(`question := X.question`) and never inspects it, the same species of
-unwired passthrough §16.1's own account found at `Cand`/`ensemble`. Set to
-`sevenTickHorizon` here, matching `horizon`, as a placeholder with no
-computational effect anywhere in this tree yet — not a book divergence,
-since the book names no value for it either. -/
+(`question := X.question`) and never inspects it. Set to
+`sevenTickHorizon` here, matching `horizon`; it has no
+computational effect in this tree, and the book names no value for it. -/
 
 /-- The one seed's own identifier, fixed and arbitrary: Definition 16.4
     declares exactly one seed per question and names no other. -/

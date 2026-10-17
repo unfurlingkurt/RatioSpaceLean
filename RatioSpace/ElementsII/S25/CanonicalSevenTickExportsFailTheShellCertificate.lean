@@ -5,21 +5,21 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S25.Shell
 /-!
-  Gap G2-32 — Elements II §25, Corollary 25.9, Canonical seven-tick cycles do
-  not automatically form shells: the "vertex-linked" clause.
+  Elements II §25, Corollary 25.9, Canonical seven-tick exports fail the shell
+  certificate under the identity reception: the "vertex-linked" clause.
 
-  **Book statement (v0.22, item 2).** *"each side-selected root seven-tick
-  singleton exports six vertex-linked faces, and each face-bearing singleton
-  𝒬_LL, 𝒬_RR exports seven"*. Proof: *"Proposition 22.10 gives the face
+  **Book statement (item 2).** *"each side-selected root seven-tick
+  singleton attaches and records six vertex-linked faces, and each face-bearing
+  singleton 𝒬_LL, 𝒬_RR records seven"*. Proof: *"Proposition 22.10 gives the face
   counts, and Theorem 25.8 gives the incidence obstruction."* "Vertex-linked"
   is Theorem 23.8's sense: faces `f_k`, `f_ℓ` of one committed lineage share
   exactly `x_k` when `ℓ = k + 1` and nothing when `ℓ > k + 1`, so the
   event-indexed family is "vertex-linked in a chain".
 
-  **What was missing.** `cor_25_9_side` and `cor_25_9_lone` state the counts
-  six and seven and incidence one, not that the recorded faces are
-  vertex-linked. `lineage_vertices` (Theorem 23.8, vertices) was not composed
-  with `traces_on_lineage` and the attached event lists `2..7` and `1..7`.
+  **The vertex-linked clause.** `cor_25_9_side` and `cor_25_9_lone` state the
+  counts six and seven and incidence one. The clause that the recorded faces
+  are vertex-linked composes `lineage_vertices` (Theorem 23.8, vertices) with
+  `traces_on_lineage` and the attached event lists `2..7` and `1..7`.
 
   **Built here.**
   * `ledger_evJ`: the event positions of the recorded ledger are exactly the
@@ -36,7 +36,7 @@ import RatioSpace.ElementsII.S25.Shell
     no vertex with any record two or more places later: a vertex-linked chain.
   * `cor_25_9_side_linked`, `cor_25_9_lone_linked`: on the recorded ledgers of
     the four singleton traces, positions are book events `2..7` (side) and
-    `1..7` (lone), and the ledgers are vertex-linked chains, with the existing
+    `1..7` (lone), and the ledgers are vertex-linked chains, with the
     counts and incidence-one conclusions carried alongside.
 -/
 set_option linter.style.longLine false

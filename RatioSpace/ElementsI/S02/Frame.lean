@@ -12,21 +12,19 @@ import Mathlib.Tactic.Linarith
 
   Definitions 2.1 through 2.5 and Proposition 2.1, built the way the book builds
   them: **a frame is an ordered pair of presentations in contact, and the matrix
-  is derived notation.** Def 2.2 says so directly. The previous version of this
-  file made the four integers primitive and recovered the pair afterwards, which
-  keeps the value and drops the relation that produced it.
+  is derived notation.** Def 2.2 says so directly. Making the four integers
+  primitive would keep the value and drop the relation that produced it.
 
-  Two consequences of putting the pair first, and they are the reason for it:
+  Two consequences of putting the pair first:
 
-    * Contact is no longer a theorem, it is a field. `det_walk` used to prove
-      that no word of steps can break contact. Now no term of type `Frame` can
-      be written that does not have it, so the walk cannot break what it cannot
-      construct. The old theorem survives below as a one-line corollary.
+    * Contact is a field, not a theorem. No term of type `Frame` can be written
+      that does not have it, so the walk cannot break what it cannot construct.
+      `det_walk` below, that no word of steps breaks contact, is a one-line
+      corollary.
 
-    * `stepL` and `stepR` were interchanged relative to Def 2.4 and Def 3.1.
+    * `stepL` and `stepR` follow Def 2.4 and Def 3.1.
       `M_F L` puts the mediant in the FIRST column, the `C₊` column, so
-      `F_L = (C₋ ⊕ C₊, C₋)`. The old `stepL` overwrote the second column, which
-      is `F_R`. Corrected here to the book's convention. The Def 3.1 check,
+      `F_L = (C₋ ⊕ C₊, C₋)`; overwriting the second column gives `F_R`. The Def 3.1 check,
       `M_F L = M_{F_L}` and `M_F R = M_{F_R}` with the matrices `L` and `R`
       themselves, is `Frame.toMat2_stepL` / `Frame.toMat2_stepR` in `Walk.lean`
       (it needs `Mat2` and `Frame.toMat2`, which this file does not import). `stepL_matrix` and
@@ -65,8 +63,8 @@ def Contact (A B : Pres) : Prop := A.p * B.q = A.q * B.p + 1
 instance : DecidableRel Contact := fun A B => by unfold Contact; infer_instance
 
 theorem contact_iff_delta_one (A B : Pres) : Contact A B ↔ Delta A B = 1 := by
-  -- 2026-09-22: `omega` over the cast equation in place of `push_cast`/`linarith`/`exact_mod_cast`,
-  -- which reached `Classical.choice`; this lemma sits under every frame determinant.
+  -- `omega` over the cast equation: `push_cast`/`linarith`/`exact_mod_cast` reach
+  -- `Classical.choice`, and this lemma sits under every frame determinant.
   unfold Contact Delta
   constructor
   · intro h
@@ -97,7 +95,7 @@ theorem contact_swap_neg {A B : Pres} (h : Contact A B) : Delta B A = -1 := by
     `Contact A B` (`Δ(A,B) = +1`) holds exactly when `B ≺ A` (Def 1.6) and the two
     are in primitive Farey contact (`Δ = ±1`, Def 2.1): adjacency fixes `|Δ| = 1`
     and the order fixes its sign. So the determinant field of `Frame` says no more
-    and no less than the book's hypothesis. Elements I gap G1-01. -/
+    and no less than the book's hypothesis. -/
 theorem contact_iff_lt_primitiveContact (A B : Pres) :
     Contact A B ↔ (Pres.Lt B A ∧ PrimitiveContact A B) := by
   constructor
@@ -175,9 +173,7 @@ theorem mediant_primitive {A B : Pres} (h : Contact A B) :
     components are strictly positive: contact reads `A.p * B.q = A.q * B.p +
     1`, so `A.p = 0 ∧ B.p = 0` forces `0 = 1` on that equation, and the `q`
     case is symmetric. `mediant_primitive` above is the coprimality half of
-    the same pair; this is the positivity half. Depth.lean's `ip` witnesses
-    stand in for it today by naming presentations directly, because this fact
-    did not yet exist — the comment there says so. -/
+    the same pair; this is the positivity half. -/
 theorem mediant_pos {A B : Pres} (h : Contact A B) :
     0 < (Pres.mediant A B).p ∧ 0 < (Pres.mediant A B).q := by
   have hc : A.p * B.q = A.q * B.p + 1 := h
@@ -277,8 +273,7 @@ def stepR (F : Frame) : Frame :=
 
 /-- The four entries of `F_L`'s matrix, by unfolding (`rfl`): the mediant sits
     in the FIRST column. The matrix `L` does not appear here. The Definition 3.1
-    conformance `M_F L = M_{F_L}` is `Frame.toMat2_stepL` in `Walk.lean`
-    (audit E1-A6). -/
+    conformance `M_F L = M_{F_L}` is `Frame.toMat2_stepL` in `Walk.lean`. -/
 @[simp] theorem stepL_matrix (F : Frame) :
     (stepL F).matrix =
       ((((F.plus.p + F.minus.p : ℕ) : ℤ), ((F.plus.q + F.minus.q : ℕ) : ℤ)),
@@ -286,8 +281,7 @@ def stepR (F : Frame) : Frame :=
 
 /-- The four entries of `F_R`'s matrix, by unfolding (`rfl`): the mediant sits
     in the second column. The matrix `R` does not appear here. The Definition 3.1
-    conformance `M_F R = M_{F_R}` is `Frame.toMat2_stepR` in `Walk.lean`
-    (audit E1-A6). -/
+    conformance `M_F R = M_{F_R}` is `Frame.toMat2_stepR` in `Walk.lean`. -/
 @[simp] theorem stepR_matrix (F : Frame) :
     (stepR F).matrix =
       (((F.plus.p : ℤ), (F.plus.q : ℤ)),
@@ -300,10 +294,9 @@ def select (F : Frame) (right : Bool) : Frame := if right then stepR F else step
 /-- A walk: a word of side selections, folded from the left, oldest first. -/
 def walk (F : Frame) (w : List Bool) : Frame := w.foldl select F
 
-/-- **Contact is a walk invariant.** This was the load-bearing theorem of the old
-    file, proved by induction over the word. With the pair primitive it is a
-    corollary of the type: every `Frame` is in contact, and `walk` returns a
-    `Frame`. The induction is gone because there is nothing left to induct on. -/
+/-- **Contact is a walk invariant.** With the pair primitive it is a corollary
+    of the type: every `Frame` is in contact, and `walk` returns a `Frame`, so
+    no induction over the word is needed. -/
 theorem det_walk (F : Frame) (w : List Bool) : (walk F w).det = 1 :=
   det_eq_one _
 
@@ -318,7 +311,7 @@ theorem walk_mid_pos (F : Frame) (w : List Bool) :
   mediant_pos (walk F w).contact
 
 /-- **A walk one step longer is one more `select` on the walk so far.** Plain
-    unfolding of `foldl` over `++`, kept as a named lemma because D-06's
+    unfolding of `foldl` over `++`, kept as a named lemma because the
     Fibonacci-mediant theorem below needs to peel one letter at a time from a
     word built by appending, not by consing. -/
 theorem walk_append (F : Frame) (w : List Bool) (x : Bool) :
@@ -356,7 +349,7 @@ example : stepL empty ≠ stepR empty := by decide
 
 /-! ### Definition 5.7's continued-fraction clause — the walk that never closes
 
-    D-06 (`research/lean-support/DIVERGENCE.md`). Def 5.7 names `φ = [1;1,1,...]`
+    Elements I, Definition 5.7 names `φ = [1;1,1,...]`
     in the continued-fraction completion. The substrate object under that
     sentence is not a limit: it is the word `RLRLRL...`, which never closes,
     walked from `F_∅` by Def 2.4's own mediant construction, and its successive

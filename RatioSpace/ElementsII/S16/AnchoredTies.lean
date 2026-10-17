@@ -24,8 +24,9 @@ import RatioSpace.ElementsII.S16.Anchored
     equal anchored coherence values (`remark_16_18_support_anchor_tie_root`).
 
   What this file does not state: that under the support profile a tie occurs
-  at any question other than the root. A script scan of all seeds of length at
-  most 7 over 7 ticks finds none (only the root pair appears), so for that
+  at any question other than the root. An exhaustive search, not formalised
+  here, of all seeds of length at most 7 over 7 ticks finds none (only the
+  root pair appears), so for that
   profile the statement decided here is the root tie kept, not a tie at
   another question.
 -/

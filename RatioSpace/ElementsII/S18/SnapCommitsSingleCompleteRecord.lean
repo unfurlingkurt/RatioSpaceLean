@@ -14,12 +14,11 @@ import RatioSpace.ElementsII.S14.Conservation
   reduce the answer to `π_r(x*)`, `C_{h-1}^{(O)}(x*)`, a closure class, or any
   other partial reading."*
 
-  **What was missing.** `snap_isSome_iff` is hypothesis-free but only says the
-  snap is defined where `crystallize` is; that this is the singleton stratum
-  needed `Nodup` at the terminal carrier. The negative clause had a witness for
-  the closure class only.
+  `snap_isSome_iff` is hypothesis-free and says the snap is defined where
+  `crystallize` is; that this is the singleton stratum needs `Nodup` at the
+  terminal carrier.
 
-  **Built here.**
+  **Statements.**
   * `snap_some_singleton`: with **no hypothesis**, a defined snap sits on a
     terminal support whose archive filter is one core `x`, and it commits
     exactly `candidate (Term) evalLedger x` with the whole report.

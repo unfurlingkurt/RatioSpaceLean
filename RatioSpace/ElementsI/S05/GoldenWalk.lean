@@ -12,7 +12,7 @@ import RatioSpace.ElementsI.S05.Zphi
   `Frame.lean`'s `mid_altWord_fib` proves the middles of the walk that never
   closes are the Fibonacci presentations `F(n+2) : F(n+1)`. It says nothing
   about `φ`. `Zphi.lean` has `φ` and says nothing about the walk. This file
-  connects the two (audit 2026-09-26, E1-A3).
+  connects the two.
 
   The connection is the **contact** of a presentation `p : q` with `φ`, the
   element `p - qφ` of `ℤ[φ]`. It is exact, and no quotient `p / q` is formed:
@@ -66,7 +66,7 @@ theorem negOne_pow (m : ℕ) : ((-1 : Zphi)) ^ m = ⟨(-1) ^ m, 0⟩ := by
   | zero => rfl
   | succ k ih => rw [pow_succ, ih]; ext <;> simp [pow_succ]
 
-/-- **The audit's fix, first half.** `F(n+2) - F(n+1)φ = (−φ⁻¹)^(n+1)` in
+/-- **The connection, first half.** `F(n+2) - F(n+1)φ = (−φ⁻¹)^(n+1)` in
     `ℤ[φ]`, from the closed form for the negative powers (`phiNegPow_eq`). -/
 theorem fib_sub_fib_mul_phi (n : ℕ) :
     (⟨Nat.fib (n + 2), -(Nat.fib (n + 1) : ℤ)⟩ : Zphi) = (-phiInv) ^ (n + 1) := by

@@ -9,10 +9,8 @@ import RatioSpace.ElementsI.S05.Depth
   box of components 1 to 6, proved by the kernel.
 
   `Depth.lean` proves that `T_end` is not a metric with two witnesses
-  (`Tend_not_triangle`, `Tend_not_triangle_again`). The ledger's Def 5.4 row
-  also reported an exhaustive count, "5,332 of 46,656 triples violate", that
-  came from `experiments/tend_triangle_search.py` and stood in a Lean ledger
-  with no Lean behind it (audit 2026-09-26, E1-A15). This file proves it.
+  (`Tend_not_triangle`, `Tend_not_triangle_again`). This file proves the
+  exhaustive count: 5,332 of the 46,656 triples in the box violate it.
 
   What is proved, over `boxPres 6`, the 36 interior presentations `p:q` with
   `1 ≤ p, q ≤ 6` (presentations, not values: `1:1` and `2:2` are both in it):
@@ -53,8 +51,8 @@ theorem boxPres_six_length : (boxPres 6).length = 36 := by decide
 
 theorem boxTriples_six_length : (boxTriples 6).length = 46656 := by decide +kernel
 
-/-- **5,332 of the 46,656 triples violate the triangle inequality.** The
-    ledger's former script count, now the kernel's. -/
+/-- **5,332 of the 46,656 triples violate the triangle inequality.** The count
+    is the kernel's evaluation. -/
 theorem Tend_box_six_violations :
     ((boxTriples 6).filter TendViolates).length = 5332 := by decide +kernel
 

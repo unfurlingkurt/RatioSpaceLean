@@ -6,13 +6,12 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S25.Shell
 import RatioSpace.ElementsII.S33.Export
 /-!
-  Gap G2-31 · Elements II Definition 25.4, declared global attaching reception:
+  Elements II Definition 25.4, declared global attaching reception:
   "The identity reception on stable occurrence keys is always a valid prequotient case."
 
-  `gid_admissible` (`Two/Shell.lean`) proves `Γ_id` admissible for any face ledger given two
+  `gid_admissible` (`Shell.lean`) proves `Γ_id` admissible for any face ledger given two
   hypotheses, distinct face keys and triadic nondegeneracy of every record, and
-  `gid_lineage_admissible` discharges both for a one-lineage ledger. Nothing discharged them
-  for an archival or active family drawn from several lineages or cycles.
+  `gid_lineage_admissible` discharges both for a one-lineage ledger.
 
   This file discharges both from the book's own hypothesis, stable (distinct) occurrence keys,
   for any family of faces recorded by Definition 23.5 from well-keyed inputs. No lineage is
@@ -35,7 +34,6 @@ import RatioSpace.ElementsII.S33.Export
   the whole recorded history is the recording discipline of Theorem 23.6 carried across
   applications, stated here as the hypothesis it is; the n-fold cross-cycle theorem reduces it
   to per-application distinctness plus distinct cycle tags.
-  No existing declaration is changed.
 -/
 set_option linter.style.longLine false
 

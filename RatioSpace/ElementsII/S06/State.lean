@@ -292,17 +292,12 @@ structure Cand (Aux : Type) where
 /-- **Definition 6.4.** The realization at one occurrence.
 
     **Two type parameters, not one.** `X`'s own raw stratum (`TickCarrier
-    Aux`'s `ledger`/`Aux`, Definition 6.2's *undigested* per-tick data) and
-    `ledger`'s evaluated payload (`EvalRecord`'s `Aux`, Definition 6.3's
-    per-occurrence record) are different things that happened to share one
-    binder name here since the day this file was written — `candidate` never
-    reads `X.ledger`, only `X.archive`/`X.active`, so nothing forced the
-    identification. Left unnoticed until Definition 16.1 needed to instantiate
-    them differently (a real running `Policy`'s raw event type is not
-    `EvalRecord`-shaped) and could not: `Cand Aux` and `TickCarrier Aux h`
-    disagreeing about what `Aux` means is Definition 6.4's own instance of the
-    wiring gap `e2-16-1-terminal-carrier-and-comparison-record.md` names one
-    level up, not a new defect. -/
+    RawAux`'s `ledger`, Definition 6.2's *undigested* per-tick data) and
+    `ledger`'s evaluated payload (`EvalRecord`'s `EvalAux`, Definition 6.3's
+    per-occurrence record) are different things. `candidate` never
+    reads `X.ledger`, only `X.archive`/`X.active`, so nothing identifies
+    them, and Definition 16.1 instantiates them differently: a running
+    `Policy`'s raw event type is not `EvalRecord`-shaped. -/
 def candidate {RawAux EvalAux : Type} {h : ℕ} (X : TickCarrier RawAux h)
     (ledger : List (QuestionId × EvalRecord EvalAux)) (x : Core) : Cand EvalAux where
   core := x
@@ -536,7 +531,7 @@ def Core.piR (c : Core) : Pres := c.addr
     relation projection `π_r : H ↦ H.addressed` outright (`Question.lean`,
     `addressed_not_injective`'s neighbourhood) — a seed's frame together with
     the relative word reached from it is exactly the `History` a `Core`
-    carries, just not packaged as one until now. -/
+    carries, packaged here as one. -/
 def Core.toHistory (c : Core) : History := ⟨c.seed.frame, c.relWord⟩
 
 /-- **The two conventions are one function.** `π_r` at the occurrence level

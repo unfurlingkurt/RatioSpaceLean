@@ -9,9 +9,9 @@ import RatioSpace.ElementsII.S16.CrystallizationPattern
   Elements II §16 Theorem 16.11: the bridge from Step 1's coefficient
   combinations to the tree's one-tick support.
 
-  `Two/Beat11.lean` proved Step 1 on `grand F = [M_F(1,3), M_F(2,3), M_F(3,2),
-  M_F(3,1)]`, which are coefficient combinations and not occurrences. Its header
-  names two gaps. This file closes both at a sibling step, at observer `ε`.
+  `ClosurePattern.lean` proves Step 1 on `grand F = [M_F(1,3), M_F(2,3), M_F(3,2),
+  M_F(3,1)]`, which are coefficient combinations and not occurrences. This file
+  ties them to occurrences in two parts, at a sibling step, at observer `ε`.
 
   **(a) Lemma 16.10's reduction, in general.** For every frame `F` and every
   positive word `v`, `r_F(v) = M_F(a,b)` with `a:b = r(v)`: the relation `v`
@@ -50,20 +50,19 @@ import RatioSpace.ElementsII.S16.CrystallizationPattern
   2. *`F_y` is the frame of the occurrence's word from `F_∅`.* `History.matrix`
      is `G word` with no start factor, so at observer `ε` the local address of
      a grandchild is `r(w₀ v g₁ g₂)` whatever the seed's declared start. When
-     the seed starts at `F_∅`, as in every question built so far, this is the
+     the seed starts at `F_∅`, as in every question in this tree, this is the
      core's own `frame` field (`frame_eq_of_start_empty`).
 
   **Not built here.** Step 2 (the 527 non-generic frames and the `|D| ≤ 20`
   families), Step 3 (cousin steps), observers other than `ε`, and the induction
-  assembling clauses 1-4 of the theorem. No book statement was found false in
-  this pass.
+  assembling clauses 1-4 of the theorem.
 
-  None of the theorems below uses `Classical.choice` (checked with
-  `#print axioms` in a probe importing this module). `negLoad_zero_iff_nonneg`
+  None of the theorems below uses `Classical.choice` (`#print axioms`).
+  `negLoad_zero_iff_nonneg`
   does carry choice, so admission is proved here directly on `G w`.
 -/
 -- `show` unfolds `walk`/`addressed`/`advanceCarrier` into the shape the
--- rewrites act on, as in `Two/Contrast.lean`.
+-- rewrites act on, as in `Contrast.lean`.
 set_option linter.style.show false
 
 namespace RatioSpace

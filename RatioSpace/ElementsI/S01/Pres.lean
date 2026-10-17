@@ -39,8 +39,7 @@ namespace Pres
 /-- **Definition 1.3 — Presentation equality.** Componentwise, and it is the
     type's own `=` (decided by the `DecidableEq Pres` derived above): two
     presentations are equal exactly when their components are equal. The whole
-    point is that `1:2 ≠ 2:4`. (Stated 2026-09-30, audit E1-A12: this was the
-    placeholder `example : True := trivial`.) -/
+    point is that `1:2 ≠ 2:4`. -/
 theorem eq_iff {A B : Pres} : A = B ↔ A.p = B.p ∧ A.q = B.q :=
   ⟨fun h => h ▸ ⟨rfl, rfl⟩, fun ⟨hp, hq⟩ => by cases A; cases B; simp_all⟩
 
@@ -140,9 +139,8 @@ theorem lt_irrefl (A : Pres) : ¬ Lt A A := by unfold Lt; omega
     > exactly when `p:q ∼ r:s`. Thus the equality induced by this value order is
     > proportional equivalence, not presentation equality.
 
-    Filed as `DIVERGENCE.md` D-03: the tree had `Lt`, its `DecidableRel`
-    instance and `lt_irrefl`, and this claim was absent. Irreflexivity is a much
-    weaker fact and does not imply it.
+    Irreflexivity of `Lt` (`lt_irrefl`) is a much weaker fact and does not
+    imply it.
 
     **Proved without the positivity hypothesis, which is a strengthening.** The
     book restricts to positive second components; on ℕ the equivalence is
@@ -181,21 +179,19 @@ theorem incomparable_iff_prop_of_pos {A B : Pres} (_hA : 0 < A.q) (_hB : 0 < B.q
     **Written without division, and that is not a stylistic choice.** The
     obvious rendering `(A.p : ℚ) / (A.q : ℚ)` routes through `Rat.normalize`,
     which carries `Classical.choice` — in core Lean, with no Mathlib imported,
-    checked. So every constant mentioning `realize` inherited choice, and the
-    import was unearned: `normalize`'s entire job is to reduce a fraction, and
-    `reduce` has already done exactly that, exactly, on ℕ, with
-    `reduce_primitive` in hand. The reduction was being discarded and
-    re-derived by machinery we do not need.
+    checked. So every constant mentioning such a `realize` would inherit choice,
+    and the import is unearned: `normalize`'s entire job is to reduce a fraction,
+    and `reduce` has already done exactly that, exactly, on ℕ, with
+    `reduce_primitive` in hand.
 
     `Rat.mk'` takes the numerator, the denominator, and the two obligations
     directly. Both are discharged from our own reduction. Nothing is
     approximated and the map is the same map.
 
-    **The `q = 0` case** (superseded as a "convention": it is a divergence from
-    the book, `DIVERGENCE.md` D-02; see the Def 1.7 block below). Def 1.7's
-    codomain is `ℚ≥0 ∪ {∞}` and ℚ has no `∞`, so the improper presentation is
-    sent to `0`. The previous definition did the same thing silently, since
-    `p / 0 = 0` in Lean; here it is visible in the code. -/
+    **The `q = 0` case** (the book's codomain is the Def 1.7 block below).
+    Def 1.7's codomain is `ℚ≥0 ∪ {∞}` and ℚ has no `∞`, so the improper
+    presentation is sent to `0`, as `p / 0 = 0` in Lean; here it is visible in
+    the code. -/
 def realize (A : Pres) : ℚ :=
   let R := reduce A
   if h : R.q = 0 then Rat.mk' 0 1 (by decide) (by decide)
@@ -205,8 +201,8 @@ def realize (A : Pres) : ℚ :=
         simpa [Nat.Coprime] using hp)
 
 /-- `reduce` kills the denominator exactly when it was already dead. Needed to
-    see that the `q = 0` convention in `realize` fires on the same inputs the
-    old division-based definition sent to `0`. -/
+    see that the `q = 0` case in `realize` fires on the same inputs that the
+    division `p / q` sends to `0`. -/
 theorem reduce_q_eq_zero_iff (A : Pres) : (reduce A).q = 0 ↔ A.q = 0 := by
   constructor
   · intro h
@@ -226,8 +222,7 @@ theorem mk'_eq_div (n : ℤ) (d : ℕ) (h : d ≠ 0) (c : n.natAbs.Coprime d) :
 /-- **`realize` never produces a negative rational.** `reduce`'s numerator is a
     cast from `ℕ`, so unlike a general `Rat.mk'` there is no sign to lose. This
     is what lets `ProjValue.finite`'s carrier be Def 1.7's own `ℚ≥0`, not all of
-    `ℚ` (`DIVERGENCE.md` D-02's remaining defect: the codomain as first written
-    admitted `ProjValue.finite (-1)`, wider than the book declares). -/
+    `ℚ`. -/
 theorem realize_nonneg (A : Pres) : 0 ≤ realize A := by
   dsimp only [realize]
   split
@@ -261,9 +256,8 @@ theorem realize_eq_div (A : Pres) : realize A = (A.p : ℚ) / (A.q : ℚ) := by
 
     `realize` above lands in `ℚ`, which has no `∞`, so it sends the improper
     presentation to `0` and thereby reads the two orientation anchors of Def 1.2
-    the same way. **That is a divergence from the book, not a convention**
-    (`DIVERGENCE.md` D-02): Def 1.7's codomain is `ℚ≥0 ∪ {∞}`, and `ν(1:0) = ∞`
-    while `ν(0:1) = 0`.
+    the same way. **The book reads them apart**: Def 1.7's codomain is
+    `ℚ≥0 ∪ {∞}`, and `ν(1:0) = ∞` while `ν(0:1) = 0`.
 
     The codomain is written as a named two-constructor type rather than as
     `Option ℚ`. `Option`'s `none` reads as *absence of a value*; the book's `∞`
@@ -278,9 +272,8 @@ theorem realize_eq_div (A : Pres) : realize A = (A.p : ℚ) / (A.q : ℚ) := by
     `reduce_eq_of_prop`. -/
 
 /-- **Definition 1.7's codomain.** `ℚ≥0 ∪ {∞}`. The finite carrier is the
-    nonnegative rationals themselves, not all of `ℚ`: Tali's check on the first
-    repair (2026-08-25) found `ProjValue.finite (-1)` compiled, a codomain wider
-    than the book's, even though `nu` itself never produced a negative value.
+    nonnegative rationals themselves, not all of `ℚ`, so no negative finite
+    reading can be formed.
     `Repr` is dropped rather than derived here: nothing downstream prints a
     `ProjValue`, and a manual instance would be new surface for no user. -/
 inductive ProjValue where
@@ -408,8 +401,8 @@ theorem nu_injective_on_primitive {A B : Pres} (hA : Primitive A) (hB : Primitiv
 /-! #### The two orientation anchors, separated
 
     `F_∅ = (1:0, 0:1)` is the canonical frame of Def 2.2 precisely because its
-    two endpoints are not the same thing. Under `realize` they were, which is
-    what D-02 recorded. Under `ν` they are not. -/
+    two endpoints are not the same thing. Under `realize` they are read the
+    same. Under `ν` they are not. -/
 
 /-- The left orientation anchor, `1:0`. -/
 def anchorBoundary : Pres := ⟨1, 0, by decide⟩
@@ -423,7 +416,7 @@ theorem nu_anchorZero :
     nu anchorZero = ProjValue.finite ⟨realize anchorZero, realize_nonneg anchorZero⟩ :=
   nu_eq_finite_of_q_ne_zero (by decide)
 
-/-- **The repair, as a compiled witness.** The anchors are not proportionally
+/-- **The anchors separated, as a compiled witness.** The anchors are not proportionally
     equivalent, `realize` reads them identically anyway, and `ν` does not. -/
 theorem nu_separates_the_anchors :
     ¬ (anchorBoundary ~ anchorZero)
@@ -477,7 +470,7 @@ theorem reduce_twoFour : reduce twoFour = oneTwo := by decide
 theorem reduce_of_primitive {A : Pres} (hA : Primitive A) : reduce A = A :=
   eq_of_prop_of_primitive (reduce_primitive A) hA (reduce_prop A)
 
-/-- **`reduce` is idempotent.** Definition 1.5 ledger row (audit E1-A8). -/
+/-- **`reduce` is idempotent.** Definition 1.5. -/
 theorem reduce_reduce (A : Pres) : reduce (reduce A) = reduce A :=
   reduce_of_primitive (reduce_primitive A)
 

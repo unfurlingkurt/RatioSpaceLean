@@ -14,11 +14,11 @@ import RatioSpace.ElementsI.S12.TheCorrespondenceObligationOverATotalUpdate
   substrate has not become continuous. Its exact cells have become unresolved
   by the chosen reception."
 
-  **What was wrong.** `ContinuumRegime Res F` was the predicate at one frame,
-  and its docstring said that matched the book. The quantifier over the
-  update's cells, and which cells those are, were not stated.
+  **The one-frame predicate.** `ContinuumRegime Res F` is the predicate at one
+  frame. The book quantifies over the update's cells, and which cells those
+  are has to be stated.
 
-  **Changed (`Continuum.lean`).** `ContinuumRegimeOn Res cells`: `Res` reads
+  **In `Continuum.lean`.** `ContinuumRegimeOn Res cells`: `Res` reads
   `false` on every cell of a declared list. `ContinuumRegime` is kept as the
   one-cell case (`continuumRegimeOn_singleton_iff`). Which cells are relevant is
   declared, not derived: `trajectoryCells U n S`, the cells of `n` steps of the
@@ -28,18 +28,15 @@ import RatioSpace.ElementsI.S12.TheCorrespondenceObligationOverATotalUpdate
   nothing. `continuumRegimeOn_nil`: an empty list is a regime for every
   receiver, and `trajectoryCells` is never empty.
 
-  **Added here** (witnesses rebuilt 2026-09-29, audit E1-B10). The first
-  version used `widthReceiver N`, resolving a cell when `q₋q₊ ≤ N`, with no
-  reception behind it; no reception can be behind it
-  (`no_boundary_reading_realizes_width_one`, `Continuum.lean`), so it is
-  removed, with `g124_L_ray_regime`. The receiver is now
-  `capacityResolution (capObserver N)`: a boundary is received when its
-  denominator is at most the observer's capacity `η_O = N`.
+  **Added here.** The receiver is `capacityResolution (capObserver N)`: a
+  boundary is received when its denominator is at most the observer's capacity
+  `η_O = N`. A width threshold, resolving a cell when `q₋q₊ ≤ N`, has no
+  reception behind it (`no_boundary_reading_realizes_width_one`,
+  `Continuum.lean`).
   * `g124_L_ray_recip`: the cell `L^k` from `F_∅` has `q₋q₊ = k`;
     `g124_L_ray_distinct`: those cells are distinct frames with distinct
-    boundaries. Kept from the first version as substrate facts; they are no
-    longer regime witnesses (at `η_O ≥ 1` every `L^k` is resolved through
-    `0:1`).
+    boundaries. These are substrate facts, not regime witnesses (at `η_O ≥ 1`
+    every `L^k` is resolved through `0:1`).
   * `g124_quantifier_bites`: at capacity `1`, one `L` step from `LR` lands in
     `LRL`, which is unresolved, so the one-frame predicate holds there, and the
     regime over the update still fails, on the start cell.
@@ -98,10 +95,7 @@ theorem stepUpdate_wState (b : Bool) (w : Word) :
 /-- **The quantifier bites.** At capacity `1`, one `L` step from the cell `LR`
     (`1:1 | 1:2`, resolved through `1:1`) lands in `LRL` (`2:3 | 1:2`), which
     the observer does not resolve: the one-frame predicate holds at the new
-    cell, and the regime over the update fails on the start cell. (Before audit
-    E1-B10 this was stated for a width threshold `q₋q₊ ≤ N` with no reception
-    behind it; `no_boundary_reading_realizes_width_one` shows no reception is
-    behind it.) -/
+    cell, and the regime over the update fails on the start cell. -/
 theorem g124_quantifier_bites :
     ContinuumRegime (capacityResolution (capObserver 1)) (wState [false, true, false]).frame
     ∧ ¬ UpdateContinuumRegime (capacityResolution (capObserver 1)) (stepUpdate false) 1
@@ -129,9 +123,8 @@ theorem g124_regime_persists (N : ℕ) (b : Bool) (S : SubstrateState)
 
 /-- **The cells of the `L` ray are distinct.** Different depths have different
     `q₋q₊`, and in each cell the two boundaries are different presentations.
-    (Until audit E1-B10 these were the cells of `widthReceiver`'s regime. Under
-    `capacityResolution` with `η_O ≥ 1` every `L^k` is resolved, through its
-    lower boundary `0:1`; the substrate-side fact stated here is unchanged.) -/
+    Under `capacityResolution` with `η_O ≥ 1` every `L^k` is resolved, through
+    its lower boundary `0:1`; this is a substrate-side fact. -/
 theorem g124_L_ray_distinct (k k' : ℕ) (h : k ≠ k') :
     (lState k).frame ≠ (lState k').frame
     ∧ (lState k).frame.plus ≠ (lState k).frame.minus := by

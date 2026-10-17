@@ -8,8 +8,8 @@ import Mathlib.Order.Basic
 /-!
   Elements II — Reception, observability, and why nothing is lost.
 
-  Kurt, 2026-08-29: *"There's no information loss. There's no disappearing. It
-  only shifts away from observability. We lose line of sight with it."*
+  The claim: *there is no information loss and no disappearing; a difference
+  only shifts away from observability, out of a receiver's line of sight.*
 
   This file checks that rather than asserting it. The result is that the
   "information loss" framing is not merely unfashionable here, it is **false**,
@@ -37,8 +37,8 @@ variable {X Y Z G : Type*}
 
 /-! ## The continuation grammar -/
 
-/-- `T_w`, with the first letter applied first — Kurt's convention, and the one
-    that makes the induction in `congruence_iff_future` run on the head. -/
+/-- `T_w`, with the first letter applied first: the convention that makes the
+    induction in `congruence_iff_future` run on the head. -/
 def run (T : G → X → X) : List G → X → X
   | [], x => x
   | g :: w, x => run T w (T g x)
@@ -68,9 +68,9 @@ def FutureSees (T : G → X → X) (O : X → Y) (x y : X) : Prop :=
 theorem futureSees_sees {T : G → X → X} {O : X → Y} {x y : X}
     (h : FutureSees T O x y) : Sees O x y := h []
 
-/-! ## Kurt's two theorems -/
+/-! ## Two congruence theorems -/
 
-/-- **Generator congruence ⟺ full future congruence.** His induction, on word
+/-- **Generator congruence ⟺ full future congruence.** By induction on word
     length, with the head as the induction variable. -/
 theorem congruence_iff_future (T : G → X → X) (O : X → Y) :
     Cong T O ↔ ∀ x y, Sees O x y → FutureSees T O x y := by

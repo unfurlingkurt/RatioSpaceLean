@@ -10,10 +10,10 @@ import RatioSpace.ElementsII.S16.Automorphism
   Proposition 16.13(3), the only tension-preserving permutation of the admitted
   family is the identity.
 
-  `Two/Automorphism.lean`'s `coherence_invariant` already reindexes a coherence
+  `Automorphism.lean`'s `coherence_invariant` already reindexes a coherence
   coherence value along a tension automorphism. This file isolates the permutation step as
   `tensions_invariant`, enumerates the two degenerate families `fam3` and `fam4`
-  of `Two/Transient.lean` by their tension histograms, and reads off that a
+  of `Transient.lean` by their tension histograms, and reads off that a
   tension-preserving permutation fixes each member: the shared histogram of the
   one degenerate pair (`LR`, `LLR` in `fam3`) is still broken by a third
   occurrence's tension against the pair, so no genuine swap survives.
@@ -27,8 +27,8 @@ open RatioSpace RatioSpace.Two RatioSpace.Two.Transient
 /-- A choice-free canonical form for a list of tension values: the count of each
     value in `0, 1, ..., 19` (every tension in `fam3`/`fam4` is below this
     bound). Permutation-equal lists have equal count signatures, by
-    `List.Perm.count_eq`, which stays within `propext`/`Quot.sound`. This is the
-    sorted-list route the task calls for, taken through counts rather than
+    `List.Perm.count_eq`, which stays within `propext`/`Quot.sound`. This is a
+    sorted-list canonical form, taken through counts rather than
     `insertionSort` (whose Mathlib lemmas pull in `Classical.choice` in this
     toolchain) and without deciding `Perm` directly (whose `List.decidablePerm`
     instance likewise pulls in choice here). -/
@@ -41,7 +41,7 @@ theorem perm_countSig {l₁ l₂ : List ℕ} (hp : l₁.Perm l₂) : countSig l�
   intro v _
   exact hp.count_eq v
 
-/-! ## Statement 8 — a tension automorphism permutes the tension list -/
+/-! ## Lemma 16.14: a tension automorphism permutes the tension list -/
 
 /-- **Lemma 16.14's permutation step.** If `σ` permutes the family and preserves
     every tension on it, then the tension list of `σ y` is a permutation of the
@@ -62,7 +62,7 @@ theorem tensions_invariant (fam : List IPres) (σ : IPres → IPres)
   rw [hrewrite] at hmap
   exact hmap.symm
 
-/-! ## Statement 9 — the three distinguished members of `fam3` -/
+/-! ## Proposition 16.15: the three distinguished members of `fam3` -/
 
 /-- `LL`, the first member of `fam3`: the mediant `1{:}3`. -/
 def LL : IPres := ⟨1, 3, by decide, by decide⟩
@@ -75,7 +75,7 @@ def LLR : IPres := ⟨2, 5, by decide, by decide⟩
 /-- **Proposition 16.15, the `fam3` histogram classes.** Two members of `fam3`
     with permutation-equal tension lists are either equal, or the one degenerate
     pair `{LR, LLR}`. Decided on the count signatures (`countSig`), bridged from
-    the `Perm` hypothesis by `perm_countSig`; report form: count signatures, not
+    the `Perm` hypothesis by `perm_countSig`; count signatures, not
     `Perm`-by-`decide` (which carries `Classical.choice` here). -/
 theorem fam3_perm_classes : ∀ y ∈ fam3, ∀ y' ∈ fam3,
     (tensions fam3 y').Perm (tensions fam3 y) →
@@ -91,7 +91,7 @@ theorem fam3_perm_classes : ∀ y ∈ fam3, ∀ y' ∈ fam3,
       | (right; right; exact ⟨rfl, rfl⟩)
       | (exfalso; revert hsig; decide))
 
-/-! ## Statement 10 — `fam4` has no histogram collision -/
+/-! ## Proposition 16.15: `fam4` has no histogram collision -/
 
 /-- **Proposition 16.15, the `fam4` histogram classes.** In `fam4` the count
     signatures are pairwise distinct, so permutation-equal tension lists force
@@ -105,7 +105,7 @@ theorem fam4_perm_classes : ∀ y ∈ fam4, ∀ y' ∈ fam4,
   fin_cases hy <;> fin_cases hy' <;>
     (intro hsig; first | rfl | (exfalso; revert hsig; decide))
 
-/-! ## Statement 11 — the only tension automorphism of `fam3` is the identity -/
+/-! ## Proposition 16.15: the only tension automorphism of `fam3` is the identity -/
 
 /-- **Proposition 16.15 for `fam3`.** A permutation of `fam3` preserving every
     tension fixes every member. `σ` maps `fam3` into itself (`hperm.subset`); by
@@ -147,7 +147,7 @@ theorem fam3_aut_trivial (σ : IPres → IPres)
     rw [hLL, hσLR, hyLLR] at hkey
     revert hkey; decide
 
-/-! ## Statement 12 — the only tension automorphism of `fam4` is the identity -/
+/-! ## Proposition 16.15: the only tension automorphism of `fam4` is the identity -/
 
 /-- **Proposition 16.15 for `fam4`.** A permutation of `fam4` preserving every
     tension fixes every member, directly from `tensions_invariant` and

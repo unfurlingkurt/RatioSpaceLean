@@ -6,10 +6,9 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S17.Terminal
 import RatioSpace.ElementsII.S08.Coherence
 /-!
-  Gap G2-04 — Elements II Proposition 4.11, a question bounds but does not force
-  an answer.
+  Elements II Proposition 4.11, a question bounds but does not force an answer.
 
-  `Two/Cavity.lean`'s `question_bounds_not_forces` is one instance of the
+  `ElementsII/S04/Cavity.lean`'s `question_bounds_not_forces` is one instance of the
   initial clause (two seeds, depth 1, no predicates, both survive). The book's
   proof is general: for every finite tagged proposal family `B` the membership
   predicate `γ_B` is exact. This file builds `γ_B` and proves both clauses from

@@ -5,17 +5,18 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-24 · Elements II Proposition 24.9, an exact repeated-renewal witness:
+  Elements II Proposition 24.9, an exact repeated-renewal witness:
   "... gives repeated renewal ... while all full matrices and receiver histories
   remain pairwise distinct."
 
-  `Two/Lifecycle.lean`'s `repeated_renewal_witness_distinct` states distinctness for
+  `Lifecycle.lean`'s `repeated_renewal_witness_distinct` states distinctness for
   the continuation `v(LR)^r` and for `G(v)G((LR)^r)`. The book's receiver histories
   are the receiver words `w_{O} = w_{xs} v (LR)^r`, and its full matrices include
   the receiver matrices `M_O = G(w_{xs} v (LR)^r)` and the transported relative
   matrices `Q_f = G(v(LR)^r)⁻¹ A_s` that the twelve-class receiver reads. This file
   states all of them, over every pair `r ≠ t`, together with the closure equality,
-  and on the packets `renewal_nonempty` uses. No existing declaration is changed.
+  and on the packets `renewal_nonempty` uses.
+
 -/
 set_option linter.style.longLine false
 

@@ -14,15 +14,14 @@ import RatioSpace.ElementsI.S06.State
   construction."
 
   So the advance enters here as an **interface**: a structure whose fields are
-  the obligations, never a Lean `axiom`. It is not taken on trust (nor, since
-  audit E1-B11, is §8's `Closure12`, inhabited by `Closure12.congruence`). The fields are
+  the obligations, never a Lean `axiom`. It is not taken on trust (nor is §8's
+  `Closure12`, inhabited by `Closure12.congruence`). The fields are
   satisfiable and the carrier is inhabited, trivially: the identity advance
   (`Crystallization.identity`) and the advance that empties every ensemble
   (`Crystallization.clear`) both meet them, and they crystallize the same
   ensemble differently (`Crystallization.carrier_does_not_fix_the_advance`).
   What is withheld is only the Elements II advance `𝔎_𝒞`, the mechanics the book
-  defers; nothing in this file assumes it (audit E1-B6 of 2026-09-26, fixed
-  2026-09-29).
+  defers; nothing in this file assumes it.
 
   The one thing the contract can be held to *here* is its output type, and that
   is what this file makes exact. Def 10.9 requires that seven ticks produce
@@ -46,7 +45,7 @@ namespace RatioSpace
     be recovered from the candidate alone.
 
     The two readings are stored, not computed, so nothing here ties them to a
-    family. The tie is `Gaps.G1_17.g117_Consistent` (Lean gap G1-17): under it,
+    family. The tie is `Gaps.G1_17.g117_Consistent` (`CandidateRecord.lean`): under it,
     `star` is Def 4.4's star and `signature` Def 5.6's signature of the relation
     against the active family, and `g117_ofFamily` builds such a record from a
     history and a family. -/
@@ -67,22 +66,18 @@ def relation (C : Candidate) : Pres := C.history.addressed
 def word (C : Candidate) : Word := C.history.word
 /-- `M_r`, the accumulated frame transform, taken relative to the history's
     declared start — Def 9.3 writes `Q_{O,r} = M_O⁻¹M_r` against `Observer.matrix`
-    (D-12, likewise start-relative), and Def 10.1's `M_r` is the same kind of
+    (likewise start-relative), and Def 10.1's `M_r` is the same kind of
     object for a candidate.
 
-    **D-16, fixed here.** Was `C.history.matrix`, `G H.word` alone, the same
-    defect pre-D-12 `Observer.matrix` had. Not fixed by changing
-    `History.matrix` itself: that field turned out to be a different, correctly
-    unrooted object Elements II Def 3.3 depends on (`Walk.lean`), not a defect
-    to repair. `History.accumulatedMatrix` is the new, separately named
-    declared-start reading, and this line now calls it. -/
+    It is `History.accumulatedMatrix`, the declared-start reading. `History.matrix`,
+    `G H.word` alone, is a different, unrooted object, the one Elements II
+    Def 3.3 depends on (`Walk.lean`). -/
 def matrix (C : Candidate) : Mat2 := C.history.accumulatedMatrix
 /-- `κ_r`, the closure record, read against the history's declared start.
 
-    **D-14, fixed here.** Was `ClosureState.ofWord C.history.word`, discarding
-    `C.history.start` the way pre-D-12 `Observer.matrix` did. Computed directly
-    from `C.history.start`/`C.history.word`, so it never depended on
-    `Candidate.matrix` above and needed no further change when D-16 closed. -/
+    Computed directly from `C.history.start`/`C.history.word`, so it keeps the
+    start that `ClosureState.ofWord C.history.word` alone would discard, and
+    does not depend on `Candidate.matrix` above. -/
 def closure (C : Candidate) : ClosureState :=
   ClosureState.of C.history.start C.history.word
 
@@ -111,7 +106,7 @@ def supp (X : Ensemble) : List Pres := (X.map Candidate.relation).dedup
 /-- The candidate records carrying a given relation. Def 10.3's unique-record
     condition is a statement about this list, not about `supp`. Deduplicated,
     because the book's ensemble is a set: a record listed twice is one record,
-    not two (audit W2 of 2026-10-01, fixed 2026-10-04). Without it the advance
+    not two. Without it the advance
     `fun X => X ++ X`, which `Crystallization.admissible` allows, would turn a
     resolving ensemble into `unresolvedMultiple`. -/
 def carriers (X : Ensemble) (r : Pres) : Ensemble :=
@@ -123,17 +118,17 @@ def carriers (X : Ensemble) (r : Pres) : Ensemble :=
     the question's active family `𝒜_τ`: the history `r` itself, Def 4.4's star
     and Def 5.6's signature of its relation against `𝒜_τ`. This is
     `Gaps.G1_17.g117_ofFamily r Q.active` (`g117_initialRecord_eq`, by `rfl`),
-    written out because that gap file imports this one. -/
+    written out because `CandidateRecord.lean` imports this one. -/
 def initialRecord (Q : Question) (r : History) : Candidate :=
   ⟨r, IPres.star r.addressedI Q.active.relations, Q.active.tensionSignature r.addressedI⟩
 
 /-- **Definition 10.1.** `𝔛_{τ,0}(𝒬_τ) = {Ξ_{τ,0}(r) | r ∈ S₀(𝒬_τ)}`, the initial
-    candidate ensemble, built from the question (audit E1-B5 of 2026-09-26,
-    fixed 2026-09-29). Deduplicated because the book's ensemble is a set:
+    candidate ensemble, built from the question. Deduplicated because the
+    book's ensemble is a set:
     `S₀` is a filter of the active family, and a history listed twice in `𝒜_τ`
     would otherwise enter as two equal records over one relation. `resolve`
-    now also counts a repeated record once, because `carriers` is deduplicated
-    (audit W2; witness `duplicate_record_resolves`). -/
+    also counts a repeated record once, because `carriers` is deduplicated
+    (witness `duplicate_record_resolves`). -/
 def initialEnsemble (Q : Question) : Ensemble :=
   ((S0 Q).map (initialRecord Q)).dedup
 
@@ -239,7 +234,7 @@ theorem two_records_one_relation_does_not_resolve :
              ⟨⟨Frame.walk Frame.empty [false], []⟩, [], []⟩]
       = Outcome.unresolvedMultiple := by decide
 
-/-- **A record listed twice is one record** (audit W2), at one witness `c0`.
+/-- **A record listed twice is one record**, at one witness `c0`.
     The ensemble is a set in the book; the list `[c0, c0]` resolves to `c0`, as
     `[c0]` does (`one_record_resolves`), and is not `unresolvedMultiple`. -/
 theorem duplicate_record_resolves :
@@ -249,9 +244,8 @@ theorem duplicate_record_resolves :
 /-- One record resolves, and returns that record rather than its value. -/
 theorem one_record_resolves (C : Candidate) :
     resolve [C] = Outcome.resolved C := by
-  -- 2026-09-22: `simp [supp]` went through `List.dedup_cons_of_notMem`, which reaches
-  -- `Classical.choice`; `rfl` computes it. The `carriers` step was already clean and is only
-  -- tightened.
+  -- `simp [supp]` would go through `List.dedup_cons_of_notMem`, which reaches
+  -- `Classical.choice`; `rfl` computes it.
   have hs : supp [C] = [C.relation] := rfl
   have hc : carriers [C] C.relation = [C] := by
     simp only [carriers, decide_true, List.filter_cons_of_pos, List.filter_nil]
@@ -263,7 +257,7 @@ theorem one_record_resolves (C : Candidate) :
 /-- **Definition 10.2, as an interface.** A completed crystallization
     mechanics supplies the one-tick advance `𝔎_𝒞`; Elements I only declares what
     it must be. **This is never a Lean `axiom`.** Not a trust carrier (nor is §8's `Closure12`,
-    built as `Closure12.congruence`, E1-B11): this one is inhabited, trivially, by `identity`
+    built as `Closure12.congruence`): this one is inhabited, trivially, by `identity`
       and `clear`
     below. What Elements I withholds is the Elements II advance, and the two
     fields do not pin it down (`carrier_does_not_fix_the_advance`); every
@@ -272,7 +266,7 @@ theorem one_record_resolves (C : Candidate) :
     The two fields are the whole of what Elements I asks. The advance is a
     function, so it is deterministic by typing rather than by assertion, and it
     introduces no relation absent from its input ensemble. That bound is at the
-    relation level only (audit M2): no question is in the type, and a candidate's
+    relation level only: no question is in the type, and a candidate's
     history and readings may be replaced, so seven ticks stay within the relations
     of the starting ensemble (`relations_do_not_grow_iterate`), not within its
     records. -/
@@ -305,7 +299,7 @@ def cryst (K : Crystallization) (X : Ensemble) : Outcome :=
 
 /-- **Definition 10.4.** `Cryst_𝒞(𝒬_τ) = resolve(𝔎_𝒞⁷(𝔛_{τ,0}(𝒬_τ)))`, a function
     of the question: the initial ensemble is `initialEnsemble Q`, built from
-    `S₀(𝒬_τ)` (audit E1-B5 of 2026-09-26, fixed 2026-09-29). -/
+    `S₀(𝒬_τ)`. -/
 def crystQ (K : Crystallization) (Q : Question) : Outcome :=
   K.cryst (initialEnsemble Q)
 
@@ -345,7 +339,7 @@ def clear : Crystallization := ⟨fun _ => [], fun _ _ hC => nomatch hC⟩
 /-- **The carrier does not fix the advance.** One ensemble, one record:
     seven identity ticks resolve it to that record, seven clearing ticks leave
     the `|S₇| = 0` case. So `Crystallization` is inhabited and does not
-    determine `𝔎_𝒞`; the advance itself is what Elements II owes (audit E1-B6). -/
+    determine `𝔎_𝒞`; the advance itself is what Elements II owes. -/
 theorem carrier_does_not_fix_the_advance (C : Candidate) :
     identity.cryst [C] = Outcome.resolved C ∧ clear.cryst [C] = Outcome.empty :=
   ⟨one_record_resolves C, resolve_nil⟩
@@ -371,7 +365,7 @@ theorem relations_do_not_grow (X : Ensemble) {C : Candidate}
     (hC : C ∈ K.advance X) : ∃ D ∈ X, C.relation = D.relation :=
   K.admissible X C hC
 
-/-- **`n` ticks never widen the represented relation set** (audit M2). Every
+/-- **`n` ticks never widen the represented relation set.** Every
     candidate of `𝔎_𝒞^n(𝔛)` carries the relation of some candidate of `𝔛`; at
     `n = horizon` this is the seven ticks. Relations only: histories and readings
     may be replaced along the way. -/
@@ -401,7 +395,7 @@ abbrev Answer := Candidate
 
     It takes the ensemble the seven ticks start from. The book's `ℱ_𝒬` is
     "induced by `Cryst_𝒞`", so at a question it is read at that question's
-    initial ensemble, `forwardResolution_initial` (audit E1-B5). -/
+    initial ensemble, `forwardResolution_initial`. -/
 def forwardResolution (K : Crystallization) (X : Ensemble) : Outcome := K.cryst X
 
 /-- At the question's initial ensemble the forward resolution is
@@ -414,15 +408,14 @@ theorem forwardResolution_initial (K : Crystallization) (Q : Question) :
     text says the literal state-update formula "remains part of the Elements II
     construction", so this is a field to be supplied and not a definition.
 
-    The carrier states no update formula, because Elements I states none. An
-    earlier field `records` fixed the history update to appending the answer's
-    word; Elements I does not say that and Elements II Definition 19.5 appends a
-    different record. That rule is now the optional convention
-    `Gaps.G1_18.g118_AppendsWord` (Lean gap G1-18).
+    The carrier states no update formula, because Elements I states none.
+    Appending the answer's word to the history is not what Elements I says, and
+    Elements II Definition 19.5 appends a different record. That rule is the
+    optional convention `Gaps.G1_18.g118_AppendsWord` (`ReturnAssimilation.lean`).
 
     What the carrier does state is Definition 10.8's premise, "return
-    assimilation changes the receiving state": the field `changes` (audit
-    E1-B7 of 2026-09-26, fixed 2026-09-28). Elements I says the state changes and does not say how,
+    assimilation changes the receiving state": the field `changes`. Elements I
+    says the state changes and does not say how,
     so the field is an inequality and nothing more. -/
 structure Assimilation where
   /-- `ℬ_𝒬 : (S_τ, Â_{τ+1}) ↦ S_{τ+1}` -/
@@ -436,7 +429,8 @@ structure Assimilation where
     resolves, the returned state differs from the received one
     (`cycle_changes_the_state`). That is the book's premise, "return
     assimilation changes the receiving state", and no more: a changed state
-    need not change the closure record (G1-23's square).
+    need not change the closure record (the correspondence square of
+    `TheCorrespondenceObligationOverATotalUpdate.lean`).
 
     `Sum.inr` carries the failure rather than discarding it, so a caller cannot
     mistake an unresolved cycle for a completed one.

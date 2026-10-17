@@ -13,9 +13,8 @@ import RatioSpace.ElementsII.S16.Capture
 
   `Capture.theorem_16_12_item3` proves this over a general `Policy`, with two
   hypotheses the book does not state: the archive is mirror-invariant at tick
-  `j`, and the policy is `PolicySideRobust`. The ledger named the route to the
-  book's form (elements-ii-ledger.md, Thm 16.12 note): a mirror-equivariance
-  lemma for `wordStep`. Here it is. At observer `ε` a run's active words after
+  `j`, and the policy is `PolicySideRobust`. The route to the book's form is a
+  mirror-equivariance lemma for `wordStep`, built here. At observer `ε` a run's active words after
   tick `j` are `wIter` of its words at `j` (`act_words_shift`), and `wordStep`
   commutes with the exchange up to storage order, because the exchange inverts
   every `ε`-address (`rI_mirror`) and the coherence value is invariant under a complete

@@ -8,7 +8,7 @@ import RatioSpace.ElementsII.S16.RootChainState
 /-!
   Elements II §16, Theorem 16.11, Step 5 — the induction, on the tick carrier.
 
-  What this file builds (2026-09-14, 00:30 work beat).
+  What this file builds.
 
   * `grand_distinct`: the four grandchild addresses `g₁ … g₄` of any frame are
     pairwise distinct. Contact (`p₁q₀ = q₁p₀ + 1`) is what forbids the two

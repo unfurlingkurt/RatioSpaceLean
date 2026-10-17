@@ -13,10 +13,11 @@ import RatioSpace.ElementsII.S02.Temporal
 
   Four things here are sharper than the prose, and each is noted at its theorem:
 
-    * **Def 3.1 needs a decoder, and Elements I did not have one.** The book
-      writes `a_x = dec₊(Q_{O,x})` as though `dec₊` were in hand; Standard Result
-      3.1 gives only *uniqueness*, which is `G_inj`. The decoder is now built in
+    * **Def 3.1 uses the decoder of Elements I, Standard Result 3.1.** The book
+      writes `a_x = dec₊(Q_{O,x})`; the uniqueness half of that result is
+      `G_inj`, and the decoder is built in
       `Walk.lean` — total, computable, fuel-driven — and with it **membership in
+
       `ℳ₊` is decidable**, so `Dom₊(O)` is a test that runs rather than a
       set-builder that is asserted.
 

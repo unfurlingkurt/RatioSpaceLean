@@ -7,7 +7,7 @@ import RatioSpace.ElementsII.S19.Return
 /-!
   **§20 — The complete question update.**
 
-  Eight items, all rows empty before today. This file carries the first three:
+  Eight items. This file carries the first three:
   the forward resolution map, the partial complete update, and the tagged cycle
   outcome with its total evaluator.
 
@@ -17,8 +17,8 @@ import RatioSpace.ElementsII.S19.Return
   are exactly `Terminal.TermStatus`'s three constructors, in the book's own order.
 
   **One modelling decision, made rather than guessed.** The book's `S_τ` is "a
-  valid complete state", and `Two/` has no single state record. The outcome type
-  is therefore **parameterised over the state**, the way this tree already
+  valid complete state", and the Elements II tree has no single state record.
+  The outcome type is therefore **parameterised over the state**, the way this tree already
   parameterises over `Aux`/`RawAux`/`EvalAux`. That is faithful: 20.4, 20.5 and
   20.6 are statements about *which branch* is returned and *what it carries*,
   never about a state's internals.
@@ -230,7 +230,7 @@ theorem cycle_carries_evidence {σ RawAux EvalAux : Type} {h : ℕ}
 
     *"The exact temporal engine is now complete through one question cycle."*
 
-    The chain the book boxes is now assembled end to end, and every arrow is a
+    The chain the book boxes is assembled end to end, and every arrow is a
     built object:
 
         S_τ --Init--> 𝔛_{τ,0} --𝔎^h--> 𝔛_{τ,h} --TermStatus--> R^(h)

@@ -10,7 +10,7 @@ RatioSpace.ElementsI.S03.Braid	Elements I §3	The frame group braids, and the fu
 RatioSpace.ElementsI.S03.Machine	Elements I §3	RatioSpace.Machine
 RatioSpace.ElementsI.S03.Walk	Elements I §3	Elements I §3: Generators, typed actions, walks, and choice records
 RatioSpace.ElementsI.S04.Composition	Elements I §4	Elements I §4: Directional composition
-RatioSpace.ElementsI.S05.Coherence	Elements I §5	Elements I §5.8-5.9, the bridge module: D-07 and D-08 (`research/lean-support/DIVERGENCE.md`)
+RatioSpace.ElementsI.S05.Coherence	Elements I §5	Elements I §5.8-5.9, the bridge module: Definitions 5.8 and 5.9 on candidates against a shared family
 RatioSpace.ElementsI.S05.Depth	Elements I §5	Elements I §5.1–5.6: Continued fractions, the two depth coordinates, endpoint contrast, walk distance, and the tension signature
 RatioSpace.ElementsI.S05.GoldenWalk	Elements I §5	Elements I Def 5.7, "φ = [1;1,1,...]": the walk `R,L,R,L,...` read against the exact golden element
 RatioSpace.ElementsI.S05.TendCount	Elements I §5	Elements I Def 5.4: how often `T_end` fails the triangle inequality in the box of components 1 to 6, proved by the kernel
@@ -86,7 +86,7 @@ RatioSpace.ElementsII.S16.ParityPattern	Elements II §16	Elements II §16, Theor
 RatioSpace.ElementsII.S16.PolarizedClosure	Elements II §16	Elements II §16, Theorem 16.5: the polarized questions close at h=3 and every even h>=6
 RatioSpace.ElementsII.S16.PolarizedSeed	Elements II §16	Elements II §16, Proposition 16.9(ii): the two named lone-seed closing instances not already in the tree: the length-4 polarized seeds `LLLR` and `RRRL`, closed at the declared ho
 RatioSpace.ElementsII.S16.PrecaptureClassification	Elements II §16	Elements II §16, Theorem 16.11, clause 3: the pair-preserving advances
-RatioSpace.ElementsII.S16.PrecaptureTie	Elements II §16	Elements II §16, Proposition 16.13, restated (Kurt, 2026-09-15)
+RatioSpace.ElementsII.S16.PrecaptureTie	Elements II §16	Elements II §16, Proposition 16.13
 RatioSpace.ElementsII.S16.PrecaptureTieWitness	Elements II §16	Elements II §16, Proposition 16.13 (restated): one witness for each branch of the tie pattern, on the real addresses of the words
 RatioSpace.ElementsII.S16.RootChain	Elements II §16	Elements II §16 Theorem 16.11, Step 4: the root chain, for every `k`
 RatioSpace.ElementsII.S16.RootChainState	Elements II §16	Elements II §16 Theorem 16.11, Step 4 on the tick carrier
@@ -121,13 +121,13 @@ RatioSpace.ElementsII.S24.ReleaseKeepsFaceHistoryAndIncidence	Elements II §24	E
 RatioSpace.ElementsII.S24.TheClosingRemark	Elements II §24	Elements II Proposition 24.3, the closing remark: "The left action in Proposition 24.3 is receiver transport
 RatioSpace.ElementsII.S24.PhaseReturnHorizon	Elements II §24	Elements II §24, Proposition 24.17 (v0.25 title per E2-44: "Phase return, archive depth, and the two-coordinate horizon")
 RatioSpace.ElementsII.S25.CanonicalSevenTickExportsFailTheShellCertificate	Elements II §25	Elements II §25, Corollary 25.9, canonical seven-tick exports fail the shell certificate under the identity reception
-RatioSpace.ElementsII.S25.DeclaredGlobalAttachingReception	Elements II §25	Elements II Definition 25.4, declared global attaching reception: "The identity reception on stable occurrence keys is always a valid prequotient case." `gid_admissible` (`Two/Shel
+RatioSpace.ElementsII.S25.DeclaredGlobalAttachingReception	Elements II §25	Elements II Definition 25.4, declared global attaching reception: "The identity reception on stable occurrence keys is always a valid prequotient case." `gid_admissible` (`Shell.lean`)
 RatioSpace.ElementsII.S25.ExactShellCertificateAndTheoremExactHandoff	Elements II §25	Elements II §25, Definition 25.6 Exact shell certificate and Theorem 25.10 Exact handoff: the `Src_Γ` coordinate
 RatioSpace.ElementsII.S25.Shell	Elements II §25	Elements II §25: Interface to the Global Renewal-Shell Theorem
 RatioSpace.ElementsII.S26.Mirror	Elements II §26	Elements II §26: Mirror advances and their positive two-step skeletons
 RatioSpace.ElementsII.S27.Chamber	Elements II §27	Elements II §27: Two chambers and the parity membrane
 RatioSpace.ElementsII.S27.PhiPos	Elements II §27	Positivity and strict decrease of `φ⁻ⁿ` in `ℤ[φ]`, with no `Classical.choice`
-RatioSpace.ElementsII.S28.RadLink	Elements II §28	Bridge between §28 (`Two/RadTransport.lean`) and §29 (`Two/RidgeDefect.lean`)
+RatioSpace.ElementsII.S28.RadLink	Elements II §28	Bridge between §28 (`S28/RadTransport.lean`) and §29 (`S29/RidgeDefect.lean`)
 RatioSpace.ElementsII.S28.RadTransport	Elements II §28	Elements II §28: Phase transport, route correction, and carried memory (all 12 items)
 RatioSpace.ElementsII.S28.Transport	Elements II §28	Elements II §28 (partial): the Dedekind-Rademacher transport coordinate
 RatioSpace.ElementsII.S29.RidgeDefect	Elements II §29	Elements II §29: Exact golden-ridge defects
@@ -135,5 +135,5 @@ RatioSpace.ElementsII.S30.Obligations	Elements II §30	Elements II §30: Project
 RatioSpace.ElementsII.S31.StatusLedger	Elements II §31	Elements II §31: Theorem-status ledger
 RatioSpace.ElementsII.S32.ExcludedFormulations	Elements II §32	Elements II §32: Failure modes and retired formulations
 RatioSpace.ElementsII.S33.Export	Elements II §33	Elements II §33: Next-paper interface
-RatioSpace.ElementsII.S17.EmptyQuestion	Elements II §17	Elements II §17, Corollary 17.8: the empty question report (an exact predicate that admits no proposal carries empty support to the terminal report; Legion job 004)
-RatioSpace.ElementsII.S16.IdentityAutomorphism	Elements II §16	Elements II §16, Proposition 16.15: on the two ensemble degeneracies the only tension-preserving permutation is the identity (Legion job 004)
+RatioSpace.ElementsII.S17.EmptyQuestion	Elements II §17	Elements II §17, Corollary 17.8: the empty question report (an exact predicate that admits no proposal carries empty support to the terminal report)
+RatioSpace.ElementsII.S16.IdentityAutomorphism	Elements II §16	Elements II §16, Proposition 16.15: on the two ensemble degeneracies the only tension-preserving permutation is the identity

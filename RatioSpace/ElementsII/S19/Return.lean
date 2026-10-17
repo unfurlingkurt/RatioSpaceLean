@@ -8,7 +8,7 @@ import RatioSpace.ElementsII.S13.SideExchange
 /-!
   **§19 — Observer-adoption return assimilation.**
 
-  Ten items, none of which existed in this tree. This file starts with the two
+  Ten items. This file starts with the two
   that everything else in the section references: Definition 19.2's ordered
   projection, and Definition 19.3's splice.
 
@@ -61,7 +61,7 @@ theorem piROrd_does_not_collapse (x y : Core) (hne : x ≠ y)
       (piROrd [x, y])[0]? = (piROrd [x, y])[1]? := by
   -- Computed rather than `simp`ed: `piROrd [x, y]` is `[piR x, piR y]` by
   -- definition, so both the length and the two index reads are `rfl` once `heq`
-  -- is rewritten. The earlier `simp` proof pulled `Classical.choice` in through
+  -- is rewritten. A `simp` proof pulls `Classical.choice` in through
   -- a classical lemma on `x ≠ y`, which a finite statement about a two-element
   -- list has no business needing.
   refine ⟨hne, rfl, ?_⟩
@@ -92,8 +92,7 @@ theorem spliceObs_elsewhere (A : OccContext) (k j : ℕ) (xStar : Core) (hj : j 
     (spliceObs A k xStar)[j]? = A[j]? := by
   -- `List.getElem?_set_ne` wants `set-index ≠ read-index`. Here the set index
   -- is `k` and the read index is `j`, so it needs `k ≠ j`; `hj` is the other
-  -- way round. Passing `hj` gives simp an unusable rewrite, which is why it
-  -- reported the argument unused and left the goal standing.
+  -- way round, and passed as is it gives simp an unusable rewrite.
   simp only [spliceObs]
   exact List.getElem?_set_ne (Ne.symm hj)
 
@@ -233,8 +232,7 @@ theorem adopt_presentation (hc : c.WellFormed) (hO : O.matrix = G wO)
     `(question, seedSource, event)`; 19.1 asks for the stable question
     identifier, cycle index, declared horizon, terminal event position **and the
     exact socket target**. Reusing it would silently drop the horizon and the
-    target, which is the same quiet field-loss corrected four times today in
-    `Core.mirror` and `Core.transport`. So it gets its own record. -/
+    target. So it gets its own record. -/
 
 /-- The resolution provenance 19.1 names, with all five components present. -/
 structure ResProvenance where
@@ -441,10 +439,10 @@ structure CompatibleDomain {RawAux EvalAux : Type} {h : ℕ}
   /-- 4. `π_r^ord(𝐀_τ^occ) = 𝒜_τ`: the ordered projection of the occurrence
       context **is** the declared active family.
 
-      A first draft wrote this as `∀ i, (piROrd A)[i]? = (A[i]?).map Core.piR`,
-      which is `piROrd_getElem?` — a theorem already proved unconditionally. That
-      is a tautology, not a domain condition: every context satisfies it and it
-      constrains nothing. The condition has real content only against a
+      The pointwise form `∀ i, (piROrd A)[i]? = (A[i]?).map Core.piR` is
+      `piROrd_getElem?`, a theorem proved unconditionally: a tautology, not a
+      domain condition, since every context satisfies it and it constrains
+      nothing. The condition has real content only against a
       *declared* family, so the family is a parameter. -/
   projectionAgrees : piROrd A = declaredFamily
   /-- 5. The terminal report is an occurrence singleton and the snap is the one
@@ -471,13 +469,13 @@ theorem compatible_gives_localWord {RawAux EvalAux : Type} {h : ℕ}
     *"If a compatible state, question, terminal report, and socket are transported
     together by `Z_u`, then `B^obs_{Z_u𝒬}(Z_u S_τ, Z_u Â) = Z_u B^obs_𝒬(S_τ, Â)`."*
 
-    The book's proof names four ingredients and all four are now in the tree:
+    The book's proof names four ingredients and all four are in the tree:
     Theorem 15.5 transports the trace, Theorem 3.4 preserves `a*`, common left
     multiplication gives `Z_u(M_O G(a*)) = (Z_u M_O) G(a*)`, and the socket and
     ordered context transport bijectively so splice and projection commute.
 
     The third is associativity and the fourth is this file's own
-    `spliceObs_transport`/`piROrd_transport`, built earlier today. Stated
+    `spliceObs_transport`/`piROrd_transport`, above. Stated
     componentwise for the same reason 13.3 was: the pieces travel under different
     laws, and one equation would hide which. -/
 
@@ -498,8 +496,8 @@ theorem adopt_matrix_transport (u : Word) (MO : Mat2) (a : Word) :
   simp [Z, Mat2.mul_assoc']
 
 /-- **19.9, the context clauses.** Splice and ordered projection commute with
-    `Z_u`, which is the book's *"transported bijectively"*. Both were built
-    earlier today; named here so 19.9's four ingredients sit in one place. -/
+    `Z_u`, which is the book's *"transported bijectively"*. Both are proved
+    above; named here so 19.9's four ingredients sit in one place. -/
 theorem adoption_context_transport (u : Word) (A : OccContext) (k : ℕ) (xStar : Core) :
     spliceObs (A.map (SideExchange.Core.transport u)) k
         (SideExchange.Core.transport u xStar)

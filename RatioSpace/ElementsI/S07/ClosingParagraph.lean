@@ -9,15 +9,14 @@ import RatioSpace.ElementsI.S07.RelativeEncounterMatrix
 /-!
   Gap G1-12 — Elements I §7, Proposition 7.2, closing paragraph.
 
-  **Book statement (v0.22), after the proof of Proposition 7.2.** Two
+  **Book statement, after the proof of Proposition 7.2.** Two
   consequences. The synchronized case: if `Q = I` and both histories take the
   same step `g`, then `Q⁺ = I`. The shared step: `Q ↦ g⁻¹ Q g`, "preserving
   every declared conjugacy-invariant reception class".
 
-  **What was missing.** Neither was stated in the Elements I tree. The
-  conjugate form is `bilateral_covariance` (`State.lean`) at `gO = gP`.
+  The conjugate form is `bilateral_covariance` (`State.lean`) at `gO = gP`.
 
-  **Added.**
+  **Statements.**
   * `g112_shared_step`: `bilateral_covariance` at one step `g`, the conjugate
     form `g⁻¹ Q g`.
   * `g112_synchronized`: `Q = I` and a shared step of determinant one give

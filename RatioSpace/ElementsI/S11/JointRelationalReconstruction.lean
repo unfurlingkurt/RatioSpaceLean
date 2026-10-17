@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S15.Sufficiency
 /-!
-  Gap G1-21 — Elements I §11, Definition 11.6, joint relational
+  Elements I §11, Definition 11.6, joint relational
   reconstruction: one record, not one per observer.
 
   **Book statement.** "Given observers `O_1, …, O_n`, define the joint
@@ -13,22 +13,20 @@ import RatioSpace.ElementsI.S15.Sufficiency
   perspectives is reconstructively sufficient on a class `𝒞` when
   `𝒥(P) = 𝒥(P') ⇒ P ≡_𝒞 P'`."
 
-  **What was wrong.** `joint` (`Perspective.lean`) mapped every perspective
-  over one `EncounterRecord`, and `ReconstructivelySufficient` quantified over
-  pairs of records. The book's map takes one encounter per observer,
-  `𝖤_{O_i,P}`, with one presented state `P`, and sufficiency is over presented
-  states. The three witnesses read two fields of one observer's encounter,
-  which is the book's map only when the observers coincide.
+  **One encounter per observer.** The book's map takes one encounter per
+  observer, `𝖤_{O_i,P}`, with one presented state `P`, and sufficiency is over
+  presented states. A map of every perspective over one `EncounterRecord` is
+  the book's map only when the observers coincide.
 
-  **Changed.** `Viewpoint` (an observer with its perspective, receiving and
+  **In `Perspective.lean`.** `Viewpoint` (an observer with its perspective, receiving and
   reading spaces per observer), `Viewpoint.read V P = 𝒫_O(𝖤_{O,P})`,
   `joint Vs P : (i : Fin n) → (Vs i).Z`, and
   `ReconstructivelySufficient Vs K C` over presented states in a declared
   class `K` with declared equivalence `C`. `Viewpoint.ofFamily` takes the
-  viewpoint at `O` from an observer-indexed reception (G1-20). The one-record
-  form is kept as `jointOnRecord` / `SufficientOnRecord` with its three
-  witnesses. `RelationallyComplete` (Def 15.2, `Sufficiency.lean`) is repointed
-  to the new predicate.
+  viewpoint at `O` from an observer-indexed reception. The one-record
+  form is `jointOnRecord` / `SufficientOnRecord` with its three
+  witnesses. `RelationallyComplete` (Def 15.2, `Sufficiency.lean`) is stated
+  with `ReconstructivelySufficient`.
 
   **Added here.** One projection, the bottom row of the relative matrix
   `Q_{O,P}`, placed at two distinct observers: `ε` and `L`.
@@ -38,9 +36,8 @@ import RatioSpace.ElementsI.S15.Sufficiency
   * `g121_at_root_alone_insufficient`, `g121_at_L_alone_insufficient`: each
     alone does not, with presented states in hand (`ε` against `R`; `L`
     against `LR`).
-  * `g121_one_record_is_the_coincident_case`: with every observer equal, the
-    new `joint` reads the one record `𝖤_{O,P}`, which is what the old form
-    computed.
+  * `g121_one_record_is_the_coincident_case`: with every observer equal,
+    `joint` reads the one record `𝖤_{O,P}`, which is the one-record form.
 -/
 namespace RatioSpace
 
@@ -140,7 +137,7 @@ theorem g121_at_L_alone_insufficient :
     rfl)
   exact absurd h (by unfold sameTransform; decide)
 
-/-- **The old form is the coincident case.** When every observer is `O`,
+/-- **The one-record form is the coincident case.** When every observer is `O`,
     each coordinate of `𝒥(P)` is its perspective applied to the one record
     `𝖤_{O,P}`. -/
 theorem g121_one_record_is_the_coincident_case {n : ℕ} (Vs : Fin n → Viewpoint)

@@ -18,14 +18,13 @@ import RatioSpace.ElementsI.S09.Question
   **Scope of this file.** Definitions 4.1, 4.2, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9 and
   Propositions 4.10, 4.11 are built. Definition 4.3's *tick* context variant is
   not: it is typed against "a complete carrier of the form given in Definition
-  6.2", and Definition 6.2 is §6, not yet built (`state/todos.md` task 8, "then
-  §4–§7"). Rather than invent that carrier's shape ahead of the book supplying
-  it, `OccPred` is generic in the context type `C`. The *initialization* variant
+  6.2", which is §6. `OccPred` is generic in the context type `C`, so that
+  carrier's shape is left open. The *initialization* variant
   — everything Definition 4.8 actually needs, since seed admission is tested at
   event position `0` against `𝔦_τ` and never against a tick carrier — is given
   as `InitContext` and used throughout. The question-typed form of Definition
   4.3, with both variants (`PredContext`), event positions in `{0,…,h_𝒬}` and a
-  declared `Bool_Γ` (`PredicateData`), is in `Two/Support.lean`.
+  declared `Bool_Γ` (`PredicateData`), is in `ElementsII/S07/Support.lean`.
 
   Three things here are sharper than the prose, and each is noted at its result:
 
@@ -240,7 +239,7 @@ def ExtendedQuestion.isReceiverInstance {Cert : Type} (Q : ExtendedQuestion Cert
 
 /-- **Definition 4.3, generic form.** An occurrence-level admissibility
     predicate, generic in the context type `C`, used here with `InitContext`.
-    The question-typed form is `QPred` in `Two/Support.lean`. -/
+    The question-typed form is `QPred` in `ElementsII/S07/Support.lean`. -/
 abbrev OccPred (C : Type) := ProposalRecord → C → ℕ → Bool
 
 /-! ## Definition 4.7 — Support-free initialization context -/
@@ -249,8 +248,8 @@ abbrev OccPred (C : Type) := ProposalRecord → C → ℕ → Bool
     slot. `seedArchive` carries one tagged seed occurrence per member of `𝐀`,
     covering the retained word, derived matrix, derived frame and derived
     address that Definition 6.1's occurrence core specifies; the closure record,
-    imbalance, entry event and provenance fields Definition 6.1 also names await
-    §6 itself (task 8) and are not modelled here. -/
+    imbalance, entry event and provenance fields Definition 6.1 also names are
+    not modelled here. -/
 structure InitContext (Cert : Type) where
   /-- `O_τ`. -/
   observer : Observer

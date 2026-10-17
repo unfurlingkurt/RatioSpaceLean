@@ -6,39 +6,32 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsI.S12.Encoding
 import RatioSpace.ElementsI.S12.Continuum
 /-!
-  Gap G1-22 — Elements I §12, Definitions 12.1 and 12.4: the §12 witnesses
-  read `realize` at the anchor.
+  Elements I §12, Definitions 12.1 and 12.4: the §12 witnesses read `ν` at
+  the anchor.
 
   **Book statement.** Def 12.1's fourth arrow is the coordinate reading of Def
-  11.4, which is Def 1.7's `ν([p:q]) = p/q ∈ ℚ≥0 ∪ {∞}`. Def 12.4 (v0.25, E1-44):
+  11.4, which is Def 1.7's `ν([p:q]) = p/q ∈ ℚ≥0 ∪ {∞}`. Def 12.4 (E1-44):
   the scalar width `p₊/q₊ − p₋/q₋ = 1/(q₋q₊)` is the coordinate realization of
   the determinant-one contact, for finite boundaries; on frames with boundary
   `1:0` the integer `q₋q₊` is defined and the scalar width is not.
 
-  **What was wrong.** `coordinateOf` (`Encoding.lean`) was `Pres.realize`, which
-  sends `1:0` to `0`, the value of `0:1`. The file header's "arrow 4's fiber is
-  the improper presentation and nothing else" and the theorem
-  `coordinate_fiber_holds_both_improper_endpoints` rested on that merge (D-02).
-  `cellWidth_needs_finite_endpoints` (`Continuum.lean`) proved the width
-  formula false at `Frame.stepR Frame.empty` by reading `realize (1:0) = 0`.
+  **The coordinate reading.** `coordinateOf` (`Encoding.lean`) is `Pres.nu`,
+  landing in `Pres.ProjValue`, so `1:0` reads `∞` and `0:1` reads `0`;
+  `Pres.realize` sends `1:0` to `0`, the value of `0:1`, and merges the two.
+  `the_chain_identifies` holds by `rfl`. Arrow 4's fiber is the proportional
+  class (`coordinate_fiber_is_the_class`), with
+  `coordinate_many_to_one` (`2:4`, `1:2`), `coordinate_injective_on_primitive`,
+  `coordinate_after_reduction_injective` (after `reduction`, arrow 4
+  identifies nothing further), `coordinate_separates_the_improper_endpoints`.
+  The statement "all four arrows are many-to-one" has its witness at arrow 4
+  on non-primitive presentations.
 
-  **Changed.**
-  * `coordinateOf : Pres → Pres.ProjValue := Pres.nu`; `reading` lands in
-    `Pres.ProjValue`. `the_chain_identifies` unchanged, still `rfl`.
-  * `coordinate_fiber_holds_both_improper_endpoints` replaced by
-    `coordinate_fiber_is_the_class` (the fiber is the proportional class),
-    `coordinate_many_to_one` (`2:4`, `1:2`), `coordinate_injective_on_primitive`,
-    `coordinate_after_reduction_injective` (after `reduction`, arrow 4
-    identifies nothing further), `coordinate_separates_the_improper_endpoints`.
-    The header's "all four arrows are many-to-one" keeps a witness at arrow 4,
-    on non-primitive presentations.
-  * `cellWidth_needs_finite_endpoints` replaced by `cellWidth_defined_iff` (both
-    boundaries read finite under `ν` iff both denominators are positive) and
-    `cellWidth_undefined_one_step_R` (upper boundary reads `∞`, no rational
-    width). Both are choice-free; the old theorem was one of the five
-    `Classical.choice` statements in `ℚ`, so that list is now four.
+  **The width.** `cellWidth_defined_iff` (`Continuum.lean`: both
+  boundaries read finite under `ν` iff both denominators are positive) and
+  `cellWidth_undefined_one_step_R` (upper boundary reads `∞`, no rational
+  width). Both are choice-free.
 
-  **Added here.** `g122_arrow4_is_coordinate` (arrow 4 of Def 12.1 and Def
+  **In this file.** `g122_arrow4_is_coordinate` (arrow 4 of Def 12.1 and Def
   11.4's `coordinate` are one map, `rfl`), `g122_width_reading_on_finite`
   (on finite boundaries both `ν` readings are the finite rationals
   `cellWidth_eq` subtracts), `g122_empty_frame_width_undefined` (the canonical

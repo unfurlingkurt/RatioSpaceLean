@@ -5,9 +5,9 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S16.SupportInduction
 /-!
-  Gap G2-58 — Elements II §16, Proposition 16.9(ii) as corrected by E2-75.
+  Elements II §16, Proposition 16.9(ii) (ledger item E2-75).
 
-  **Book statement (v0.25 text of E2-75).** Every lone seed `RⁿL` and `LⁿR`
+  **Book statement.** Every lone seed `RⁿL` and `LⁿR`
   with `n ≡ 3 (mod 21)` closes at `h = 7`: its only pair-preserving advance
   before tick 7 is `1 → 2`, because Theorem 16.11's Step 3 resolves the cousin
   pair to a singleton at tick 3 and every later singleton extends `RⁿLLLL`,
@@ -294,7 +294,7 @@ theorem table_npres
     | 6, _ => simp [l6, l7]
     | j + 7, hj => exact absurd hj (by omega)
 
-/-- **Gap G2-58, `RⁿL`.** A lone seed with word `RⁿL`, `n ≡ 3 (mod 21)`, at
+/-- **Proposition 16.9(ii), `RⁿL`.** A lone seed with word `RⁿL`, `n ≡ 3 (mod 21)`, at
     observer `ε`, with fresh identifiers at every tick (Lemma 12.1): the
     support sizes through tick seven are `1, 2, 2, 1, 2, 1, 2, 1`, so it closes
     on an occurrence singleton at `h = 7`; exactly one advance before tick 7
@@ -340,7 +340,7 @@ theorem lone_seed_RnL_closes_at_seven
   obtain ⟨hp, hj⟩ := table_npres l0 l1 l2 l3 l4 l5 l6 l7
   exact ⟨l1, l2, l3, l4, l5, l6, l7, hp, hj⟩
 
-/-- **Gap G2-58, `LⁿR`**, the mirror, proved on its own words rather than by
+/-- **Proposition 16.9(ii), `LⁿR`**, the mirror, proved on its own words rather than by
     mirroring. -/
 theorem lone_seed_LnR_closes_at_seven
     (hnd0 : (A0.map Core.id).Nodup) (hwf0 : ∀ d ∈ A0, d.WellFormed)

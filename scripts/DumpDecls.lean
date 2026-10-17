@@ -1,8 +1,8 @@
 /-
-  DumpDecls.lean: the one generator of the declaration and axiom reports (Codex spec
-  v0.25, A1). Run from `research/lean`:
+  DumpDecls.lean: the one generator of the declaration and axiom reports. Run from the
+  repository root:
 
-    lake env lean --run ../lean-support/v0.25-baseline/DumpDecls.lean <outdir>
+    lake env lean --run scripts/DumpDecls.lean <outdir>
 
   It imports `RatioSpace`, visits every constant whose module starts with `RatioSpace`,
   skips internal and auxiliary names (`Name.isInternal`, recursors, `noConfusion`,
@@ -13,7 +13,7 @@
   with `type` pretty-printed on one line (pp.fullNames, pp.universes, pp.piBinderTypes,
   pp.proofs on, no width limit), `value_hash` the Expr hash of the value for def, abbrev
   and instance and empty for theorems, and axioms from `Lean.collectAxioms`, sorted,
-  comma-separated. Rows are sorted by name. Written 2026-09-22.
+  comma-separated. Rows are sorted by name.
 -/
 import Lean
 open Lean Meta

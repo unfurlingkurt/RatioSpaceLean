@@ -8,13 +8,13 @@ import RatioSpace.ElementsI.S10.Crystal
 /-!
   Elements I §12 — Definition 12.3, the correspondence obligation.
 
-  **The book's demand, exactly (v0.25, E1-43).** *"To prove that a projected
-  numerical update F_num represents the substrate update U, one must establish
-  a commuting relation such as E_O ∘ U_Q = F_num ∘ E_O on every state where U_Q
-  is defined, and say what F_num does where it is not, or state and prove the
-  exact error or limiting relation that replaces equality. Similarity of vocabulary — for
-  example calling both operations 'diffusion,' 'collapse,' or 'coherence' — is
-  not a correspondence proof."*
+  **The book's demand, exactly (Elements I, Definition 12.3).** *"To prove that
+  a projected numerical update F_num represents the substrate update U, one
+  must establish a commuting relation such as E_O ∘ U_Q = F_num ∘ E_O on every
+  state in the domain of U_Q, and say what F_num does off that domain, or state
+  and prove the exact error or limiting relation that replaces equality."*
+  Similarity of vocabulary, for example calling both operations "diffusion",
+  "collapse" or "coherence", is not a correspondence proof.
 
   Two clauses. This file formalises the first: the exact commuting square,
   typed as a structure whose fields **are** the proof. The second clause —
@@ -23,22 +23,22 @@ import RatioSpace.ElementsI.S10.Crystal
   constraints (no `Real`), the same reason Def 12.2's field-equation example
   went unformalised. Nothing below claims to cover it.
 
-  **The update is partial (G1-23, E1-43).** `𝒰_𝒬` is defined only where the
+  **The update is partial.** `𝒰_𝒬` is defined only where the
   forward map is (Def 10.6), and Def 10.4 names two ways it is not. The Lean's
   own recursion `cycle` returns `SubstrateState ⊕ Outcome`. So the square the
   book names is `PartialCorrespondence` below: the square on every state where
   the update returns a state, and a declared statement `Off` of what `F_num`
   does where it returns an outcome instead. `Correspondence`, over a total
   `U`, is the case where the update never fails
-  (`partialCorrespondence_total_iff`), and the old way of totalising the update
+  (`partialCorrespondence_total_iff`), and totalising the update
   by "no answer, no change" is exactly the partial square with `Off := StaysPut`
   (`correspondence_stayPut_iff`).
 
   **Why a structure and not a `theorem`.** The partial `U` of
   `PartialCorrespondence` stands for `𝒰_𝒬`, Def 10.6's complete update
   (`Correspondence`'s total `U` is the case where it never fails), read in Elements I as
-  `cycle K B` over two interfaces with only trivial and convention witnesses (`identity`, `clear`;
-  G1-18's assimilations), none the Elements II update — its literal law is Elements II's
+  `cycle K B` over two interfaces with only trivial and convention witnesses
+  (`identity`, `clear`), none the Elements II update; its literal law is Elements II's
     (`Crystal.lean`'s
   header for `𝔎_𝒞`, the `Assimilation` docstring for `ℬ_𝒬`). So Def 12.3 cannot be a
   theorem about a specific `U`; it is the obligation any *claimed* pairing of
@@ -53,10 +53,10 @@ namespace Layer
 
 /-! ## Definition 12.3 — Correspondence obligation -/
 
-/-- **Definition 12.3, total case** (the v0.22 reading). `E_O ∘ U_Q = F_num ∘ E_O`,
+/-- **Definition 12.3, total case.** `E_O ∘ U_Q = F_num ∘ E_O`,
     read pointwise: encoding the substrate update agrees with numerically
     updating the encoding, for every state. The book's update is partial; the
-    v0.25 definition is `PartialCorrespondence` below, and this is its case
+    book's definition is `PartialCorrespondence` below, and this is its case
     with nothing outside (`partialCorrespondence_total_iff`). The obligation-as-type pattern
       used for `ConstantReading` in §6 —
     `E`, `U` and `F_num` are the terms the claim is about, and `commutes` is the
@@ -76,7 +76,7 @@ def stepAdvance (S : SubstrateState) : SubstrateState :=
   { S with word := S.word ++ [true] }
 
 /-- The numerical "advance" that shares the name and does nothing. This is the
-    book's sting made into an object: read off the vocabulary alone, "advance"
+    vocabulary trap made into an object: read off the vocabulary alone, "advance"
     paired with "advance" looks like a correspondence. -/
 def idAdvance : ClosureState → ClosureState := id
 
@@ -106,9 +106,9 @@ theorem trivialCorrespondence {F : Type} (E : Encoding F) :
     Correspondence E id id where
   commutes := fun _ => rfl
 
-/-! ## Definition 12.3 over the update the book names: a partial update (G1-23) -/
+/-! ## Definition 12.3 over the update the book names: a partial update -/
 
-/-- **Definition 12.3, v0.25 (E1-43).** The square on every state where the
+/-- **Definition 12.3.** The square on every state where the
     update `U` is defined, and a declared statement of what `F_num` does where
     it is not. `U S = Sum.inr o` is Def 10.4's failure `o`; `Off x y o` is the
     claimant's statement about the encoded state `x = E(S)`, the numerical
@@ -161,7 +161,7 @@ def stayPut (U : SubstrateState → SubstrateState ⊕ Outcome) :
     SubstrateState → SubstrateState :=
   fun S => Sum.elim id (fun _ => S) (U S)
 
-/-- **The old total square on the totalised update is one choice of `Off`.**
+/-- **The total square on the totalised update is one choice of `Off`.**
     `Correspondence` applied to "no answer, no change" holds exactly when the
     partial square holds and `F_num` also stays put wherever `U` fails. Other
     totalisations carry other `Off`s (`correspondence_fallback_iff`); an `Off`
@@ -256,7 +256,7 @@ theorem cycle_undefined_iff (K : Crystallization) (B : Assimilation)
 /-- **For one declared question the domain is all states or none.** In the Lean
     the ensemble `X` is an argument of `cycle`, not built from the state, so
     whether the update is defined at `S` does not depend on `S`. For a question
-    `Q` the ensemble is `initialEnsemble Q` (Def 10.1, audit E1-B5), built from
+    `Q` the ensemble is `initialEnsemble Q` (Def 10.1), built from
     the question and not from the state. Forming the question from the state
     is Elements II's construction. -/
 theorem cycle_domain_ignores_state (K : Crystallization) (B : Assimilation)

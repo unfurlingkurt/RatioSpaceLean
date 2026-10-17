@@ -12,8 +12,8 @@ import RatioSpace.ElementsI.S10.Crystal
   "the ordered tension signature", `Σ_τ(r)` and `𝐓_τ(r)`: the star of Definition
   4.4 and the signature of Definition 5.6, both of `r` against `𝒜_τ`.
 
-  **What was missing.** `Candidate` (`Crystal.lean`) stores `star : List IPres`
-  and `signature : List ℕ` as free fields. Nothing tied them to a family:
+  **The carrier.** `Candidate` (`Crystal.lean`) stores `star : List IPres`
+  and `signature : List ℕ` as free fields. Nothing in the type ties them to a family:
   `relation_does_not_determine_candidate` fills both with `[]`, which is the
   right star and signature only against the empty family.
 
@@ -32,7 +32,7 @@ import RatioSpace.ElementsI.S10.Crystal
     `relation_does_not_determine_candidate` is not consistent with the one-member
     family `[L]`: its star and signature are `[]`, the family's have length 1.
   * `g117_initialRecord_eq`, `g117_initialEnsemble_eq`,
-    `g117_initialEnsemble_consistent` (audit E1-B5, 2026-09-29): Def 10.1's
+    `g117_initialEnsemble_consistent`: Def 10.1's
     initial record `initialRecord Q r` (`Crystal.lean`) is `g117_ofFamily r
     Q.active`, and every record of `initialEnsemble Q` is consistent with the
     question's active family.
@@ -93,7 +93,7 @@ theorem g117_consistent_ext {C D : Candidate} {A : ActiveFamily}
     rw [(g117_consistent_iff C A).1 hC, (g117_consistent_iff D A).1 hD, h]
 
 /-- **Definition 10.1's initial record is this constructor.** `initialRecord Q r`
-    (`Crystal.lean`, audit E1-B5) is `g117_ofFamily r Q.active`, by `rfl`. -/
+    (`Crystal.lean`) is `g117_ofFamily r Q.active`, by `rfl`. -/
 theorem g117_initialRecord_eq (Q : Question) (r : History) :
     initialRecord Q r = g117_ofFamily r Q.active := rfl
 
@@ -113,7 +113,7 @@ theorem g117_initialEnsemble_consistent (Q : Question) :
 /-- The one-member family `[L]`, from the root. -/
 def g117_family : ActiveFamily := [⟨Frame.empty, [false]⟩]
 
-/-- **The free fields were free.** The first witness of
+/-- **The free fields are free.** The first witness of
     `relation_does_not_determine_candidate` stores `[]` for both fields; against
     `[L]` the star and signature have one entry each, so it is not a record of
     that family. -/

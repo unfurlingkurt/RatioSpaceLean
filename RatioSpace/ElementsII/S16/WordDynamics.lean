@@ -12,9 +12,8 @@ import RatioSpace.ElementsII.S16.PrecaptureClassification
   certificates, and the same maximizer words; the stable identifiers differ in
   their question and seed tags but enter no comparison."*
 
-  `Capture.lean` built the one-occurrence form of that sentence and named the
-  missing piece: a function for "the tick-`i` support of the lone-seed question
-  with seed `x`". It is `wIter i [x]`, where `wordStep` is one tick of
+  `Capture.lean` has the one-occurrence form of that sentence. "The tick-`i`
+  support of the lone-seed question with seed `x`" is `wIter i [x]`, where `wordStep` is one tick of
   Definition 8.1 at `ε` read entirely off words. `nextCores_words`
   proves the tick map on cores and `wordStep` on words agree, so any run's
   active words are `wIter` of its words at any earlier tick. Items 1 and 2

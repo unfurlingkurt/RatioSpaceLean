@@ -9,11 +9,11 @@ import RatioSpace.ElementsII.S12.NewProposalIdentifiersAreLawfulAndDisjoint
 
   The book's proof opens: "The proposal length satisfies `j+1 ≤ h_𝒬`, so each
   proposal lies in the finite whole-cycle proposal domain of Definition 4.2."
-  `proposals` was never related to `fullPropDomain`. This file relates them, on
+  This file relates `proposals` to `fullPropDomain`, on
   the carrier invariant of G2-13 together with the one fact a seed lineage never
   changes (every archived core carries a seed of the active context), and then
   assembles Theorem 12.4's conclusions for the advance with Lemma 12.1
-  discharged. No existing declaration is changed.
+  discharged.
 -/
 
 namespace RatioSpace

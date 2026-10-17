@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsI.S15.Sufficiency
 /-!
-  Gap G1-26 — Elements I §15, Definition 15.1 item 4, reception without an
+  Elements I §15, Definition 15.1 item 4, reception without an
   observer.
 
   **Book statement.** "RatioSpace is generatively sufficient for a target
@@ -14,19 +14,19 @@ import RatioSpace.ElementsI.S15.Sufficiency
   proof that the relevant target equations or outcomes are recovered under
   the declared projection."
 
-  **What was wrong.** `GenerativelySufficient.receive : SubstrateState →
-  D.Reading` was one map on states with no observer, and the witness supplied
-  `closureOfState`, Definition 12.1's first arrow, which is not a reception in
-  Definition 11.1's sense (a reception reads an encounter record `𝖤_{O,P}`).
+  **Reception reads an encounter.** A single map `SubstrateState → D.Reading`
+  has no observer, and `closureOfState`, Definition 12.1's first arrow, is not
+  a reception in Definition 11.1's sense (a reception reads an encounter record
+  `𝖤_{O,P}`).
 
-  **Changed** (`Sufficiency.lean`). Item 4 is a declared, non-empty list of
-  observers and an observer-indexed reception family (`ObsReception`, G1-20);
+  **In `Sufficiency.lean`.** Item 4 is a declared, non-empty list of
+  observers and an observer-indexed reception family (`ObsReception`);
   the encoded state enters each encounter as a presented state
   (`presentedState`, Definition 7.2). Item 5 holds at every declared observer.
-  The old form is `GenerativelySufficientOnState`, and each declared observer
+  The one-map form is `GenerativelySufficientOnState`, and each declared observer
   gives one (`GenerativelySufficient.toOnState`). The word witness reads the
   presented closure `κ_P` of the encounter (`wordByClosureSufficientAt`; the
-  word domain proper reads the word, `wordSufficientAt`, G1-27 follow-up).
+  word domain proper reads the word, `wordSufficientAt`).
 
   **Added here.** Item 4 is observer-relative in fact, not only in type. The
   target is `L`/`R` words read as their accumulated matrix `G(w)`. The
@@ -37,7 +37,7 @@ import RatioSpace.ElementsI.S15.Sufficiency
     does not recover the target: at the empty word it reads `R⁻¹`, not `I`.
     So no sufficiency term can declare that observer with this reception and
     this encoding.
-  * `g126_toOnState_root`: at the root the old one-map form is recovered, and
+  * `g126_toOnState_root`: at the root the one-map form is recovered, and
     its map is `G` of the retained word.
 -/
 
@@ -119,7 +119,7 @@ theorem g126_fails_at_R (G : GenerativelySufficient matrixDomain)
   rw [he, hr] at this
   exact g126_R_misreads_empty this
 
-/-- At the root, the old one-map form is recovered, and its map on encoded
+/-- At the root, the one-map form is recovered, and its map on encoded
     states is `G` of the retained word. -/
 theorem g126_toOnState_root (w : Word) :
     (g126_sufficient_at_root.toOnState atRoot (List.mem_singleton_self _)).receive

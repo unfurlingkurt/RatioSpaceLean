@@ -35,8 +35,8 @@ import RatioSpace.ElementsII.S11.Advance
     integer and not a rational, and there is no integer value of it to read as
     a mass. The file carries no calibration constant and declares none.
   * 30.3: `EngineClauses`, a record whose fields are *literally the statements*
-    (`type_of%`) of the already-built theorems for clauses 1–8. Every one of
-    those files was compiled before `ProjOb` existed, so none can mention it.
+    (`type_of%`) of the already-built theorems for clauses 1–8. None of those
+    files imports this one, so none can mention `ProjOb`.
     The converse clause is an exact witness: two integer charts on the relative
     matrix, both invariant under the side exchange and both strictly increasing
     along the `(RL)^r` strobe, disagree on `R·L`. The recurrence data do not fix
@@ -322,7 +322,7 @@ theorem prop_30_2_witness :
     already-built theorem, read off the declaration by `type_of%`, not
     retyped. None of those statements mentions `ProjOb`, a field coordinate, a
     unit, a physical label, a geodesic crossing, an exchange law or a global
-    shell, and all of them were compiled before this file existed.
+    shell, and none of their files imports this one.
 
     1. one-tick map, append-only across the advance: Corollary 12.8;
     2. iteration to the declared horizon: Corollary 15.7;

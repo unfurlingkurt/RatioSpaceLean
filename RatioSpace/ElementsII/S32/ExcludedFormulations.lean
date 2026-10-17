@@ -242,7 +242,7 @@ theorem no_int_root_three (x : ℤ) : x * x - 3 * x + 1 ≠ 0 := by
     expanding multiplier is a root of `x² − 3x + 1`, which has no integer root,
     so the trace is not the multiplier, let alone a calibrated mass. The general
     statement for every `t ≥ 3`, rational roots included, is Proposition 30.2
-    (`Two/Obligations.lean`). -/
+    (`ElementsII/S30/Obligations.lean`). -/
 theorem row15_trace_is_not_the_multiplier :
     RadTransport.trace (Mat2.R * Mat2.L) = 3 ∧ (Mat2.R * Mat2.L).det = 1 ∧
     ∀ x : ℤ, x * x - 3 * x + 1 ≠ 0 :=

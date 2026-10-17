@@ -12,8 +12,7 @@ import RatioSpace.ElementsII.S16.RootChainState
   `d = RⁿLRRR = (5n+4):5`, with coefficient vectors `(1,4), (2,5), (5,2), (4,1)`
   in `F_{RⁿL}` (`ca_combo`..`cd_combo`, through Lemma 16.10's reduction).
 
-  **Computed before writing** (`research/experiments/elements_ii_axiom_ii1.py`
-  and `beat_support_bound.advance`, `0 ≤ m < 200`), then proved for every `m`:
+  **Computed over `0 ≤ m < 200`, and proved for every `m`:**
 
   * `t(a,b) = 245m + 40`, `t(a,d) = 35m + 8`, `t(b,c) = 49m + 10`,
     `t(c,d) = 245m + 46`;
@@ -25,7 +24,7 @@ import RatioSpace.ElementsII.S16.RootChainState
   cross pair is `P : (P + d)` with `d ∈ {3, 15, 21, 18}`, so the depth is `1 +
   ⌊P/d⌋ + depth(P mod d : d)`, and only the last is a closed `decide`.
 
-  **The book, checked.** The outer pair `{a, d}` carries the smallest tension
+  **The decision.** The outer pair `{a, d}` carries the smallest tension
   (`35m + 8`); the decision is periodic in `m`, with period **6**; every `m`
   gives a singleton. The book does not say which. It is
   `[RⁿLRRR]` at `m ≡ 1, 5 (mod 6)` (`n ≡ 24, 108 mod 126`) and `[RⁿLLLL]`
@@ -43,14 +42,14 @@ import RatioSpace.ElementsII.S16.RootChainState
   bridge `cousin_step` / `advanceCarrier_active_cousin` in
   `RootChainCarrier`'s style.
 
-  **The mirror on the tick carrier, 2026-09-14 00:30 work beat:** its children
+  **The mirror on the tick carrier:** its children
   arrive as `mfam` reversed, so the decision is carried across by
   `coherenceOf_perm` (`mfamC`, `mselC`, `mcousin_step`,
   `advanceCarrier_active_mcousin`).
 
-  **Not built here:** the induction that chains Step 2 into this step on one
+  **Not in this file:** the induction that chains Step 2 into this step on one
   carrier (identifier freshness through `advanceCarrier`, as in
-  `RootChainCarrier`).
+  `RootChainCarrier`), which is `SupportInduction.lean`.
 
   Every theorem `propext`/`Quot.sound` or less.
 -/

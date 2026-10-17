@@ -6,14 +6,14 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S29.RidgeDefect
 import RatioSpace.ElementsII.S28.RadTransport
 /-!
-  Bridge between §28 (`Two/RadTransport.lean`) and §29 (`Two/RidgeDefect.lean`).
+  Bridge between §28 (`S28/RadTransport.lean`) and §29 (`S29/RidgeDefect.lean`).
 
-  Both files rebuilt `Φ_Rad` without `Finset.range` (which carries
+  Both files build `Φ_Rad` without `Finset.range` (which carries
   `Classical.choice`): §28 as `phiRadC` over `sumTo`, §29 as `phiRadE` over
   `dsumRec`. They are the same integer formula, and this file proves it, so there
   is one `Φ_Rad` in the tree, not two.
 
-  With that, §29's Proposition 29.6 no longer needs its carried hypothesis
+  With that, §29's Proposition 29.6 does not need a carried hypothesis
   `Φ_Rad(Q_R((RL)^r)) = 1`: §28's Theorem 28.9 (`alternating_table`) supplies it
   from Proposition 28.3's cocycle, which is the book's own dependency, and the
   only thing still carried is that imported standard result (`RadCocycle`).

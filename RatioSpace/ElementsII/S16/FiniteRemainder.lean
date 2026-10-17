@@ -15,13 +15,12 @@ import RatioSpace.ElementsII.S16.FamilyClassification
   families `RⁿL`, `LⁿR` have every entry at most 41; there are exactly 107,
   entries at most 20, all singletons except the root.
 
-  **Computed before written** (exact-integer mirror of `grand`, `tEnd`,
-  `coherenceOf`, `support`, no floats): 527 non-Generic frames, maximum entry
+  **The counts** (exact integers on `grand`, `tEnd`, `coherenceOf`,
+  `support`): 527 non-Generic frames, maximum entry
   202, maximum depth 202, maximum tension 607; 522 singletons and exactly the
   five named pairs. With `|D| ≤ 20`, `p₁ ≠ p₀`, `q₁ ≠ q₀`: 107 frames, maximum
-  entry 20 (30 of them Generic), every one a singleton except the root. No book
-  statement was found false. The entry bound proved here is 40, one better than
-  the book's 41.
+  entry 20 (30 of them Generic), every one a singleton except the root. The
+  entry bound proved here is 40, one better than the book's 41.
 
   **How.** A fuel-bounded tree walk `chkA` stops at Generic frames, which is
   sound because `Generic` is upward closed along the tree (`generic_select`):

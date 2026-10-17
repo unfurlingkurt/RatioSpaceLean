@@ -12,8 +12,8 @@ import RatioSpace.ElementsII.S06.State
   transport, and one convention keeping five quantities from being renamed as
   one another.
 
-  **The section's own finding, and it is a good one for the argument: §7's
-  support-driving tension is Elements I's `T_end`, definitionally.** Def 7.3
+  **§7's support-driving tension is Elements I's `T_end`, definitionally.**
+  Def 7.3
   writes `t_O(y,z) = d_SB(ρ(λ_O(y) ⊗ λ_O(z)))`, and Elements I Def 5.4 wrote
   `T_end(A,B) = d_SB(ρ(A ⊗ B))`. Once the observer-local relations are in hand
   the two are the same expression, `tEnd_eq_Tend` proves it by `rfl`, and every

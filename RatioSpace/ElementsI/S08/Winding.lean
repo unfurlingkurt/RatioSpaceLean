@@ -10,8 +10,8 @@ import Mathlib.Tactic.LinearCombination
   Elements I §8 — Winding and closure.
 
   Definitions 8.1 through 8.4, Proposition 8.1 and Standard Result 8.2. This is
-  the section Elements II's Import 1.6 depends on, and until now nothing in it
-  existed in Lean: no imbalance, no acyclicity, no `ψ₁₂`.
+  the section Elements II's Import 1.6 depends on: imbalance, acyclicity and
+  `ψ₁₂`.
 
   Five things here are sharper than the prose, and each is noted at its theorem:
 
@@ -35,8 +35,8 @@ import Mathlib.Tactic.LinearCombination
       reads off is a character: a map additive on the unimodular shell with
       `ψ₁₂(T) = 1`. `Closure12` is that character, not the isomorphism, and it
       is inhabited: `Closure12.congruence` is built here, through
-      `SL(2,ℤ/4) × SL(2,ℤ/3)`, and checked on finite tables (audit E1-B11,
-      2026-09-29). Every exact value the book reads off it, `ψ₁₂(S) = 9`,
+      `SL(2,ℤ/4) × SL(2,ℤ/3)`, and checked on finite tables.
+      Every exact value the book reads off it, `ψ₁₂(S) = 9`,
       `ψ₁₂(-I) = 6`, `ψ₁₂(ST) = 10`, `ψ₁₂((ST)³) = 6`, `ψ₁₂((ST)⁶) = 0`,
       `ψ₁₂(L) = 11`, and `ψ₁₂(G(w)) ≡ b(w)`, is *proved* for every such
       character rather than quoted alongside it. The isomorphism itself (that
@@ -250,7 +250,7 @@ theorem psi12_sibling_ne (u : Word) :
     have := bal_sibling u; omega
   simp only [psi12, hb] at h
   push_cast at h
-  -- 2026-09-22: `x + 2 = x` in `ZMod 12` forces `2 = 0`, refuted by reading `ZMod.val`;
+  -- `x + 2 = x` in `ZMod 12` forces `2 = 0`, refuted by reading `ZMod.val`;
   -- no `decide`.
   have h2 : (2 : ZMod 12) = 0 := by linear_combination h
   have h3 : (2 : ZMod 12).val = (0 : ZMod 12).val := congrArg ZMod.val h2
@@ -439,11 +439,7 @@ theorem quotientClosure_strictly_coarser :
     it does not say the kernel is the commutator subgroup, and nothing below
     needs that. It is inhabited by `Closure12.congruence` (below). Two such
     characters agree on `ℳ₊` (`map_G`); agreement on all of `SL(2,ℤ)` would need
-    `S` and `T` to generate it, which is not stated here.
-
-    *Until 2026-09-29 (audit E1-B11) no instance was built and this docstring
-    called the structure the one place in §1-§8 where the Lean takes something
-    on trust. The instance discharges that trust.* -/
+    `S` and `T` to generate it, which is not stated here. -/
 structure Closure12 where
   psi : Mat2 → ZMod 12
   map_mul : ∀ {M N : Mat2}, M.det = 1 → N.det = 1 → psi (M * N) = psi M + psi N
@@ -477,8 +473,8 @@ theorem map_S : A.psi S = 9 := by
   have h1 : A.psi S + A.psi S = A.psi ((S * T) * (S * T) * (S * T)) := by
     rw [← A.map_mul hS hS, heq]
   rw [A.map_mul hSTST hST, A.map_mul hST hST, A.map_mul hS hT, A.map_T] at h1
-  -- 2026-09-22: `2s = 3s + 3` in `ZMod 12` gives `s = -3 = 9` by a ring identity and kernel
-  -- evaluation; `decide` over all of `ZMod 12` reached `Classical.choice` through the
+  -- `2s = 3s + 3` in `ZMod 12` gives `s = -3 = 9` by a ring identity and kernel
+  -- evaluation; `decide` over all of `ZMod 12` reaches `Classical.choice` through the
   -- `Fintype (ZMod 12)` instance (its decidable equality is axiom-free).
   have hs : A.psi S = -3 := by linear_combination -h1
   rw [hs]; rfl
@@ -744,7 +740,7 @@ theorem cast_mod_add (k m x y : ℕ) (hk : ((k * m : ℕ) : ZMod 12) = 0) :
 /-- **Standard Result 8.2's character, constructed.** `ψ(M) = 9·χ₄(M mod 4) +
     4·χ₃(M mod 3)`. Additive on the unimodular shell and `ψ(T) = 1`, so every
     theorem stated for an arbitrary `Closure12` holds of it, and none of them is
-    conditional on an unbuilt hypothesis. Audit E1-B11, 2026-09-29. -/
+    conditional on an unbuilt hypothesis. -/
 def congruence : Closure12 where
   psi M := 9 * (tableValue tab4 (Mat2.redMod 4 M) : ZMod 12) +
     4 * (tableValue tab3 (Mat2.redMod 3 M) : ZMod 12)
@@ -770,21 +766,17 @@ end Closure12
 
 /-! ## Definition 8.4 — Closure state -/
 
-/-- **Definition 8.4, repaired for D-15.** The book's line is *"the closure
-    component of a state is the residue of its matrix"* — `κ_τ = c(M_τ)`. That
-    sentence already separates an input (`M_τ`, exact, substrate, declared
-    elsewhere: `SubstrateState.matrix`, `Observer.matrix`, and D-16's
+/-- **Definition 8.4.** The book's line is *"the closure
+    component of a state is the residue of its matrix"*: `κ_τ = c(M_τ)`. That
+    sentence separates an input (`M_τ`, exact, substrate, declared
+    elsewhere: `SubstrateState.matrix`, `Observer.matrix`, and
     `History.matrix`) from an output (`κ_τ`, the twelve-class reading `c`
-    produces from it). The pre-repair `ClosureState` bundled both as peer
-    fields, so a builder reading `.matrix` off a closure record was reading
-    substrate data through a reception-typed door, and `ofWord_inj`
-    (`Encoding.lean`) leaned on exactly that: it proved the *matrix* half
-    injective and let it stand in for the whole record.
+    produces from it).
 
-    `ClosureState` now holds only `κ`, Def 8.4's actual output. The matrix
-    that feeds it is not re-derived here — it already lives on the object
-    that owns the word — and `four_records` below is the standing witness
-    that this map genuinely loses. -/
+    `ClosureState` holds only `κ`, Def 8.4's output. The matrix
+    that feeds it is not re-derived here, since it lives on the object
+    that owns the word, and `four_records` below is the standing witness
+    that this map loses information. -/
 structure ClosureState where
   residue : ZMod 12
 deriving DecidableEq, Repr
@@ -799,18 +791,14 @@ def ClosureState.ofWord (w : Word) : ClosureState := ⟨psi12 w⟩
     start-aware matrix, via `psi12`'s agreement with any `Closure12.psi ∘ G`
     (`map_G`).
 
-    **D-14, repaired; D-15, retyped.** `ClosureState.ofWord w` was this with
-    `origin` silently read as `∅` — the same defect D-12 fixed at
-    `Observer.matrix`, here at the closure field. `ofWord` itself is
-    untouched; every call site that owns a declared origin now calls `of`
-    instead. -/
+    `ClosureState.ofWord w` is this with `origin` the canonical frame `∅`
+    (`ClosureState.of_empty`); every call site that owns a declared origin
+    calls `of`. -/
 def ClosureState.of (origin : Frame) (w : Word) : ClosureState :=
   ClosureState.ofWord (origin.toWord ++ w)
 
-/-- **`of` agrees with `ofWord` from the empty origin.** The pre-repair reading
-    is the special case where the declared origin is the canonical frame — the
-    case every existing example and theorem in this tree uses, which is why
-    D-12 and D-13's fixes changed no numeric value there. -/
+/-- **`of` agrees with `ofWord` from the empty origin.** `ofWord` is the
+    special case where the declared origin is the canonical frame. -/
 @[simp] theorem ClosureState.of_empty (w : Word) :
     ClosureState.of Frame.empty w = ClosureState.ofWord w := by
   unfold ClosureState.of

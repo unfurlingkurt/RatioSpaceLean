@@ -20,12 +20,12 @@ import Mathlib.Tactic.FieldSimp
   **Def 12.5's own instruction.** *"The threshold belongs to the receiving
   layer, not to the substrate contact relation."* So `CellResolution O` is
   built from the observer's reception (Def 11.1) and nothing here derives a
-  resolution predicate from the substrate; since audit E1-B10 (2026-09-29) it
+  resolution predicate from the substrate; it
   carries the reception and a proved tie between the predicate and
   distinguishability of the two boundaries in that reception (the section
   header of Def 12.5 below).
 
-  **Def 12.5 is over the update's cells, not one frame (G1-24).** The book
+  **Def 12.5 is over the update's cells, not one frame.** The book
   reaches the regime when `Res_O(F_n) = 0` "for the distinct cells relevant to
   the update". `ContinuumRegimeOn Res cells` is that quantifier over a declared
   list of cells; `ContinuumRegime Res F`, the predicate at one frame, is the
@@ -98,11 +98,10 @@ theorem cellWidth_defined_iff (F : Frame) :
     upper boundary reads `∞` under `ν`, so there is no rational width.
     Every further `R` step keeps `F.plus = 1:0`.
 
-    Before G1-22 this theorem read both boundaries through `Pres.realize`,
-    which sends `1:0` to `0`, and proved the formula false there
-    (`0 − 1 ≠ 1/0` under Lean's division by zero). That was the `realize`
-    convention (D-02), not the book's `ν`: under `ν` the width is not wrong at
-    this frame, it has no value, which is Elements I v0.25's E1-44. -/
+    Read through `Pres.realize`, which sends `1:0` to `0`, the formula would be
+    false here (`0 − 1 ≠ 1/0` under Lean's division by zero). Under the book's
+    `ν` the width is not wrong at this frame, it has no value: Elements I,
+    Definition 12.4, the frames with boundary `1:0` carry the integer only. -/
 theorem cellWidth_undefined_one_step_R :
     Pres.nu (Frame.stepR Frame.empty).plus = Pres.ProjValue.atBoundary
     ∧ (Frame.stepR Frame.empty).minus.q = 1
@@ -115,12 +114,11 @@ theorem cellWidth_undefined_one_step_R :
 
 /-! ## Definition 12.5 — Observer-relative continuum regime
 
-  **Tied to the observer and to reception (audit E1-B10, 2026-09-29).** The
+  **Tied to the observer and to reception.** The
   book: *"A cell-resolution predicate for observer `O` is an exact map
   `Res_O(F) ∈ {0,1}`, where (1) means that the two frame boundaries remain
-  distinguishable in reception and (0) means that they do not."* Before this
-  fix `CellResolution` was a bare `Frame → Bool`: no observer, no reception,
-  and nothing tying `true` to distinguishability. Now it is indexed by the
+  distinguishable in reception and (0) means that they do not."*
+  `CellResolution` is indexed by the
   observer `O` and carries Def 11.1's observer-conditioned reception
   `𝓡_O` (`ObsReception`), a declared presentation of a boundary as a
   presented state, the predicate, and the tie: `resolves F = true` exactly
@@ -349,7 +347,7 @@ theorem capacityResolution_select (O : Observer) (F : Frame) (b : Bool)
   · exact ⟨hm, Nat.lt_of_lt_of_le hp (Nat.le_add_right _ _)⟩
   · exact ⟨Nat.lt_of_lt_of_le hp (Nat.le_add_right _ _), hp⟩
 
-/-- **Why the width threshold was not kept.** No map on boundaries, however
+/-- **The width threshold is not a boundary reading.** No map on boundaries, however
     declared, is distinguishing exactly on the cells with `q₋q₊ ≤ 1`: the cells
     `L` (`1:1 | 0:1`, width product `1`), `LL` (`1:2 | 0:1`, `2`) and `LR`
     (`1:1 | 1:2`, `2`) would need `f(0:1) = f(1:2) = f(1:1) ≠ f(0:1)`. So a
@@ -374,7 +372,7 @@ theorem no_boundary_reading_realizes_width_one {Z : Type} (f : Pres → Z) :
       = (Frame.walk Frame.empty [false]).plus := by decide
   exact hLL fun h1 => hLR fun h2 => hL (by rw [e1, h1, e2, h2, e3])
 
-/-! ## Definition 12.5 over the update's cells (G1-24) -/
+/-! ## Definition 12.5 over the update's cells -/
 
 /-- **Definition 12.5, the regime.** `Res_O(F) = 0` for every cell in a
     declared list of cells. Which cells are relevant to the update is part of

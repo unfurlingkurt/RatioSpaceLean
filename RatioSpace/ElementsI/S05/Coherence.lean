@@ -6,8 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsI.S05.Depth
 import RatioSpace.ElementsI.S05.Zphi
 /-!
-  Elements I §5.8-5.9, the bridge module — D-07 and D-08
-  (`research/lean-support/DIVERGENCE.md`).
+  Elements I, Definitions 5.8 and 5.9, the bridge module.
 
   `Depth.lean` and `Zphi.lean` do not import each other, by design (see
   the header of `Depth.lean`): the continued-fraction depth coordinates on one
@@ -15,14 +14,12 @@ import RatioSpace.ElementsI.S05.Zphi
   junction and neither file alone can state them, because the book's objects
   are a *candidate against a shared active family* — `Depth.lean` has the
   candidate and family (`tensionSignature`), `Zphi.lean` has only the raw
-  integer list the fold consumes (`coherence`, and `SignatureSumDegenerate`,
-  formerly `Degenerate`).
+  integer list the fold consumes (`coherence`, and `SignatureSumDegenerate`).
 
-  Tali's sweep found the consequence exactly: `coherence` and the old
-  `Degenerate` type an already-computed signature, not the candidate and
-  family that produced it, so `local_min_ne_global_max` and
-  `book_degeneracy`/`degeneracy_one_four` are algebraic witnesses over
-  abstract lists, not yet geometric ones. This file supplies the missing
+  `coherence` and `SignatureSumDegenerate` take an already-computed
+  signature, not the candidate and family that produced it, so
+  `local_min_ne_global_max` and `book_degeneracy`/`degeneracy_one_four` are
+  algebraic witnesses over abstract lists. This file supplies the
   geometric layer without touching the fold: `globalCoherence` and
   `CoherenceDegenerate` are Def 5.8 and Def 5.9 themselves, stated on real
   `IPres` candidates against a real shared family, built from
@@ -36,10 +33,9 @@ open RatioSpace.Zphi
 
 /-- **Definition 5.8, in full — global φ-coherence of a candidate against a
     shared active family.** `C_φ(r) = ∑ φ^(−T_end(r, rᵢ))`, `r` and the family
-    both real `IPres` objects, not an asserted integer list. D-07's repair:
-    `Zphi.coherence` stays the fold; this closes the domain gap the row
-    named, `tensionSignature r fam` supplying exactly the signature the fold
-    was missing a proof of. -/
+    both real `IPres` objects, not an asserted integer list.
+    `Zphi.coherence` is the fold, and `tensionSignature r fam` supplies
+    exactly the signature it consumes. -/
 def globalCoherence (r : IPres) (fam : List IPres) : Zphi :=
   coherence (tensionSignature r fam)
 
@@ -47,9 +43,9 @@ def globalCoherence (r : IPres) (fam : List IPres) : Zphi :=
     globalCoherence r fam = coherence (tensionSignature r fam) := rfl
 
 /-- **Definition 5.9, in full — coherence degeneracy of two candidates against
-    one shared family.** D-08's repair: the old `Degenerate` (now
-    `Zphi.SignatureSumDegenerate`) compared raw lists with no family in the
-    type, so `book_degeneracy : Degenerate [1,2] [0]` could name lists of
+    one shared family.** `Zphi.SignatureSumDegenerate` compares raw lists
+    with no family in the type, so
+    `book_degeneracy : SignatureSumDegenerate [1,2] [0]` relates lists of
     unequal length, which under one fixed family cannot happen. Here the
     family is a genuine argument shared by both sides, so every instance of
     this relation is, by construction, two signatures against one family. -/
@@ -100,14 +96,12 @@ theorem coherence_gap_is_phiNegPow_six :
     tension (`1 < 2`) loses on global coherence. Same shape as
     `Zphi.coherence_one_ten_lt_two_two`, now with `r`, `s` and the family all
     real `IPres` objects rather than asserted lists. **Proved by `decide`
-    directly, not via `coherence_gap_is_phiNegPow_six` and `sub_pos`.** When
-    this was written (2026-08-25) the `sub_pos` route picked up
-    `Classical.choice` through `Zphi`'s order instances. Those instances are
-    choice-free since 2026-09-22 (`Zphi.mul_pos` through `Zsqrtd`,
+    directly, not via `coherence_gap_is_phiNegPow_six` and `sub_pos`.**
+    `Zphi`'s order instances are choice-free (`Zphi.mul_pos` through `Zsqrtd`,
     `IsStrictOrderedRing` built field by field): `linearOrder`, `Zphi.mul_pos`,
     `Zphi.sub_pos`, `phiNegPow_strictAnti`, `coherence_lt_of_lt`,
     `coherence_one_ten_lt_two_two` and `local_min_ne_global_max` are all
-    `[propext, Quot.sound]` (`#print axioms`, 2026-10-01). Mathlib's generic
+    `[propext, Quot.sound]` (`#print axioms`). Mathlib's generic
     `sub_pos` is `[propext]` by itself, but at `Zphi` it picks up choice
     through the derived `AddRightStrictMono` instance
     (`IsLeftCancelAdd.addLeftReflectLE_of_addLeftReflectLT`): the gap route
@@ -135,8 +129,7 @@ theorem local_min_ne_global_max_geometric :
 
 /-! ### Geometric tie witnesses for Definition 5.9
 
-`CoherenceDegenerate` is decidable, and until now no instance of it was in the
-tree (Lean gap G1-07). Below are two ties, each two real candidates against one
+`CoherenceDegenerate` is decidable. Below are two ties, each two real candidates against one
 real shared family. In both the candidates are not proportionally equivalent and
 their signatures are not permutations of each other, so neither tie is the
 trivial one a reordering of the family would give. Found by exact search over

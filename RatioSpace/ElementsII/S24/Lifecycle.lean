@@ -21,7 +21,7 @@ import RatioSpace.ElementsI.S08.Winding
   as parameters: no retention horizon, phase window or receiver is chosen by the
   Lean. The one instance (24.9) reads the twelve-class closure through Elements
   I's `Closure12`, a twelve-class character carried as a structure, never an `axiom`,
-  and inhabited (`Closure12.congruence`, audit E1-B11); the theorems hold for every one.
+  and inhabited (`Closure12.congruence`); the theorems hold for every one.
 -/
 set_option linter.style.longLine false
 
@@ -389,8 +389,8 @@ def gateVector [DecidableEq Y] (Θ : Retention P Y Ph St) (fid : FaceId) (S : St
     is narrower: a change in the socket state `S` alone leaves the class,
     admission, phase, lift and readability gates fixed. Here the lift status is a
     separate argument; in the book the packet carries it, which adds the lift
-    gate to those the packet couples. The name `gates_independent` is kept for
-    compatibility (gap G2-25). -/
+    gate to those the packet couples. `gates_independent` names this narrower
+    statement. -/
 theorem gates_independent [DecidableEq Y] (Θ : Retention P Y Ph St) (fid : FaceId) (S S' : St)
     (Z Zatt : P) (lift : LiftStatus) (k n : ℕ) :
     let g := gateVector Θ fid S Z Zatt lift k n

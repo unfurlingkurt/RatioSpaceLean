@@ -7,8 +7,7 @@ import RatioSpace.ElementsII.S17.Terminal
 /-!
   **§18 — The coherent snap.**
 
-  Four items, none of which existed in this tree: a grep for snap machinery found
-  only a passing mention in `Conservation.lean`.
+  Four items: Definition 18.1, Theorems 18.2 and 18.3, and Separation Rule 18.4.
 
   Nothing here is a new object. Definition 18.1's boxed pair is
   `(Cand_{τ,h}(x*), R)`, and both components are already built: the survivor

@@ -23,7 +23,7 @@ import Mathlib.Tactic.Linarith
   therefore decidable, which is what makes Def 5.9's tie relation a computation
   rather than a promise.
 
-  Settled 2026-08-19, and it is the reason this file needs no localisation:
+  This is the reason this file needs no localisation:
   **φ is a unit in `ℤ[φ]`**, with `φ⁻¹ = φ − 1`, since `φ(φ−1) = φ² − φ = 1`.
   Every negative power of φ therefore stays inside the ring, so Def 5.8's
   `∑ φ^(−T)` has carrier `ℤ[φ]` itself. No symbolic-exponent carrier, no
@@ -180,7 +180,7 @@ theorem coherence_append (Ts Ss : List ℕ) :
   simp [coherence, List.map_append, List.sum_append]
 
 /-- **Not Definition 5.9.** Two raw signature lists tie under the coherence
-    fold. D-08 (`DIVERGENCE.md`): the book's degeneracy relation has three
+    fold. The degeneracy relation of Elements I, Definition 5.9 has three
     inputs in substance — candidates `r`, `s`, and the family they share — and
     every book instance implies this list equality under substitution, but the
     converse does not hold and this relation also classifies list pairs
@@ -199,14 +199,14 @@ theorem phiNegPow_one_add_two : phiNegPow 1 + phiNegPow 2 = 1 := by decide
 /-- The same fact as a signature-sum tie: a single anchor at depth 0 and a
     two-anchor family at depths 1 and 2 have equal coherence, so the scalar
     has compressed two different contribution patterns. **Not yet a witness of
-    Def 5.9** — D-08 found this pair has unequal length, which under one fixed
+    Def 5.9**: this pair has unequal length, which under one fixed
     family cannot happen; `CoherenceDegenerate` (`Coherence.lean`) carries the family that
     makes the comparison meaningful. -/
 theorem book_degeneracy : SignatureSumDegenerate [1, 2] [0] := by decide
 
 /-- A second, sharper tie the book does not name: depths `[1, 4]` and
     `[2, 2]` also agree. Two anchors, same count, different signatures — the
-    cardinality D-08 asked for, still with no family attached. -/
+    cardinality one fixed family requires, still with no family attached. -/
 theorem degeneracy_one_four : SignatureSumDegenerate [1, 4] [2, 2] := by decide
 
 /-! ### The exact order
@@ -291,7 +291,7 @@ instance : ZeroLEOneClass Zphi := ⟨by decide⟩
 /-- Positivity is closed under multiplication, routed through `ℤ[√5]`'s own
     decidable primitives (`Zsqrtd.mul_nonneg`, its zero-divisor lemma) rather
     than mathlib's generic ordered-ring `mul_pos`, which is where
-    `Classical.choice` entered (`lean-support/zphi-order-layer-choice-bisection.md`).
+    `Classical.choice` enters.
     The factor of two in `emb_mul` is removed by the order itself: if `w < 0`
     then `2w = w + w < 0`. -/
 protected theorem mul_pos (x y : Zphi) (hx : 0 < x) (hy : 0 < y) : 0 < x * y := by
@@ -377,7 +377,7 @@ theorem coherence_lt_of_lt (pre suf : List ℕ) {S T : ℕ} (h : S < T) :
     equivalent when several anchors are present. Here is the witness. Candidate
     `r` holds the strictly smaller local tension, and candidate `s` holds the
     strictly greater global coherence. Both facts are decided exactly.
-    **The witness is algebraic, not yet geometric** (D-07, `DIVERGENCE.md`):
+    **The witness is algebraic, not yet geometric**:
     `[1, 10]` and `[2, 2]` are asserted as signatures, with no proof that
     either arises from a real candidate against a real shared family. `Coherence.lean`
     restates this separation for two genuine `IPres` candidates against one
@@ -400,13 +400,10 @@ theorem local_min_ne_global_max :
 /-! ### Definition 5.7's recursive map, its fixed point and its tangent slope (the book's
   "derivative")
 
-    D-06 (`research/lean-support/DIVERGENCE.md`), restated 2026-09-29 after audit
-    E1-A2. Def 5.7: *"The recursive map `f(x) = 1 + 1/x` has the positive fixed
+    Def 5.7: *"The recursive map `f(x) = 1 + 1/x` has the positive fixed
     point `φ`, with exact derivative at the fixed point `f'(φ) = -φ^(-2)`."*
 
-    Until 2026-09-29 this section held only the ring identity `φ - 2 = -φ⁻²`,
-    under the name `fixed_point_derivative`; no map, no fixed point and no
-    derivative were in the statement (audit E1-A2). Now each clause is stated:
+    Each clause is stated:
 
     * the map, `recMap u = 1 + u⁻¹` on the units of `ℤ[φ]` (`ℤ[φ]` is not a
       field, so `1/x` is read where it exists, at a unit);
@@ -435,9 +432,8 @@ theorem local_min_ne_global_max :
 /-- `φ⁻² = 2 - φ`, from `φ⁻¹ = φ - 1` squared and reduced by `φ² = φ + 1`. -/
 theorem phiNegPow_two_eq : phiNegPow 2 = 2 - phi := by decide
 
-/-- `φ - 2 = -φ⁻²`: the ring identity, and nothing more. Until 2026-09-29 it was
-    named `fixed_point_derivative` (audit E1-A2); the tangent slope at `φ`, which
-    stands for the book's derivative, is `recSlope_phi`. -/
+/-- `φ - 2 = -φ⁻²`: the ring identity, and nothing more. The tangent slope at `φ`,
+    which stands for the book's derivative, is `recSlope_phi`. -/
 theorem phiNegPow_two_eq_neg : phi - 2 = -phiNegPow 2 := by decide
 
 /-- **The fixed-point equation**, `1 + φ⁻¹ = φ`. -/

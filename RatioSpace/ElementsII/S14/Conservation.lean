@@ -21,7 +21,7 @@ matrix fall out by `rfl`. That is not a shortcut. It is the payment for a
 decision taken ten sections earlier, and it is worth saying out loud that a
 label-based identifier would have made 14.4 the hardest theorem in the volume.
 
-**One finding, in 14.8.** The book says neither `S_j ⊆ S_{j+1}` nor
+**One sharpening, in 14.8.** The book says neither `S_j ⊆ S_{j+1}` nor
 `S_{j+1} ⊆ S_j` *is required*. Under Lemma 12.1 the two supports are in fact
 **disjoint**: Definition 8.1 selects from newly admitted child
 occurrences, every child identifier is fresh against the archive, and the
@@ -238,7 +238,7 @@ theorem annAlong_closure {Aux : Type} (a : NativeAnn Aux) (v : Word) :
     The book's proof cites *"the homomorphism property of `ψ₁₂`"*, and that
     property is a declared receiver hypothesis, not a Lean `axiom`: `Closure12`
     carries it, `Closure12.map_G` discharges the agreement, and any `A` whatever
-    gives the same value (one is built, `Closure12.congruence`, E1-B11). So the word form above
+    gives the same value (one is built, `Closure12.congruence`). So the word form above
       and the matrix form here are
     one statement, and the accumulator never needed to see a matrix. -/
 theorem annAlong_closure_matrix {Aux : Type} (A : Closure12) (a : NativeAnn Aux)
@@ -252,7 +252,8 @@ theorem annAlong_closure_matrix {Aux : Type} (A : Closure12) (a : NativeAnn Aux)
     conservation rather than additivity: Definition 11.5 forbids recomputing
     `Ω` and `κ_cl` from scratch, so a Lean tree that only proved `bal (u ++ v) =
     bal u + bal v` would have proved a fact about words while leaving the
-    carrier's stored annotation unaudited. Here the annotation is the subject
+    carrier's stored annotation unchecked. Here the annotation is the subject
+
     and the word is the check. -/
 theorem conservation {Aux : Type} (id0 : QuestionId) (seed : History) (u v : Word)
     (a : NativeAnn Aux)

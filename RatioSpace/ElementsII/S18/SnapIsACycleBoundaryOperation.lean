@@ -7,7 +7,7 @@ import RatioSpace.ElementsII.S18.Snap
 import RatioSpace.ElementsII.S16.CrystallizationPattern
 import RatioSpace.ElementsII.S16.RootChainState
 /-!
-  Gap G2-17 — Elements II §18, Theorem 18.3, Snap is a cycle-boundary
+  Elements II §18, Theorem 18.3, Snap is a cycle-boundary
   operation, outside the domain of the one-tick map.
 
   **Book statement.** *"The existence of a coherent snap does not imply
@@ -17,11 +17,11 @@ import RatioSpace.ElementsII.S16.RootChainState
   new question authorizes a further advance, Corollary 8.11 shows that a
   singleton whose two children are admitted reopens to an exact pair."*
 
-  **What was missing.** The first clause is `Snap.terminal_not_lawful`. The
-  second clause was not composed: `pair_support` and `lone_seed_keeps_both`
-  are its core.
+  **The two clauses.** The first clause is `Snap.terminal_not_lawful`. The
+  second is composed here; `pair_support` and `lone_seed_keeps_both` are its
+  core.
 
-  **Built here.**
+  **Contents.**
   * `singleton_reopens_to_pair`: on any lawful carrier, at any observer, with
     any horizon, a singleton support whose two children are admitted and
     addressed advances under Definition 8.1 to exactly the two

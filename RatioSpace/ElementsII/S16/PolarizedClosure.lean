@@ -10,7 +10,7 @@ import RatioSpace.ElementsII.S16.CrystallizationPattern
   questions `𝒬_L` and `𝒬_R` close on an occurrence singleton at the horizon
   `3` and at every even horizon `h ≥ 6`, with no range.
 
-  **Book statement (v0.25 text of the round-2 revision of Theorem 16.5).** The
+  **Book statement (Theorem 16.5).** The
   polarized questions close on an occurrence singleton at the horizon `3` and
   at every even horizon `h ≥ 6`: `𝒬_L` closes at `h = 6` on `LLLRRRR`
   (`5:16`) and at `h = 8` on `LLLRRRRRR` (`7:22`); `𝒬_R` closes on the side

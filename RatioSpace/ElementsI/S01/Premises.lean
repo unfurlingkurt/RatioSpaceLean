@@ -129,14 +129,14 @@ theorem not_lt_not_gt_iff_equiv (A B : Pt) :
 
 /-- Identity implies equivalence. That the converse fails, so equivalence is
     strictly coarser than identity, is shown in the `Pres` model by
-    `p11_equiv_p22` with `p11_ne_p22` below (audit E1-A9). No statement about what sentences
+    `p11_equiv_p22` with `p11_ne_p22` below. No statement about what sentences
       over `Δ` and `⊕` can
     separate is made here. -/
 theorem equiv_of_eq {A B : Pt} (h : A = B) : Equiv A B := h ▸ equiv_refl A
 
 /-! ### Proposition 2.1 — contact is inherited
 
-The prediction this file was written to test. The book's proof expands
+The book's proof expands
 `a(b+d) − b(a+c) = ad − bc`. The premises give it without components. -/
 
 /-- **Proposition 2.1, general form.** Not just for contact pairs: the contrast
@@ -481,7 +481,7 @@ identity `I_r` are added below exactly as `Closure12` was added in `Winding.lean
 — **declared fields of a new class, not a Lean `axiom`, and not derived from
 `Contact`.**
 
-**Second, `⊗`'s own domain is not `Pt`.** `Composition.lean`'s finding that
+**Second, `⊗`'s own domain is not `Pt`.** `Composition.lean`'s result that
 `Definition 1.2`'s boundary anchors leave `⊗` outside the presentation domain
 holds here unchanged: the class below is generic in `Pt`, but Elements I
 instantiates it at `IPres`, not at `Pres`, the sort `Walk` uses. One frozen
@@ -522,8 +522,8 @@ class Composition (Pt : Type) [Contact Pt] where
   Ir_otimes : ∀ A, otimes Ir A = inv A
   inv_inv : ∀ A, inv (inv A) = A
   otimes_swap : ∀ A B, otimes B A = inv (otimes A B)
-  /-- Not in the book's own statement of Definition 4.1 — found by asking
-      whether `otimes` and `delta` interact at all, and they do. -/
+  /-- Not in the book's own statement of Definition 4.1: the identity tying
+      `otimes` to `delta`. -/
   delta_otimes_unit : ∀ A B, delta A B = delta (otimes A B) Ir
 
 namespace Composition
@@ -689,14 +689,14 @@ theorem mediant_not_congruence :
 /-- The same fact read through `equiv_mediant_iff`: the contrasts against `1:2`
     differ, `Δ(1:1, 1:2) = 1` against `Δ(2:2, 1:2) = 2`. The shared factor that
     isolates `2:2` in the contact graph is the same factor that scales its
-    contrast, so the two §10 findings have one cause. -/
+    contrast, so the two §10 facts have one cause. -/
 theorem contrast_not_equal_p12 :
     Contact.delta p11 p12 ≠ Contact.delta p22 p12 := by
   change Delta p11 p12 ≠ Delta p22 p12
   unfold Delta p11 p22 p12
   decide
 
-/-- `1:0` and `2:0`, the briefing's own witness. Definition 1.2 admits both:
+/-- `1:0` and `2:0`, the witness on the anchors. Definition 1.2 admits both:
     `ne_zero` forbids only `0:0`. -/
 def p10 : Pres := ⟨1, 0, by decide⟩
 /-- `2:0`, proportionally equivalent to `1:0`. -/
@@ -704,8 +704,7 @@ def p20 : Pres := ⟨2, 0, by decide⟩
 /-- `0:1`, the anchor composed against. -/
 def p01 : Pres := ⟨0, 1, by decide⟩
 
-/-- **The degenerate witness**, recorded because it is the one the correction
-    arrived with and it is *weaker*: `1:0 ~ 2:0`, and composing each with `0:1`
+/-- **The degenerate witness**, the *weaker* one: `1:0 ~ 2:0`, and composing each with `0:1`
     gives `1:1` and `2:1`. True, but a reader can dismiss it as an artifact of
     the anchors. `mediant_not_congruence` is the one that cannot be dismissed. -/
 theorem mediant_not_congruence_anchors :

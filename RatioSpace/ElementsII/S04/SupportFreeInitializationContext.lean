@@ -5,13 +5,13 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S17.Terminal
 /-!
-  Gap G2-03 — Elements II Definition 4.7, support-free initialization context.
+  Elements II Definition 4.7, support-free initialization context.
 
-  `Two/Cavity.lean`'s `InitContext` carries `seedArchive : List (QuestionId ×
+  `Cavity.lean`'s `InitContext` carries `seedArchive : List (QuestionId ×
   History)`, which holds the seed identifier and retained history but not the
   immutable seed core Definition 4.7 names (closure record, imbalance, entry
-  event, provenance, null parent and hand), and until 2026-10-04 it carried no
-  `ℰ_init` (it now has `initLedger`). Nor does it tie `𝐀` to the archive:
+  event, provenance, null parent and hand); it carries `ℰ_init` as
+  `initLedger`. Nor does it tie `𝐀` to the archive:
   `mem_S0tilde_iff_mem_S0` has to assume `ctx.active = seeds.map Prod.snd`.
 
   This file builds the faithful context, `SeedInitContext`, on §6's `Core`, and
@@ -21,7 +21,7 @@ import RatioSpace.ElementsII.S17.Terminal
       every `InitContext` that satisfies the book's conditions back, with
       `toInitContext_ofInitContext` the round trip (for a context with no
       initial annotations), and `toInitContextWith_ofInitContext` the round trip
-      that keeps `ℰ_init`, which `InitContext` carries since 2026-10-04;
+      that keeps `ℰ_init`, which `InitContext` carries;
     * Definition 4.8's seed-by-seed iff holds with the `hactive` hypothesis
       discharged by the context's own field;
     * adding a support and the tick-zero admission stratum gives a tick-zero
@@ -227,8 +227,7 @@ def ofInitContext {Cert Ann : Type} (ctx : InitContext Cert)
     rw [List.map_map]; exact hnodup
 
 /-- The round trip: lifting and forgetting returns the original context, for a
-    context with no initial annotations (`toInitContext` forgets `ℰ_init`; until
-    `InitContext` carried `ℰ_init`, 2026-10-04, every context was of this kind). -/
+    context with no initial annotations (`toInitContext` forgets `ℰ_init`). -/
 theorem toInitContext_ofInitContext {Cert Ann : Type} (ctx : InitContext Cert)
     (hact : ctx.active = ctx.seedArchive.map Prod.snd)
     (hnodup : (ctx.seedArchive.map fun p => (proposal p.1 p.2 []).id).Nodup)

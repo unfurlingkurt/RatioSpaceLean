@@ -11,21 +11,21 @@ import RatioSpace.ElementsII.S10.Causal
 
   **Book statement.** "If the entire observer-question-cavity system and all
   declared predicates are side-exchanged, then `𝔎_{PC}(P𝔛_{τ,j}) = P 𝔎_C(𝔛_{τ,j})`."
-  Its proof names two steps this tree did not state:
+  Its proof names two steps, each stated here:
 
   (a) "Theorem 8.13 then transports the complete support set." Lean-side, the
   carrier advance takes the selector as a parameter, so
-  `advanceCarrier_mirror_componentwise` (`Two/SideExchange.lean`) carries
-  `hsel_equiv` as a hypothesis about *that mirrored carrier* and never discharges
-  it. Nothing said which selectors satisfy it, and nothing said any did.
+  `advanceCarrier_mirror_componentwise` (`SideExchange.lean`) carries
+  `hsel_equiv` as a hypothesis about *that mirrored carrier* and does not discharge
+  it, nor say which selectors satisfy it.
 
   (b) "The maps `W` and `F` commute with complete hand exchange, and the oriented
   sibling relation `A_g` is carried to `A_ḡ`." True by the definitions in
-  `Two/Causal.lean`, but no declaration states either half.
+  `ElementsII/S10/Causal.lean`; both halves are stated in (b) below.
 
   **Built here.**
 
-  For (a), the missing equality. `proposals_mirror_perm` records the proposal
+  For (a), the equality. `proposals_mirror_perm` records the proposal
   family of the exchanged carrier as a *permutation* of the exchange of the
   proposal family, because it reads the exchange with the hand-flipping action
   `(c,g) ↦ (P c, ḡ)` — the book's own reading, "the two proposals `xL, xR` are
@@ -42,12 +42,11 @@ import RatioSpace.ElementsII.S10.Causal
   the carrier does not (`selectFixed_not_parentEquivariant`) — which is
   Corollary 13.4's "a fixed occurrence" escape clause, at the selector.
 
-  **What is not claimed.** `Two/SideExchange.lean`'s note that the selector's
+  **What is not claimed.** `SideExchange.lean`'s note that the selector's
   equivariance "is a hypothesis and has to be" stands. Definition 8.1
-  supplies the support filter and this file still does not get to assume it is
-  parent-equivariant; what changes is that the assumption is now stated about the
-  selector alone and is known to be satisfiable. No existing declaration is
-  changed and no existing statement is weakened.
+  supplies the support filter and this file does not assume it is
+  parent-equivariant; the assumption is stated about the selector alone and is
+  satisfiable.
 -/
 set_option linter.style.longLine false
 
@@ -84,7 +83,7 @@ theorem proposals_mirrorArchive (archive : List Core) (active : List QuestionId)
 
 /-- **The local condition on a selector.** It carries the exchange of the parents
     to the relabelling of the identifiers it returns. No mirrored carrier appears:
-    this is a property of `select` alone, which is what `hsel_equiv` was not. -/
+    this is a property of `select` alone, which `hsel_equiv` is not. -/
 def ParentEquivariant (select : List (Core × Bool) → List QuestionId) : Prop :=
   ∀ ps : List (Core × Bool),
     select (ps.map relabel) = (select ps).map QuestionId.mirror
@@ -101,7 +100,7 @@ theorem hsel_equiv_of_parentEquivariant
 
 /-- **Theorem 13.3 at the carrier with no selector hypothesis.** Exactly
     `advanceCarrier_mirror_componentwise`, with `hsel_equiv` replaced by the
-    local condition. The existing theorem is untouched and still the general
+    local condition. `advanceCarrier_mirror_componentwise` is the general
     statement; this is the instance the book's proof is entitled to. -/
 theorem advanceCarrier_mirror_componentwise_of_parentEquivariant
     {Aux : Type} {h : ℕ}
@@ -213,9 +212,9 @@ theorem A_conj_P (g : Bool) : P * A g * P = A (!g) := by
 theorem A_conj_P_involutive (g : Bool) : P * (P * A g * P) * P = A g := by
   rw [A_conj_P, A_conj_P, Bool.not_not]
 
-/-! ## (c) The support filter as the selector: Definition 8.1 at the carrier (2026-09-22)
+/-! ## (c) The support filter as the selector: Definition 8.1 at the carrier
 
-`Two/SideExchange.lean`'s note says Definition 8.1 supplies the support filter and this
+`SideExchange.lean`'s note says Definition 8.1 supplies the support filter and this
 file "does not get to assume it is parent-equivariant". Here the filter is built as a selector on
 proposals (`selectSupport`), with `A_{j+1}` instantiated as every proposal whose child has an
 interior address: Definition 7.1 with the declared predicate `Pred_Γ` everywhere true and the

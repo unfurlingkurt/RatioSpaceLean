@@ -16,18 +16,20 @@ import RatioSpace.ElementsI.S12.Correspondence
 
   So this file types the obligation and stops. Def 15.1 is five items because
   the book lists five things that must be constructed (eight fields: item 3 is
-  the relation with its agreement and its equivalence proof, audit finding
-  E1-B8; item 4 is the declared observers, their non-emptiness and the
-  reception family, gap G1-26), and nobody should be able to claim sufficiency
+  the relation with its agreement and its equivalence proof; item 4 is the
+  declared observers, their non-emptiness and the
+  reception family), and nobody should be able to claim sufficiency
   for a domain while supplying four of them. Item 2's realization is built from
   Definition 3.2's actions on a state (`TypedAction`), not any map that commutes
-  with the encoding, which a coding construction supplies for free (audit W3,
-  2026-10-01; `flipDomain_not_sufficient`). Def 15.2 is
+  with the encoding, which a coding construction supplies for free
+  (`flipDomain_not_sufficient`). Def 15.2 is
   already built and is not rebuilt here; it is restated at a domain for Def
-  15.3 (`CompleteFor`, gap G1-27). Def 15.3 is a `Prop` that is defined and
-  deliberately left unproved; a beat that proves it has proved something else.
+  15.3 (`CompleteFor`). Def 15.3 is a `Prop` that is defined and
+  deliberately left unproved; a proof of it for all domains would be a proof of
+  something else.
 
-  **Three findings**: the first two about direction, the third about what a domain reads.
+  **Three consequences**: the first two about direction, the third about what a
+  domain reads.
 
   First, **Def 15.1's encoding is not a Def 12.2 encoding, and they point
   opposite ways.** Def 12.2's `E_O : 𝔖 → 𝓕_O` runs substrate → field, out of the
@@ -35,18 +37,18 @@ import RatioSpace.ElementsI.S12.Correspondence
   substrate from outside. Both obligations are the same commuting square from Def
   12.3, and that is why `Correspondence` cannot be reused verbatim here: its `E`
   is typed as a map out of `SubstrateState`. The square is shared; the arrow is
-  reversed. The book never says this and the two definitions read as though they
-  were about the same map.
+  reversed, as Elements I, Definition 15.1 states: its encoding runs from the
+  target into RatioSpace states, opposite to the `E_O` of Definition 12.2.
 
   Second, and this is the one with teeth: **generative sufficiency forbids the
   encoding from merging two histories the target can tell apart.** It falls
   straight out of the fifth obligation at any one declared observer (item 4
   says there is one), needs no further hypothesis, and is
-  `encode_cannot_merge_the_distinguishable` below. The book asserts the spirit of
-  this in prose; here it is a consequence of the typed obligation rather than a
-  further requirement anyone has to remember to impose.
+  `encode_cannot_merge_the_distinguishable` below. Elements I, Definition 15.1
+  states it in its closing sentence; here it is a consequence of the typed
+  obligation rather than a further requirement anyone has to remember to impose.
 
-  Third (gap G1-27): **what decides the claim at a domain is its declared
+  Third: **what decides the claim at a domain is its declared
   `Reading`.** Completeness is asked of the sufficiency term's own receptions,
   which land in the domain's declared `Reading`; item 5 constrains only their
   projection. `wordDomain`, the `L`/`R` words read as words (the reading is the
@@ -92,7 +94,7 @@ structure Domain where
   /-- the equivalence the target itself declares, Def 15.1's third obligation -/
   same : History → History → Prop
   /-- it is an equivalence relation: Def 15.2's "the target's declared
-      equivalence" (audit finding E1-B8) -/
+      equivalence" -/
   same_equiv : Equivalence same
   /-- the target's declared projection, which Def 15.1's fifth obligation names -/
   project : Reading → Quantity
@@ -122,12 +124,12 @@ theorem presentedState_record_capacity_free (O : Observer) (s : Frame) (w : Word
 theorem presentedState_closure (S : SubstrateState) :
     (presentedState S).closure = S.closure := rfl
 
-/-! ## Item 2's actions: Definition 3.2 on a substrate state (audit W3)
+/-! ## Item 2's actions: Definition 3.2 on a substrate state
 
   Item 2 asks for *"an exact RatioSpace realization"*, so the realization is
   built from RatioSpace's own operations on a state, not from any map that
-  commutes with the encoding. Until audit W3 (2026-10-01) the field took any
-  `SubstrateState → SubstrateState` commuting with the encoding, and for any
+  commutes with the encoding. Any `SubstrateState → SubstrateState` commuting
+  with the encoding would not do: for any
   domain whose histories code into words and decode back, decode, step,
   re-encode is such a map (`coding_has_a_commuting_map`), whatever the
   transition does.
@@ -143,7 +145,8 @@ theorem presentedState_closure (S : SubstrateState) :
   Neither action touches the declared origin, the active family or `H_τ`. A
   realization is a finite list of actions, run first to last; one list per
   primitive transition, the same at every history: the one-list form of
-  item 2's "realization of every primitive target transition" (E1-48). The
+  item 2's "realization of every primitive target transition" (Elements I,
+  Definition 15.1). The
   history-dependent form (a list that is a function of the history) gives the
   same conclusion around a cycle, by the same count of generators
   (`Layer.history_dependent_cycle_is_empty`), so the form of item 2 does not matter. -/
@@ -248,13 +251,13 @@ end TypedAction
     **exact** realization" and "an **explicit** equivalence relation": a map
     without its exactness proof is not the thing Def 15.1 asks for. `realize`
     and `identify` carry the square and the agreement with `D.same` in their
-    types; item 3's equivalence proof is the next field, `equiv` (audit E1-B8),
+    types; item 3's equivalence proof is the next field, `equiv`,
     and like every field it cannot be omitted from a term of this type.
 
     `realize` is Def 12.3's commuting square, once per primitive transition, with
     the arrow reversed: see this file's header. The update on the RatioSpace
     side is built from Definition 3.2's actions (`TypedAction`), one list per
-    transition (audit W3), so it keeps the origin, the active family and
+    transition, so it keeps the origin, the active family and
     `H_τ` and sends the retained word `w` to `pre ++ w ++ suf`
     (`TypedAction.run_eq`). The square is equality, which is what "exact"
     is read as; Def 12.3's other option, a stated error or limiting relation,
@@ -264,7 +267,7 @@ end TypedAction
     no sufficiency term (`flipDomain_not_sufficient`), and the same flips
     declared as a history, counted, have one (`toggleSufficient`).
 
-    **Item 4 (gap G1-26).** *"observer-relative reception maps reproducing the
+    **Item 4.** *"observer-relative reception maps reproducing the
     target's accessible quantities"*: plural and observer-relative. It is a
     declared, non-empty list of observers with an observer-indexed reception
     family (Definition 11.1, `ObsReception`), each observer receiving its own
@@ -273,7 +276,7 @@ end TypedAction
     under the target's declared projection, recovers the target's outcome.
     Recovery at each observer is a declared reading of "reproducing the
     target's accessible quantities"; recovery from the joint of the readings
-    is Def 15.2's business, not this item's. The pre-G1-26 form, one map on
+    is Def 15.2's business, not this item's. The single-map form, one map on
     states with no observer, is `GenerativelySufficientOnState` below, and every
     declared observer gives one (`toOnState`).
 
@@ -287,8 +290,7 @@ structure GenerativelySufficient (D : Domain) where
   encode : D.History → SubstrateState
   /-- **2.** an exact RatioSpace realization of every primitive target
       transition: a list of Definition 3.2's actions (`TypedAction`), one per
-      transition, carrying its own commuting square (audit W3: was any map on
-      states commuting with the encoding) -/
+      transition, carrying its own commuting square -/
   realize : ∀ t : D.Transition,
     { as : List TypedAction //
         ∀ h : D.History, encode (D.step t h) = TypedAction.run as (encode h) }
@@ -298,9 +300,7 @@ structure GenerativelySufficient (D : Domain) where
     { C : SubstrateState → SubstrateState → Prop //
         ∀ h h' : D.History, D.same h h' ↔ C (encode h) (encode h') }
   /-- **3, continued.** the relation is an equivalence relation, as the book's
-      "explicit equivalence relation" says; before audit finding E1-B8 any
-      relation agreeing with `D.same` on encoded states was accepted, an
-      irreflexive one included -/
+      "explicit equivalence relation" says -/
   equiv : Equivalence identify.1
   /-- **4a.** the observers whose receptions are declared -/
   observers : List Observer
@@ -314,7 +314,7 @@ structure GenerativelySufficient (D : Domain) where
   recovers : ∀ O ∈ observers, ∀ h : D.History,
     D.project (reception.receive O (presentedState (encode h))) = D.observe h
 
-/-- **The pre-G1-26 form of Definition 15.1**, kept under its own name: item 4
+/-- **The single-map form of Definition 15.1**: item 4
     as one map on substrate states, with no observer and no encounter. It is
     what one declared observer's reception becomes once the observer is fixed
     (`GenerativelySufficient.toOnState`). -/
@@ -336,8 +336,7 @@ variable {D : Domain} (G : GenerativelySufficient D)
 
 /-- **Item 3 is an equivalence on every encoded state.** Every state is
     identified with itself, so no term of Def 15.1 carries an irreflexive
-    relation such as `fun _ _ => False` (audit finding E1-B8: before the
-    `equiv` field, such a term compiled). -/
+    relation such as `fun _ _ => False`. -/
 theorem identify_refl (S : SubstrateState) : G.identify.1 S S := G.equiv.refl S
 
 include G in
@@ -351,9 +350,9 @@ def realizeMap (t : D.Transition) : SubstrateState → SubstrateState :=
   TypedAction.run (G.realize t).1
 
 /-- **The second obligation is a commuting square, stated in the open.** Nothing
-    new is proved — the square is the second component of the field — but Def
-    15.1 never uses the word "square" and Def 12.3 never mentions §15, so this
-    is where the two are said to be one thing. -/
+    new is proved — the square is the second component of the field — but this
+    is where Def 15.1's item 2 and the commuting square of Def 12.3 are said to
+    be one thing in the tree. -/
 theorem realize_commutes (t : D.Transition) (h : D.History) :
     G.encode (D.step t h) = G.realizeMap t (G.encode h) :=
   (G.realize t).2 h
@@ -388,7 +387,7 @@ theorem distinguishable_forces_distinct_encodings {h h' : D.History}
     (hyp : D.observe h ≠ D.observe h') : G.encode h ≠ G.encode h' :=
   fun heq => hyp (G.encode_cannot_merge_the_distinguishable heq)
 
-/-! ### What the typed realization forces (audit W3) -/
+/-! ### What the typed realization forces -/
 
 /-- **Each transition is one fixed two-sided word action on the encoding**
     (a prefix and a suffix; not Def 3.2's bilateral transport).
@@ -458,8 +457,8 @@ theorem observe_step_of_two_cycle (t : D.Transition) {h₀ : D.History}
     D.observe (D.step t h) = D.observe h :=
   G.observe_step_of_cycle t 1 hc h
 
-/-- **One declared observer, fixed, gives the pre-G1-26 form.** Its reception
-    of the encoded state, as a map on states, is the old item 4. -/
+/-- **One declared observer, fixed, gives the single-map form.** Its reception
+    of the encoded state, as a map on states, is item 4 in that form. -/
 def toOnState (O : Observer) (hO : O ∈ G.observers) : GenerativelySufficientOnState D where
   encode := G.encode
   realize := G.realize
@@ -476,7 +475,7 @@ end GenerativelySufficient
   than demanding, so §15 needs a domain with a sufficiency term. The free
   `L`/`R` word domain has one: each target transition is realized by one
   forward continuation (`wordRealize`, `wordSufficient_realize`), Def 3.2's
-  own action. Since audit W3 a realization must be a list of typed actions,
+  own action. A realization is a list of typed actions,
   and a decode-step-re-encode map is refused where it is not one
   (`flipDomain_not_sufficient`). -/
 
@@ -484,9 +483,7 @@ end GenerativelySufficient
     words, transitions the two generators, `same` is equality of words, and
     both the reading and the outcome are the closure record. It meets Def 15.1
     and is mis-declared for Def 15.3: it keeps apart words its reading cannot
-    tell apart (`wordByClosureDomain_not_complete`). Built 2026-08-24 as
-    `wordDomain`; renamed for its reading when the word domain proper was made
-    to read the word (G1-27 follow-up, 2026-09-27). -/
+    tell apart (`wordByClosureDomain_not_complete`). -/
 def wordByClosureDomain : Domain where
   History := Word
   Transition := Bool
@@ -503,9 +500,8 @@ def wordByClosureDomain : Domain where
 def wordEncode (w : Word) : SubstrateState := ⟨Frame.empty, w, [], []⟩
 
 /-- The realization of the generator `b`: one forward continuation by `b`,
-    which appends it to the retained word (until audit W3 this was the map on
-    states itself, `S ↦ S` with `b` appended; it is now the action that map
-    runs). Named separately, with `b : Bool` explicit, because writing it
+    which appends it to the retained word. Named separately, with `b : Bool`
+    explicit, because writing it
     inline leaves the generator at type `wordByClosureDomain.Transition`. -/
 def wordRealize (b : Bool) : List TypedAction := [TypedAction.forward b]
 
@@ -528,11 +524,13 @@ def presentedClosureReception : Reception ClosureState where
     (`wordRealize`), and its square is `rfl`: appending to the target's word
     and appending to the retained word are the same operation. The
     equivalence is equality of encoded states, which reflects and preserves
-    `same`. Item 4 is the same reception at every capacity (reading A of
-    E1-39), declaring the presented closure `κ_P` of the encounter and nothing
+    `same`. Item 4 is the same reception at every capacity (a constant family,
+    which reads the record only), declaring the presented closure `κ_P` of the
+    encounter and nothing
     else, so every observer recovers the target's closure
     record. That this is so for every observer is a fact about this reception,
-    not about item 4: `Gaps/G1_26.lean` has a reception that recovers at one
+    not about item 4: `ItemReceptionWithoutAnObserver.lean` has a reception that
+    recovers at one
     observer and not at another. -/
 def wordByClosureSufficientAt (Os : List Observer) (hOs : ∃ O, O ∈ Os) :
     GenerativelySufficient wordByClosureDomain where
@@ -553,7 +551,7 @@ def wordByClosureSufficientAt (Os : List Observer) (hOs : ∃ O, O ∈ Os) :
 def wordByClosureSufficient : GenerativelySufficient wordByClosureDomain :=
   wordByClosureSufficientAt [⟨Frame.empty, [], 0⟩] ⟨_, List.mem_singleton_self _⟩
 
-/-- The pre-G1-26 witness: the reception is Def 12.1's Arrow 1 on states, and
+/-- The single-map witness: the reception is Def 12.1's Arrow 1 on states, and
     the recovery is `rfl` because `SubstrateState.closure` is `ofWord` of the
     retained word. -/
 def wordByClosureSufficientOnState : GenerativelySufficientOnState wordByClosureDomain where
@@ -615,23 +613,23 @@ def wordSufficientAt (Os : List Observer) (hOs : ∃ O, O ∈ Os) :
 def wordSufficient : GenerativelySufficient wordDomain :=
   wordSufficientAt [⟨Frame.empty, [], 0⟩] ⟨_, List.mem_singleton_self _⟩
 
-/-- **The word witnesses realize each generator by one forward continuation**
-    (audit W3): the realization item 2 carries is Def 3.2's action, not a map
+/-- **The word witnesses realize each generator by one forward continuation**:
+    the realization item 2 carries is Def 3.2's action, not a map
     chosen to commute. -/
 theorem wordSufficient_realize (b : Bool) :
     (wordSufficient.realize b).1 = [TypedAction.forward b] ∧
     (wordByClosureSufficient.realize b).1 = [TypedAction.forward b] :=
   ⟨rfl, rfl⟩
 
-/-! ### The coding trick, refused (audit W3)
+/-! ### The coding trick, refused
 
-  The commuting-map half of the auditor's construction: a domain whose
+  The coding construction: a domain whose
   histories code into words and
   decode back has, for every transition, a map on states commuting with the
   encoding (decode, step, re-encode; `coding_has_a_commuting_map`).
   `flipDomain` is one such domain: two states and one transition that flips
-  them. That map exists (`flip_has_a_commuting_map`), and before W3 it was an
-  admissible item 2. Now the flip has no sufficiency term
+  them. That map exists (`flip_has_a_commuting_map`), and the flip has no
+  sufficiency term
   (`flipDomain_not_sufficient`): its typed realization would have to be empty,
   and the empty list does not flip. The
   same mechanics declared by its histories, the count of flips with the
@@ -650,12 +648,11 @@ def flipDomain : Domain where
   project := id
   observe := id
 
-/-- **The general coding construction** (the commuting-map half of audit W3's
-    compiled counterexample to the unconstrained field). If the target's histories code into
+/-- **The general coding construction.** If the target's histories code into
       words and
     decode back, the map that reads the retained word, decodes, steps and
     re-encodes commutes with the encoding at every transition. It is a map on
-    states; it is not a list of typed actions, and since W3 item 2 asks for
+    states; it is not a list of typed actions, and item 2 asks for
     one. -/
 theorem coding_has_a_commuting_map (D : Domain) (code : D.History → Word)
     (decode : Word → D.History) (hd : ∀ h, decode (code h) = h) (t : D.Transition) :
@@ -670,8 +667,8 @@ def flipEncode (b : Bool) : SubstrateState := wordEncode (if b then [true] else 
 
 /-- **A map commuting with the encoding exists**: read the retained word,
     flip, re-encode, the construction of `coding_has_a_commuting_map`
-    (decode `[] ↦ false`, `[R] ↦ true`), proved directly. It was
-    an admissible item 2 before audit W3. -/
+    (decode `[] ↦ false`, `[R] ↦ true`), proved directly. It is
+    not a list of typed actions. -/
 theorem flip_has_a_commuting_map :
     ∃ U : SubstrateState → SubstrateState,
       ∀ b : flipDomain.History, flipEncode (flipDomain.step () b) = U (flipEncode b) :=
@@ -735,7 +732,7 @@ def toggleSufficient : GenerativelySufficient toggleDomain where
   Def 15.2 is *"a family of relations is complete for a target class when its
   joint reception map is injective up to the target's declared equivalence."*
   That is `ReconstructivelySufficient` in `Perspective.lean`, built for Def 11.6
-  on 2026-08-22 and restated by gap G1-21 (2026-09-26) over observer-perspective
+  over observer-perspective
   pairs, one encounter per observer, with the class `K` and the declared
   equivalence `C` over presented states exactly as §15.2 needs. §11.6 and §15.2
   are one predicate under two names, so this
@@ -744,8 +741,9 @@ def toggleSufficient : GenerativelySufficient toggleDomain where
 /-- **Definition 15.2**, as the name §15 uses. Definitionally `Def 11.6`: the
     joint map over observer-perspective pairs, each reading its own encounter
     with the presented state, injective up to the declared equivalence on the
-    declared class (repointed with gap G1-21 from the one-record form). See
-    `Gaps/G1_21.lean` for a family of two observers that is complete where
+    declared class. See
+    `JointRelationalReconstruction.lean` for a family of two observers that is
+    complete where
     neither alone is. -/
 abbrev RelationallyComplete {n : ℕ} (Vs : Fin n → Viewpoint)
     (K : Observer → Prop) (C : Observer → Observer → Prop) : Prop :=
@@ -756,7 +754,7 @@ theorem relationally_complete_eq_11_6 {n : ℕ} (Vs : Fin n → Viewpoint)
     (K : Observer → Prop) (C : Observer → Observer → Prop) :
     RelationallyComplete Vs K C = ReconstructivelySufficient Vs K C := rfl
 
-/-! ## Definition 15.2 for a domain (gap G1-27)
+/-! ## Definition 15.2 for a domain
 
   Def 15.3 asks that relational completeness hold for each admissible
   mechanics, so Def 15.2 has to be read at a domain. The class is the encoded
@@ -801,7 +799,7 @@ def declaredEquiv (P P' : Presented) : Prop :=
 
 /-- **`CompleteFor` is Definition 15.2**, the joint map injective up to the
     declared equivalence on the declared class, with the class and the
-    equivalence the domain's. Since audit finding E1-B8 the right side also
+    equivalence the domain's. The right side also
     asks that the carried equivalence be one on the class (`EquivOn`); that
     half is not an extra assumption, it follows from completeness and
     `D.same_equiv`: two histories encoded to one presented state have equal
@@ -836,7 +834,7 @@ def family : Fin G.observers.length → Viewpoint :=
 /-- **Where the projection is injective the family does no work.** Item 5
     pins every declared observer's reception to the target's outcome, so
     completeness at the term's own family is `D.observe` separating `D.same`,
-    for every term. (Adversarial review of G1-27.) -/
+    for every term. -/
 theorem complete_iff_of_project_injective (hp : Function.Injective D.project) :
     G.CompleteFor G.family ↔ ∀ h h', D.observe h = D.observe h' → D.same h h' := by
   constructor
@@ -857,8 +855,7 @@ theorem complete_iff_of_project_injective (hp : Function.Injective D.project) :
 /-- **A family chosen apart from item 4 makes completeness a fact about the
     encoding alone.** Any family reading the presented word is complete as soon
     as the encoded words separate the target's equivalence, whatever the
-    domain can read. This is why Def 15.3 asks it of `G.family`
-    (adversarial review of G1-27). -/
+    domain can read. This is why Def 15.3 asks it of `G.family`. -/
 theorem completeFor_presentedWord (hw : ∀ h h', (G.encode h).word = (G.encode h').word →
     D.same h h') {n : ℕ} (Vs : Fin n → Viewpoint) (i : Fin n)
     (hi : ∀ P P', (Vs i).read P = (Vs i).read P' ↔ P.word = P'.word) :
@@ -878,7 +875,7 @@ end GenerativelySufficient
     distinguishable" has no counterpart here and is left to it. The
     completeness half is Def 15.2 at the domain (`CompleteFor`, which is
     `RelationallyComplete` by `completeFor_iff`) asked of the sufficiency
-    term's own receptions (`G.family`, gap G1-27): the relations that
+    term's own receptions (`G.family`): the relations that
     reproduce the target's quantities must, jointly, tell apart what the
     target keeps apart. What those receptions may read is bounded by the
     domain's declared `Reading`, not its `Quantity`: item 5 constrains only
@@ -886,7 +883,7 @@ end GenerativelySufficient
     the domain declares (`completeFor_presentedWord`). So the claim is only as
     strong as each domain's declared `Reading`, as it is only as strong as the
     admissible class: a domain whose reading carries enough of the presented
-    word passes (`Gaps/G1_27.lean`, `g127_rich_claim`).
+    word passes (`TheUniversalGenerativeClaim.lean`, `g127_rich_claim`).
 
     **A definition, with each instance its own construction.** The book states
     the claim (Definition 15.3) and leaves its proof for any class to the
@@ -894,15 +891,16 @@ end GenerativelySufficient
 def UniversalGenerativeClaim (Admissible : Domain → Prop) : Prop :=
   ∀ D : Domain, Admissible D → ∃ G : GenerativelySufficient D, G.CompleteFor G.family
 
-/-- **The pre-G1-27 form**, kept under its own name: completeness as an
-    arbitrary predicate, tied to nothing in Def 15.2. The pre-G1-27 word-domain
-    theorem took it `True`: `universal_claim_over_holds_on_wordByClosureDomain`. -/
+/-- **The claim with completeness as a parameter**: completeness as an
+    arbitrary predicate, tied to nothing in Def 15.2. Taken `True`, the
+    closure-read word domain meets it:
+    `universal_claim_over_holds_on_wordByClosureDomain`. -/
 def UniversalGenerativeClaimOver
     (Admissible : Domain → Prop)
     (Complete : ∀ D : Domain, GenerativelySufficient D → Prop) : Prop :=
   ∀ D : Domain, Admissible D → ∃ G : GenerativelySufficient D, Complete D G
 
-/-- The claim is the old form with `Complete` fixed to Def 15.2 at the term's
+/-- The claim is the parameter form with `Complete` fixed to Def 15.2 at the term's
     own family. -/
 theorem universalGenerativeClaim_eq_over (Admissible : Domain → Prop) :
     UniversalGenerativeClaim Admissible =
@@ -930,8 +928,7 @@ theorem universal_claim_is_only_as_strong_as_its_class :
     sufficiency term.** Item 5 forces every declared observer's reading of an
     encoded word to be its closure record, and the domain declares words equal only when they
     are equal: the empty word and `R^12` have one closure record. The
-    domain's accessible quantity does not separate its declared equivalence.
-    (Adversarial review of G1-27.) -/
+    domain's accessible quantity does not separate its declared equivalence. -/
 theorem wordByClosureDomain_not_complete (G : GenerativelySufficient wordByClosureDomain) :
     ¬ G.CompleteFor G.family := by
   intro h
@@ -1026,7 +1023,8 @@ theorem universal_claim_holds_on_the_word_domain :
   subst hD
   exact ⟨wordSufficient, wordSufficientAt_complete _ _⟩
 
-/-- The pre-G1-27 statement on the closure-read word domain, with completeness taken
+/-- The parameter form on the closure-read word domain, with completeness taken
+
     `True`. Under Def 15.2 it fails (`universal_claim_fails_on_wordByClosureDomain`). -/
 theorem universal_claim_over_holds_on_wordByClosureDomain :
     UniversalGenerativeClaimOver (fun D => D = wordByClosureDomain) (fun _ _ => True) := by

@@ -5,16 +5,16 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S24.Lifecycle
 /-!
-  Gap G2-21 · Elements II Proposition 24.3, the closing remark: "The left action in
+  Elements II Proposition 24.3, the closing remark: "The left action in
   Proposition 24.3 is receiver transport. It is not the right action `M ↦ Mg` by
   which a presented history continues."
 
-  `Two/Lifecycle.lean`'s `history_right_action` restates `G_snoc`, and its
-  docstring's "They are different actions" is not proved. This file proves it at
-  the strength the remark needs: for every unimodular `Q` and each generator `g`,
+  `history_right_action` (`Lifecycle.lean`) restates `G_snoc`. That the two
+  are different actions is proved here at the strength the remark needs: for
+  every unimodular `Q` and each generator `g`,
   `g⁻¹Q ≠ Qg`. So on every transported relative matrix, one appended generator
   moves `Q` by the left action and never by the right one, while the receiver's
-  own matrix moves by the right action. No existing declaration is changed.
+  own matrix moves by the right action.
 
   The integer core: `g⁻¹Q = Qg` forces `c = 0, d = −a` (for `g = R`) or `b = 0,
   d = −a` (for `g = L`), so `det Q = −a²`, which is never `1` because `a² ≥ 0`.

@@ -20,7 +20,7 @@ import RatioSpace.ElementsI.S09.Question
   rather than about content — and that is the stronger and more defensible
   version of the same sentence.
 
-  Found by enumeration first: 231 frames with entries under 14 have 231 distinct
+  Checked by enumeration: 231 frames with entries under 14 have 231 distinct
   mediants, no collisions, and no non-reduced pair is any frame's mediant.
 -/
 
@@ -155,7 +155,7 @@ theorem walk_left_inj {F K : Frame} {w : Word} (h : walk F w = walk K w) :
         simpa [walk] using h
       exact (select_inj (ih h')).2
 
-/-! ### The decoder finding 3 of Tali's 2026-08-26 12:38 review names
+/-! ### The decoder from a `CompleteState` back to its `SubstrateState`
 
     `toComplete_inj` above is injectivity: agreeing on all seven slots forces
     agreeing on the four stored ones. It names no way back from a
@@ -364,10 +364,9 @@ def presentation (S : SubstrateState) : Pres := S.frame.mid
 def matrix (S : SubstrateState) : Mat2 := S.origin.toMat2 * Word.G S.word
 /-- `κ_τ`, the closure record of Def 8.4, read against the declared origin.
 
-    **D-14, repaired 2026-08-26.** Was `ClosureState.ofWord S.word`, silently
-    reading the origin as `∅` — the same defect D-12 fixed at `Observer.matrix`,
-    here at the closure field. Def 8.4 says `κ_τ = c(M_τ)` and Def 6.2/7.1 take
-    `M_τ` relative to the declared origin, which `ClosureState.of` now is. -/
+    Def 8.4 says `κ_τ = c(M_τ)` and Def 6.2/7.1 take `M_τ` relative to the
+    declared origin, so the field is `ClosureState.of S.origin S.word`; the
+    word alone, `ClosureState.ofWord S.word`, reads the origin as `∅`. -/
 def closure (S : SubstrateState) : ClosureState := ClosureState.of S.origin S.word
 
 /-- **The book's own caveat, as a theorem.** "A representation may compress
@@ -395,17 +394,16 @@ theorem presentation_determines_frame (S T : SubstrateState)
 end SubstrateState
 
 
-/-! ### Divergence D-09 — the seven slots the book declares, and what the
+/-! ### The seven slots the book declares, and what the
     four-field record is a specialization of
 
   `SubstrateState` above is a compression, and the book licenses compression
   *conditionally*: "A representation may compress components only after proving
-  that the compression is lossless for the operations being performed." Until
-  2026-08-26 this file asserted the compression and never wrote the thing being
-  compressed, so `derived_are_determined` proved internal determinism of the
-  four-field record rather than losslessness against the seven-slot one.
+  that the compression is lossless for the operations being performed."
+  `derived_are_determined` alone proves internal determinism of the
+  four-field record, not losslessness against the seven-slot one.
 
-  Both halves are now here. `CompleteState` is Def 6.2 as declared;
+  Both halves are here. `CompleteState` is Def 6.2 as declared;
   `toComplete_inj` is the losslessness the book asks for; and
   `nonprimitiveReading` is a consistent complete state **no** `SubstrateState`
   reaches, which is why the four-field record is named a specialization rather
@@ -457,15 +455,7 @@ namespace CompleteState
     presentation, frame, word, matrix, closure, active family and history all
     describe one consistent adopted continuation, which is a different,
     richer construction with its own consistency relations, not a completion
-    of this one.
-
-    **Repairs finding 1 of Tali's 2026-08-26 12:38 review** (hop 2,
-    `DIVERGENCE.md` D-09): the prior name and docstring called this "the
-    consistency relations Def 6.2 imposes," full stop, which reads as the
-    definitive set when the book's own text is explicitly one worked example
-    under a construction-relative clause. Named for the one construction it
-    actually checks rather than claiming the completeness the book itself
-    does not claim. -/
+    of this one. -/
 def WalkConsistentFrom {K Hist : Type} (origin : Frame) (S : CompleteState K Hist) :
     Prop :=
   S.frame = Frame.walk origin S.word ∧
@@ -515,21 +505,19 @@ theorem toComplete_inj {S T : SubstrateState} (h : S.toComplete = T.toComplete) 
 
 end SubstrateState
 
-/-! ### D-09 finding 3, the rest of it — a decoder wired to `SubstrateState`,
-    and the characterization of its image
+/-! ### A decoder wired to `SubstrateState`, and the characterization of
+    its image
 
-  `Frame.unwalk` above recovers an origin from a frame and a word. Finding 3
-  asked for three things: "no decoder, no characterization of the valid
-  image, no preservation of the operations." The decoder is `Frame.unwalk`,
+  `Frame.unwalk` above recovers an origin from a frame and a word. Losslessness
+  for the operations asks for three things: a decoder, a characterization of
+  the valid image, and preservation of the operations. The decoder is `Frame.unwalk`,
   and it is checked, not merely invoked: `toSubstrate?` reassembles the
   candidate `SubstrateState` and rejects it unless recompressing reproduces
   every field of the `CompleteState` it started from, so a `some` answer is a
   verified witness and not a guess from two recovered fields alone.
 
-  **The third clause closes below**, after `substrate_presentation_is_the_
-  frame_mediant`. The citation two beats ago — "the update law belongs to
-  Def 7.1" — was wrong and is corrected here rather than carried forward:
-  Def 7.1 is *Observer*, not an update law. What closes below is
+  **The third clause is below**, after `substrate_presentation_is_the_
+  frame_mediant`. What is proved there is
   preservation of Def 3.7's elementary refinement event, `(F,w) ↦ (F·g, wg)`,
   built as `Event`/`Event.step` in `Walk.lean`; whether Def 6.2's update law
   means this event or the general state transition is open (E1-20). -/
@@ -571,7 +559,7 @@ theorem CompleteState.toSubstrate?_toComplete (S : SubstrateState) :
   rw [Frame.unwalk_walk]
   simp
 
-/-- **The characterization finding 3 named.** A `CompleteState` is in the
+/-- **The characterization of the valid image.** A `CompleteState` is in the
     image of `SubstrateState.toComplete` — is a genuine positive-walk state
     under some declared origin — exactly when the checked decoder succeeds.
     Not "the frame decodes": the full record, since `toSubstrate?` verifies
@@ -595,19 +583,12 @@ def frameOneTwo : Frame := Frame.walk Frame.empty [false]
 
 example : frameOneTwo.mid = Pres.oneTwo := rfl
 
-/-- **And the compression is not onto, and the witness now survives every
-    clause `WalkConsistentFrom` states, not only the ones it happens to
-    check.**
-
-    **Repairs finding 2 of Tali's 2026-08-26 12:38 review** (hop 2,
-    `DIVERGENCE.md` D-09). The prior witness paired `2:4` with `Frame.empty`,
-    whose own addressed mediant is `1:1` — `WalkConsistentFrom` passed only
-    because it states nothing about the presentation slot at all, which made
-    the properness theorem below pass by a clause it never exercised. This
-    one pairs `2:4` with `frameOneTwo`, whose own addressed mediant *is* the
-    same reduced relation, `1:2` — same reduced relation as `2:4`,
-    nonprimitive presentation, declared as its own origin with the empty
-    word, so both `WalkConsistentFrom` clauses still discharge by `rfl`. -/
+/-- **And the compression is not onto.** The witness satisfies every clause
+    `WalkConsistentFrom` states. `WalkConsistentFrom` states nothing about the
+    presentation slot, so the witness pairs `2:4` with `frameOneTwo`, whose own
+    addressed mediant is the same reduced relation, `1:2`: nonprimitive
+    presentation, declared as its own origin with the empty word, so both
+    `WalkConsistentFrom` clauses discharge by `rfl`. -/
 def nonprimitiveReading : CompleteState ClosureState (List Word) where
   presentation := Pres.twoFour
   frame := frameOneTwo
@@ -621,7 +602,7 @@ theorem nonprimitiveReading_consistent :
     nonprimitiveReading.WalkConsistentFrom frameOneTwo :=
   ⟨rfl, by simp [nonprimitiveReading]⟩
 
-/-- **The locus of D-09, as a theorem.** Every `SubstrateState` presentation is
+/-- **The compression is proper, as a theorem.** Every `SubstrateState` presentation is
     the mediant of a walked frame, hence primitive; `2:4` is not. So the
     four-field record's image inside Def 6.2's state space is proper, and the
     right name for it is the positive-walk specialization. The book's `P_τ` slot
@@ -636,7 +617,7 @@ theorem no_substrate_state_reads_nonprimitively (S : SubstrateState) :
   rw [hP] at hprim
   exact Pres.twoFour_not_primitive hprim
 
-/-- The same gap, stated the way the repair reads it. In Def 6.2's
+/-- The same gap, stated on the presentation slot. In Def 6.2's
     `CompleteState` the presentation slot is not determined by the frame: the
     type declares no relation between them, and `nonprimitiveReading` pairs `2:4`
     with the frame whose mediant is `1:2` (the two still reduce to the same
@@ -645,7 +626,7 @@ theorem no_substrate_state_reads_nonprimitively (S : SubstrateState) :
 theorem substrate_presentation_is_the_frame_mediant (S : SubstrateState) :
     S.toComplete.presentation = S.toComplete.frame.mid := rfl
 
-/-! ### D-09 finding 3, the third clause — preservation under Def 3.7's event
+/-! ### The third clause: preservation under Def 3.7's event
 
   Def 3.7's elementary refinement event moves two parts, `F_τ` and `w_τ`.
   `P_τ` and `M_τ` are discharged separately: `toComplete_consistent` gives the
@@ -676,12 +657,12 @@ theorem SubstrateState.toComplete_toEvent (S : SubstrateState) :
 def SubstrateState.event (S : SubstrateState) (g : Bool) : SubstrateState :=
   { S with word := S.word ++ [g] }
 
-/-- **Preservation, the third clause finding 3 asked for.** Stepping the
+/-- **Preservation, the third clause.** Stepping the
     compressed record and reading off its event agrees with reading the event
     off the compressed record and stepping *that* — Def 3.7's `(F,w) ↦
     (F·g,wg)`, applied on either side of compression, lands in the same
     place. The only fact this needs is `Frame.walk_snoc`, already built for
-    Standard Result 3.1; nothing here is new arithmetic, only the missing
+    Standard Result 3.1; nothing here is new arithmetic, only the
     link between it and `SubstrateState`. -/
 theorem SubstrateState.toComplete_event (S : SubstrateState) (g : Bool) :
     (S.event g).toComplete.toEvent = S.toComplete.toEvent.step g := by
@@ -691,7 +672,7 @@ theorem SubstrateState.toComplete_event (S : SubstrateState) (g : Bool) :
   congr 1
   exact Frame.walk_snoc S.origin S.word g
 
-/-! **D-09 closed.** All three of finding 3's clauses now hold: the checked
+/-! All three clauses hold: the checked
     decoder (`toSubstrate?`), the characterization of the valid image
     (`toSubstrate?_isSome_iff`), and preservation of Def 3.7's elementary
     refinement event (`toComplete_event`, immediately above); whether Def
@@ -707,9 +688,8 @@ theorem SubstrateState.toComplete_event (S : SubstrateState) (g : Bool) :
   reconstructed from a **sufficient** family of relational histories, with
   stability and sufficiency **proved for the relevant domain**.
 
-  **Divergence D-11.** An earlier version of this file made that refusal typed by
-  declaring `structure Object` immediately, with `sufficient := witnesses ≠ []`.
-  That compiles a witness the book withholds: a singleton family containing the
+  A `structure Object` declared at §6, with `sufficient := witnesses ≠ []`,
+  would compile a witness the book withholds: a singleton family containing the
   *empty* history, with a constant reader, satisfies `stable` by `rfl` and
   `sufficient` because the list is nonempty — an object at witness count `1`
   where the book says the word is still informal shorthand, because recurrence
@@ -717,7 +697,7 @@ theorem SubstrateState.toComplete_event (S : SubstrateState) (g : Bool) :
   been stated. Nonemptiness is not sufficiency; it only looks like it once no
   domain is named to be sufficient *for*.
 
-  **What the structure actually is, kept and renamed rather than deleted:** a
+  **What `ConstantReading` is:** a
   family of histories that all read the same, which is real content — it is the
   premise recurrence and reception will act on, not the conclusion Def 6.4 gates.
   `Object` itself stays unbuilt until three things exist: a recurrence operation,
@@ -728,7 +708,7 @@ theorem SubstrateState.toComplete_event (S : SubstrateState) (g : Bool) :
 /-- **Not Definition 6.4.** A family of histories with a reading that is constant
     across it, and a proof the family is nonempty. `witnesses` is the family;
     `read` is the reconstruction; `stable` says the reading agrees on every
-    member. Renamed from `Object` (divergence D-11): nonemptiness is not the
+    member. Nonemptiness is not the
     book's sufficiency, and this structure carries no recurrence, no reception,
     and no domain, so it cannot stand in for Def 6.4's object. -/
 structure ConstantReading where
@@ -784,7 +764,7 @@ namespace EncounterRecord
 
 /-- The record built from two states, with `Q = M_O⁻¹ M_P`.
 
-    **The history slots (audit E1-B4, 2026-09-28).** Definition 7.1's observer
+    **The history slots.** Definition 7.1's observer
     tuple is `(w_O, M_O, κ_O, η_O)`: it has no `H_O`, and neither does
     `Observer`. So this constructor has nothing to put in the history slots but
     the word, and it declares `H_O := [w_O]`, `H_P := [w_P]`. A mask that
@@ -799,13 +779,12 @@ namespace EncounterRecord
     `history_not_read_from_the_observer` proves the slots are not a function of
     the observer tuple.
 
-    **D-14, fixed here.** `relative` read `inv2 (G O.word) * G P.word`, the
-    same defect D-13 fixed at `encounter` — this constructor never picked the
-    fix up. It now calls `encounter` directly rather than recomputing it, and
-    the closure fields carry the declared start the way `Observer.closure`
-    does. On `Frame.empty` starts (every existing example in this file) the
-    values are unchanged, since `Observer.matrix`/`Observer.closure` already
-    reduce to the pre-fix reading there. -/
+    **The declared start.** `relative` is `encounter O P`, which reads both
+    matrices against their declared starts, and the closure fields carry the
+    declared start the way `Observer.closure` does. On `Frame.empty` starts
+    (every example in this file) `relative` is `inv2 (G O.word) * G P.word`,
+    since `Observer.matrix`/`Observer.closure` reduce to the word alone
+    there. -/
 def of (O P : Observer) : EncounterRecord :=
   { observerWord := O.word, presentedWord := P.word
     relative := encounter O P
@@ -937,7 +916,7 @@ theorem endpointEq_iff_matrixEq {X Y : History} : X.EndpointEq Y ↔ X.MatrixEq 
   endpointEq_iff_presEq.trans matrixEq_iff_presEq.symm
 
 /-- **Def 3.11: levels 1, 2, 3 and 5 are one relation on every pair of
-    histories**, whatever their start frames (audit E1-A1 verifier, 2026-09-29).
+    histories**, whatever their start frames.
     Presentation, value, endpoint and matrix equality all say the final frame
     is the same frame. Of the first five levels only word equality (level 4)
     separates, and only once the start frame may vary (`matrixEq_not_wordEq`,
@@ -948,8 +927,8 @@ theorem levels_one_two_three_five {X Y : History} :
   ⟨endpointEq_iff_presEq.symm.trans valueEq_iff_endpointEq.symm,
     valueEq_iff_endpointEq, endpointEq_iff_matrixEq⟩
 
-/-- **Def 3.11: with one start frame, levels 1 to 5 are one relation**
-    (audit E1-A1, 2026-09-29). Levels 1, 2, 3 and 5 are one relation on every
+/-- **Def 3.11: with one start frame, levels 1 to 5 are one relation.**
+    Levels 1, 2, 3 and 5 are one relation on every
     pair (`levels_one_two_three_five`); the shared start is needed only to
     bring in level 4, word equality. So in the canonical domain (start `F_∅`)
     none of the first five levels separates from another. -/
@@ -963,9 +942,9 @@ end History
 
 /-! ### Definition 3.7 from a declared frame, on the substrate state
 
-    Audit E1-A16 (2026-10-01): `Event.Coherent` reads coherence against `F_∅`
+    `Event.Coherent` reads coherence against `F_∅`
     only; `Event.CoherentFrom` (`Walk.lean`) reads it against a declared start
-    frame. A substrate state walks from its declared origin (D-14), so its
+    frame. A substrate state walks from its declared origin, so its
     event is coherent from that origin, and from `F_∅` only when the origin is
     `F_∅`. -/
 

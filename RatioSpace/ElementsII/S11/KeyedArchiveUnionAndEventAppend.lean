@@ -5,7 +5,7 @@ Authors: Kurt Michael Russell
 -/
 import RatioSpace.ElementsII.S11.Advance
 /-!
-  Gap G2-09 · Elements II Definition 11.2, keyed archive union and event append.
+  Elements II Definition 11.2, keyed archive union and event append.
 
   Two things the book says that `Advance.lean` does not state:
 
@@ -18,8 +18,9 @@ import RatioSpace.ElementsII.S11.Advance
   the bridge showing the flat ledger `Advance.append` builds is the forgetful
   image of the stratified one, and storage-order independence as theorems about
   every reading that factors through the stratum's marker and its multiset of
-  keyed records. Also the keyed-union clauses E2-20 fixes: the side condition is
-  vacuous on disjoint archives, and the union loses nothing and invents nothing.
+  keyed records. Also the keyed-union clauses of Definition 11.2: the side
+  condition is vacuous on disjoint archives, and the union loses nothing and
+  invents nothing.
 -/
 
 namespace RatioSpace
@@ -28,9 +29,9 @@ namespace G2_09
 
 open RatioSpace.Two RatioSpace.Two.Advance
 
-/-! ## The keyed union (E2-20's reading) -/
+/-! ## The keyed union -/
 
-/-- **E2-20: archives with disjoint identifiers satisfy the side condition
+/-- **Archives with disjoint identifiers satisfy the side condition
     vacuously.** -/
 theorem keyedCompatible_of_disjoint {H H' : List Core}
     (hdisj : ∀ x ∈ H, ∀ y ∈ H', x.id ≠ y.id) : KeyedCompatible H H' :=
@@ -44,7 +45,8 @@ theorem mem_keyedUnion_of {H H' : List Core} {z : Core} (hz : z ∈ keyedUnion H
   · exact Or.inl h
   · exact Or.inr (List.mem_filter.mp h).1
 
-/-- **Definition 11.2 with E2-20's side condition: lossless and exact.** Under
+/-- **Definition 11.2 with its side condition: lossless and exact.** Under
+
     `KeyedCompatible`, a core lies in the union exactly when it lies in one of
     the two archives. -/
 theorem mem_keyedUnion_iff {H H' : List Core} (hc : KeyedCompatible H H') (z : Core) :

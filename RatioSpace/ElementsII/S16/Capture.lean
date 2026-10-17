@@ -9,7 +9,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   Elements II §16 Theorem 16.12 — Capture of initial ensembles by the
   lone-seed regime.
 
-  **What this file builds, and what it does not.**
+  **What this file builds.**
 
   Item 3 (side-exchange invariance persists, and no later support is a
   singleton) is built in full, as a genuine theorem over any `Policy` (a schedule on the
@@ -27,14 +27,13 @@ import RatioSpace.ElementsII.S16.RootOrbit
   carried forward alongside the active support's — every later tick's active
   support is invariant, and (Theorem 16.2) none of them is a singleton.
 
-  **Items 1 and 2 are built in `Step5Words.lean` (2026-09-14):** the missing
+  **Items 1 and 2 are built in `WordDynamics.lean`:** the
   "tick-`i` support of the lone-seed question with seed `x`" is `wIter i [x]`,
   one tick of Definition 8.1 on words, and `nextCores_words` proves the
   tick map agrees with it (`theorem_16_12_item1`, `_item2`, `_item1_governed`,
-  `_item1_beat`). The paragraph below is the account as of 2026-09-13.
+  `_item1_beat`).
 
-  Items 1 and 2 are **not** built as stated. What is built in their place is
-  the exact word-level fact their proof actually invokes: `childCore`'s four
+  This file builds the exact word-level fact their proof invokes: `childCore`'s four
   "world" fields (`fullWord`, `fullMatrix`, `frame`, `addr`) and its two
   derived fields (`closure`, `imbalance`) are functions of the parent's own
   `(seed, relWord)` pair and the hand alone — never of `id`, `seedId`,
@@ -43,16 +42,9 @@ import RatioSpace.ElementsII.S16.RootOrbit
   same proposal words ... the stable identifiers differ in their question and
   seed tags but enter no comparison," and it is exactly Proposition 11.7's own
   comment (`Advance.lean`) read at *two different* identifiers rather than
-  one. What is not built is the induction that promotes this one-step fact to
-  "captured ⇒ governed by Theorem 16.11 at every later tick": that needs a
-  generic function for "the tick-`i` support of the lone-seed question with
-  seed `x`," separate from `RootOrbit.lean`/`LoneSeed.lean`'s concrete finite
-  traces, which does not exist anywhere in this tree and is not built here —
-  building it honestly would mean re-deriving Theorem 16.5's whole
-  construction generically over an arbitrary seed word, which is its own item,
-  not a by-product of this one. Left named rather than forced.
+  one.
 
-  Proposition 16.13 is not attempted this pass, per its own stated priority.
+  Proposition 16.13 is in `Transient.lean`.
 -/
 
 namespace RatioSpace
@@ -294,7 +286,7 @@ theorem theorem_16_12_item3 {Aux : Type} {h : ℕ} (pol : Policy Aux h)
     So a child's own "word content" never reads the parent's stable
     identifier, its seed identifier, its entry stratum, or its provenance —
     exactly "the stable identifiers differ in their question and seed tags
-    but enter no comparison," now stated at two parents rather than asserted
+    but enter no comparison," stated at two parents rather than asserted
     of one. -/
 
 /-- **The word-level determinacy of one tick, at the child.** Two parent

@@ -15,11 +15,10 @@ import RatioSpace.ElementsII.S16.RootOrbit
   or more admitted children breaks step.
 
   Elements II's Corollaries 8.11 and 8.12 already say this about `support`.
-  What is new here is saying it about `axiomSelect` — the concrete rule
-  Theorem 16.5 and Theorem 16.8 actually ran — because `axiomSelect` inlines
-  the maximality test rather than calling `support`, and a fact proved of
-  `support` is not automatically a fact about the rule the traces used. The
-  gap is small and it is exactly the kind that makes a ledger row a lie.
+  Here it is said about `axiomSelect`, the concrete rule Theorem 16.5 and
+  Theorem 16.8 actually ran, because `axiomSelect` inlines the maximality
+  test rather than calling `support`, and a fact proved of `support` is not
+  automatically a fact about the rule the traces used.
 
   **What `axiomSelect` may still drop, and it is not coherence.** A core whose
   address does not resolve to an interior positive presentation is filtered
@@ -28,14 +27,14 @@ import RatioSpace.ElementsII.S16.RootOrbit
   claiming nothing is dropped at all.
 
   **Part (iv)'s last sentence, built.** *"The two constructions are the same
-  kernel on the same words displaced by one tick."* `Two/RootOrbit.lean`'s
+  kernel on the same words displaced by one tick."* `RootOrbit.lean`'s
   account of Theorem 16.8 deliberately declined to state any equality between
   the side-selected trace and the polarized trace, having checked each
   independently. Proposition 16.9(iv) is the book asserting that equality, so
   it is stated and decided here: six equalities per side, `S_k(𝒬_ε^L) =
   S_{k-1}(𝒬_L)` for `k = 2 … 7`.
 
-  **Not attempted, and named rather than left as a silent gap.** Parts (ii)
+  **Not stated here.** Parts (ii)
   and (iii) are exact finite verifications over 1023 lone seeds through tick
   12 and over 560 two- and three-member ensembles through tick 9. Neither is
   a `decide` this kernel can carry: Theorem 16.5's seven concrete ticks on
@@ -179,7 +178,7 @@ theorem prop_16_9_iv_horizon :
 
 /-- **Proposition 16.9(iv), last sentence.** *"The two constructions are the
     same kernel on the same words displaced by one tick."* Six equalities per
-    side. `Two/RootOrbit.lean` checked the two traces independently and
+    side. `RootOrbit.lean` checked the two traces independently and
     deliberately stated no equality between them; the book asserts it, so it
     is decided here rather than inferred from the two tables matching by
     eye. -/
@@ -451,8 +450,7 @@ set_option maxRecDepth 8000 in
     different tick, and it arrives at the same nine-letter word and the same
     addressed relation — the book's own value, reached from the other side.
     That is one row of (ii) corroborated, not (ii): the other 1022 seeds are
-    untouched here. The words were read off the built carriers before this
-    statement was written, not predicted and then checked. -/
+    untouched here. -/
 theorem tick_eight_closing_words :
     activeWords YL8 = [[false, false, false, true, true, true, true, true, true]] ∧
     activeWords YR8 = [[true, true, true, false, false, false, false, false, false]] ∧

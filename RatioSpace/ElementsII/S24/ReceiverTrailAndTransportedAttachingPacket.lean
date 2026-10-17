@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S24.Lifecycle
 import RatioSpace.ElementsII.S21.Shortcut
 /-!
-  Gap G2-20 · Elements II Definition 24.2, receiver trail and transported
+  Elements II Definition 24.2, receiver trail and transported
   attaching packet.
 
   **Book statement.** "The exact lineage suffix after the committed child is
@@ -21,10 +21,10 @@ import RatioSpace.ElementsII.S21.Shortcut
   the complete transported attaching packet is `𝖹_f^{[m]} = (ι_f, FaceRec, e_caus(f),
   k_f, n_m, a_arch(f; n_m), w_{O_f^{[m]}}, w_{P_f}, v_f^{[m]}, Q_f^{[m]}, C^cyc)`."
 
-  **What was missing.** `u_f^{[m]}` and `v_f^{[m]} = v_f^{[0]} u_f^{[m]}` were not
-  defined. `observer_word` is `take_append_drop` and does not tie `take (j+1)` to
+  **What the base structures leave open.** `observer_word` is `take_append_drop`
+  and does not tie `take (j+1)` to
   `w_{xs}`. `TPacket` is a free structure: only `mkPacket` fills it consistently,
-  and nothing says which `TPacket`s are the packets of a face.
+  and nothing in it says which `TPacket`s are the packets of a face.
 
   **Built here.** The trail and complete continuation; the lineage words
   (`w_{xs}` is the committed child `x_{j+1}`, `w_{x s̄}` the counter-sibling, the
@@ -37,10 +37,9 @@ import RatioSpace.ElementsII.S21.Shortcut
   for, the read stratum and the trail are read off the packet), the restriction of
   a Definition 24.4 receiver to the packets of one face, and the consequence at
   `gateVector` — a read whose current or attaching packet is not `𝖹_f^{[m]}` has
-  class gate and keep bit zero. That is what "nothing requires a packet in
-  `Receiver` or `gateVector` to come from `mkPacket`" was missing: `gateVector` is
-  unchanged and the restriction rides on the receiver it already takes.
-  No existing declaration is changed.
+  class gate and keep bit zero. So a packet in `Receiver` or `gateVector` that
+  does not come from `mkPacket` is not retained: `gateVector` is as defined, and
+  the restriction rides on the receiver it already takes.
 -/
 set_option linter.style.longLine false
 
@@ -192,16 +191,15 @@ theorem free_packet_not_face {Rec Cyc : Type} (i : QuestionId) (j : ℕ) (fid : 
         Qf (i.rel.take j) (i.rel.getD j false) (suffixAfter i.rel j), cyc⟩ : TPacket Rec Cyc) := by
   rintro ⟨n, u, _, h⟩
   have hl := congrArg (fun Z : TPacket Rec Cyc => Z.wP.length) h
-  -- 2026-09-22: `simp only` with the three length lemmas, then `omega`; the unrestricted `simp`
-  -- pulled `min_eq_zero` and `Nat.right_eq_add`, which carry `Classical.choice`.
+  -- `simp only` with the three length lemmas, then `omega`; the unrestricted `simp`
+  -- pulls `min_eq_zero` and `Nat.right_eq_add`, which carry `Classical.choice`.
   simp only [lineagePacket, mkPacket, counterWord, List.length_nil, List.length_append,
     List.length_cons] at hl
   omega
 
 /-! ## The packets that reach a receiver and the gates -/
 
--- `TPacket` has decidable equality: every field does. Additive; `Two/Lifecycle.lean`
--- is unchanged.
+-- `TPacket` has decidable equality: every field does.
 deriving instance DecidableEq for TPacket
 
 /-- **Decidable form of `IsFacePacket`.** Nothing is searched for: the read stratum
@@ -227,8 +225,8 @@ theorem isFacePacketB_iff {Rec Cyc : Type} [DecidableEq Rec] [DecidableEq Cyc] (
 
 /-- **The receiver that only reads the packets of its face.** The readable domain of
     Definition 24.4 cut to `{𝖹_f^{[m]}}`, so a `TPacket` that is not `𝖹_f^{[m]}` for
-    any read and any trail is outside it. No existing declaration is changed: the
-    restriction is a new receiver built from the old one. -/
+    any read and any trail is outside it. The restriction is a new receiver built
+    from the given one. -/
 def onFacePackets {Rec Cyc Y : Type} [DecidableEq Rec] [DecidableEq Cyc]
     (Λ : Receiver (TPacket Rec Cyc) Y) (i : QuestionId) (j : ℕ) (fid : FaceId) (rec : Rec)
     (k : ℕ) (cyc : Cyc) : Receiver (TPacket Rec Cyc) Y :=
@@ -254,9 +252,8 @@ theorem free_packet_outside {Rec Cyc Y : Type} [DecidableEq Rec] [DecidableEq Cy
 
 /-- **A packet that is not a packet of the face is not retained.** For a retention
     whose receiver is restricted to the face, the class gate and the keep bit are
-    zero at any read whose current or attaching packet is not `𝖹_f^{[m]}`. This is
-    what "nothing requires a packet in `Receiver` or `gateVector` to come from
-    `mkPacket`" was missing: `gateVector` is unchanged, and the restriction is
+    zero at any read whose current or attaching packet is not `𝖹_f^{[m]}`.
+    `gateVector` is as defined, and the restriction is
     carried by the receiver it already takes. -/
 theorem nonface_not_retained {Rec Cyc Y Ph St : Type} [DecidableEq Rec] [DecidableEq Cyc]
     [DecidableEq Y] (Θ : Retention (TPacket Rec Cyc) Y Ph St)

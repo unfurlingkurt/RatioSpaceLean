@@ -12,18 +12,15 @@ import RatioSpace.ElementsI.S05.Depth
   and does not itself construct: the observer of Def 7.1 and the active
   relational family of Def 6.3.
 
-  **Why this section, and why now.** Elements II Import 1.6 is titled "Winding,
+  **Why this section.** Elements II Import 1.6 is titled "Winding,
   closure, received attachment, **and questions**", and its fourth clause reads
 
       An *Elements I* question has the form 𝒬_τ = (O_τ; C₋,C₊; N; 𝒜_τ; Γ_τ)
       and bounds a finite descendant cavity.
 
-  The Elements II ledger marked Import 1.6 built on the strength of `bal` and
-  `psi12`. Those are the first two clauses. The question tuple had never been
-  written, and Elements II §4 — "Finite question cavities" — is the extension of
-  exactly this interface. **This is the same failure as Import 1.2 and `dec₊`,
-  found one section earlier this time.** An import row is built when every symbol
-  in it is built, not when the row's title is recognisable.
+  `bal` and `psi12` build the first two clauses. This file builds the question
+  tuple, and Elements II §4, "Finite question cavities", is the extension of
+  exactly this interface. An import is built when every symbol in it is built.
 
   Three things here are sharper than the prose, and each is noted at its result:
 
@@ -64,8 +61,8 @@ open Mat2 Word Frame Pres
     and the matrix `M_O` and the closure record `κ_O` are recovered from start
     and word rather than stored beside them. The history `H_O` and the active
     family are not carried: `Observer` has no field for either, and
-    `EncounterRecord.history_not_read_from_the_observer` (`State.lean`, audit
-    E1-B4; book side E1-57) proves the history slot is not a function of it.
+    `EncounterRecord.history_not_read_from_the_observer` (`State.lean`) proves
+    the history slot is not a function of it.
     So `Observer` is not a lossless compression of a substrate state. -/
 
 /-- **Definition 7.1.** An observer: its declared initial frame, its retained
@@ -83,20 +80,17 @@ namespace Observer
     encoded by `w_O` relative to its declared initial frame", so `start` is part
     of the transform, not incidental to it.
 
-    **Divergence D-12, fixed here.** An earlier version read `G O.word` alone
-    and discarded `start`, so two observers with different declared starts and
-    the same word had the same matrix, the same encounter and the same closure.
-    `SubstrateState.matrix` (`State.lean`) already does this correctly; this
-    brings `Observer.matrix` in line with it. -/
+    The start is read, not discarded: `G O.word` alone would give two observers
+    with different declared starts and the same word the same matrix, the same
+    encounter and the same closure. `SubstrateState.matrix` (`State.lean`) reads
+    the start the same way. -/
 def matrix (O : Observer) : Mat2 := O.start.toMat2 * G O.word
 
 /-- `κ_O`, the declared closure record of Def 8.4, read against the declared
     start.
 
-    **Divergence D-14, fixed here.** Was `ClosureState.ofWord O.word`, the same
-    defect D-12 fixed at `matrix` above, here at the closure field: `κ_O` was
-    silently reading the start as `∅`. `ClosureState.of` carries the start
-    through. -/
+    `ClosureState.of` carries the start through, as `matrix` above does;
+    `ClosureState.ofWord O.word` would read the start as `∅`. -/
 def closure (O : Observer) : ClosureState := ClosureState.of O.start O.word
 
 /-- The observer read as a history. "Observer" and "presented" are directional
@@ -106,25 +100,22 @@ def history (O : Observer) : History := ⟨O.start, O.word⟩
 
 /-- **Not a general fact, and kept honest about it.** `History.matrix` (Def 3.3,
     Elements II's unrooted "world-frame" reading, `Walk.lean`) and
-    `Observer.matrix` (Def 7.1, the declared-start reading, fixed by D-12) agree
-    only when the declared start is the canonical frame — `Observer.matrix` no
-    longer factors through `History.matrix` in general. The old `@[simp]
-    matrix_history : O.history.matrix = O.matrix` closed by `rfl` because both
-    sides were `G O.word`; that was the same blindness D-12 fixes, not a
-    coincidence worth keeping. **Still true after D-16**, which gave the
-    declared-start reading its own name (`History.accumulatedMatrix`, below)
-    rather than redefining `History.matrix` — Def 3.3's transport machinery in
-    `Two/Cavity.lean` and `Two/Mediant.lean` needs exactly the unrooted field
-    this theorem contrasts against, so it had to survive unchanged. -/
+    `Observer.matrix` (Def 7.1, the declared-start reading) agree
+    only when the declared start is the canonical frame: `Observer.matrix` does
+    not factor through `History.matrix` in general. The declared-start reading
+    of a history has its own name (`History.accumulatedMatrix`, below), and
+    `History.matrix` is the unrooted field that Def 3.3's transport machinery in
+    `ElementsII/S04/Cavity.lean` and `ElementsII/S05/Mediant.lean` needs, which
+    this theorem contrasts against. -/
 theorem matrix_ne_history_matrix_in_general :
     ∃ O : Observer, O.history.matrix ≠ O.matrix :=
   ⟨⟨Frame.stepL Frame.empty, [], 1⟩, by decide⟩
 
-/-- **The reading D-16 actually fixed.** `History.accumulatedMatrix` — unlike
-    plain `History.matrix` above — agrees with `Observer.matrix` on every
+/-- **The declared-start reading of a history.** `History.accumulatedMatrix`, unlike
+    plain `History.matrix` above, agrees with `Observer.matrix` on every
     observer, not merely by example: both sides unfold to
     `start.toMat2 * G word` for the same `start`, `word`, so this is `rfl`, not
-    a computation. This is the equality `Candidate.matrix` (`Crystal.lean`) now
+    a computation. This is the equality `Candidate.matrix` (`Crystal.lean`)
     relies on when a candidate's history happens to be an observer's own. -/
 theorem history_accumulatedMatrix_eq_matrix (O : Observer) :
     O.history.accumulatedMatrix = O.matrix := rfl
@@ -140,7 +131,7 @@ end Observer
 /-- **Definition 6.3.** The active relational family. -/
 abbrev ActiveFamily := List History
 
-/-! ### Divergence D-10 — the bridge Definition 6.3 owes Definition 5.6
+/-! ### The bridge from Definition 6.3 to Definition 5.6
 
     `𝒜_τ`'s carrier here is `List History`, richer than the book's raw relation
     list on purpose: Def 9.3 later reads the accumulated matrix off each
@@ -152,8 +143,7 @@ abbrev ActiveFamily := List History
     The reading is total, not partial: every member's addressed presentation
     is interior. `History.addressed` is a walked mediant, and
     `Frame.walk_mid_pos` (`Frame.lean`) proves any walked mediant has both
-    components positive — the fact Depth.lean's `ip` witnesses stood in for by
-    naming presentations directly, because it did not yet exist. -/
+    components positive. -/
 
 /-- The addressed reading of a history, typed as the interior presentation it
     always is. -/
@@ -190,20 +180,15 @@ def ActiveFamily.tensionSignature (A : ActiveFamily) (r : IPres) : List ℕ :=
     state — Def 7.2 says `Presented := Observer`, the same type under a
     directional name, so both arguments are `Observer`.
 
-    **Divergence D-13, fixed here.** An earlier version took `(O : Observer)
-    (r : History)` and read `r.matrix` as `History.matrix`, i.e. `G r.word`
-    alone. Combined with the old `Observer.matrix`, both declared start frames
-    were outside the computation. Fixed by taking `Observer.matrix` on both
-    sides, which now carries `start` (D-12). Def 9.3's `Q_{O,r}` for `r` ranging
-    over the active family (`List History`) is a related but separate use, and
-    the bridge it wanted is now built: **D-16, filed 2026-08-27 and closed the
-    same day.** A predicate evaluating `Q_{O,r}` for `r : History` in an
-    `ActiveFamily` should read `r.accumulatedMatrix` (`Walk.lean`), not
-    `r.matrix` — the same start-relative reading `Observer.matrix` already
-    uses, under its own name so `Two/Cavity.lean`'s unrooted use of plain
-    `History.matrix` stays correct. The first predicate this concrete is
-    `Gaps.G1_16.g116_forwardPred` (Lean gap G1-16), which reads
-    `r.accumulatedMatrix` as this note asks. -/
+    Both declared start frames enter the computation: `Observer.matrix`, taken
+    on both sides, carries `start`. Def 9.3's `Q_{O,r}` for `r` ranging over the
+    active family (`List History`) is a related but separate use. A predicate
+    evaluating `Q_{O,r}` for `r : History` in an `ActiveFamily` reads
+    `r.accumulatedMatrix` (`Walk.lean`), not `r.matrix`: the same
+    start-relative reading `Observer.matrix` uses, under its own name so that
+    the unrooted use of plain `History.matrix` in `ElementsII/S04/Cavity.lean`
+    stays correct. The first such predicate is `Gaps.G1_16.g116_forwardPred`,
+    which reads `r.accumulatedMatrix`. -/
 def encounter (O P : Observer) : Mat2 := inv2 O.matrix * P.matrix
 
 /-- **Definition 7.5.** Forward admission: `Q_{O,P} ∈ ℳ₊`. A `Bool`, because
@@ -219,7 +204,7 @@ theorem forwardAdmissible_iff (O P : Observer) :
     not the witness of Def 7.5's closing paragraph (contact states that two
     frames meet unimodularly, admission that one is reachable from the other
     through the permitted directed grammar): `S` is the encounter of no two
-    observers (`Gaps.G1_10.g110_S_not_encounter`, Lean gap G1-10). The
+    observers (`Gaps.G1_10.g110_S_not_encounter`). The
     witness is `Gaps.G1_10.g110_contact_without_admission`, two observers
     whose encounter has determinant one and neither of which is forward
     admissible to the other. -/

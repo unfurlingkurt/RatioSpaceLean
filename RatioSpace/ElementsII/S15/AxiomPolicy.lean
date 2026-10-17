@@ -84,8 +84,8 @@ def axiomPolicyAt (Aux : Type) (h : ℕ) (prov : Provenance) : Policy Aux h := f
     provenance, as in `RootOrbit.lean`. -/
 def axiomPolicy : Policy Unit hQ := axiomPolicyAt Unit hQ seed164Prov
 
-/-- Standing guard (audit rule 1): the schedule type the general theorems range
-    over is inhabited by the book's own rule. -/
+/-- The schedule type the general theorems range over is inhabited by the
+    book's own rule. -/
 example : Nonempty (Policy Unit hQ) := ⟨axiomPolicy⟩
 
 /-- **Definition 16.4's seed carriers are valid tick-zero carriers.** -/

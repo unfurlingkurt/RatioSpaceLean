@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S10.TheCausalSiblingPairRecordOnTheAccumulatedWord
 import RatioSpace.ElementsII.S11.Advance
 /-!
-  Gap G2-11 · Elements II Definition 11.5, the native annotation package.
+  Elements II Definition 11.5, the native annotation package.
 
   `Advance.NativeAnn.ofChild` leaves the `cf` slot not-evaluated, where the book
   forms `CF(x;g)` at every child event. The slot is typed `Slot Aux`, the same
@@ -46,7 +46,7 @@ theorem sigma_eq (g : Bool) : sigma g = if g then 1 else -1 := by
 /-- **Definition 11.5 at the child `y = xg` of the archived core `x = c`.**
     `Ω` is the observer winding of the parent advanced by `σ(g)`, `κ_cl` the
     parent closure advanced by `ψ₁₂(g)`, and `CF(x;g)` the causal record on the
-    accumulated word (`causalRecordAcc`, G2-07). -/
+    accumulated word (`causalRecordAcc`). -/
 def NativeAnnCF.ofChildCore {Aux : Type} (wO : Word) (c : Core) (g : Bool)
     (channel lift : Slot Aux) : NativeAnnCF Aux where
   winding := Two.winding wO c.fullWord + sigma g
@@ -63,7 +63,7 @@ def NativeAnnCF.forget {Aux : Type} (n : NativeAnnCF Aux) : NativeAnn Aux where
   lift := n.lift
   cf := .notEvaluated
 
-/-- **The new package extends `NativeAnn.ofChild`**: with channel and lift
+/-- **The package extends `NativeAnn.ofChild`**: with channel and lift
     undeclared and the causal record forgotten, it is `ofChild` at the parent's
     observer winding and closure. -/
 theorem NativeAnnCF.forget_ofChildCore {Aux : Type} (wO : Word) (c : Core) (g : Bool) :

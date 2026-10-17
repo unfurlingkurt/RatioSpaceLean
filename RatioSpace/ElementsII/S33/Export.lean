@@ -85,9 +85,8 @@ import RatioSpace.ElementsII.S22.FaceVerification
     datum changes the packet a stage reads.
 
   **What is not built.**
-  * (Closed 2026-09-14.) Theorem 16.11(4) and Theorem 16.12 items 1 and 2 were
-    not in the tree when this file was written; `UniquenessAsBuilt` now carries
-    them (`Step5Induction.clauses_1_2`, `clause_4`, `Step5Seed.no_root_of_seed`,
+  * `UniquenessAsBuilt` carries Theorem 16.11(4) and Theorem 16.12 items 1
+    and 2 (`Step5Induction.clauses_1_2`, `clause_4`, `Step5Seed.no_root_of_seed`,
     `Step5Words.theorem_16_12_item1`/`_item2` and their `_governed` forms). They
     ask the run to start where the book's dynamics start (`Rooted`); freshness
     (Lemma 12.1) is then derived (`Step5Induction.run_hfresh`), not assumed.
@@ -102,7 +101,7 @@ import RatioSpace.ElementsII.S22.FaceVerification
     `ElemIIOut_{𝒬,Θ,n}` is indexed by a declared `Θ`. What is particular here
     is the choice: the packets use one declaration, `retainAll` (every gate
     one, unit packets, no receiver reading); a receiver with another `Θ` gets
-    another lifecycle ledger from the same faces. Also fixed here: the lifecycle ledger
+    another lifecycle ledger from the same faces. Also chosen here: the lifecycle ledger
     is one entry evaluation per face at stratum `1` and there is no release;
     the operative component of the next state is the terminal carrier, with
     observer adoption carried by the certificate (no carrier-level adoption
@@ -575,7 +574,7 @@ theorem thm_33_2_applications {S T : Type} {stepS : S → S} {stepT : T → T}
     terminal trichotomy and dispatch, snap and adoption, sibling emission,
     renewal and release, export, mirror, chamber, Rademacher routes, ridge)
     hold as stated, with no `ProjOb`, reception, encoding or law in any
-    statement (Theorem 30.3, compiled before any stage input existed); and the
+    statement (Theorem 30.3); and the
     classical cocycle, the Rademacher stage's declared datum, enters Ledger
     31.4's §28 row only as an explicit antecedent. -/
 theorem thm_33_2_noncircular :

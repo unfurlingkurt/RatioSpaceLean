@@ -11,11 +11,11 @@ import Mathlib.Tactic.FieldSimp
 
   Definitions 4.1 through 4.4 and Propositions 4.1 through 4.3.
 
-  **The one structural finding, and it forces the type.** The ledger proposed
+  **The domain of `⊗` forces the type.** Definition 4.1 read on all of `Pres`,
 
       def otimes (A B : Pres) : Pres := ⟨A.p * B.q, A.q * B.p⟩
 
-  and that does not typecheck, for a reason that is not a technicality. Take
+  does not typecheck, for a reason that is not a technicality. Take
   `A = B = 0:1`, both admitted by Def 1.2 as orientation anchors. Then
   `A.p * B.q = 0` and `A.q * B.p = 0`, and `0:0` is excluded from `Pres` by
   Def 1.2's own side condition. The same happens at `1:0 ⊗ 1:0`. So `⊗` is not
@@ -24,8 +24,8 @@ import Mathlib.Tactic.FieldSimp
   sufficient, not necessary: `1:0 ⊗ 1:1 = 1:0` is a presentation.
   `otimes_leaves_domain_on_boundary` below is the exact witness.
 
-  Following constraint 1 — the type forbids the case that must not occur, rather
-  than a hypothesis promising it will not — the interior domain becomes a type,
+  The type forbids the case that must not occur, rather than a hypothesis
+  promising it will not: the interior domain becomes a type,
   `IPres`, and `⊗` is total on it. This is the same move that made contact a
   field of `Frame` in §2, and it pays the same way: no interiority hypothesis
   propagates through Prop 4.3, Def 4.3 or Def 4.4, and no side condition has to
@@ -67,7 +67,7 @@ instance : DecidablePred Pres.Interior := fun A => by unfold Pres.Interior; infe
 theorem Pres.eq_of {A B : Pres} (hp : A.p = B.p) (hq : A.q = B.q) : A = B := by
   cases A; cases B; cases hp; cases hq; rfl
 
-/-- **The interior presentation domain `𝒫⁺` as a type.** Constraint 1: a term of
+/-- **The interior presentation domain `𝒫⁺` as a type.** A term of
     this type cannot be a boundary anchor, so `⊗` needs no side condition. -/
 structure IPres where
   p : ℕ
@@ -97,10 +97,10 @@ theorem toPres_interior (A : IPres) : (toPres A).Interior := ⟨A.p_pos, A.q_pos
 /-- **The interior domain's own decoder.** Every presentation either witnesses
     its own membership in `𝒫⁺` or does not, decidably (`Pres.Interior` already
     has a `DecidablePred` instance), and this returns the witness when it
-    exists. Built for Elements II §16's occurrence-family assembly, which needs
+    exists. Elements II §16's occurrence-family assembly uses it
     to turn an observer's decoded local address (`Option Pres`) into the
-    `IPres` §7's and §8's comparison functions are stated over — but the fact
-    is purely about §4's own domain and belongs here, not in `Two/`. -/
+    `IPres` §7's and §8's comparison functions are stated over; the fact
+    is purely about §4's own domain. -/
 def ofPres? (A : Pres) : Option IPres :=
   if h : A.Interior then some ⟨A.p, A.q, h.1, h.2⟩ else none
 

@@ -16,7 +16,7 @@ import RatioSpace.ElementsII.S16.RootOrbit
   degeneracies the book separates from these, as exact `ℤ[φ]` identities.
 
   The certificate for the whole family `RⁿL`, `n ≡ 3 (mod 21)`, is in
-  `Step2Family.lean` (`tie_equalities`, `cert_RnL`, `cert_RnL_tie`, 2026-09-14),
+  `FamilyClassification.lean` (`tie_equalities`, `cert_RnL`, `cert_RnL_tie`),
   because it rests on Theorem 16.11 Step 2's tensions, which live there. The
   `n = 3` member is also the second certificate below, read through its mirror.
 -/

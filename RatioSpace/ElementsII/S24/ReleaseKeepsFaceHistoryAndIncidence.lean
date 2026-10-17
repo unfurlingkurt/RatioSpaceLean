@@ -6,7 +6,7 @@ Authors: Kurt Michael Russell
 import RatioSpace.ElementsII.S24.Lifecycle
 import RatioSpace.ElementsII.S15.Accumulation
 /-!
-  Gap G2-27 — Elements II §24, Theorem 24.14, Release keeps face
+  Elements II §24, Theorem 24.14, Release keeps face
   history and incidence.
 
   **Book statement.** *"A release transition changes only the active retained
@@ -21,12 +21,12 @@ import RatioSpace.ElementsII.S15.Accumulation
   or the cycle trace. Theorem 23.7 therefore continues to recover every exact
   preimage, and the failed-gate set recovers the release reason."*
 
-  **What was missing.** `Archive` holds face records and the two lifecycle
+  **The full archive.** `Archive` holds face records and the two lifecycle
   ledgers only; the occurrence archive, the event ledger, the cycle trace and
-  the recorded state history (Definition 23.5) were absent, and Theorem 23.7
-  was not re-invoked after a release.
+  the recorded state history (Definition 23.5) are added below, and Theorem 23.7
+  is re-invoked after a release.
 
-  **Built here.**
+  **Contents.**
   * `FullArchive`: the lifecycle `Archive` together with the recorded state
     `RecState` whose history carries the face ledger (Definitions 22.4, 23.5),
     and the complete carrier trace `(𝔛_{τ,0}, …, 𝔛_{τ,n})` of Definition 15.1,
